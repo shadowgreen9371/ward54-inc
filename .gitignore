@@ -1,0 +1,15 @@
+# Claude Code local config (preview server settings, etc.)
+.claude/
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs / temp
+*.log
+tmp/

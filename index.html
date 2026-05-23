@@ -401,7 +401,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   <div class="p2-body">
     <div id="stationMap"></div>
     <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="searchInput" placeholder="Search station name or address..." oninput="filterStations()"></div>
-    <div class="scount" id="scount">Showing 12 of 12 stations</div>
+    <div class="scount" id="scount">Showing 38 of 38 booths</div>
     <div id="stations-list"></div>
   </div>
 </div>
@@ -956,7 +956,7 @@ function buildStations(list){
   document.getElementById('stations-list').innerHTML=list.map(function(s,i){
     return '<div class="station-card" style="animation-delay:'+(i*0.04)+'s" onclick="openStation('+s.no+')"><div class="s-num">'+s.no+'</div><div class="s-info"><div class="s-name">'+s.name+'</div><div class="s-addr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+s.addr+'</div><div class="s-parts">'+s.parts.map(function(p){return '<span class="s-part-tag">Part '+p+'</span>';}).join('')+'</div></div><div class="s-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div></div>';
   }).join('');
-  document.getElementById('scount').textContent='Showing '+list.length+' of '+stations.length+' stations';
+  document.getElementById('scount').textContent='Showing '+list.length+' of '+stations.length+' booths';
 }
 function filterStations(){var q=document.getElementById('searchInput').value.toLowerCase();buildStations(q?stations.filter(function(s){return s.name.toLowerCase().indexOf(q)>-1||s.addr.toLowerCase().indexOf(q)>-1;}):stations);}
 
