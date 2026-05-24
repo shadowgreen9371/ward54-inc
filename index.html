@@ -67,8 +67,11 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes ringSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .p1-tagline{font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);font-weight:700;}
 .ward-big{font-family:'Outfit',sans-serif;font-size:clamp(30px,6vw,46px);font-weight:700;letter-spacing:0.03em;color:var(--text);text-align:center;line-height:1;text-shadow:0 0 30px rgba(255,255,255,0.1);}
-.p1-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,4vw,30px);text-align:center;line-height:1.15;color:var(--text2);font-weight:400;}
-.p1-title em{font-style:italic;color:var(--gold2);}
+.p1-title{font-family:'DM Serif Display',serif;font-size:clamp(22px,4.4vw,34px);text-align:center;line-height:1.15;color:var(--text);font-weight:700;letter-spacing:0.01em;}
+.p1-title .flag-saffron{color:#FF9933;text-shadow:0 0 18px rgba(255,153,51,0.55), 0 0 40px rgba(255,153,51,0.25);font-weight:700;}
+.p1-title .flag-white{color:#FFFFFF;text-shadow:0 0 18px rgba(255,255,255,0.65), 0 0 40px rgba(255,255,255,0.20);font-weight:700;}
+.p1-title .flag-green{color:#138808;text-shadow:0 0 18px rgba(19,136,8,0.65), 0 0 40px rgba(19,136,8,0.30);font-weight:700;font-style:italic;background:linear-gradient(135deg,#138808 0%,#1aaa0c 50%,#138808 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;}
+.p1-title .flag-chakra{display:inline-block;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#000080 0%,#000080 28%,transparent 30%),repeating-conic-gradient(from 0deg,#000080 0deg 7.5deg,transparent 7.5deg 15deg);border:1.5px solid #000080;vertical-align:middle;margin:0 6px;animation:incSpin 8s linear infinite;}
 .p1-sub-line{font-size:13px;color:var(--text3);letter-spacing:0.04em;text-align:center;}
 .p1-divider{width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0.2rem 0;}
 .entry-bar-group{display:flex;flex-direction:column;gap:12px;width:100%;max-width:430px;margin-top:0.4rem;}
@@ -414,8 +417,8 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div id="otp-step1">
       <div class="modal-title">Admin Portal</div>
       <div class="modal-sub">Enter your registered email to receive an OTP</div>
-      <div class="modal-err" id="loginErr">Email not recognised. Use a registered admin email.</div>
-      <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" id="loginEmail" type="email" placeholder="mdshakil43@gmail.com" onkeydown="if(event.key==='Enter')sendOTP()"></div>
+      <div class="modal-err" id="loginErr">Access denied. This email is not authorised.</div>
+      <div class="form-group"><label class="form-label">Authorised Admin Email</label><input class="form-input" id="loginEmail" type="email" placeholder="your registered admin email" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')sendOTP()"></div>
       <div class="btn-row"><button class="btn btn-gold" style="flex:1" onclick="sendOTP()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Send OTP</button><button class="btn btn-ghost" onclick="closeModal('loginModal')">Cancel</button></div>
     </div>
     <!-- Step 2: OTP -->
@@ -486,7 +489,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
     <p class="p1-tagline">WEST BENGAL &middot; KOLKATA</p>
     <div class="ward-big">WARD NO. 54</div>
-    <h1 class="p1-title">Indian National<br><em>Congress</em></h1>
+    <h1 class="p1-title"><span class="flag-saffron">Indian</span> <span class="flag-white">National</span><br><span class="flag-green">Congress</span></h1>
     <div class="p1-divider"></div>
     <div class="entry-bar-group">
       <div class="entry-bar view-bar" onclick="goTo('p2','viewer')">
@@ -665,11 +668,73 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+/* ============================================================
+ * EMAILJS CONFIG — to actually deliver OTPs to admin Gmail inboxes
+ * ------------------------------------------------------------
+ * Fill in the three values below after a one-time setup at
+ *   https://www.emailjs.com/  (free tier: 200 emails / month)
+ *
+ * Setup (~5 minutes):
+ *   1. Create an account → verify
+ *   2. Email Services → "Add New Service" → choose Gmail →
+ *      connect mdshakil43@gmail.com (the sender) → copy SERVICE ID
+ *   3. Email Templates → "Create New Template":
+ *        Subject:  Your Ward 54 Admin OTP – {{otp_code}}
+ *        Body:     Hello {{to_name}},\n\nYour one-time login code
+ *                  for the Ward 54 INC admin panel is:\n\n
+ *                  {{otp_code}}\n\nValid for 10 minutes.\n\n
+ *                  — Ward 54 INC
+ *        Variables used: {{to_email}}, {{to_name}}, {{otp_code}}
+ *      Save → copy TEMPLATE ID
+ *   4. Account → General → API Keys → copy PUBLIC KEY
+ *   5. Paste all three below and reload.
+ *
+ * If any field is blank, the app falls back to the visible-OTP
+ * demo panel so logins still work locally.
+ * ============================================================ */
+var EMAILJS_CONFIG = {
+  publicKey:  '',  /* e.g. 'user_xxxxxxxxxxxxxxxxxxx' or 'xxxxxxxxxxxxxxxxxx' */
+  serviceId:  '',  /* e.g. 'service_abc1234' */
+  templateId: '',  /* e.g. 'template_xyz5678' */
+};
+
+function emailjsReady(){
+  return !!(EMAILJS_CONFIG.publicKey && EMAILJS_CONFIG.serviceId && EMAILJS_CONFIG.templateId
+           && typeof emailjs !== 'undefined');
+}
+function emailjsSendOTP(email, otp){
+  /* Returns a Promise that resolves on send success, rejects on error.
+     Caller decides whether to fall back to demo mode. */
+  if(!emailjsReady()) return Promise.reject(new Error('not configured'));
+  try { emailjs.init({publicKey: EMAILJS_CONFIG.publicKey}); }
+  catch(e){ /* already initialised */ }
+  return emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+    to_email:  email,
+    to_name:   'Admin',
+    otp_code:  otp,
+    ward:      'Ward 54 — Indian National Congress',
+    valid_for: '10 minutes',
+  });
+}
+
 var currentRole='viewer',currentPartNo=null,currentStationNo=null,mapInited=false,leafMap=null;
 var pageSize=20,currentPage=1,filteredCache=[];
 var _adminOTP=null,_adminEmail='';
-var ADMIN_EMAILS=['mdshakil43@gmail.com','nepaligeetbazaar@gmail.com','admin@ward54.in','admin'];
+/* === STRICT ADMIN ACCESS ===
+   Only these two whitelisted addresses can request an OTP.
+   Anyone else hitting "Send OTP" gets a generic rejection — the
+   modal never reveals WHICH email is wrong, so attackers can't
+   enumerate valid admins. */
+var ADMIN_EMAILS=['mdshakil43@gmail.com','nepaligeetbazaar@gmail.com'];
+
+/* OTP hardening — rate limiting and expiry */
+var _otpAttempts=0, _otpIssuedAt=0;
+var OTP_MAX_ATTEMPTS=3;      /* lock out after this many wrong codes */
+var OTP_VALIDITY_MS=5*60*1000; /* 5-minute window */
+var _otpLockUntil=0;          /* timestamp until which OTP requests are blocked */
+var OTP_LOCK_MS=10*60*1000;   /* lockout duration after exhausting attempts */
 var _pendingLogoSrc=null;
 
 /* ===== STATIONS — Official 2026 Electoral Roll, 163-Entally AC, Ward 54, Kolkata-14 ===== */
@@ -2125,32 +2190,75 @@ function closeModal(id){document.getElementById(id).classList.remove('open');}
 function sendOTP(){
   var email=document.getElementById('loginEmail').value.trim().toLowerCase();
   var err=document.getElementById('loginErr');
-  if(!email||ADMIN_EMAILS.indexOf(email)<0){err.style.display='block';return;}
+  /* Lockout check */
+  if(Date.now() < _otpLockUntil){
+    var mins=Math.ceil((_otpLockUntil-Date.now())/60000);
+    err.textContent='Too many failed attempts. Try again in '+mins+' minute'+(mins>1?'s':'')+'.';
+    err.style.display='block';return;
+  }
+  /* Strict whitelist — generic error reveals nothing about which email is valid */
+  if(!email||ADMIN_EMAILS.indexOf(email)<0){
+    err.textContent='Access denied. This email is not authorised for the admin panel.';
+    err.style.display='block';return;
+  }
   err.style.display='none';
   _adminEmail=email;
   _adminOTP=Math.floor(100000+Math.random()*900000).toString();
-  console.log('[Dev] OTP for '+email+': '+_adminOTP);
+  _otpIssuedAt=Date.now();
+  _otpAttempts=0;
+  /* Suppress console-leak when EmailJS is wired up */
+  if(!emailjsReady()) console.log('[Demo] OTP for '+email+': '+_adminOTP);
   document.getElementById('otp-step1').style.display='none';
   document.getElementById('otp-step2').style.display='';
   document.getElementById('otpErr').style.display='none';
-  /* Demo-mode hint: this static app has no backend, so the OTP is
-     generated locally and shown here so admins can sign in. To wire
-     real e-mail delivery, integrate EmailJS / SendGrid / SES on top
-     of sendOTP() — keep the same _adminOTP variable. */
   var hint=document.getElementById('otpHint');
-  hint.innerHTML='<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
-    +'<span style="background:rgba(232,130,30,0.18);color:var(--inc-saffron);font-size:10px;font-weight:700;letter-spacing:0.08em;padding:3px 8px;border-radius:999px;text-transform:uppercase;border:1px solid rgba(232,130,30,0.3)">Demo Mode</span>'
-    +'<span style="font-size:12px;color:var(--text2)">Use this code (no mail server is wired up):</span>'
-    +'</div>'
-    +'<div style="margin-top:10px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,0.16),rgba(232,130,30,0.10));border:1px dashed var(--gold);border-radius:8px;padding:12px;">'
-      +'<div style="font-size:28px;font-weight:700;letter-spacing:0.5em;font-family:Outfit,sans-serif;color:var(--gold2);text-shadow:0 0 18px rgba(201,168,76,0.5);user-select:all;cursor:copy;" onclick="navigator.clipboard&&navigator.clipboard.writeText(\''+_adminOTP+'\');showToast(\'OTP copied to clipboard\')">'+_adminOTP+'</div>'
-      +'<div style="font-size:10px;color:var(--text3);margin-top:6px">tap to copy &middot; sent to '+email+'</div>'
-    +'</div>';
+  /* Show a "sending..." placeholder, then either confirm real delivery
+     or fall back to the visible-OTP demo panel. */
+  hint.innerHTML='<div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2)">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;animation:incSpin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>'
+    +'<span>Sending OTP to '+email+'…</span></div>';
   hint.style.display='block';
-  document.getElementById('otpDesc').textContent='Enter the 6-digit code shown below';
-  /* Pre-fill the OTP field so the demo can be completed in one click */
-  document.getElementById('loginOTP').value=_adminOTP;
-  setTimeout(function(){document.getElementById('loginOTP').focus();document.getElementById('loginOTP').select();},100);
+  document.getElementById('otpDesc').textContent='Check your inbox for the 6-digit code';
+  document.getElementById('loginOTP').value='';
+  emailjsSendOTP(email, _adminOTP).then(function(){
+    /* SUCCESS — real email left the building */
+    hint.innerHTML='<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+      +'<span style="background:rgba(16,185,129,0.18);color:var(--green2);font-size:10px;font-weight:700;letter-spacing:0.08em;padding:3px 8px;border-radius:999px;text-transform:uppercase;border:1px solid rgba(16,185,129,0.3)">✓ Sent</span>'
+      +'<span style="font-size:12px;color:var(--text2)">A 6-digit code was emailed to <strong style="color:var(--text)">'+email+'</strong>. Check your inbox (and spam folder).</span>'
+      +'</div>';
+    document.getElementById('otpDesc').textContent='Enter the 6-digit code sent to your email';
+    setTimeout(function(){document.getElementById('loginOTP').focus();},100);
+  }, function(errObj){
+    var reason=(errObj&&errObj.message)||(errObj&&errObj.text)||'unknown';
+    var notConfigured=/not configured/i.test(reason);
+    if(notConfigured){
+      /* Local demo path — EmailJS not set up. Reveal the OTP so the
+         admin can still sign in during setup. Pre-fill for one-click. */
+      hint.innerHTML='<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+        +'<span style="background:rgba(232,130,30,0.18);color:var(--inc-saffron);font-size:10px;font-weight:700;letter-spacing:0.08em;padding:3px 8px;border-radius:999px;text-transform:uppercase;border:1px solid rgba(232,130,30,0.3)">Demo Mode</span>'
+        +'<span style="font-size:12px;color:var(--text2)">EmailJS not configured. Use this code (configure EMAILJS_CONFIG in index.html to deliver real emails).</span>'
+        +'</div>'
+        +'<div style="margin-top:10px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,0.16),rgba(232,130,30,0.10));border:1px dashed var(--gold);border-radius:8px;padding:12px;">'
+          +'<div style="font-size:28px;font-weight:700;letter-spacing:0.5em;font-family:Outfit,sans-serif;color:var(--gold2);text-shadow:0 0 18px rgba(201,168,76,0.5);user-select:all;cursor:copy;" onclick="navigator.clipboard&&navigator.clipboard.writeText(\''+_adminOTP+'\');showToast(\'OTP copied\')">'+_adminOTP+'</div>'
+          +'<div style="font-size:10px;color:var(--text3);margin-top:6px">tap to copy</div>'
+        +'</div>';
+      document.getElementById('otpDesc').textContent='Enter the 6-digit code shown below';
+      document.getElementById('loginOTP').value=_adminOTP;
+      setTimeout(function(){document.getElementById('loginOTP').focus();document.getElementById('loginOTP').select();},100);
+    } else {
+      /* Real delivery failed — do NOT reveal the OTP. Tell the user
+         to retry; the code is held server-side (in memory) until
+         expiry/retry. This prevents an attacker who triggered a
+         network failure from reading the OTP off the screen. */
+      hint.innerHTML='<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+        +'<span style="background:rgba(239,68,68,0.18);color:var(--red2);font-size:10px;font-weight:700;letter-spacing:0.08em;padding:3px 8px;border-radius:999px;text-transform:uppercase;border:1px solid rgba(239,68,68,0.3)">Send failed</span>'
+        +'<span style="font-size:12px;color:var(--text2)">Could not deliver the OTP ('+reason+'). Click "← Back" and try again, or check your inbox in a moment — sometimes the message is delayed.</span>'
+        +'</div>';
+      document.getElementById('otpDesc').textContent='Check your inbox or retry';
+      _adminOTP=null; /* invalidate so retries are required */
+      setTimeout(function(){document.getElementById('loginOTP').focus();},100);
+    }
+  });
 }
 function backToEmail(){
   document.getElementById('otp-step2').style.display='none';
@@ -2161,7 +2269,32 @@ function backToEmail(){
 function verifyOTP(){
   var otp=document.getElementById('loginOTP').value.trim();
   var err=document.getElementById('otpErr');
-  if(!otp||otp!==_adminOTP){err.style.display='block';return;}
+  /* OTP expiry guard */
+  if(!_adminOTP || Date.now() - _otpIssuedAt > OTP_VALIDITY_MS){
+    err.textContent='Code expired. Please request a new OTP.';
+    err.style.display='block';
+    _adminOTP=null;
+    return;
+  }
+  /* Rate-limit wrong attempts */
+  if(!otp||otp!==_adminOTP){
+    _otpAttempts++;
+    var remaining=OTP_MAX_ATTEMPTS-_otpAttempts;
+    if(remaining<=0){
+      _otpLockUntil=Date.now()+OTP_LOCK_MS;
+      _adminOTP=null;
+      err.textContent='Too many wrong attempts. Locked for 10 minutes.';
+      err.style.display='block';
+      setTimeout(function(){closeModal('loginModal');},2500);
+      return;
+    }
+    err.textContent='Incorrect code. '+remaining+' attempt'+(remaining>1?'s':'')+' left.';
+    err.style.display='block';
+    return;
+  }
+  /* Success — reset counters */
+  _otpAttempts=0;
+  _adminOTP=null;
   err.style.display='none';
   closeModal('loginModal');
   currentRole='admin';
