@@ -114,6 +114,22 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes heroPulseGreen{0%,100%{box-shadow:0 8px 30px rgba(19,136,8,0.20), 0 0 0 1px rgba(255,255,255,0.06) inset;}50%{box-shadow:0 12px 44px rgba(19,136,8,0.40), 0 0 0 1px rgba(255,255,255,0.10) inset;}}
 @keyframes heroDotGreen{0%,100%{box-shadow:0 0 0 0 rgba(19,136,8,0.7), 0 0 8px rgba(19,136,8,0.6);}50%{box-shadow:0 0 0 8px rgba(19,136,8,0), 0 0 12px rgba(19,136,8,0.8);}}
 
+/* Tertiary blue-tinted hero CTA for "EFFECTIVE AGENT & RESPONSIBILITIES" */
+.hero-cta-tertiary{
+  background:linear-gradient(135deg, rgba(59,130,246,0.18) 0%, rgba(96,165,250,0.10) 50%, rgba(139,92,246,0.16) 100%) !important;
+  box-shadow:0 8px 30px rgba(59,130,246,0.20), 0 0 0 1px rgba(255,255,255,0.06) inset !important;
+  animation:heroPulseBlue 3.2s ease-in-out infinite !important;}
+.hero-cta-tertiary::before{
+  background:linear-gradient(135deg, #3b82f6 0%, #FFFFFF 50%, #8b5cf6 100%) !important;}
+.hero-cta-tertiary:hover{box-shadow:0 16px 42px rgba(59,130,246,0.45), 0 0 0 1px rgba(255,255,255,0.10) inset !important;}
+.hero-cta-tertiary .hero-cta-icon{
+  background:linear-gradient(135deg, rgba(96,165,250,0.85), rgba(59,130,246,0.65)) !important;
+  box-shadow:0 4px 18px rgba(59,130,246,0.45), inset 0 1px 0 rgba(255,255,255,0.30) !important;color:#fff;}
+.hero-cta-tertiary .hero-cta-dot{background:#3b82f6 !important;animation:heroDotBlue 1.6s ease-in-out infinite !important;}
+.hero-cta-tertiary .hero-cta-title{text-shadow:0 2px 8px rgba(0,0,0,0.40), 0 0 24px rgba(59,130,246,0.30) !important;font-size:clamp(15px,3.6vw,19px) !important;}
+@keyframes heroPulseBlue{0%,100%{box-shadow:0 8px 30px rgba(59,130,246,0.20), 0 0 0 1px rgba(255,255,255,0.06) inset;}50%{box-shadow:0 12px 44px rgba(59,130,246,0.40), 0 0 0 1px rgba(255,255,255,0.10) inset;}}
+@keyframes heroDotBlue{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0.7), 0 0 8px rgba(59,130,246,0.6);}50%{box-shadow:0 0 0 8px rgba(59,130,246,0), 0 0 12px rgba(59,130,246,0.8);}}
+
 /* HERO CTA — single big bold animated bar for "ENTER VOTER DIRECTORY" */
 .hero-cta{position:relative;display:flex;align-items:center;gap:18px;width:100%;max-width:480px;
   background:linear-gradient(135deg, rgba(232,130,30,0.18) 0%, rgba(255,153,51,0.10) 50%, rgba(19,136,8,0.16) 100%);
@@ -505,6 +521,37 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .doc-part-arrow svg{width:18px;height:18px;}
 .doc-part:hover .doc-part-arrow{opacity:1;transform:translateY(-50%) translateX(4px);}
 @media(max-width:600px){.parts-doc-list{padding:18px;margin:0 4px;}.doc-part-head{font-size:15px;}.doc-part-sections{font-size:13px;}}
+
+/* PAGE 6 — EFFECTIVE AGENT & RESPONSIBILITIES */
+#p6{background:radial-gradient(ellipse 90% 50% at 50% 0%,rgba(59,130,246,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 100% 100%,rgba(139,92,246,0.05) 0%,transparent 60%),var(--navy);}
+.p6-body{padding:20px;flex:1;max-width:1180px;width:100%;margin:0 auto;}
+.p6-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:18px;}
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;}
+.agent-card{background:linear-gradient(135deg,var(--glass),var(--glass2));border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;transition:all 0.2s;animation:fadeUp 0.4s ease both;position:relative;overflow:hidden;}
+.agent-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:linear-gradient(180deg,#3b82f6 0%,#8b5cf6 100%);}
+.agent-card:hover{border-color:var(--blue2);transform:translateY(-3px);box-shadow:0 12px 30px rgba(59,130,246,0.18);}
+.agent-card.role-Booth-President::before{background:linear-gradient(180deg,#FF9933,#c9821e);}
+.agent-card.role-Polling-Agent::before{background:linear-gradient(180deg,#3b82f6,#1d4ed8);}
+.agent-card.role-Area-Coordinator::before{background:linear-gradient(180deg,#8b5cf6,#6d28d9);}
+.agent-card.role-Volunteer::before{background:linear-gradient(180deg,#10b981,#047857);}
+.agent-card.role-Vehicle-In-charge::before{background:linear-gradient(180deg,#f59e0b,#b45309);}
+.agt-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.agt-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--blue3),rgba(139,92,246,0.20));border:2px solid rgba(59,130,246,0.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--blue2);flex-shrink:0;letter-spacing:0.04em;}
+.agt-info{flex:1;min-width:0;}
+.agt-name{font-size:15px;font-weight:600;color:var(--text);line-height:1.2;}
+.agt-role{font-size:11px;color:var(--text3);margin-top:3px;display:inline-flex;align-items:center;gap:6px;background:var(--navy3);border:1px solid var(--border);border-radius:999px;padding:3px 10px;text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
+.agt-status{position:absolute;top:14px;right:14px;font-size:10px;padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:0.06em;font-weight:600;}
+.agt-status.active{background:rgba(16,185,129,0.18);color:var(--green2);border:1px solid rgba(16,185,129,0.30);}
+.agt-status.inactive{background:rgba(107,114,128,0.18);color:#9ca3af;border:1px solid rgba(107,114,128,0.30);}
+.agt-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;font-size:12px;}
+.agt-meta-item{background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:8px 10px;}
+.agt-meta-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;font-weight:500;}
+.agt-meta-val{font-size:13px;color:var(--text);font-weight:500;}
+.agt-resp{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);}
+.agt-resp-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;font-weight:600;}
+.agt-resp-list{display:flex;flex-wrap:wrap;gap:4px;}
+.agt-resp-tag{font-size:11px;padding:3px 9px;border-radius:999px;background:rgba(59,130,246,0.10);border:1px solid rgba(59,130,246,0.20);color:var(--blue2);}
+@media(max-width:600px){.agents-grid{grid-template-columns:1fr;}.agt-meta{grid-template-columns:1fr;}}
 .part-mega-card{background:linear-gradient(135deg,var(--glass),var(--glass2));border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:all 0.2s;animation:fadeUp 0.4s ease both;position:relative;overflow:hidden;}
 .part-mega-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:linear-gradient(180deg,#FF9933 0%,#FFFFFF 50%,#138808 100%);opacity:0.5;}
 .part-mega-card:hover{border-color:var(--inc-saffron);transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,130,30,0.15);}
@@ -608,6 +655,15 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
+      <div class="hero-cta hero-cta-tertiary" onclick="goTo('p6')">
+        <span class="hero-cta-shimmer"></span>
+        <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="hero-cta-text">
+          <div class="hero-cta-title">EFFECTIVE AGENT &amp; RESPONSIBILITIES</div>
+          <div class="hero-cta-desc"><span class="hero-cta-dot"></span>Booth agents &middot; Roles &middot; Duties</div>
+        </div>
+        <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
     </div>
   </div>
 </div>
@@ -663,13 +719,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="filter-row">
         <input class="filter-input" id="voterSearch" placeholder="Search name or voter ID..." oninput="applyFilters()">
         <select class="filter-sel" id="filterGender" onchange="applyFilters()"><option value="">All genders</option><option value="M">Male</option><option value="F">Female</option></select>
-        <select class="filter-sel" id="filterParty" onchange="applyFilters()"><option value="">All parties</option><option>INC</option><option>TMC</option><option>BJP</option><option>CPM</option><option>Undecided</option></select>
+<!-- Party support filter is admin-only — hidden on public site -->
+        <select class="filter-sel" id="filterParty" onchange="applyFilters()" style="display:none"><option value=""></option></select>
         <select class="filter-sel" id="filterContact" onchange="applyFilters()"><option value="">All contacts</option><option value="Yes">Contacted</option><option value="No">Not contacted</option></select>
       </div>
       <!-- Voter list output renders into BOTH containers; only one is visible per view-mode -->
       <div id="voterCardsWrap" class="voter-cards-grid"></div>
       <div class="vtable-wrap" id="voterTableWrap" style="display:none"><table class="vtable"><thead><tr>
-        <th style="width:60px">Photo</th><th>Voter name</th><th style="width:110px">Voter ID</th><th style="width:42px">Age</th><th style="width:70px">Gender</th><th style="width:100px">Support</th><th style="width:90px">Contact</th>
+        <th style="width:60px">Photo</th><th>Voter name</th><th style="width:110px">Voter ID</th><th style="width:42px">Age</th><th style="width:70px">Gender</th><th style="width:90px">Contact</th>
       </tr></thead><tbody id="vtbody"></tbody></table></div>
       <div class="vs-pager" id="vsPager"></div>
     </div>
@@ -694,6 +751,30 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
     <div class="parts-doc-list" id="parts-doc-list"></div>
     <div class="parts-mega-grid" id="parts-mega-grid" style="display:none"></div>
+  </div>
+</div>
+
+<!-- PAGE 6: EFFECTIVE AGENT & RESPONSIBILITIES -->
+<div class="page" id="p6">
+  <div class="topbar">
+    <button class="back-btn" onclick="goTo('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Home</button>
+    <span class="tb-title tb-title-center">Effective Agent &amp; Responsibilities</span>
+    <div class="tb-right"><span class="tb-badge" id="agentsBadge">Loading…</span></div>
+  </div>
+  <div class="p6-body">
+    <div class="p6-stats" id="p6-stats"></div>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+      <div class="search-wrap" style="flex:1;min-width:220px;margin-bottom:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="agentsSearch" placeholder="Search agent name, role, booth or responsibility..." oninput="filterAgents()"></div>
+      <select class="filter-sel" id="agentsRoleFilter" onchange="filterAgents()" style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:8px 12px;color:var(--text);font-size:13px;font-family:'Outfit',sans-serif;outline:none;cursor:pointer;">
+        <option value="">All roles</option>
+        <option value="Booth President">Booth President</option>
+        <option value="Polling Agent">Polling Agent</option>
+        <option value="Area Coordinator">Area Coordinator</option>
+        <option value="Volunteer">Volunteer</option>
+        <option value="Vehicle In-charge">Vehicle In-charge</option>
+      </select>
+    </div>
+    <div class="agents-grid" id="agents-grid"></div>
   </div>
 </div>
 
@@ -2097,6 +2178,7 @@ function goTo(id){
   document.getElementById(id).classList.add('active');window.scrollTo(0,0);
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
   if(id==='p5'){ buildAllParts(); buildAllPartsStats(); }
+  if(id==='p6'){ buildAgents(); buildAgentsStats(); }
   syncTopbarLogos();
 }
 function syncTopbarLogos(){
@@ -2332,7 +2414,6 @@ function renderVoterTable(){
   document.getElementById('voterCardsWrap').innerHTML=list.map(function(v){
     var relLabel = v.rel==='Hu' ? "Husband's Name" : (v.rel==='M' ? "Mother's Name" : "Father's Name");
     return '<div class="voter-id-card" onclick="openProfile('+v.id+')">'
-      +'<span class="vic-party-strip '+(v.party||'Undecided')+'"></span>'
       +'<div class="vic-left">'
         +'<div class="vic-serial-row">'
           +'<span class="vic-serial">'+v.serial+'</span>'
@@ -2352,7 +2433,7 @@ function renderVoterTable(){
 
   /* Table view (toggle target) */
   document.getElementById('vtbody').innerHTML=list.map(function(v){
-    return '<tr class="clickable-row" onclick="openProfile('+v.id+')"><td style="padding:8px 14px;"><div class="avatar-wrap">'+avatarHTML(v,36)+'<span class="avatar-sn">#'+v.serial+'</span></div></td><td style="color:#f0f4ff;font-weight:500">'+v.name+(v.sample?' <span style="font-size:9px;color:var(--text4);border:1px solid var(--border);padding:1px 4px;border-radius:4px;vertical-align:middle">sample</span>':'')+'<br><span style="font-size:11px;color:var(--text3)">'+(v.father?'S/o-D/o '+v.father:'')+'</span></td><td class="vid">'+v.voterId+'</td><td>'+v.age+'</td><td><span class="gbadge '+v.gender+'">'+(v.gender==='M'?'Male':'Female')+'</span></td><td class="sp-'+partyClass(v.party)+'"><span class="sp-dot"></span>'+v.party+'</td><td><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Yes':'No')+'</span></td>'+'</tr>';
+    return '<tr class="clickable-row" onclick="openProfile('+v.id+')"><td style="padding:8px 14px;"><div class="avatar-wrap">'+avatarHTML(v,36)+'<span class="avatar-sn">#'+v.serial+'</span></div></td><td style="color:#f0f4ff;font-weight:500">'+v.name+(v.sample?' <span style="font-size:9px;color:var(--text4);border:1px solid var(--border);padding:1px 4px;border-radius:4px;vertical-align:middle">sample</span>':'')+'<br><span style="font-size:11px;color:var(--text3)">'+(v.father?'S/o-D/o '+v.father:'')+'</span></td><td class="vid">'+v.voterId+'</td><td>'+v.age+'</td><td><span class="gbadge '+v.gender+'">'+(v.gender==='M'?'Male':'Female')+'</span></td><td><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Yes':'No')+'</span></td>'+'</tr>';
   }).join('');
 
   var pager=document.getElementById('vsPager');
@@ -2365,7 +2446,7 @@ function findVoter(vid){for(var pno in voterDB){for(var i=0;i<voterDB[pno].lengt
 
 function openProfile(vid){
   var v=findVoter(vid);if(!v)return;
-  document.getElementById('drawerBody').innerHTML='<div class="profile-photo-area">'+avatarHTML(v,90)+'<div><div class="profile-name">'+v.name+'</div><div class="profile-vid">'+v.voterId+'</div><div class="profile-tags"><span class="gbadge '+v.gender+'" style="font-size:12px">'+(v.gender==='M'?'Male':'Female')+'</span><span class="sp-'+partyClass(v.party)+'" style="font-size:12px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,0.05)"><span class="sp-dot"></span>'+v.party+'</span><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Contacted':'Not contacted')+'</span></div></div></div>'+'<div class="profile-section"><div class="profile-section-title">Personal details</div><div class="profile-grid"><div class="profile-field"><div class="profile-field-label">Serial No.</div><div class="profile-field-val">#'+v.serial+'</div></div><div class="profile-field"><div class="profile-field-label">Age</div><div class="profile-field-val">'+v.age+' yrs</div></div><div class="profile-field"><div class="profile-field-label">Father / Husband</div><div class="profile-field-val">'+(v.father||'-')+'</div></div><div class="profile-field"><div class="profile-field-label">House No.</div><div class="profile-field-val">'+(v.house||'-')+'</div></div><div class="profile-field"><div class="profile-field-label">Religion</div><div class="profile-field-val">'+v.religion+'</div></div><div class="profile-field"><div class="profile-field-label">Occupation</div><div class="profile-field-val">'+v.occupation+'</div></div><div class="profile-field"><div class="profile-field-label">Blood group</div><div class="profile-field-val">'+v.bloodGroup+'</div></div><div class="profile-field"><div class="profile-field-label">Part No.</div><div class="profile-field-val">Part '+v.partNo+'</div></div></div></div>'+'<div class="profile-section"><div class="profile-section-title">Notes</div><div class="notes-area">'+(v.notes?v.notes:'<span class="notes-empty">No notes added.</span>')+'</div></div>';
+  document.getElementById('drawerBody').innerHTML='<div class="profile-photo-area">'+avatarHTML(v,90)+'<div><div class="profile-name">'+v.name+'</div><div class="profile-vid">'+v.voterId+'</div><div class="profile-tags"><span class="gbadge '+v.gender+'" style="font-size:12px">'+(v.gender==='M'?'Male':'Female')+'</span><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Contacted':'Not contacted')+'</span></div></div></div>'+'<div class="profile-section"><div class="profile-section-title">Personal details</div><div class="profile-grid"><div class="profile-field"><div class="profile-field-label">Serial No.</div><div class="profile-field-val">#'+v.serial+'</div></div><div class="profile-field"><div class="profile-field-label">Age</div><div class="profile-field-val">'+v.age+' yrs</div></div><div class="profile-field"><div class="profile-field-label">Father / Husband</div><div class="profile-field-val">'+(v.father||'-')+'</div></div><div class="profile-field"><div class="profile-field-label">House No.</div><div class="profile-field-val">'+(v.house||'-')+'</div></div><div class="profile-field"><div class="profile-field-label">Religion</div><div class="profile-field-val">'+v.religion+'</div></div><div class="profile-field"><div class="profile-field-label">Occupation</div><div class="profile-field-val">'+v.occupation+'</div></div><div class="profile-field"><div class="profile-field-label">Blood group</div><div class="profile-field-val">'+v.bloodGroup+'</div></div><div class="profile-field"><div class="profile-field-label">Part No.</div><div class="profile-field-val">Part '+v.partNo+'</div></div></div></div>'+'<div class="profile-section"><div class="profile-section-title">Notes</div><div class="notes-area">'+(v.notes?v.notes:'<span class="notes-empty">No notes added.</span>')+'</div></div>';
   document.getElementById('drawerOverlay').classList.add('open');
   document.getElementById('profileDrawer').classList.add('open');
 }
@@ -2488,6 +2569,120 @@ function openPartFromAll(pno){
   }
   openStation(booth);
   setTimeout(function(){selectPart(pno);},80);
+}
+
+/* ============================================================
+ * EFFECTIVE AGENT & RESPONSIBILITIES (page 6)
+ * ----------------------------------------------------------
+ * Seed roster of campaign agents assigned across the 38 booths.
+ * To add/remove/edit agents in production, populate this array
+ * (or load it from a backend / spreadsheet). Each entry:
+ *   { name, role, booth, part, phone, responsibilities[], status }
+ * ============================================================ */
+var ROLES = ['Booth President','Polling Agent','Area Coordinator','Volunteer','Vehicle In-charge'];
+var RESP_POOL = {
+  'Booth President':       ['Overall booth supervision','Voter list verification','Last-mile outreach','Day-of polling co-ordination'],
+  'Polling Agent':         ['Inside-booth monitoring','EVM verification','Voter slip reconciliation','Complaint escalation'],
+  'Area Coordinator':      ['Door-to-door survey','Voter awareness drive','Local issue collection','Booth committee meetings'],
+  'Volunteer':             ['Door knocking','Voter slip distribution','Transport assistance','Refreshment / logistics'],
+  'Vehicle In-charge':     ['Senior citizen transport','Disability assist','Vehicle scheduling','Fuel/route coordination'],
+};
+var AGENT_NAMES = [
+  'Md. Rafiqul Karim','Sufia Begum','Sk. Jamal Uddin','Anjuman Ara','Nurul Haque',
+  'Rezaul Karim','Tahira Khatun','Karim Molla','Mumtaz Akhter','Abul Kasem',
+  'Hasina Begum','Md. Ataur Rahman','Sk. Sirajuddin','Dilruba Khatun','Md. Jakir Hossain',
+  'Saleha Bibi','Sk. Mofizul Islam','Anwara Khatun','Md. Yakub Ali','Badrul Islam',
+  'Kohinoor Begum','Mosiur Rahman','Sk. Yasin','Ruksana Parveen','Md. Akhtar Hussain',
+  'Fatema Begum','Sk. Akbar Ali','Najma Khatun','Md. Wasim Iqbal','Sahana Bibi',
+  'Md. Sahabuddin','Nasrin Khatun','Karim Uddin Sheikh','Parveen Sultana','Md. Aslam Khan',
+  'Aminul Rahman','Mantasha Jahan','Md. Imran Ali','Mehnaz Begum','Zaheda Khatoon',
+];
+function deterministicSeed(s){var h=0;for(var i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);}
+var allAgents = (function buildAgents(){
+  var out=[];
+  Object.keys(partsBase).map(function(x){return parseInt(x);}).sort(function(a,b){return a-b;}).forEach(function(pno){
+    var booth=null, station=null;
+    for(var i=0;i<stations.length;i++){
+      if(stations[i].parts.indexOf(pno)>-1){booth=stations[i].no;station=stations[i].name;break;}
+    }
+    /* Each part gets: 1 Booth President + 1 Polling Agent + 1 Area Coordinator + 1-2 Volunteers + (every 4th) 1 Vehicle In-charge */
+    var roster = ['Booth President','Polling Agent','Area Coordinator','Volunteer'];
+    if(pno%3===0) roster.push('Volunteer');
+    if(pno%4===0) roster.push('Vehicle In-charge');
+    roster.forEach(function(role, idx){
+      var seed = deterministicSeed('p'+pno+'-'+role+'-'+idx);
+      var name = AGENT_NAMES[seed%AGENT_NAMES.length];
+      var phone = '+91 9'+((seed*97)%900000000+100000000);
+      var resps = RESP_POOL[role];
+      var nResps = 2 + (seed%(Math.max(1,resps.length-1)));
+      var picked=[]; for(var r=0;r<nResps && r<resps.length;r++){picked.push(resps[(seed+r)%resps.length]);}
+      out.push({
+        id: 'a-'+pno+'-'+idx,
+        name: name,
+        role: role,
+        booth: booth, part: pno, station: station||'—',
+        phone: phone,
+        responsibilities: picked,
+        status: (seed%11===0) ? 'inactive' : 'active'
+      });
+    });
+  });
+  return out;
+})();
+
+function agentInitials(n){var p=n.trim().split(/\s+/);return ((p[0]||' ')[0]+((p[p.length-1]||' ')[0])).toUpperCase();}
+function buildAgents(){
+  var search=(document.getElementById('agentsSearch')?.value||'').toLowerCase();
+  var roleFilter=document.getElementById('agentsRoleFilter')?.value||'';
+  var rows=allAgents.filter(function(a){
+    if(roleFilter && a.role!==roleFilter) return false;
+    if(!search) return true;
+    var hay=(a.name+' '+a.role+' '+a.station+' Part '+a.part+' Booth '+a.booth+' '+a.responsibilities.join(' ')).toLowerCase();
+    return hay.indexOf(search)>-1;
+  });
+  var el=document.getElementById('agents-grid'); if(!el) return;
+  el.innerHTML = rows.length===0
+    ? '<div style="color:var(--text3);text-align:center;padding:40px;font-size:13px;grid-column:1/-1">No agents match the current filter</div>'
+    : rows.map(function(a){
+        var roleClass = a.role.replace(/[\s\/]/g,'-');
+        return '<div class="agent-card role-'+roleClass+'">'
+          +'<div class="agt-status '+(a.status||'active')+'">'+(a.status||'active')+'</div>'
+          +'<div class="agt-head">'
+            +'<div class="agt-avatar">'+agentInitials(a.name)+'</div>'
+            +'<div class="agt-info">'
+              +'<div class="agt-name">'+a.name+'</div>'
+              +'<div class="agt-role">'+a.role+'</div>'
+            +'</div>'
+          +'</div>'
+          +'<div class="agt-meta">'
+            +'<div class="agt-meta-item"><div class="agt-meta-label">Polling Station</div><div class="agt-meta-val" style="font-size:12px">'+(a.station.length>22?a.station.substring(0,20)+'…':a.station)+'</div></div>'
+            +'<div class="agt-meta-item"><div class="agt-meta-label">Booth / Part</div><div class="agt-meta-val">#'+a.booth+' &middot; Part '+a.part+'</div></div>'
+          +'</div>'
+          +'<div class="agt-meta" style="grid-template-columns:1fr">'
+            +'<div class="agt-meta-item"><div class="agt-meta-label">Contact</div><div class="agt-meta-val" style="font-family:DM Mono,monospace;font-size:12px">'+a.phone+'</div></div>'
+          +'</div>'
+          +'<div class="agt-resp">'
+            +'<div class="agt-resp-label">Responsibilities</div>'
+            +'<div class="agt-resp-list">'+a.responsibilities.map(function(r){return '<span class="agt-resp-tag">'+r+'</span>';}).join('')+'</div>'
+          +'</div>'
+        +'</div>';
+      }).join('');
+  var badge=document.getElementById('agentsBadge'); if(badge) badge.textContent=allAgents.length+' agents &middot; '+rows.length+' shown';
+}
+function filterAgents(){ buildAgents(); }
+function buildAgentsStats(){
+  var el=document.getElementById('p6-stats'); if(!el) return;
+  var counts={};
+  ROLES.forEach(function(r){counts[r]=0;});
+  var active=0;
+  allAgents.forEach(function(a){counts[a.role]=(counts[a.role]||0)+1; if(a.status==='active') active++;});
+  el.innerHTML=''
+    +'<div class="wsb-stat blue"><div class="wsb-val">'+allAgents.length+'</div><div class="wsb-lbl">Total Agents</div></div>'
+    +'<div class="wsb-stat green"><div class="wsb-val">'+active+'</div><div class="wsb-lbl">Active</div></div>'
+    +'<div class="wsb-stat saffron"><div class="wsb-val">'+(counts['Booth President']||0)+'</div><div class="wsb-lbl">Booth Presidents</div></div>'
+    +'<div class="wsb-stat blue"><div class="wsb-val">'+(counts['Polling Agent']||0)+'</div><div class="wsb-lbl">Polling Agents</div></div>'
+    +'<div class="wsb-stat gold"><div class="wsb-val">'+(counts['Area Coordinator']||0)+'</div><div class="wsb-lbl">Coordinators</div></div>'
+    +'<div class="wsb-stat green"><div class="wsb-val">'+(counts['Volunteer']||0)+'</div><div class="wsb-lbl">Volunteers</div></div>';
 }
 
 buildStations(stations);
