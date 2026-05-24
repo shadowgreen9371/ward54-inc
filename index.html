@@ -67,8 +67,12 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes ringSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .p1-tagline{font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);font-weight:700;}
 .ward-big{font-family:'Outfit',sans-serif;font-size:clamp(30px,6vw,46px);font-weight:700;letter-spacing:0.03em;color:var(--text);text-align:center;line-height:1;text-shadow:0 0 30px rgba(255,255,255,0.1);}
-.p1-title{font-family:'Outfit',sans-serif;font-size:clamp(20px,4.2vw,32px);text-align:center;line-height:1.2;color:var(--text);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:inline-block;transform-style:preserve-3d;animation:incTitleSpin 12s ease-in-out infinite;transform-origin:center center;}
-@keyframes incTitleSpin{0%{transform:perspective(800px) rotateY(0deg);}50%{transform:perspective(800px) rotateY(360deg);}100%{transform:perspective(800px) rotateY(720deg);}}
+.p1-title{font-family:'Outfit',sans-serif;font-size:clamp(20px,4.2vw,32px);text-align:center;line-height:1.2;color:var(--text);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:inline-block;transform-style:preserve-3d;animation:incTitleSpin 9s ease-in-out infinite;transform-origin:center center;}
+/* Pause at readable 0° for ~70% of the cycle, then do a clean 360° flip */
+@keyframes incTitleSpin{
+  0%,70%{transform:perspective(900px) rotateY(0deg);}
+  100%{transform:perspective(900px) rotateY(360deg);}
+}
 .p1-title .flag-saffron{color:#FF9933;text-shadow:0 0 18px rgba(255,153,51,0.55), 0 0 40px rgba(255,153,51,0.25);font-weight:800;}
 .p1-title .flag-white{color:#FFFFFF;text-shadow:0 0 18px rgba(255,255,255,0.65), 0 0 40px rgba(255,255,255,0.20);font-weight:800;}
 .p1-title .flag-green{color:#138808;text-shadow:0 0 18px rgba(19,136,8,0.65), 0 0 40px rgba(19,136,8,0.30);font-weight:800;background:linear-gradient(135deg,#138808 0%,#1aaa0c 50%,#138808 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;letter-spacing:0.12em;}
@@ -482,6 +486,25 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p5-body{padding:20px;flex:1;max-width:1180px;width:100%;margin:0 auto;}
 .p5-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:18px;}
 .parts-mega-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;}
+
+/* Document-style index list (default view for All 38 Parts) — mirrors the
+   printed electoral-roll index page the user supplied. */
+.parts-doc-list{background:#fff;color:#0a0f1e;border-radius:8px;padding:24px 28px;font-family:'Outfit',sans-serif;box-shadow:0 12px 40px rgba(0,0,0,0.4);max-width:760px;margin:0 auto;}
+.parts-doc-list .doc-page-label{font-size:13px;color:#666;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:18px;font-weight:600;border-bottom:1px solid #ccc;padding-bottom:10px;}
+.doc-part{padding:14px 4px 16px;border-bottom:1px solid rgba(0,0,0,0.15);cursor:pointer;transition:background 0.15s;position:relative;}
+.doc-part:hover{background:rgba(232,130,30,0.06);}
+.doc-part:last-child{border-bottom:none;}
+.doc-part-head{font-size:17px;font-weight:600;color:#0a0f1e;margin-bottom:8px;letter-spacing:0.01em;}
+.doc-part-head .doc-no{color:#0a0f1e;}
+.doc-part-sections{font-size:14px;color:#1a1a1a;line-height:1.7;letter-spacing:0.01em;}
+.doc-part-sections div{margin-bottom:2px;}
+.doc-part-meta{font-size:11px;color:#888;margin-top:6px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;text-transform:uppercase;letter-spacing:0.06em;font-weight:500;}
+.doc-part-meta .doc-voters{color:#c9821e;font-weight:600;}
+.doc-part-meta .doc-station{color:#666;}
+.doc-part-arrow{position:absolute;right:4px;top:50%;transform:translateY(-50%);opacity:0;transition:all 0.15s;color:#c9821e;}
+.doc-part-arrow svg{width:18px;height:18px;}
+.doc-part:hover .doc-part-arrow{opacity:1;transform:translateY(-50%) translateX(4px);}
+@media(max-width:600px){.parts-doc-list{padding:18px;margin:0 4px;}.doc-part-head{font-size:15px;}.doc-part-sections{font-size:13px;}}
 .part-mega-card{background:linear-gradient(135deg,var(--glass),var(--glass2));border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:all 0.2s;animation:fadeUp 0.4s ease both;position:relative;overflow:hidden;}
 .part-mega-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:linear-gradient(180deg,#FF9933 0%,#FFFFFF 50%,#138808 100%);opacity:0.5;}
 .part-mega-card:hover{border-color:var(--inc-saffron);transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,130,30,0.15);}
@@ -663,7 +686,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   <div class="p5-body">
     <div class="p5-stats" id="p5-stats"></div>
     <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="allPartsSearch" placeholder="Search part number, section, road or premise..." oninput="filterAllParts()"></div>
-    <div class="parts-mega-grid" id="parts-mega-grid"></div>
+    <div style="display:flex;justify-content:center;margin-bottom:16px;">
+      <div class="view-toggle" id="partsViewToggle">
+        <button id="partsViewBtnDoc" class="active" onclick="setPartsView('doc')" title="Index document style"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>Document</button>
+        <button id="partsViewBtnGrid" onclick="setPartsView('grid')" title="Card grid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Cards</button>
+      </div>
+    </div>
+    <div class="parts-doc-list" id="parts-doc-list"></div>
+    <div class="parts-mega-grid" id="parts-mega-grid" style="display:none"></div>
   </div>
 </div>
 
@@ -2350,18 +2380,65 @@ function partStationName(pno){
   }
   return '';
 }
+var partsView='doc'; /* 'doc' | 'grid' */
+function setPartsView(mode){
+  partsView=mode;
+  var docEl=document.getElementById('parts-doc-list'), gridEl=document.getElementById('parts-mega-grid');
+  if(docEl) docEl.style.display = mode==='doc' ? 'block' : 'none';
+  if(gridEl) gridEl.style.display = mode==='grid' ? 'grid' : 'none';
+  var btnD=document.getElementById('partsViewBtnDoc'), btnG=document.getElementById('partsViewBtnGrid');
+  if(btnD){btnD.classList.toggle('active',mode==='doc');btnG.classList.toggle('active',mode==='grid');}
+  buildAllParts(document.getElementById('allPartsSearch')?.value);
+}
 function buildAllParts(filter){
-  var el=document.getElementById('parts-mega-grid'); if(!el) return;
   filter=(filter||'').toLowerCase();
   var partNos = Object.keys(partsBase).map(function(x){return parseInt(x);}).sort(function(a,b){return a-b;});
-  var html=partNos.map(function(pno){
-    var base=partsBase[pno]; if(!base) return '';
+
+  /* Filter once, share the result between both view renderers */
+  var visible = partNos.filter(function(pno){
+    var section=partSection[pno]||'', station=partStationName(pno);
+    if(!filter) return true;
+    var hay=(pno+' '+section+' '+station).toLowerCase();
+    return hay.indexOf(filter)>-1;
+  });
+
+  /* === Document view (printed index page style) === */
+  var docEl=document.getElementById('parts-doc-list');
+  if(docEl){
+    if(visible.length===0){
+      docEl.innerHTML='<div style="color:#666;text-align:center;padding:40px;font-size:13px">No parts match "'+filter+'"</div>';
+    } else {
+      docEl.innerHTML='<div class="doc-page-label">Index of polling parts &mdash; 163 Entally Assembly Constituency, Ward 54</div>'
+      +visible.map(function(pno){
+        var base=partsBase[pno];
+        var section=partSection[pno]||'';
+        var station=partStationName(pno);
+        /* Split multi-section parts on ';' so each road sits on its own line */
+        var lines = section ? section.split(/\s*;\s*/) : ['Section name not available'];
+        return '<div class="doc-part" onclick="openPartFromAll('+pno+')">'
+          +'<div class="doc-part-head"><span class="doc-no">Part '+pno+'</span></div>'
+          +'<div class="doc-part-sections">'+lines.map(function(l){return '<div>'+l+'</div>';}).join('')+'</div>'
+          +'<div class="doc-part-meta">'
+            +'<span class="doc-voters">'+base.total.toLocaleString()+' voters</span>'
+            +(station?'<span class="doc-station">'+station+'</span>':'')
+            +'<span style="color:#aaa">M '+base.male+' &nbsp;·&nbsp; F '+base.female+'</span>'
+          +'</div>'
+          +'<div class="doc-part-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>'
+        +'</div>';
+      }).join('');
+    }
+  }
+
+  /* === Card-grid view (toggle target) === */
+  var el=document.getElementById('parts-mega-grid'); if(!el) return;
+  if(visible.length===0){
+    el.innerHTML='<div style="color:var(--text3);text-align:center;padding:40px;font-size:13px">No parts match "'+filter+'"</div>';
+    return;
+  }
+  el.innerHTML=visible.map(function(pno){
+    var base=partsBase[pno];
     var section=partSection[pno]||'';
     var station=partStationName(pno);
-    if(filter){
-      var hay=(pno+' '+section+' '+station).toLowerCase();
-      if(hay.indexOf(filter)<0) return '';
-    }
     var mPct=base.total?Math.round(base.male/base.total*100):50;
     var fPct=100-mPct;
     return '<div class="part-mega-card" onclick="openPartFromAll('+pno+')">'
@@ -2381,7 +2458,6 @@ function buildAllParts(filter){
       +'<div class="pmc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>'
     +'</div>';
   }).join('');
-  el.innerHTML=html||'<div style="color:var(--text3);text-align:center;padding:40px;font-size:13px">No parts match "'+filter+'"</div>';
 }
 function filterAllParts(){
   buildAllParts(document.getElementById('allPartsSearch').value);
