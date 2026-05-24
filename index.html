@@ -67,7 +67,8 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes ringSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .p1-tagline{font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);font-weight:700;}
 .ward-big{font-family:'Outfit',sans-serif;font-size:clamp(30px,6vw,46px);font-weight:700;letter-spacing:0.03em;color:var(--text);text-align:center;line-height:1;text-shadow:0 0 30px rgba(255,255,255,0.1);}
-.p1-title{font-family:'Outfit',sans-serif;font-size:clamp(20px,4.2vw,32px);text-align:center;line-height:1.2;color:var(--text);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;}
+.p1-title{font-family:'Outfit',sans-serif;font-size:clamp(20px,4.2vw,32px);text-align:center;line-height:1.2;color:var(--text);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:inline-block;transform-style:preserve-3d;animation:incTitleSpin 12s ease-in-out infinite;transform-origin:center center;}
+@keyframes incTitleSpin{0%{transform:perspective(800px) rotateY(0deg);}50%{transform:perspective(800px) rotateY(360deg);}100%{transform:perspective(800px) rotateY(720deg);}}
 .p1-title .flag-saffron{color:#FF9933;text-shadow:0 0 18px rgba(255,153,51,0.55), 0 0 40px rgba(255,153,51,0.25);font-weight:800;}
 .p1-title .flag-white{color:#FFFFFF;text-shadow:0 0 18px rgba(255,255,255,0.65), 0 0 40px rgba(255,255,255,0.20);font-weight:800;}
 .p1-title .flag-green{color:#138808;text-shadow:0 0 18px rgba(19,136,8,0.65), 0 0 40px rgba(19,136,8,0.30);font-weight:800;background:linear-gradient(135deg,#138808 0%,#1aaa0c 50%,#138808 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;letter-spacing:0.12em;}
@@ -91,6 +92,23 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .entry-bar-arrow{color:var(--text3);flex-shrink:0;transition:transform 0.22s,color 0.22s;}
 .entry-bar-arrow svg{width:18px;height:18px;}
 .entry-bar:hover .entry-bar-arrow{transform:translateX(4px);}
+
+.entry-bar-group{gap:14px;}
+/* Green-tinted secondary hero CTA for "ALL 38 PARTS DATABASE" */
+.hero-cta-secondary{
+  background:linear-gradient(135deg, rgba(19,136,8,0.18) 0%, rgba(26,170,12,0.10) 50%, rgba(232,130,30,0.16) 100%) !important;
+  box-shadow:0 8px 30px rgba(19,136,8,0.20), 0 0 0 1px rgba(255,255,255,0.06) inset !important;
+  animation:heroPulseGreen 3.2s ease-in-out infinite !important;}
+.hero-cta-secondary::before{
+  background:linear-gradient(135deg, #138808 0%, #FFFFFF 50%, #FF9933 100%) !important;}
+.hero-cta-secondary:hover{box-shadow:0 16px 42px rgba(19,136,8,0.45), 0 0 0 1px rgba(255,255,255,0.10) inset !important;}
+.hero-cta-secondary .hero-cta-icon{
+  background:linear-gradient(135deg, rgba(26,170,12,0.85), rgba(19,136,8,0.65)) !important;
+  box-shadow:0 4px 18px rgba(19,136,8,0.45), inset 0 1px 0 rgba(255,255,255,0.30) !important;}
+.hero-cta-secondary .hero-cta-dot{background:#138808 !important;animation:heroDotGreen 1.6s ease-in-out infinite !important;}
+.hero-cta-secondary .hero-cta-title{text-shadow:0 2px 8px rgba(0,0,0,0.40), 0 0 24px rgba(19,136,8,0.30) !important;}
+@keyframes heroPulseGreen{0%,100%{box-shadow:0 8px 30px rgba(19,136,8,0.20), 0 0 0 1px rgba(255,255,255,0.06) inset;}50%{box-shadow:0 12px 44px rgba(19,136,8,0.40), 0 0 0 1px rgba(255,255,255,0.10) inset;}}
+@keyframes heroDotGreen{0%,100%{box-shadow:0 0 0 0 rgba(19,136,8,0.7), 0 0 8px rgba(19,136,8,0.6);}50%{box-shadow:0 0 0 8px rgba(19,136,8,0), 0 0 12px rgba(19,136,8,0.8);}}
 
 /* HERO CTA — single big bold animated bar for "ENTER VOTER DIRECTORY" */
 .hero-cta{position:relative;display:flex;align-items:center;gap:18px;width:100%;max-width:480px;
@@ -459,11 +477,65 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .otp-email-hint{font-size:12px;color:var(--gold2);background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.18);border-radius:var(--r2);padding:12px 14px;margin-bottom:1rem;display:none;}
 .site-name-wrap{display:flex;align-items:center;gap:8px;}
 
+/* PAGE 5 — ALL 38 PARTS DATABASE */
+#p5{background:radial-gradient(ellipse 90% 50% at 50% 0%,rgba(19,136,8,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 100% 100%,rgba(232,130,30,0.05) 0%,transparent 60%),var(--navy);}
+.p5-body{padding:20px;flex:1;max-width:1180px;width:100%;margin:0 auto;}
+.p5-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:18px;}
+.parts-mega-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;}
+.part-mega-card{background:linear-gradient(135deg,var(--glass),var(--glass2));border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:all 0.2s;animation:fadeUp 0.4s ease both;position:relative;overflow:hidden;}
+.part-mega-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:linear-gradient(180deg,#FF9933 0%,#FFFFFF 50%,#138808 100%);opacity:0.5;}
+.part-mega-card:hover{border-color:var(--inc-saffron);transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,130,30,0.15);}
+.pmc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.pmc-no{display:inline-flex;align-items:center;justify-content:center;min-width:48px;height:34px;border-radius:var(--r2);background:linear-gradient(135deg,rgba(232,130,30,0.20),rgba(255,153,51,0.10));border:1px solid rgba(232,130,30,0.35);color:var(--inc-saffron);font-weight:700;font-size:13px;letter-spacing:0.04em;}
+.pmc-no small{font-weight:500;color:var(--text3);margin-right:4px;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;}
+.pmc-total{font-size:11px;color:var(--gold2);background:rgba(201,168,76,0.10);border:1px solid rgba(201,168,76,0.25);padding:3px 9px;border-radius:999px;white-space:nowrap;font-weight:600;}
+.pmc-section{font-size:12px;color:var(--text2);line-height:1.45;margin-bottom:10px;min-height:35px;}
+.pmc-station{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px;margin-bottom:10px;}
+.pmc-station svg{width:11px;height:11px;flex-shrink:0;color:var(--inc-saffron);}
+.pmc-bars{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.pmc-bar{flex:1;height:5px;background:var(--navy3);border-radius:3px;overflow:hidden;display:flex;}
+.pmc-bar-m{height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);}
+.pmc-bar-f{height:100%;background:linear-gradient(90deg,#ec4899,#f9a8d4);}
+.pmc-bar-label{font-size:10px;color:var(--text3);letter-spacing:0.05em;text-transform:uppercase;font-weight:500;}
+.pmc-bar-val-m{color:var(--blue2);font-size:11px;font-weight:600;}
+.pmc-bar-val-f{color:var(--pink2);font-size:11px;font-weight:600;}
+.pmc-arrow{position:absolute;right:14px;bottom:14px;color:var(--text3);opacity:0;transition:all 0.2s;}
+.pmc-arrow svg{width:18px;height:18px;}
+.part-mega-card:hover .pmc-arrow{opacity:1;transform:translateX(3px);color:var(--inc-saffron);}
+
+/* PDF-STYLE VOTER ID CARDS (renders inside the voter list) */
+.voter-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;padding:14px;background:rgba(0,0,0,0.10);border-radius:8px;}
+.voter-id-card{background:#fff;color:#0a0f1e;border:1.5px solid #1a1a1a;border-radius:6px;padding:10px 12px;display:flex;gap:12px;align-items:flex-start;font-family:Arial,Helvetica,sans-serif;position:relative;min-height:130px;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s;}
+.voter-id-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(232,130,30,0.30);border-color:var(--inc-saffron);}
+.vic-left{flex:1;min-width:0;}
+.vic-serial-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
+.vic-serial{display:inline-block;border:1.5px solid #1a1a1a;padding:1px 8px;font-size:12px;font-weight:700;min-width:30px;text-align:center;color:#0a0f1e;}
+.vic-vid{font-size:11px;color:#0a0f1e;font-weight:600;letter-spacing:0.02em;text-align:right;font-family:'Outfit',Arial,sans-serif;}
+.vic-row{font-size:11px;color:#0a0f1e;line-height:1.55;margin-top:2px;}
+.vic-row b{font-weight:400;color:#0a0f1e;}
+.vic-row strong{font-weight:700;}
+.vic-photo{width:78px;height:96px;background:#f3f3f3;border:1px solid #1a1a1a;display:flex;align-items:center;justify-content:center;flex-direction:column;flex-shrink:0;color:#666;font-size:10px;text-align:center;letter-spacing:0.02em;}
+.vic-photo svg{width:30px;height:30px;color:#aaa;margin-bottom:4px;}
+.vic-party-strip{position:absolute;left:0;top:0;width:4px;height:100%;border-radius:4px 0 0 4px;}
+.vic-party-strip.INC{background:#FF9933;}
+.vic-party-strip.TMC{background:#10b981;}
+.vic-party-strip.BJP{background:#f59e0b;}
+.vic-party-strip.CPM{background:#ef4444;}
+.vic-party-strip.Undecided{background:#6b7280;}
+
+/* View-mode toggle (table vs cards) on the voter list */
+.view-toggle{display:inline-flex;background:var(--navy3);border:1px solid var(--border);border-radius:var(--r3);padding:3px;gap:2px;}
+.view-toggle button{background:none;border:none;color:var(--text3);font-size:12px;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:'Outfit',sans-serif;display:inline-flex;align-items:center;gap:6px;}
+.view-toggle button svg{width:13px;height:13px;}
+.view-toggle button.active{background:var(--inc-saffron);color:#fff;font-weight:600;}
+
 @media(max-width:600px){
   .sa-edit-form{grid-template-columns:1fr;}
   .sa-edit-form .form-group.full{grid-column:1;}
   .voter-mgmt-grid{grid-template-columns:1fr 1fr;}
   .p4-overall-stats{grid-template-columns:1fr 1fr;}
+  .parts-mega-grid{grid-template-columns:1fr;}
+  .voter-cards-grid{grid-template-columns:1fr;padding:8px;gap:10px;}
 }
 </style>
 </head>
@@ -501,6 +573,15 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <div class="hero-cta-text">
           <div class="hero-cta-title">ENTER VOTER DIRECTORY</div>
           <div class="hero-cta-desc"><span class="hero-cta-dot"></span>Polling stations &middot; Map &middot; Voters</div>
+        </div>
+        <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="hero-cta hero-cta-secondary" onclick="goTo('p5')">
+        <span class="hero-cta-shimmer"></span>
+        <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/></svg></div>
+        <div class="hero-cta-text">
+          <div class="hero-cta-title">ALL 38 PARTS DATABASE</div>
+          <div class="hero-cta-desc"><span class="hero-cta-dot"></span>Every part &middot; Every voter &middot; Card view</div>
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
@@ -550,6 +631,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <div><span class="vs-title" id="vs-title"></span></div>
         <div class="vs-actions">
           <span class="vs-count" id="vs-count"></span>
+          <div class="view-toggle" id="viewToggle">
+            <button id="viewBtnCards" class="active" onclick="setVoterView('cards')" title="Voter ID-card view (PDF style)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="11" r="2"/><line x1="13" y1="9" x2="18" y2="9"/><line x1="13" y1="13" x2="18" y2="13"/></svg>Cards</button>
+            <button id="viewBtnTable" onclick="setVoterView('table')" title="Compact table"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>Table</button>
+          </div>
         </div>
       </div>
       <div class="filter-row">
@@ -558,7 +643,9 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <select class="filter-sel" id="filterParty" onchange="applyFilters()"><option value="">All parties</option><option>INC</option><option>TMC</option><option>BJP</option><option>CPM</option><option>Undecided</option></select>
         <select class="filter-sel" id="filterContact" onchange="applyFilters()"><option value="">All contacts</option><option value="Yes">Contacted</option><option value="No">Not contacted</option></select>
       </div>
-      <div class="vtable-wrap"><table class="vtable"><thead><tr>
+      <!-- Voter list output renders into BOTH containers; only one is visible per view-mode -->
+      <div id="voterCardsWrap" class="voter-cards-grid"></div>
+      <div class="vtable-wrap" id="voterTableWrap" style="display:none"><table class="vtable"><thead><tr>
         <th style="width:60px">Photo</th><th>Voter name</th><th style="width:110px">Voter ID</th><th style="width:42px">Age</th><th style="width:70px">Gender</th><th style="width:100px">Support</th><th style="width:90px">Contact</th>
       </tr></thead><tbody id="vtbody"></tbody></table></div>
       <div class="vs-pager" id="vsPager"></div>
@@ -566,6 +653,19 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   </div>
 </div>
 
+<!-- PAGE 5: ALL 38 PARTS DATABASE -->
+<div class="page" id="p5">
+  <div class="topbar">
+    <button class="back-btn" onclick="goTo('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Home</button>
+    <span class="tb-title tb-title-center">All 38 Parts &middot; Full Voter Database</span>
+    <div class="tb-right"><span class="tb-badge">26,849 voters &middot; Sl. 1-30 per part loaded</span></div>
+  </div>
+  <div class="p5-body">
+    <div class="p5-stats" id="p5-stats"></div>
+    <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="allPartsSearch" placeholder="Search part number, section, road or premise..." oninput="filterAllParts()"></div>
+    <div class="parts-mega-grid" id="parts-mega-grid"></div>
+  </div>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1933,13 +2033,14 @@ function buildPartVoters(pno){
   var realList = pdfVoters[pno] || [];
   for(var i=0;i<cap;i++){
     var useReal = i < realList.length;
-    var g, name, father, vid, house, age;
+    var g, name, father, vid, house, age, rel;
     if(useReal){
-      var r=realList[i]; name=r[1]; father=r[3]; g=r[6]; house=r[4]; age=r[5]; vid=r[7];
+      /* pdfVoters row layout: [serial, name, rel, parent, house, age, gender, voterId] */
+      var r=realList[i]; name=r[1]; rel=r[2]; father=r[3]; g=r[6]; house=r[4]; age=r[5]; vid=r[7];
     } else {
-      g=i%2===0?'M':'F'; name=namePool[i%namePool.length]; father=fatherPool[i%fatherPool.length]; vid='SAMP'+pno+String(1000+i).slice(1); house=String(10+(i%40)); age=24+(i*7)%42;
+      g=i%2===0?'M':'F'; rel=g==='M'?'F':'Hu'; name=namePool[i%namePool.length]; father=fatherPool[i%fatherPool.length]; vid='SAMP'+pno+String(1000+i).slice(1); house=String(10+(i%40)); age=24+(i*7)%42;
     }
-    rows.push({id:++voterIdCounter,serial:i+1,name:name,father:father,voterId:vid,age:age,gender:g,partNo:pno,house:house,
+    rows.push({id:++voterIdCounter,serial:i+1,name:name,father:father,rel:rel,voterId:vid,age:age,gender:g,partNo:pno,house:house,
       mobile:'+91 '+(9800000000+pno*100+i),
       address:house+', '+sectionRoad(pno)+', Kolkata-700014',
       religion:relPool[i%relPool.length],occupation:occPool[i%occPool.length],bloodGroup:bloodPool[i%bloodPool.length],
@@ -1965,6 +2066,7 @@ function goTo(id){
   var pages=document.querySelectorAll('.page');for(var i=0;i<pages.length;i++)pages[i].classList.remove('active');
   document.getElementById(id).classList.add('active');window.scrollTo(0,0);
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
+  if(id==='p5'){ buildAllParts(); buildAllPartsStats(); }
   syncTopbarLogos();
 }
 function syncTopbarLogos(){
@@ -2177,6 +2279,16 @@ function applyFilters(){
   currentPage=1; renderVoterTable();
 }
 
+var voterView='cards'; /* 'cards' | 'table' */
+function setVoterView(mode){
+  voterView=mode;
+  var btnC=document.getElementById('viewBtnCards'), btnT=document.getElementById('viewBtnTable');
+  var wrapC=document.getElementById('voterCardsWrap'), wrapT=document.getElementById('voterTableWrap');
+  if(btnC){btnC.classList.toggle('active',mode==='cards');btnT.classList.toggle('active',mode==='table');}
+  if(wrapC){wrapC.style.display=mode==='cards'?'grid':'none';}
+  if(wrapT){wrapT.style.display=mode==='table'?'block':'none';}
+  renderVoterTable();
+}
 function renderVoterTable(){
   var total=filteredCache.length;
   var totalPages=Math.max(1,Math.ceil(total/pageSize));
@@ -2185,9 +2297,34 @@ function renderVoterTable(){
   var list=filteredCache.slice(start,end);
   var partTotal=partsBase[currentPartNo]?partsBase[currentPartNo].total:total;
   document.getElementById('vs-count').textContent='Loaded '+(voterDB[currentPartNo]||[]).length+' of '+partTotal+' electors';
+
+  /* Card view — mirrors the official 2026 Electoral Roll PDF voter card */
+  document.getElementById('voterCardsWrap').innerHTML=list.map(function(v){
+    var relLabel = v.rel==='Hu' ? "Husband's Name" : (v.rel==='M' ? "Mother's Name" : "Father's Name");
+    return '<div class="voter-id-card" onclick="openProfile('+v.id+')">'
+      +'<span class="vic-party-strip '+(v.party||'Undecided')+'"></span>'
+      +'<div class="vic-left">'
+        +'<div class="vic-serial-row">'
+          +'<span class="vic-serial">'+v.serial+'</span>'
+          +'<span class="vic-vid">'+v.voterId+'</span>'
+        +'</div>'
+        +'<div class="vic-row"><b>Name :</b> <strong>'+v.name+'</strong></div>'
+        +(v.father?'<div class="vic-row"><b>'+relLabel+' :</b> '+v.father+'</div>':'')
+        +'<div class="vic-row"><b>House Number :</b> '+(v.house||'-')+'</div>'
+        +'<div class="vic-row"><b>Age :</b> '+v.age+' &nbsp; <b>Gender :</b> '+(v.gender==='M'?'Male':'Female')+'</div>'
+      +'</div>'
+      +'<div class="vic-photo">'
+        +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="9" r="3.5"/><path d="M5 21c1.5-4 4-6 7-6s5.5 2 7 6"/></svg>'
+        +'Photo<br>Available'
+      +'</div>'
+    +'</div>';
+  }).join('');
+
+  /* Table view (toggle target) */
   document.getElementById('vtbody').innerHTML=list.map(function(v){
     return '<tr class="clickable-row" onclick="openProfile('+v.id+')"><td style="padding:8px 14px;"><div class="avatar-wrap">'+avatarHTML(v,36)+'<span class="avatar-sn">#'+v.serial+'</span></div></td><td style="color:#f0f4ff;font-weight:500">'+v.name+(v.sample?' <span style="font-size:9px;color:var(--text4);border:1px solid var(--border);padding:1px 4px;border-radius:4px;vertical-align:middle">sample</span>':'')+'<br><span style="font-size:11px;color:var(--text3)">'+(v.father?'S/o-D/o '+v.father:'')+'</span></td><td class="vid">'+v.voterId+'</td><td>'+v.age+'</td><td><span class="gbadge '+v.gender+'">'+(v.gender==='M'?'Male':'Female')+'</span></td><td class="sp-'+partyClass(v.party)+'"><span class="sp-dot"></span>'+v.party+'</td><td><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Yes':'No')+'</span></td>'+'</tr>';
   }).join('');
+
   var pager=document.getElementById('vsPager');
   if(totalPages<=1){pager.innerHTML='';}
   else{pager.innerHTML='<button '+(currentPage===1?'disabled':'')+' onclick="gotoPage('+(currentPage-1)+')">Prev</button><span>Page '+currentPage+' of '+totalPages+'</span><button '+(currentPage===totalPages?'disabled':'')+' onclick="gotoPage('+(currentPage+1)+')">Next</button>';}
@@ -2205,6 +2342,77 @@ function openProfile(vid){
 function closeDrawer(){document.getElementById('drawerOverlay').classList.remove('open');document.getElementById('profileDrawer').classList.remove('open');}
 
 
+
+/* ===== ALL 38 PARTS GRID (page 5) ===== */
+function partStationName(pno){
+  for(var i=0;i<stations.length;i++){
+    if(stations[i].parts.indexOf(pno)>-1) return stations[i].name;
+  }
+  return '';
+}
+function buildAllParts(filter){
+  var el=document.getElementById('parts-mega-grid'); if(!el) return;
+  filter=(filter||'').toLowerCase();
+  var partNos = Object.keys(partsBase).map(function(x){return parseInt(x);}).sort(function(a,b){return a-b;});
+  var html=partNos.map(function(pno){
+    var base=partsBase[pno]; if(!base) return '';
+    var section=partSection[pno]||'';
+    var station=partStationName(pno);
+    if(filter){
+      var hay=(pno+' '+section+' '+station).toLowerCase();
+      if(hay.indexOf(filter)<0) return '';
+    }
+    var mPct=base.total?Math.round(base.male/base.total*100):50;
+    var fPct=100-mPct;
+    return '<div class="part-mega-card" onclick="openPartFromAll('+pno+')">'
+      +'<div class="pmc-head">'
+        +'<div class="pmc-no"><small>Part</small>'+pno+'</div>'
+        +'<span class="pmc-total">'+base.total.toLocaleString()+' voters</span>'
+      +'</div>'
+      +'<div class="pmc-section">'+(section||'<em style="color:var(--text4)">Section name not available</em>')+'</div>'
+      +(station?'<div class="pmc-station"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+station+'</div>':'')
+      +'<div class="pmc-bars">'
+        +'<span class="pmc-bar-label">M</span>'
+        +'<div class="pmc-bar"><div class="pmc-bar-m" style="width:'+mPct+'%"></div><div class="pmc-bar-f" style="width:'+fPct+'%"></div></div>'
+        +'<span class="pmc-bar-val-m">'+base.male+'</span>'
+        +'<span style="color:var(--text4)">·</span>'
+        +'<span class="pmc-bar-val-f">'+base.female+'</span>'
+      +'</div>'
+      +'<div class="pmc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>'
+    +'</div>';
+  }).join('');
+  el.innerHTML=html||'<div style="color:var(--text3);text-align:center;padding:40px;font-size:13px">No parts match "'+filter+'"</div>';
+}
+function filterAllParts(){
+  buildAllParts(document.getElementById('allPartsSearch').value);
+}
+function buildAllPartsStats(){
+  var el=document.getElementById('p5-stats'); if(!el) return;
+  var m=0,f=0,t=0;
+  Object.values(partsBase).forEach(function(b){m+=b.male;f+=b.female;t+=b.total;});
+  el.innerHTML=''
+    +'<div class="wsb-stat saffron"><div class="wsb-val">38</div><div class="wsb-lbl">Total Parts</div></div>'
+    +'<div class="wsb-stat gold"><div class="wsb-val">'+t.toLocaleString()+'</div><div class="wsb-lbl">Total Electors</div></div>'
+    +'<div class="wsb-stat blue"><div class="wsb-val">'+m.toLocaleString()+'</div><div class="wsb-lbl">Male</div></div>'
+    +'<div class="wsb-stat pink"><div class="wsb-val">'+f.toLocaleString()+'</div><div class="wsb-lbl">Female</div></div>'
+    +'<div class="wsb-stat green"><div class="wsb-val">12</div><div class="wsb-lbl">Polling Stations</div></div>';
+}
+/* Click handler for a part-mega-card: find which booth covers this part
+   and route through openStation → selectPart so the rest of the UI lights up */
+function openPartFromAll(pno){
+  /* Find the booth (station no in stations array) that contains this part */
+  var booth=null;
+  for(var i=0;i<stations.length;i++){
+    if(stations[i].parts.indexOf(pno)>-1){booth=stations[i].no;break;}
+  }
+  if(!booth){
+    /* fallback: stay on p5 and toast */
+    if(typeof showToast==='function') showToast('Part '+pno+' has no booth assignment','error');
+    return;
+  }
+  openStation(booth);
+  setTimeout(function(){selectPart(pno);},80);
+}
 
 buildStations(stations);
 buildBoothGallery();
