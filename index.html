@@ -522,6 +522,37 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .doc-part:hover .doc-part-arrow{opacity:1;transform:translateY(-50%) translateX(4px);}
 @media(max-width:600px){.parts-doc-list{padding:18px;margin:0 4px;}.doc-part-head{font-size:15px;}.doc-part-sections{font-size:13px;}}
 
+/* VOLUNTEERS ALLOCATED PANEL (lives at the bottom of the All 38 Parts page) */
+.volunteers-section{margin-top:32px;background:linear-gradient(135deg,var(--glass),var(--glass2));border:1px solid var(--border2);border-radius:var(--r);padding:22px 24px;}
+.vol-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap;gap:12px;}
+.vol-head-title{font-size:18px;font-weight:700;color:var(--text);letter-spacing:0.02em;display:flex;align-items:center;gap:10px;}
+.vol-head-title svg{width:20px;height:20px;color:var(--green2);}
+.vol-head-sub{font-size:12px;color:var(--text3);margin-top:3px;}
+.vol-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:18px;}
+.vol-stat{background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:10px 14px;text-align:center;}
+.vol-stat-val{font-size:20px;font-weight:700;color:var(--green2);font-family:'Outfit',sans-serif;}
+.vol-stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;}
+.volunteers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.volunteer-card{background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:14px;display:flex;gap:12px;align-items:flex-start;transition:all 0.2s;animation:fadeUp 0.4s ease both;}
+.volunteer-card:hover{border-color:var(--green2);transform:translateY(-2px);box-shadow:0 8px 22px rgba(16,185,129,0.18);}
+.vol-photo-panel{width:78px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
+.vol-photo{width:78px;height:96px;background:linear-gradient(135deg,rgba(16,185,129,0.18),rgba(20,184,166,0.10));border:1.5px solid rgba(16,185,129,0.30);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:var(--green2);letter-spacing:0.04em;position:relative;overflow:hidden;}
+.vol-photo::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(16,185,129,0.10) 0%,transparent 60%);}
+.vol-id-tag{font-size:9px;font-weight:600;color:var(--green2);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px;background:rgba(16,185,129,0.10);border:1px solid rgba(16,185,129,0.20);padding:2px 7px;border-radius:999px;}
+.vol-info{flex:1;min-width:0;}
+.vol-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.2;}
+.vol-assignment{font-size:11px;color:var(--text3);margin-top:3px;display:flex;align-items:center;gap:5px;}
+.vol-assignment svg{width:11px;height:11px;color:var(--gold2);flex-shrink:0;}
+.vol-resps{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;}
+.vol-resp-tag{font-size:10px;padding:2px 7px;border-radius:999px;background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.18);}
+.vol-mini-stats{display:flex;gap:10px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
+.vol-mini-stat{flex:1;font-size:10px;color:var(--text3);}
+.vol-mini-stat strong{display:block;color:var(--text);font-size:13px;font-weight:600;font-family:'Outfit',sans-serif;}
+.vol-mini-stat.visits strong{color:var(--blue2);}
+.vol-mini-stat.contacts strong{color:var(--gold2);}
+.vol-mini-stat.confirmed strong{color:var(--green2);}
+@media(max-width:600px){.volunteers-grid{grid-template-columns:1fr;}.vol-photo{width:72px;height:88px;}}
+
 /* PAGE 6 — EFFECTIVE AGENT & RESPONSIBILITIES */
 #p6{background:radial-gradient(ellipse 90% 50% at 50% 0%,rgba(59,130,246,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 100% 100%,rgba(139,92,246,0.05) 0%,transparent 60%),var(--navy);}
 .p6-body{padding:20px;flex:1;max-width:1180px;width:100%;margin:0 auto;}
@@ -751,6 +782,21 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
     <div class="parts-doc-list" id="parts-doc-list"></div>
     <div class="parts-mega-grid" id="parts-mega-grid" style="display:none"></div>
+
+    <!-- Volunteers Allocated section (lives on the All 38 Parts page) -->
+    <div class="volunteers-section">
+      <div class="vol-head">
+        <div>
+          <div class="vol-head-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 11l-3 3-2-2"/></svg>Volunteers Allocated</div>
+          <div class="vol-head-sub">Field volunteers assigned to each part &middot; photo ID panel &middot; responsibilities &middot; outreach analytics</div>
+        </div>
+        <select class="filter-sel" id="volPartFilter" onchange="buildVolunteersPanel()" style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:8px 12px;color:var(--text);font-size:13px;font-family:'Outfit',sans-serif;outline:none;cursor:pointer;">
+          <option value="">All parts</option>
+        </select>
+      </div>
+      <div class="vol-stats" id="vol-stats"></div>
+      <div class="volunteers-grid" id="volunteers-grid"></div>
+    </div>
   </div>
 </div>
 
@@ -2177,7 +2223,7 @@ function goTo(id){
   var pages=document.querySelectorAll('.page');for(var i=0;i<pages.length;i++)pages[i].classList.remove('active');
   document.getElementById(id).classList.add('active');window.scrollTo(0,0);
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
-  if(id==='p5'){ buildAllParts(); buildAllPartsStats(); }
+  if(id==='p5'){ buildAllParts(); buildAllPartsStats(); buildVolunteersPanel(); }
   if(id==='p6'){ buildAgents(); buildAgentsStats(); }
   syncTopbarLogos();
 }
@@ -2631,6 +2677,78 @@ var allAgents = (function buildAgents(){
 })();
 
 function agentInitials(n){var p=n.trim().split(/\s+/);return ((p[0]||' ')[0]+((p[p.length-1]||' ')[0])).toUpperCase();}
+
+/* ============================================================
+ * VOLUNTEERS PANEL — lives at the bottom of the All 38 Parts page
+ * Filters the master allAgents roster down to role='Volunteer'
+ * and adds deterministic outreach analytics so each card carries
+ * "visits / contacts / confirmed" numbers.
+ * ============================================================ */
+function volunteerStats(seed){
+  /* Deterministic but per-volunteer outreach numbers */
+  var visits   = 40 + (seed % 80);          /* 40 - 119 */
+  var contacts = Math.round(visits * (0.55 + ((seed>>3)%30)/100));
+  var confirmed= Math.round(contacts * (0.40 + ((seed>>7)%25)/100));
+  return {visits:visits, contacts:contacts, confirmed:confirmed};
+}
+function ensureVolPartFilter(){
+  var sel=document.getElementById('volPartFilter'); if(!sel||sel.options.length>1) return;
+  Object.keys(partsBase).map(function(x){return parseInt(x);}).sort(function(a,b){return a-b;}).forEach(function(p){
+    var o=document.createElement('option'); o.value=p; o.textContent='Part '+p; sel.appendChild(o);
+  });
+}
+function buildVolunteersPanel(){
+  ensureVolPartFilter();
+  var partFilter=document.getElementById('volPartFilter')?.value||'';
+  var volunteers=allAgents.filter(function(a){return a.role==='Volunteer';});
+  if(partFilter) volunteers=volunteers.filter(function(a){return String(a.part)===String(partFilter);});
+
+  /* Stats row */
+  var totalV = allAgents.filter(function(a){return a.role==='Volunteer';}).length;
+  var totalActive = allAgents.filter(function(a){return a.role==='Volunteer' && a.status==='active';}).length;
+  var totalVisits=0, totalContacts=0, totalConfirmed=0;
+  volunteers.forEach(function(a){
+    var s=volunteerStats(deterministicSeed(a.id));
+    totalVisits+=s.visits; totalContacts+=s.contacts; totalConfirmed+=s.confirmed;
+  });
+  var statsEl=document.getElementById('vol-stats');
+  if(statsEl){
+    statsEl.innerHTML=''
+      +'<div class="vol-stat"><div class="vol-stat-val">'+volunteers.length+'</div><div class="vol-stat-lbl">'+(partFilter?'Shown':'Total Volunteers')+'</div></div>'
+      +'<div class="vol-stat"><div class="vol-stat-val">'+totalActive+'</div><div class="vol-stat-lbl">Active</div></div>'
+      +'<div class="vol-stat"><div class="vol-stat-val" style="color:var(--blue2)">'+totalVisits.toLocaleString()+'</div><div class="vol-stat-lbl">Door Visits</div></div>'
+      +'<div class="vol-stat"><div class="vol-stat-val" style="color:var(--gold2)">'+totalContacts.toLocaleString()+'</div><div class="vol-stat-lbl">Voters Contacted</div></div>'
+      +'<div class="vol-stat"><div class="vol-stat-val">'+totalConfirmed.toLocaleString()+'</div><div class="vol-stat-lbl">INC Confirmed</div></div>';
+  }
+
+  /* Volunteer cards */
+  var el=document.getElementById('volunteers-grid'); if(!el) return;
+  if(volunteers.length===0){
+    el.innerHTML='<div style="color:var(--text3);text-align:center;padding:30px;font-size:13px;grid-column:1/-1">No volunteers match the current filter</div>';
+    return;
+  }
+  el.innerHTML=volunteers.map(function(a,idx){
+    var seed=deterministicSeed(a.id);
+    var s=volunteerStats(seed);
+    var volNo = idx+1;
+    return '<div class="volunteer-card">'
+      +'<div class="vol-photo-panel">'
+        +'<div class="vol-photo">'+agentInitials(a.name)+'</div>'
+        +'<div class="vol-id-tag">V-'+a.part+(idx<9?'0':'')+volNo+'</div>'
+      +'</div>'
+      +'<div class="vol-info">'
+        +'<div class="vol-name">'+a.name+'</div>'
+        +'<div class="vol-assignment"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Part '+a.part+' &middot; Booth #'+a.booth+'</div>'
+        +'<div class="vol-resps">'+a.responsibilities.map(function(r){return '<span class="vol-resp-tag">'+r+'</span>';}).join('')+'</div>'
+        +'<div class="vol-mini-stats">'
+          +'<div class="vol-mini-stat visits"><strong>'+s.visits+'</strong>door visits</div>'
+          +'<div class="vol-mini-stat contacts"><strong>'+s.contacts+'</strong>contacted</div>'
+          +'<div class="vol-mini-stat confirmed"><strong>'+s.confirmed+'</strong>confirmed</div>'
+        +'</div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+}
 function buildAgents(){
   var search=(document.getElementById('agentsSearch')?.value||'').toLowerCase();
   var roleFilter=document.getElementById('agentsRoleFilter')?.value||'';
