@@ -67,6 +67,28 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes ringSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 .p1-tagline{font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);font-weight:700;}
 .ward-big{font-family:'Outfit',sans-serif;font-size:clamp(30px,6vw,46px);font-weight:700;letter-spacing:0.03em;color:var(--text);text-align:center;line-height:1;text-shadow:0 0 30px rgba(255,255,255,0.1);}
+.kmc-line{
+  font-family:'DM Serif Display','Outfit',serif;
+  font-size:clamp(15px,2.6vw,20px);
+  font-style:italic;
+  text-align:center;
+  color:var(--gold2);
+  letter-spacing:0.04em;
+  margin:6px 0 2px;
+  padding:6px 18px;
+  position:relative;
+  display:inline-block;
+}
+.kmc-line::before, .kmc-line::after{
+  content:'';position:absolute;left:50%;width:90px;height:1px;
+  background:linear-gradient(90deg,
+    transparent 0%, rgba(255,153,51,0.55) 25%,
+    rgba(255,255,255,0.55) 50%,
+    rgba(19,136,8,0.55) 75%, transparent 100%);
+  transform:translateX(-50%);
+}
+.kmc-line::before{top:0;}
+.kmc-line::after{bottom:0;}
 .p1-title{font-family:'Outfit',sans-serif;font-size:clamp(20px,4.2vw,32px);text-align:center;line-height:1.2;color:var(--text);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:inline-block;transform-style:preserve-3d;animation:incTitleSpin 9s ease-in-out infinite;transform-origin:center center;}
 /* Pause at readable 0° for ~70% of the cycle, then do a clean 360° flip */
 @keyframes incTitleSpin{
@@ -664,6 +686,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
     <p class="p1-tagline">WEST BENGAL &middot; KOLKATA</p>
     <div class="ward-big">WARD NO. 54</div>
+    <div class="kmc-line">Kolkata Municipal Corporation</div>
     <h1 class="p1-title"><span class="flag-saffron">INDIAN</span> <span class="flag-white">NATIONAL</span><br><span class="flag-green">CONGRESS</span></h1>
     <div class="p1-divider"></div>
     <div class="entry-bar-group">
