@@ -742,6 +742,134 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   COMMITTEE COMMUNICATION BAR — Video Call (Jitsi) + Group Chat (localStorage)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.comm-bar{
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;
+  padding:14px 16px;border-radius:var(--r2);
+  background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));
+  border:1px solid var(--border);
+}
+.comm-bar-label{
+  flex:1;min-width:160px;display:flex;flex-direction:column;justify-content:center;
+}
+.comm-bar-label .l-title{font-size:12px;font-weight:600;color:var(--text);letter-spacing:0.02em;}
+.comm-bar-label .l-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.comm-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:999px;font-size:13px;font-weight:600;
+  font-family:'Outfit',sans-serif;cursor:pointer;border:1px solid;
+  transition:all 0.2s ease;color:#fff;letter-spacing:0.02em;
+}
+.comm-btn svg{width:16px;height:16px;}
+.comm-btn-call{
+  background:linear-gradient(135deg,#16a34a,#22c55e);border-color:rgba(34,197,94,0.5);
+  box-shadow:0 4px 14px rgba(34,197,94,0.30);
+}
+.comm-btn-call:hover{box-shadow:0 8px 24px rgba(34,197,94,0.45);transform:translateY(-1px);}
+.comm-btn-chat{
+  background:linear-gradient(135deg,#2563eb,#3b82f6);border-color:rgba(59,130,246,0.5);
+  box-shadow:0 4px 14px rgba(59,130,246,0.30);
+}
+.comm-btn-chat:hover{box-shadow:0 8px 24px rgba(59,130,246,0.45);transform:translateY(-1px);}
+
+/* Youth variant — violet/magenta accents */
+.committee-section.youth .comm-btn-call{
+  background:linear-gradient(135deg,#a855f7,#c084fc);border-color:rgba(168,85,247,0.5);
+  box-shadow:0 4px 14px rgba(168,85,247,0.30);
+}
+.committee-section.youth .comm-btn-call:hover{box-shadow:0 8px 24px rgba(168,85,247,0.50);}
+.committee-section.youth .comm-btn-chat{
+  background:linear-gradient(135deg,#ec4899,#f472b6);border-color:rgba(236,72,153,0.5);
+  box-shadow:0 4px 14px rgba(236,72,153,0.30);
+}
+.committee-section.youth .comm-btn-chat:hover{box-shadow:0 8px 24px rgba(236,72,153,0.50);}
+
+/* CHAT DRAWER — sliding panel from the right */
+.chat-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;transition:opacity 0.22s ease;z-index:999;
+}
+.chat-overlay.open{opacity:1;pointer-events:auto;}
+.chat-drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);
+  background:var(--navy2);border-left:1px solid var(--border2);
+  transform:translateX(100%);transition:transform 0.32s cubic-bezier(0.4,0,0.2,1);
+  z-index:1000;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,0.5);
+}
+.chat-drawer.open{transform:translateX(0);}
+.chat-head{
+  padding:18px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.04),transparent);
+}
+.chat-head-title{font-size:16px;font-weight:600;color:var(--text);}
+.chat-head-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.chat-close{
+  background:transparent;border:none;color:var(--text2);cursor:pointer;padding:6px;
+  display:flex;align-items:center;justify-content:center;border-radius:6px;
+}
+.chat-close:hover{background:var(--glass);color:var(--text);}
+.chat-close svg{width:18px;height:18px;}
+.chat-banner{
+  background:rgba(232,148,90,0.08);border-bottom:1px solid rgba(232,148,90,0.15);
+  color:#f0c896;font-size:11px;padding:8px 20px;line-height:1.5;letter-spacing:0.01em;
+}
+.chat-body{
+  flex:1;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:8px;
+}
+.chat-empty{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;color:var(--text3);padding:30px;
+}
+.chat-empty svg{width:48px;height:48px;opacity:0.4;margin-bottom:14px;}
+.chat-msg{
+  max-width:80%;padding:8px 12px;border-radius:14px;font-size:13px;line-height:1.45;
+  word-break:break-word;animation:msgIn 0.22s ease-out;
+}
+@keyframes msgIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+.chat-msg.me{
+  align-self:flex-end;background:linear-gradient(135deg,#2563eb,#3b82f6);
+  color:#fff;border-bottom-right-radius:4px;
+}
+.chat-msg.them{
+  align-self:flex-start;background:var(--glass3);border:1px solid var(--border);
+  color:var(--text);border-bottom-left-radius:4px;
+}
+.chat-msg-meta{font-size:10px;opacity:0.6;margin-top:3px;letter-spacing:0.02em;}
+.chat-input-row{
+  border-top:1px solid var(--border);padding:12px 14px;
+  display:flex;gap:8px;background:var(--navy2);
+}
+.chat-name{
+  background:var(--glass);border:1px solid var(--border);color:var(--text);
+  border-radius:8px;padding:8px 10px;font-size:12px;font-family:'Outfit';width:110px;outline:none;
+}
+.chat-name:focus{border-color:var(--border2);}
+.chat-input{
+  flex:1;background:var(--glass);border:1px solid var(--border);color:var(--text);
+  border-radius:8px;padding:8px 12px;font-size:13px;font-family:'Outfit';outline:none;
+}
+.chat-input:focus{border-color:var(--border2);}
+.chat-send{
+  background:linear-gradient(135deg,#2563eb,#3b82f6);border:none;color:#fff;
+  border-radius:8px;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+}
+.chat-send:hover{filter:brightness(1.1);}
+.chat-send svg{width:14px;height:14px;}
+
+/* Youth variant chat colors */
+.chat-drawer.youth .chat-msg.me{background:linear-gradient(135deg,#a855f7,#ec4899);}
+.chat-drawer.youth .chat-send{background:linear-gradient(135deg,#a855f7,#ec4899);}
+
+@media(max-width:600px){
+  .chat-drawer{width:100%;}
+  .comm-bar{flex-direction:column;align-items:stretch;}
+  .comm-btn{justify-content:center;}
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    PAGE 7 — 54 Ward Youth Congress (committee only — no voter database)
    ═══════════════════════════════════════════════════════════════════════════ */
 .p7-body{padding:20px;flex:1;max-width:1180px;width:100%;margin:0 auto;}
@@ -904,6 +1032,20 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
           <div class="committee-head-sub">Post &middot; Name &middot; Number &middot; Pic — as per ward register</div>
         </div>
       </div>
+      <div class="comm-bar">
+        <div class="comm-bar-label">
+          <div class="l-title">Members Communication</div>
+          <div class="l-sub">Start a group video call or open the committee chat</div>
+        </div>
+        <button class="comm-btn comm-btn-call" onclick="startCommitteeCall('congress')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Start Video Call
+        </button>
+        <button class="comm-btn comm-btn-chat" onclick="openCommitteeChat('congress')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Group Chat
+        </button>
+      </div>
       <div class="committee-grid" id="congressCommitteeGrid"></div>
     </div>
     <div class="p5-stats" id="p5-stats"></div>
@@ -970,6 +1112,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="p7-hero-title">54 Ward Youth Congress</div>
       <div class="p7-hero-sub">Office bearers &middot; Executive committee &middot; Outreach team</div>
     </div>
+    <!-- placeholder anchor — committee block follows -->
     <div class="committee-section youth">
       <div class="committee-head">
         <div>
@@ -977,11 +1120,51 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             54 Ward Youth Congress — Office Bearers
           </div>
-          <div class="committee-head-sub">Post &middot; Name &middot; Contact &middot; Photo ID</div>
+          <div class="committee-head-sub">Post &middot; Name &middot; Number &middot; Pic — same structure as the parent committee</div>
         </div>
+      </div>
+      <div class="comm-bar">
+        <div class="comm-bar-label">
+          <div class="l-title">Members Communication</div>
+          <div class="l-sub">Start a group video call or open the youth-wing chat</div>
+        </div>
+        <button class="comm-btn comm-btn-call" onclick="startCommitteeCall('youth')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Start Video Call
+        </button>
+        <button class="comm-btn comm-btn-chat" onclick="openCommitteeChat('youth')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Group Chat
+        </button>
       </div>
       <div class="committee-grid" id="youthCommitteeGrid"></div>
     </div>
+  </div>
+</div>
+
+<!-- Committee Chat Drawer (used by both Congress + Youth Congress) -->
+<div class="chat-overlay" id="chatOverlay" onclick="closeCommitteeChat()"></div>
+<div class="chat-drawer" id="chatDrawer">
+  <div class="chat-head">
+    <div>
+      <div class="chat-head-title" id="chatTitle">Committee Chat</div>
+      <div class="chat-head-sub" id="chatSub">Send a message to all members</div>
+    </div>
+    <button class="chat-close" onclick="closeCommitteeChat()" aria-label="Close chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="chat-banner">
+    Chat is stored locally on this device until the cloud backend goes live.
+    Once Supabase is connected, messages will sync across all members in real-time.
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input-row">
+    <input class="chat-name" id="chatName" placeholder="Your name" maxlength="20">
+    <input class="chat-input" id="chatInput" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendCommitteeMessage()">
+    <button class="chat-send" onclick="sendCommitteeMessage()" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>
+    </button>
   </div>
 </div>
 
@@ -2874,8 +3057,12 @@ var youthCommittee = [
   { post:'Vice President',     name:'',           phone:'',           photo:null, empty:true },
   { post:'Vice President',     name:'',           phone:'',           photo:null, empty:true },
   { post:'General Secretary',  name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary',          name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary',          name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary 1 of 5',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary 2 of 5',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary 3 of 5',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary 4 of 5',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary 5 of 5',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
   { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
   { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
 ];
@@ -2914,6 +3101,111 @@ function buildCommittee(which){
       + '</div>'
       + '</div>';
   }).join('');
+}
+
+/* ===== COMMITTEE COMMUNICATION (video call + group chat) ===== */
+var JITSI_ROOMS = {
+  congress: 'Ward54-INC-Congress-Committee-Hall',
+  youth:    'Ward54-INC-Youth-Congress-Hall'
+};
+var CHAT_LABELS = {
+  congress: { title:'Congress Committee Chat', sub:'54 Ward Congress Committee members' },
+  youth:    { title:'Youth Congress Chat',     sub:'54 Ward Youth Congress members' }
+};
+var _activeChatRoom = null;
+
+function startCommitteeCall(which){
+  var room = JITSI_ROOMS[which];
+  if(!room){ showToast('Unknown committee'); return; }
+  var url = 'https://meet.jit.si/'+room+'#config.prejoinPageEnabled=true';
+  window.open(url, '_blank', 'noopener,noreferrer');
+  showToast('Opening video call — share the same link with members');
+}
+
+function openCommitteeChat(which){
+  _activeChatRoom = which;
+  var labels = CHAT_LABELS[which] || CHAT_LABELS.congress;
+  document.getElementById('chatTitle').textContent = labels.title;
+  document.getElementById('chatSub').textContent = labels.sub;
+  var drawer = document.getElementById('chatDrawer');
+  drawer.classList.toggle('youth', which==='youth');
+  drawer.classList.add('open');
+  document.getElementById('chatOverlay').classList.add('open');
+  /* Pre-fill the name from previous session if remembered */
+  var savedName = localStorage.getItem('ward54.chatName');
+  if(savedName) document.getElementById('chatName').value = savedName;
+  renderCommitteeChat();
+  setTimeout(function(){ document.getElementById('chatInput').focus(); }, 200);
+}
+
+function closeCommitteeChat(){
+  document.getElementById('chatDrawer').classList.remove('open');
+  document.getElementById('chatOverlay').classList.remove('open');
+  _activeChatRoom = null;
+}
+
+function _chatKey(which){ return 'ward54.chat.'+which; }
+
+function _loadChat(which){
+  try{ return JSON.parse(localStorage.getItem(_chatKey(which)) || '[]'); }
+  catch(e){ return []; }
+}
+
+function _saveChat(which, list){
+  try{ localStorage.setItem(_chatKey(which), JSON.stringify(list.slice(-200))); }
+  catch(e){ /* localStorage full or unavailable */ }
+}
+
+function _chatTime(ts){
+  var d = new Date(ts);
+  var h = d.getHours(), m = d.getMinutes();
+  return (h<10?'0':'')+h+':'+(m<10?'0':'')+m;
+}
+
+function renderCommitteeChat(){
+  if(!_activeChatRoom) return;
+  var body = document.getElementById('chatBody');
+  var msgs = _loadChat(_activeChatRoom);
+  var meName = (localStorage.getItem('ward54.chatName')||'').trim();
+  if(msgs.length === 0){
+    body.innerHTML = '<div class="chat-empty">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
+      + '<div style="font-size:13px;font-weight:600;color:var(--text2)">No messages yet</div>'
+      + '<div style="font-size:11px;margin-top:6px;max-width:240px;line-height:1.5">'
+      + 'Start the conversation — say hello to the committee members.'
+      + '</div>'
+      + '</div>';
+    return;
+  }
+  body.innerHTML = msgs.map(function(m){
+    var mine = meName && m.name === meName;
+    return '<div class="chat-msg '+(mine?'me':'them')+'">'
+      + (mine ? '' : '<div style="font-size:10px;font-weight:700;opacity:0.75;margin-bottom:2px;">'+m.name+'</div>')
+      + '<div>'+escapeHtml(m.text)+'</div>'
+      + '<div class="chat-msg-meta">'+_chatTime(m.ts)+'</div>'
+      + '</div>';
+  }).join('');
+  body.scrollTop = body.scrollHeight;
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function sendCommitteeMessage(){
+  if(!_activeChatRoom) return;
+  var name = document.getElementById('chatName').value.trim();
+  var text = document.getElementById('chatInput').value.trim();
+  if(!name){ document.getElementById('chatName').focus(); showToast('Enter your name first'); return; }
+  if(!text) return;
+  localStorage.setItem('ward54.chatName', name);
+  var list = _loadChat(_activeChatRoom);
+  list.push({ name:name, text:text, ts:Date.now() });
+  _saveChat(_activeChatRoom, list);
+  document.getElementById('chatInput').value = '';
+  renderCommitteeChat();
 }
 
 function buildVolunteersPanel(){
