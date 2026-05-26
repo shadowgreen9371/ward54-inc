@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+# Deploys index.html + admin.html (and any other static assets at the repo root)
+# to GitHub Pages on every push to main. The Next.js monorepo under apps/ and
+# packages/ is intentionally excluded — those deploy to Vercel separately.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'admin.html'
+      - 'CNAME'
+      - '.nojekyll'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Stage public site
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp admin.html _site/
+          touch _site/.nojekyll
+          [ -f CNAME ] && cp CNAME _site/ || true
+          [ -f README.md ] && cp README.md _site/ || true
+          echo "Staged files:"
+          ls -la _site/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
