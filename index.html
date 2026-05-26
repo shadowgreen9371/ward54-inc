@@ -2869,8 +2869,7 @@ function buildAllParts(filter){
     if(visible.length===0){
       docEl.innerHTML='<div style="color:#666;text-align:center;padding:40px;font-size:13px">No parts match "'+filter+'"</div>';
     } else {
-      docEl.innerHTML='<div class="doc-page-label">Index of polling parts &mdash; 163 Entally Assembly Constituency, Ward 54</div>'
-      +visible.map(function(pno){
+      docEl.innerHTML=visible.map(function(pno){
         var base=partsBase[pno];
         var section=partSection[pno]||'';
         var station=partStationName(pno);
