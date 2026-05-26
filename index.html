@@ -6,6 +6,9 @@
 <title>54 No Ward — Anjuman Constituency | INC</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- Firebase Realtime Database SDK (compat mode — works without bundler) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -3114,6 +3117,42 @@ var CHAT_LABELS = {
 };
 var _activeChatRoom = null;
 
+/* -------------------------------------------------------------------------
+   FIREBASE REALTIME DATABASE — Paste your config from Firebase Console here.
+   Steps in COMMITTEE_CHAT_SETUP.md (run setup once, ~5 minutes).
+   While the config is blank, chat silently falls back to per-device
+   localStorage so the UI keeps working.
+   ------------------------------------------------------------------------- */
+var FIREBASE_CONFIG = {
+  // apiKey: "AIzaSy...",
+  // authDomain: "ward54-inc.firebaseapp.com",
+  // databaseURL: "https://ward54-inc-default-rtdb.asia-southeast1.firebasedatabase.app",
+  // projectId: "ward54-inc",
+  // storageBucket: "ward54-inc.appspot.com",
+  // messagingSenderId: "1234567890",
+  // appId: "1:1234567890:web:abcdef123456"
+};
+
+var _fbDb = null;      // false = tried + failed/not-configured, object = ready
+var _fbListener = null; // current 'child_added' callback so we can detach on close
+var _localChatCache = []; // current room's messages held in memory for render
+
+function _firebaseReady(){
+  if(_fbDb !== null) return _fbDb;
+  if(!FIREBASE_CONFIG.apiKey || !FIREBASE_CONFIG.databaseURL
+     || typeof firebase === 'undefined' || !firebase.database){
+    _fbDb = false; return false;
+  }
+  try{
+    if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    _fbDb = firebase.database();
+    return _fbDb;
+  }catch(e){
+    console.error('Firebase init failed:', e);
+    _fbDb = false; return false;
+  }
+}
+
 function startCommitteeCall(which){
   var room = JITSI_ROOMS[which];
   if(!room){ showToast('Unknown committee'); return; }
@@ -3134,14 +3173,57 @@ function openCommitteeChat(which){
   /* Pre-fill the name from previous session if remembered */
   var savedName = localStorage.getItem('ward54.chatName');
   if(savedName) document.getElementById('chatName').value = savedName;
-  renderCommitteeChat();
+
+  /* Update the banner to reflect Firebase availability */
+  _refreshChatBanner();
+
+  /* Subscribe to Firebase if available, else load from localStorage */
+  var fb = _firebaseReady();
+  if(fb){
+    _localChatCache = [];
+    var ref = fb.ref('chats/' + which).limitToLast(200);
+    _fbListener = function(snap){
+      _localChatCache.push(snap.val());
+      if(_activeChatRoom === which) renderCommitteeChat();
+    };
+    ref.on('child_added', _fbListener);
+  } else {
+    _localChatCache = _loadChat(which);
+    renderCommitteeChat();
+  }
   setTimeout(function(){ document.getElementById('chatInput').focus(); }, 200);
 }
 
 function closeCommitteeChat(){
   document.getElementById('chatDrawer').classList.remove('open');
   document.getElementById('chatOverlay').classList.remove('open');
+  /* Detach Firebase listener if active to avoid duplicates next open */
+  if(_fbListener && _activeChatRoom){
+    var fb = _firebaseReady();
+    if(fb) try{ fb.ref('chats/' + _activeChatRoom).off('child_added', _fbListener); }
+    catch(e){}
+  }
+  _fbListener = null;
+  _localChatCache = [];
   _activeChatRoom = null;
+}
+
+function _refreshChatBanner(){
+  var banner = document.querySelector('#chatDrawer .chat-banner');
+  if(!banner) return;
+  if(_firebaseReady()){
+    banner.style.background = 'rgba(125,168,122,0.10)';
+    banner.style.borderBottomColor = 'rgba(125,168,122,0.20)';
+    banner.style.color = '#90c48a';
+    banner.innerHTML = '<strong>Connected via Firebase</strong> &middot; '
+      + 'Messages sync across every device in real-time.';
+  } else {
+    banner.style.background = '';
+    banner.style.borderBottomColor = '';
+    banner.style.color = '';
+    banner.innerHTML = 'Chat is stored locally on this device until Firebase is configured. '
+      + 'Once the config is pasted into FIREBASE_CONFIG, messages will sync to all members in real-time.';
+  }
 }
 
 function _chatKey(which){ return 'ward54.chat.'+which; }
@@ -3165,7 +3247,7 @@ function _chatTime(ts){
 function renderCommitteeChat(){
   if(!_activeChatRoom) return;
   var body = document.getElementById('chatBody');
-  var msgs = _loadChat(_activeChatRoom);
+  var msgs = _localChatCache.slice();
   var meName = (localStorage.getItem('ward54.chatName')||'').trim();
   if(msgs.length === 0){
     body.innerHTML = '<div class="chat-empty">'
@@ -3201,11 +3283,25 @@ function sendCommitteeMessage(){
   if(!name){ document.getElementById('chatName').focus(); showToast('Enter your name first'); return; }
   if(!text) return;
   localStorage.setItem('ward54.chatName', name);
-  var list = _loadChat(_activeChatRoom);
-  list.push({ name:name, text:text, ts:Date.now() });
-  _saveChat(_activeChatRoom, list);
+
+  var msg = { name:name, text:text, ts:Date.now() };
   document.getElementById('chatInput').value = '';
-  renderCommitteeChat();
+
+  var fb = _firebaseReady();
+  if(fb){
+    /* Push to Firebase — the 'child_added' listener will append + re-render */
+    try{
+      fb.ref('chats/' + _activeChatRoom).push(msg);
+    }catch(e){
+      console.error('Firebase push failed:', e);
+      showToast('Could not send — check Firebase rules', 'error');
+    }
+  } else {
+    /* localStorage fallback */
+    _localChatCache.push(msg);
+    _saveChat(_activeChatRoom, _localChatCache);
+    renderCommitteeChat();
+  }
 }
 
 function buildVolunteersPanel(){
