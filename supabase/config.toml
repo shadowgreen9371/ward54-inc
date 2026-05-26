@@ -1,0 +1,50 @@
+# Supabase project config for ward54-inc.
+# Run `supabase link --project-ref <YOUR_REF>` to connect, then `supabase db push`.
+
+project_id = "ward54-inc"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[storage]
+enabled = true
+file_size_limit = "5MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:5454"
+additional_redirect_urls = [
+  "http://localhost:5454",
+  "http://localhost:5455",
+  "https://ward54.in",
+  "https://admin.ward54.in",
+]
+jwt_expiry = 3600
+enable_signup = false  # admin accounts are provisioned manually
+
+[auth.email]
+enable_signup = false
+double_confirm_changes = true
+enable_confirmations = true
+secure_password_change = true
+max_frequency = "1m"
+
+[auth.email.template.magic_link]
+subject = "Ward 54 INC — Admin login link"
+
+# Lock the admin app to known emails only. Update this list when onboarding new
+# admins. The Next.js middleware enforces this on top of Supabase auth.
+# (Supabase itself can't restrict by email — that's done in middleware.)

@@ -13,3 +13,23 @@
 # Logs / temp
 *.log
 tmp/
+
+# Node / pnpm
+node_modules/
+.pnpm-store/
+*.tsbuildinfo
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Env files — never commit
+.env
+.env.local
+.env.*.local
+
+# Supabase
+supabase/.branches/
+supabase/.temp/
+supabase/.env
