@@ -56,15 +56,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   var(--navy);}
 .p1-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.2rem;padding:2rem;max-width:540px;width:100%;animation:fadeUp 0.8s ease both;}
 .inc-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 40px rgba(201,168,76,0.25), 0 0 80px rgba(232,130,30,0.15);}
-/* The landing logo gets a slow continuous spin + halo + halo pulse */
-#p1 .inc-logo{position:relative;animation:incSpin 18s linear infinite, incFloat 5s ease-in-out infinite;transform-origin:center;}
+/* Landing logo — static (animations removed per request). incSpin keyframe kept
+   so .flag-chakra inside .p1-title still spins. */
+#p1 .inc-logo{position:relative;transform-origin:center;}
 @keyframes incSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-@keyframes incFloat{0%,100%{box-shadow:0 0 40px rgba(201,168,76,0.30), 0 0 80px rgba(232,130,30,0.15);}50%{box-shadow:0 0 60px rgba(201,168,76,0.55), 0 0 120px rgba(232,130,30,0.30);}}
 .p1-logo-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:170px;height:170px;}
 .p1-logo-ring{position:absolute;inset:0;border-radius:50%;pointer-events:none;}
-.p1-logo-ring::before,.p1-logo-ring::after{content:'';position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(201,168,76,0.35);animation:ringSpin 24s linear infinite;}
-.p1-logo-ring::after{inset:-10px;border:1px solid rgba(232,130,30,0.18);animation:ringSpin 32s linear infinite reverse;}
-@keyframes ringSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.p1-logo-ring::before,.p1-logo-ring::after{content:'';position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(201,168,76,0.35);}
+.p1-logo-ring::after{inset:-10px;border:1px solid rgba(232,130,30,0.18);}
 .p1-tagline{font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);font-weight:700;}
 .ward-big{font-family:'Outfit',sans-serif;font-size:clamp(30px,6vw,46px);font-weight:700;letter-spacing:0.03em;color:var(--text);text-align:center;line-height:1;text-shadow:0 0 30px rgba(255,255,255,0.1);}
 .kmc-line{
