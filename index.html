@@ -1016,8 +1016,8 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 <div class="page" id="p5">
   <div class="topbar">
     <button class="back-btn" onclick="goTo('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Home</button>
-    <span class="tb-title tb-title-center">54 Ward Congress Committee &middot; Full Voter Database</span>
-    <div class="tb-right"><span class="tb-badge">26,849 voters &middot; Sl. 1-30 per part loaded</span></div>
+    <span class="tb-title tb-title-center">54 Ward Congress Committee</span>
+    <div class="tb-right"><span class="tb-badge">Office Bearers &middot; Members</span></div>
   </div>
   <div class="p5-body">
     <!-- 54 Ward Congress Committee — Office Bearers (top of page) -->
@@ -1046,31 +1046,6 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </button>
       </div>
       <div class="committee-grid" id="congressCommitteeGrid"></div>
-    </div>
-    <div class="p5-stats" id="p5-stats"></div>
-    <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="allPartsSearch" placeholder="Search part number, section, road or premise..." oninput="filterAllParts()"></div>
-    <div style="display:flex;justify-content:center;margin-bottom:16px;">
-      <div class="view-toggle" id="partsViewToggle">
-        <button id="partsViewBtnDoc" class="active" onclick="setPartsView('doc')" title="Index document style"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>Document</button>
-        <button id="partsViewBtnGrid" onclick="setPartsView('grid')" title="Card grid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Cards</button>
-      </div>
-    </div>
-    <div class="parts-doc-list" id="parts-doc-list"></div>
-    <div class="parts-mega-grid" id="parts-mega-grid" style="display:none"></div>
-
-    <!-- Volunteers Allocated section (lives on the All 38 Parts page) -->
-    <div class="volunteers-section">
-      <div class="vol-head">
-        <div>
-          <div class="vol-head-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 11l-3 3-2-2"/></svg>Volunteers Allocated</div>
-          <div class="vol-head-sub">Field volunteers assigned to each part &middot; photo ID panel &middot; responsibilities &middot; outreach analytics</div>
-        </div>
-        <select class="filter-sel" id="volPartFilter" onchange="buildVolunteersPanel()" style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:8px 12px;color:var(--text);font-size:13px;font-family:'Outfit',sans-serif;outline:none;cursor:pointer;">
-          <option value="">All parts</option>
-        </select>
-      </div>
-      <div class="vol-stats" id="vol-stats"></div>
-      <div class="volunteers-grid" id="volunteers-grid"></div>
     </div>
   </div>
 </div>
@@ -2564,7 +2539,7 @@ function goTo(id){
   var pages=document.querySelectorAll('.page');for(var i=0;i<pages.length;i++)pages[i].classList.remove('active');
   document.getElementById(id).classList.add('active');window.scrollTo(0,0);
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
-  if(id==='p5'){ buildAllParts(); buildAllPartsStats(); buildVolunteersPanel(); buildCommittee('congress'); }
+  if(id==='p5'){ buildCommittee('congress'); }
   if(id==='p6'){ buildAgents(); buildAgentsStats(); }
   if(id==='p7'){ buildCommittee('youth'); }
   syncTopbarLogos();
