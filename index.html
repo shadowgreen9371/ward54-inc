@@ -676,6 +676,82 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   .parts-mega-grid{grid-template-columns:1fr;}
   .voter-cards-grid{grid-template-columns:1fr;padding:8px;gap:10px;}
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMMITTEE MEMBERS — used on Congress Committee (p5) and Youth Congress (p7)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.committee-section{margin:24px 0 8px;background:linear-gradient(135deg,var(--glass),var(--glass2));border:1px solid var(--border2);border-radius:var(--r);padding:22px 24px;}
+.committee-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
+.committee-head-title{font-size:20px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:10px;}
+.committee-head-title svg{width:22px;height:22px;color:var(--gold);}
+.committee-head-sub{font-size:12px;color:var(--text3);margin-top:4px;}
+.committee-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.committee-card{
+  position:relative;background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);
+  padding:16px 16px 14px;display:flex;gap:14px;align-items:flex-start;
+  transition:border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;overflow:hidden;
+}
+.committee-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:var(--gold);opacity:0.7;}
+.committee-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,0.32);}
+.committee-photo{
+  width:64px;height:80px;flex-shrink:0;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:22px;font-weight:700;color:var(--gold2);
+  background:linear-gradient(135deg,rgba(201,168,76,0.18),rgba(232,130,30,0.10));
+  border:1.5px solid rgba(201,168,76,0.30);overflow:hidden;
+}
+.committee-photo img{width:100%;height:100%;object-fit:cover;}
+.committee-photo.empty{color:var(--text3);font-size:11px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;}
+.committee-info{flex:1;min-width:0;}
+.committee-post{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;
+  color:var(--gold);margin-bottom:4px;
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.20);
+  display:inline-block;padding:2px 8px;border-radius:999px;
+}
+.committee-name{font-size:16px;font-weight:600;color:var(--text);margin:6px 0 2px;line-height:1.2;}
+.committee-phone{
+  font-family:'DM Mono',ui-monospace,monospace;font-size:12px;color:var(--text2);
+  display:flex;align-items:center;gap:5px;margin-top:2px;
+}
+.committee-phone svg{width:11px;height:11px;color:var(--text3);}
+.committee-phone a{color:inherit;text-decoration:none;border-bottom:1px dashed transparent;}
+.committee-phone a:hover{color:var(--gold2);border-bottom-color:var(--gold);}
+.committee-empty-slot{
+  border-style:dashed !important;background:transparent !important;color:var(--text3);
+  font-size:12px;text-align:center;display:flex;align-items:center;justify-content:center;
+  min-height:104px;letter-spacing:0.04em;
+}
+.committee-empty-slot::before{display:none;}
+
+/* Youth Congress variant — violet/magenta accents */
+.committee-section.youth{border-color:rgba(168,85,247,0.30);}
+.committee-section.youth .committee-head-title svg{color:#a855f7;}
+.committee-section.youth .committee-card::before{background:linear-gradient(180deg,#8b5cf6 0%,#ec4899 100%);}
+.committee-section.youth .committee-photo{
+  background:linear-gradient(135deg,rgba(139,92,246,0.18),rgba(236,72,153,0.10));
+  border-color:rgba(168,85,247,0.30);color:#c4b5fd;
+}
+.committee-section.youth .committee-post{
+  color:#c4b5fd;background:rgba(168,85,247,0.08);border-color:rgba(168,85,247,0.22);
+}
+.committee-section.youth .committee-phone a:hover{color:#c4b5fd;border-bottom-color:#a855f7;}
+
+@media(max-width:600px){
+  .committee-grid{grid-template-columns:1fr;}
+  .committee-section{padding:18px 16px;}
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAGE 7 — 54 Ward Youth Congress (committee only — no voter database)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.p7-body{padding:20px;flex:1;max-width:1180px;width:100%;margin:0 auto;}
+.p7-hero{
+  background:linear-gradient(135deg,rgba(139,92,246,0.10),rgba(236,72,153,0.06));
+  border:1px solid rgba(168,85,247,0.25);border-radius:var(--r);
+  padding:24px;margin-bottom:18px;text-align:center;
+}
+.p7-hero-title{font-size:clamp(20px,4vw,28px);font-weight:700;color:var(--text);letter-spacing:0.02em;margin-bottom:6px;}
+.p7-hero-sub{font-size:13px;color:var(--text3);}
 </style>
 </head>
 <body>
@@ -716,7 +792,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
-      <div class="hero-cta hero-cta-youth" onclick="showToast('54 Ward Youth Congress section — coming soon')">
+      <div class="hero-cta hero-cta-youth" onclick="goTo('p7')">
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
         <div class="hero-cta-text">
@@ -828,6 +904,20 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="parts-doc-list" id="parts-doc-list"></div>
     <div class="parts-mega-grid" id="parts-mega-grid" style="display:none"></div>
 
+    <!-- 54 Ward Congress Committee — office bearers -->
+    <div class="committee-section" id="congressCommitteeSection">
+      <div class="committee-head">
+        <div>
+          <div class="committee-head-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V6l-8-4z"/><circle cx="12" cy="11" r="2.5"/><path d="M9 16c.6-1.4 1.7-2.2 3-2.2s2.4.8 3 2.2"/></svg>
+            54 Ward Congress Committee — Office Bearers
+          </div>
+          <div class="committee-head-sub">Post &middot; Name &middot; Contact &middot; Photo ID</div>
+        </div>
+      </div>
+      <div class="committee-grid" id="congressCommitteeGrid"></div>
+    </div>
+
     <!-- Volunteers Allocated section (lives on the All 38 Parts page) -->
     <div class="volunteers-section">
       <div class="vol-head">
@@ -866,6 +956,33 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       </select>
     </div>
     <div class="agents-grid" id="agents-grid"></div>
+  </div>
+</div>
+
+<!-- PAGE 7: 54 WARD YOUTH CONGRESS -->
+<div class="page" id="p7">
+  <div class="topbar">
+    <button class="back-btn" onclick="goTo('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Home</button>
+    <span class="tb-title tb-title-center">54 Ward Youth Congress</span>
+    <div class="tb-right"><span class="tb-badge">Youth wing &middot; Ward 54</span></div>
+  </div>
+  <div class="p7-body">
+    <div class="p7-hero">
+      <div class="p7-hero-title">54 Ward Youth Congress</div>
+      <div class="p7-hero-sub">Office bearers &middot; Executive committee &middot; Outreach team</div>
+    </div>
+    <div class="committee-section youth">
+      <div class="committee-head">
+        <div>
+          <div class="committee-head-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            54 Ward Youth Congress — Office Bearers
+          </div>
+          <div class="committee-head-sub">Post &middot; Name &middot; Contact &middot; Photo ID</div>
+        </div>
+      </div>
+      <div class="committee-grid" id="youthCommitteeGrid"></div>
+    </div>
   </div>
 </div>
 
@@ -2266,8 +2383,9 @@ function goTo(id){
   var pages=document.querySelectorAll('.page');for(var i=0;i<pages.length;i++)pages[i].classList.remove('active');
   document.getElementById(id).classList.add('active');window.scrollTo(0,0);
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
-  if(id==='p5'){ buildAllParts(); buildAllPartsStats(); buildVolunteersPanel(); }
+  if(id==='p5'){ buildAllParts(); buildAllPartsStats(); buildVolunteersPanel(); buildCommittee('congress'); }
   if(id==='p6'){ buildAgents(); buildAgentsStats(); }
+  if(id==='p7'){ buildCommittee('youth'); }
   syncTopbarLogos();
 }
 function syncTopbarLogos(){
@@ -2732,6 +2850,69 @@ function ensureVolPartFilter(){
     var o=document.createElement('option'); o.value=p; o.textContent='Part '+p; sel.appendChild(o);
   });
 }
+/* ===== COMMITTEE MEMBERS (Congress p5 + Youth Congress p7) ===== */
+var congressCommittee = [
+  { post:'President',          name:'Md. Shakil', phone:'9836513741', photo:null },
+  { post:'Vice President',     name:'Israil',     phone:'123456',     photo:null },
+  { post:'Vice President',     name:'Chadu',      phone:'123456',     photo:null },
+  { post:'General Secretary',  name:'Raza',       phone:'123456',     photo:null },
+  { post:'Secretary',          name:'Mahfooz',    phone:'123456',     photo:null },
+  { post:'Secretary',          name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary',          name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary',          name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary',          name:'',           phone:'',           photo:null, empty:true },
+  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
+];
+
+var youthCommittee = [
+  { post:'President',          name:'',           phone:'',           photo:null, empty:true },
+  { post:'Vice President',     name:'',           phone:'',           photo:null, empty:true },
+  { post:'Vice President',     name:'',           phone:'',           photo:null, empty:true },
+  { post:'General Secretary',  name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary',          name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary',          name:'',           phone:'',           photo:null, empty:true },
+  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
+];
+
+function committeeInitials(name){
+  if(!name) return '';
+  var parts = name.replace(/^(Md\.|Mr\.|Mrs\.|Ms\.|Sk\.)\s+/i,'').trim().split(/\s+/);
+  return parts.slice(0,2).map(function(p){return (p[0]||'').toUpperCase();}).join('');
+}
+
+function buildCommittee(which){
+  var data = which==='youth' ? youthCommittee : congressCommittee;
+  var gridId = which==='youth' ? 'youthCommitteeGrid' : 'congressCommitteeGrid';
+  var grid = document.getElementById(gridId);
+  if(!grid) return;
+  grid.innerHTML = data.map(function(m){
+    if(m.empty){
+      return '<div class="committee-card committee-empty-slot">'
+        + '+ Add ' + (m.post||'member')
+        + '</div>';
+    }
+    var photoHTML = m.photo
+      ? '<div class="committee-photo"><img src="'+m.photo+'" alt=""></div>'
+      : (m.name
+          ? '<div class="committee-photo">'+committeeInitials(m.name)+'</div>'
+          : '<div class="committee-photo empty">photo</div>');
+    var phoneHTML = m.phone
+      ? '<div class="committee-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:'+String(m.phone).replace(/\s/g,'')+'">'+m.phone+'</a></div>'
+      : '';
+    return '<div class="committee-card">'
+      + photoHTML
+      + '<div class="committee-info">'
+        + '<span class="committee-post">'+m.post+'</span>'
+        + '<div class="committee-name">'+m.name+'</div>'
+        + phoneHTML
+      + '</div>'
+      + '</div>';
+  }).join('');
+}
+
 function buildVolunteersPanel(){
   ensureVolPartFilter();
   var partFilter=document.getElementById('volPartFilter')?.value||'';
