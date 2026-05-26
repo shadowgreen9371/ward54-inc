@@ -157,7 +157,6 @@ async function main() {
         age: v.age ?? null,
         gender: (v.gender ?? 'O').toUpperCase().startsWith('M') ? 'M' : (v.gender ?? 'O').toUpperCase().startsWith('F') ? 'F' : 'O',
         photo_url: null,
-        support: v.support ?? null, // preserved for admin
       });
     });
   }

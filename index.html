@@ -411,8 +411,7 @@ body{
 .gbadge.M{background:rgba(59,130,246,0.12);color:var(--blue2);}
 .gbadge.F{background:rgba(236,72,153,0.12);color:var(--pink2);}
 .sp-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle;}
-.sp-tmc .sp-dot{background:var(--tmc);}.sp-bjp .sp-dot{background:var(--bjp);}.sp-cpm .sp-dot{background:var(--cpm);}.sp-und .sp-dot{background:var(--und);}.sp-inc .sp-dot{background:var(--inc-saffron);}
-.sp-tmc{color:#6ee7b7;}.sp-bjp{color:#fcd34d;}.sp-cpm{color:#fca5a5;}.sp-und{color:var(--text3);}.sp-inc{color:#f0a85c;}
+/* Party-affinity colour classes removed — Support column no longer exists. */
 .vid{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);}
 .contact-badge{font-size:11px;padding:2px 8px;border-radius:999px;}
 .contact-yes{background:rgba(16,185,129,0.12);color:#6ee7b7;}
@@ -1175,8 +1174,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       <div class="filter-row">
         <input class="filter-input" id="voterSearch" placeholder="Search name or voter ID..." oninput="applyFilters()">
         <select class="filter-sel" id="filterGender" onchange="applyFilters()"><option value="">All genders</option><option value="M">Male</option><option value="F">Female</option></select>
-<!-- Party support filter is admin-only — hidden on public site -->
-        <select class="filter-sel" id="filterParty" onchange="applyFilters()" style="display:none"><option value=""></option></select>
         <select class="filter-sel" id="filterContact" onchange="applyFilters()"><option value="">All contacts</option><option value="Yes">Contacted</option><option value="No">Not contacted</option></select>
       </div>
       <!-- Voter list output renders into BOTH containers; only one is visible per view-mode -->
@@ -2600,7 +2597,6 @@ var pdfVoters={
 
 var namePool=['Md. Rafiqul Islam','Fatema Begum','Sk. Jamal Uddin','Nasrin Khatun','Aminur Rahman','Parvin Sultana','Karim Molla','Sahana Bibi','Nurul Haque','Ruksana Begum','Abul Kasem','Mumtaz Khatun','Siraj Uddin','Hasina Khatun','Rezaul Karim','Jakir Hossain','Saleha Bibi','Md. Yakub Ali','Anwara Begum','Sk. Mofizul Islam','Badrul Islam','Kohinoor Begum','Mosiur Rahman','Dilruba Khatun','Ataur Rahman'];
 var fatherPool=['Abdul Karim','Md. Rafiqul','Sk. Jamal','Aminur Rahman','Nurul Haque','Karim Molla','Abul Kasem','Rezaul Karim','Siraj Uddin','Md. Alamgir','Sk. Mofizul','Md. Yakub','Karim Uddin','Nurul Islam','Abul Hossain','Badrul Islam','Mosiur Rahman','Ataur Rahman','Jakir Hossain','Sk. Mofiz'];
-var partyPool=['INC','INC','TMC','BJP','CPM','INC','TMC','INC','CPM','Undecided','INC','TMC','BJP','Undecided','INC','TMC','BJP','Undecided','CPM','INC','INC','BJP','Undecided','CPM','INC'];
 var occPool=['Business','Service','Housewife','Student','Labour','Retired','Teacher','Doctor','Others'];
 var relPool=['Islam','Islam','Islam','Hindu','Islam','Islam','Christian','Islam'];
 var bloodPool=['A+','B+','O+','AB+','A-','B-','O-','Unknown'];
@@ -2626,7 +2622,7 @@ function buildPartVoters(pno){
       mobile:'+91 '+(9800000000+pno*100+i),
       address:house+', '+sectionRoad(pno)+', Kolkata-700014',
       religion:relPool[i%relPool.length],occupation:occPool[i%occPool.length],bloodGroup:bloodPool[i%bloodPool.length],
-      party:partyPool[i%partyPool.length],contact:i%3===0?'Yes':'No',notes:(useReal?'Verified from 2026 Draft Electoral Roll (Sl. '+r[0]+').':(i%5===0?'Sample record.':'')),volunteer:volPool[i%volPool.length],photo:null,sample:!useReal});
+      contact:i%3===0?'Yes':'No',notes:(useReal?'Verified from 2026 Draft Electoral Roll (Sl. '+r[0]+').':(i%5===0?'Sample record.':'')),volunteer:volPool[i%volPool.length],photo:null,sample:!useReal});
   }
   voterDB[pno]=rows;
 }
@@ -2641,7 +2637,6 @@ Object.keys(partsBase).forEach(function(k){buildPartVoters(parseInt(k));});
 /* ===== Utils ===== */
 function getInitials(n){var p=n.trim().split(' ');return p.length===1?p[0][0].toUpperCase():(p[0][0]+p[p.length-1][0]).toUpperCase();}
 function avatarHTML(v,size){size=size||36;var ac=avatarColors[v.id%avatarColors.length];if(v.photo)return '<div class="voter-avatar" style="width:'+size+'px;height:'+size+'px;"><img src="'+v.photo+'" alt=""></div>';return '<div class="voter-avatar" style="width:'+size+'px;height:'+size+'px;background:'+ac.bg+';color:'+ac.color+';border-color:'+ac.color+'44;font-size:'+(size>50?'18px':'12px')+'">'+getInitials(v.name)+'</div>';}
-function partyClass(p){return p==='TMC'?'tmc':p==='BJP'?'bjp':p==='CPM'?'cpm':p==='INC'?'inc':'und';}
 function showToast(msg,type){type=type||'success';var t=document.getElementById('toast');t.querySelector('#toast-msg').textContent=msg;t.className='toast '+type+' show';setTimeout(function(){t.className='toast '+type;},3000);}
 
 function goTo(id){
@@ -2693,20 +2688,18 @@ function showMapFallback(el){
 
 
 /* Per-station analytics: sum across all booths in the group.
-   Returns {male, female, total, inc, incPct, loaded} */
+   Returns {male, female, total, loaded} */
 function stationAnalytics(group){
-  var male=0, female=0, total=0, inc=0, loaded=0;
+  var male=0, female=0, total=0, loaded=0;
   group.booths.forEach(function(b){
     b.parts.forEach(function(p){
       var base=partsBase[p];
       if(base){male+=base.male; female+=base.female; total+=base.total;}
       var voters=voterDB[p]||[];
       loaded+=voters.length;
-      inc+=voters.filter(function(v){return v.party==='INC';}).length;
     });
   });
-  var incPct=loaded?Math.round(inc/loaded*100):0;
-  return {male:male, female:female, total:total, inc:inc, incPct:incPct, loaded:loaded};
+  return {male:male, female:female, total:total, loaded:loaded};
 }
 
 /* Group booths by physical polling-station building.
@@ -2755,7 +2748,6 @@ function buildStations(list){
       +'<div class="pst-ana total"><div class="pst-ana-val">'+ana.total.toLocaleString()+'</div><div class="pst-ana-lbl">Total Voters</div></div>'
       +'<div class="pst-ana male"><div class="pst-ana-val">'+ana.male.toLocaleString()+'</div><div class="pst-ana-lbl">Male</div><div class="pst-ana-bar"><div class="pst-ana-bar-fill" style="width:'+malePct+'%;background:var(--blue2)"></div></div></div>'
       +'<div class="pst-ana female"><div class="pst-ana-val">'+ana.female.toLocaleString()+'</div><div class="pst-ana-lbl">Female</div><div class="pst-ana-bar"><div class="pst-ana-bar-fill" style="width:'+femalePct+'%;background:var(--pink2)"></div></div></div>'
-      +'<div class="pst-ana inc"><div class="pst-ana-val">'+(ana.loaded?ana.incPct+'%':'—')+'</div><div class="pst-ana-lbl">INC Support</div></div>'
     +'</div>';
     var booths=g.booths.map(function(b){
       return '<div class="pst-booth" onclick="openStation('+b.no+')" title="Booth '+b.no+' — Part '+b.parts.join(", ")+'">'
@@ -2799,21 +2791,16 @@ function buildBoothGallery(){
 /* Ward-wide summary stats bar (12 stations · 38 booths · ~27K voters etc.) */
 function buildWardStats(){
   var el=document.getElementById('wardStatsBar'); if(!el)return;
-  var totalM=0,totalF=0,total=0,loaded=0,inc=0;
+  var totalM=0,totalF=0,total=0;
   Object.keys(partsBase).forEach(function(k){
     totalM+=partsBase[k].male; totalF+=partsBase[k].female; total+=partsBase[k].total;
   });
-  Object.keys(voterDB).forEach(function(k){
-    var v=voterDB[k]||[]; loaded+=v.length; inc+=v.filter(function(x){return x.party==='INC';}).length;
-  });
-  var incPct=loaded?Math.round(inc/loaded*100):0;
   el.innerHTML=''
     +'<div class="wsb-stat saffron"><div class="wsb-val">'+total.toLocaleString()+'</div><div class="wsb-lbl">Total Electors</div></div>'
     +'<div class="wsb-stat blue"><div class="wsb-val">'+totalM.toLocaleString()+'</div><div class="wsb-lbl">Male</div></div>'
     +'<div class="wsb-stat pink"><div class="wsb-val">'+totalF.toLocaleString()+'</div><div class="wsb-lbl">Female</div></div>'
     +'<div class="wsb-stat gold"><div class="wsb-val">38</div><div class="wsb-lbl">Polling Booths</div></div>'
-    +'<div class="wsb-stat gold"><div class="wsb-val">12</div><div class="wsb-lbl">Stations</div></div>'
-    +'<div class="wsb-stat green"><div class="wsb-val">'+incPct+'%</div><div class="wsb-lbl">INC Support</div></div>';
+    +'<div class="wsb-stat gold"><div class="wsb-val">12</div><div class="wsb-lbl">Stations</div></div>';
 }
 
 function filterStations(){
@@ -2848,17 +2835,17 @@ function selectPart(pno){
   var pc=document.getElementById('pc-'+pno);if(pc)pc.classList.add('active');
   var secTxt=partSection[pno]?(' — '+partSection[pno]):'';
   document.getElementById('vs-title').textContent='Part '+pno+' — voter list'+secTxt;
-  ['voterSearch','filterGender','filterParty','filterContact'].forEach(function(id){document.getElementById(id).value='';});
+  ['voterSearch','filterGender','filterContact'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
   applyFilters();
   var vs=document.getElementById('voter-section');vs.classList.add('visible');
   setTimeout(function(){vs.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
 }
 
 function applyFilters(){
-  var q=document.getElementById('voterSearch').value.toLowerCase(),g=document.getElementById('filterGender').value,p=document.getElementById('filterParty').value,c=document.getElementById('filterContact').value;
+  var q=document.getElementById('voterSearch').value.toLowerCase(),g=document.getElementById('filterGender').value,c=document.getElementById('filterContact').value;
   filteredCache=(voterDB[currentPartNo]||[]).filter(function(v){
     if(q&&v.name.toLowerCase().indexOf(q)<0&&v.voterId.toLowerCase().indexOf(q)<0)return false;
-    if(g&&v.gender!==g)return false;if(p&&v.party!==p)return false;if(c&&v.contact!==c)return false;return true;});
+    if(g&&v.gender!==g)return false;if(c&&v.contact!==c)return false;return true;});
   currentPage=1; renderVoterTable();
 }
 

@@ -103,7 +103,6 @@ create table if not exists public.parts (
 create index if not exists parts_station_idx on public.parts(station_id);
 
 -- -- Voters --------------------------------------------------------------------
--- The `support` column is the political-affinity tag. RLS hides it from `anon`.
 create table if not exists public.voters (
   id uuid primary key default uuid_generate_v4(),
   part_id uuid not null references public.parts(id) on delete cascade,
@@ -116,12 +115,15 @@ create table if not exists public.voters (
   age int,
   gender gender_t not null default 'O',
   photo_url text,
-  support text,                              -- PRIVATE: admin-only
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (part_id, serial_in_part),
   unique (voter_id)
 );
+
+-- If you previously deployed an earlier version of this schema with a
+-- `support` column, drop it before applying:
+--   alter table public.voters drop column if exists support;
 create index if not exists voters_part_idx on public.voters(part_id);
 create index if not exists voters_name_trgm on public.voters using gin (lower(name) gin_trgm_ops);
 
@@ -234,14 +236,21 @@ drop policy if exists parts_admin_all on public.parts;
 create policy parts_admin_all on public.parts
   for all using (public.is_admin()) with check (public.is_admin());
 
--- voters — admins read/write all; anon role gets a constrained view via the
--- `voters_public` view below (which omits `support`). RLS on the table denies
--- direct anon SELECT.
+-- voters — admins read/write all; public reads voters in published parts only.
 drop policy if exists voters_admin_all on public.voters;
 create policy voters_admin_all on public.voters
   for all using (public.is_admin()) with check (public.is_admin());
 
--- Public-facing view that explicitly drops `support` — used by anon role.
+drop policy if exists voters_public_read on public.voters;
+create policy voters_public_read on public.voters
+  for select using (
+    exists (
+      select 1 from public.parts p
+      where p.id = voters.part_id and p.is_published = true
+    )
+  );
+
+-- Optional convenience view (same schema as the table since `support` is gone).
 create or replace view public.voters_public
 with (security_invoker = true)
 as

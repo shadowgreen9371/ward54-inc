@@ -100,10 +100,6 @@ export async function listAgents(): Promise<Agent[]> {
   return data ?? [];
 }
 
-/**
- * NOTE: this never selects the `support` column.
- * RLS additionally hides it from the anon role at the database level.
- */
 export async function listVotersByPart(partId: string): Promise<Voter[]> {
   if (!hasSupabaseEnv()) {
     return seedVoters.filter((v) => v.part_id === partId);
@@ -120,8 +116,7 @@ export async function listVotersByPart(partId: string): Promise<Voter[]> {
     console.error('listVotersByPart:', error.message);
     return [];
   }
-  // Return type matches Voter row minus `support`; cast for callers
-  return (data ?? []).map((v) => ({ ...v, support: null }) as Voter);
+  return (data ?? []) as Voter[];
 }
 
 // -------------------- seed adapters --------------------

@@ -349,8 +349,7 @@ body{
 .gbadge.M{background:rgba(59,130,246,0.12);color:var(--blue2);}
 .gbadge.F{background:rgba(236,72,153,0.12);color:var(--pink2);}
 .sp-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle;}
-.sp-tmc .sp-dot{background:var(--tmc);}.sp-bjp .sp-dot{background:var(--bjp);}.sp-cpm .sp-dot{background:var(--cpm);}.sp-und .sp-dot{background:var(--und);}.sp-inc .sp-dot{background:var(--inc-saffron);}
-.sp-tmc{color:#6ee7b7;}.sp-bjp{color:#fcd34d;}.sp-cpm{color:#fca5a5;}.sp-und{color:var(--text3);}.sp-inc{color:#f0a85c;}
+/* Party-affinity colour classes removed — Support column no longer exists. */
 .vid{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);}
 .contact-badge{font-size:11px;padding:2px 8px;border-radius:999px;}
 .contact-yes{background:rgba(16,185,129,0.12);color:#6ee7b7;}
@@ -828,7 +827,6 @@ body{
       <div class="form-group"><label class="form-label">Religion</label><select class="form-select" id="f-religion"><option>Islam</option><option>Hindu</option><option>Christian</option><option>Other</option></select></div>
       <div class="form-group"><label class="form-label">Occupation</label><input class="form-input" id="f-occ" placeholder="e.g. Business"></div>
       <div class="form-group"><label class="form-label">Blood group</label><select class="form-select" id="f-blood"><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option><option>Unknown</option></select></div>
-      <div class="form-group"><label class="form-label">Party support</label><select class="form-select" id="f-party"><option>INC</option><option>TMC</option><option>BJP</option><option>CPM</option><option>Undecided</option></select></div>
       <div class="form-group"><label class="form-label">Contact status</label><select class="form-select" id="f-contact"><option value="No">Not contacted</option><option value="Yes">Contacted</option></select></div>
       <div class="form-group"><label class="form-label">Volunteer assigned</label><select class="form-select" id="f-vol"><option value="">None</option><option>Rafiq Molla</option><option>Sufia Begum</option><option>Karim Uddin</option><option>Nasima Khatun</option><option>Jamal Sheikh</option></select></div>
       <div class="form-group form-grid-full"><label class="form-label">Address</label><input class="form-input" id="f-addr" placeholder="Full address, Kolkata-14"></div>
@@ -914,7 +912,6 @@ body{
       <div class="admin-stat"><div class="admin-stat-val" id="stat-total">0</div><div class="admin-stat-lbl">Total voters</div></div>
       <div class="admin-stat"><div class="admin-stat-val" style="color:#60a5fa" id="stat-male">0</div><div class="admin-stat-lbl">Male</div></div>
       <div class="admin-stat"><div class="admin-stat-val" style="color:#f472b6" id="stat-female">0</div><div class="admin-stat-lbl">Female</div></div>
-      <div class="admin-stat"><div class="admin-stat-val" style="color:#f0a85c" id="stat-inc">0</div><div class="admin-stat-lbl">INC</div></div>
     </div></div>
     <div class="sec-label">Parts — click to view voters</div>
     <div class="parts-grid" id="parts-grid"></div>
@@ -937,11 +934,10 @@ body{
       <div class="filter-row">
         <input class="filter-input" id="voterSearch" placeholder="Search name or voter ID..." oninput="applyFilters()">
         <select class="filter-sel" id="filterGender" onchange="applyFilters()"><option value="">All genders</option><option value="M">Male</option><option value="F">Female</option></select>
-        <select class="filter-sel" id="filterParty" onchange="applyFilters()"><option value="">All parties</option><option>INC</option><option>TMC</option><option>BJP</option><option>CPM</option><option>Undecided</option></select>
         <select class="filter-sel" id="filterContact" onchange="applyFilters()"><option value="">All contacts</option><option value="Yes">Contacted</option><option value="No">Not contacted</option></select>
       </div>
       <div class="vtable-wrap"><table class="vtable"><thead><tr>
-        <th style="width:60px">Photo</th><th>Voter name</th><th style="width:110px">Voter ID</th><th style="width:42px">Age</th><th style="width:70px">Gender</th><th style="width:100px">Support</th><th style="width:90px">Contact</th><th class="admin-col" style="display:none;width:90px">Actions</th>
+        <th style="width:60px">Photo</th><th>Voter name</th><th style="width:110px">Voter ID</th><th style="width:42px">Age</th><th style="width:70px">Gender</th><th style="width:90px">Contact</th><th class="admin-col" style="display:none;width:90px">Actions</th>
       </tr></thead><tbody id="vtbody"></tbody></table></div>
       <div class="vs-pager" id="vsPager"></div>
     </div>
@@ -966,7 +962,6 @@ body{
       <div class="p4-stat"><div class="p4-stat-val" id="p4-s-parts">38</div><div class="p4-stat-lbl">Total Parts</div></div>
       <div class="p4-stat"><div class="p4-stat-val" id="p4-s-stations">10</div><div class="p4-stat-lbl">Stations</div></div>
       <div class="p4-stat"><div class="p4-stat-val" id="p4-s-voters" style="color:var(--inc-saffron)">—</div><div class="p4-stat-lbl">Loaded Voters</div></div>
-      <div class="p4-stat"><div class="p4-stat-val" id="p4-s-inc" style="color:var(--green2)">—</div><div class="p4-stat-lbl">INC Support</div></div>
     </div>
 
     <!-- Section 1: Site Logo -->
@@ -2447,7 +2442,6 @@ var pdfVoters={
 
 var namePool=['Md. Rafiqul Islam','Fatema Begum','Sk. Jamal Uddin','Nasrin Khatun','Aminur Rahman','Parvin Sultana','Karim Molla','Sahana Bibi','Nurul Haque','Ruksana Begum','Abul Kasem','Mumtaz Khatun','Siraj Uddin','Hasina Khatun','Rezaul Karim','Jakir Hossain','Saleha Bibi','Md. Yakub Ali','Anwara Begum','Sk. Mofizul Islam','Badrul Islam','Kohinoor Begum','Mosiur Rahman','Dilruba Khatun','Ataur Rahman'];
 var fatherPool=['Abdul Karim','Md. Rafiqul','Sk. Jamal','Aminur Rahman','Nurul Haque','Karim Molla','Abul Kasem','Rezaul Karim','Siraj Uddin','Md. Alamgir','Sk. Mofizul','Md. Yakub','Karim Uddin','Nurul Islam','Abul Hossain','Badrul Islam','Mosiur Rahman','Ataur Rahman','Jakir Hossain','Sk. Mofiz'];
-var partyPool=['INC','INC','TMC','BJP','CPM','INC','TMC','INC','CPM','Undecided','INC','TMC','BJP','Undecided','INC','TMC','BJP','Undecided','CPM','INC','INC','BJP','Undecided','CPM','INC'];
 var occPool=['Business','Service','Housewife','Student','Labour','Retired','Teacher','Doctor','Others'];
 var relPool=['Islam','Islam','Islam','Hindu','Islam','Islam','Christian','Islam'];
 var bloodPool=['A+','B+','O+','AB+','A-','B-','O-','Unknown'];
@@ -2472,7 +2466,7 @@ function buildPartVoters(pno){
       mobile:'+91 '+(9800000000+pno*100+i),
       address:house+', '+sectionRoad(pno)+', Kolkata-700014',
       religion:relPool[i%relPool.length],occupation:occPool[i%occPool.length],bloodGroup:bloodPool[i%bloodPool.length],
-      party:partyPool[i%partyPool.length],contact:i%3===0?'Yes':'No',notes:(useReal?'Verified from 2026 Draft Electoral Roll (Sl. '+r[0]+').':(i%5===0?'Sample record.':'')),volunteer:volPool[i%volPool.length],photo:null,sample:!useReal});
+      contact:i%3===0?'Yes':'No',notes:(useReal?'Verified from 2026 Draft Electoral Roll (Sl. '+r[0]+').':(i%5===0?'Sample record.':'')),volunteer:volPool[i%volPool.length],photo:null,sample:!useReal});
   }
   voterDB[pno]=rows;
 }
@@ -2487,7 +2481,6 @@ Object.keys(partsBase).forEach(function(k){buildPartVoters(parseInt(k));});
 /* ===== Utils ===== */
 function getInitials(n){var p=n.trim().split(' ');return p.length===1?p[0][0].toUpperCase():(p[0][0]+p[p.length-1][0]).toUpperCase();}
 function avatarHTML(v,size){size=size||36;var ac=avatarColors[v.id%avatarColors.length];if(v.photo)return '<div class="voter-avatar" style="width:'+size+'px;height:'+size+'px;"><img src="'+v.photo+'" alt=""></div>';return '<div class="voter-avatar" style="width:'+size+'px;height:'+size+'px;background:'+ac.bg+';color:'+ac.color+';border-color:'+ac.color+'44;font-size:'+(size>50?'18px':'12px')+'">'+getInitials(v.name)+'</div>';}
-function partyClass(p){return p==='TMC'?'tmc':p==='BJP'?'bjp':p==='CPM'?'cpm':p==='INC'?'inc':'und';}
 function showToast(msg,type){type=type||'success';var t=document.getElementById('toast');t.querySelector('#toast-msg').textContent=msg;t.className='toast '+type+' show';setTimeout(function(){t.className='toast '+type;},3000);}
 
 function goTo(id,role){
@@ -2785,8 +2778,6 @@ function saveStationEdit(no){
 /* ===== Voter management grid (p4) ===== */
 function buildVoterMgmtGrid(){
   var el=document.getElementById('voterMgmtGrid');if(!el)return;
-  var totalV=0,incV=0;
-  Object.keys(voterDB).forEach(function(k){totalV+=(voterDB[k]||[]).length;incV+=(voterDB[k]||[]).filter(function(v){return v.party==='INC';}).length;});
   var html='<div class="voter-mgmt-card" onclick="goTo(\'p2\')" style="border-color:var(--inc-saffron);"><div class="vmc-label">All Stations</div><div class="vmc-val">'+stations.length+'</div><div class="vmc-sub">polling stations</div></div>';
   stations.forEach(function(s){
     var cnt=0;s.parts.forEach(function(p){cnt+=(voterDB[p]||[]).length;});
@@ -2795,10 +2786,10 @@ function buildVoterMgmtGrid(){
   el.innerHTML=html;
 }
 function refreshP4Stats(){
-  var totalV=0,incV=0;
-  Object.keys(voterDB).forEach(function(k){totalV+=(voterDB[k]||[]).length;incV+=(voterDB[k]||[]).filter(function(v){return v.party==='INC';}).length;});
-  var sv=document.getElementById('p4-s-voters');var si=document.getElementById('p4-s-inc');
-  if(sv)sv.textContent=totalV||'—';if(si)si.textContent=incV||'—';
+  var totalV=0;
+  Object.keys(voterDB).forEach(function(k){totalV+=(voterDB[k]||[]).length;});
+  var sv=document.getElementById('p4-s-voters');
+  if(sv)sv.textContent=totalV||'—';
   document.getElementById('p4-s-parts').textContent=Object.keys(partsBase).length||38;
   document.getElementById('p4-s-stations').textContent=stations.length;
 }
@@ -2818,20 +2809,18 @@ function groupedStationsFrom(list){
 }
 
 /* Per-station analytics: sum across all booths in the group.
-   Returns {male, female, total, inc, incPct, loaded} */
+   Returns {male, female, total, loaded} */
 function stationAnalytics(group){
-  var male=0, female=0, total=0, inc=0, loaded=0;
+  var male=0, female=0, total=0, loaded=0;
   group.booths.forEach(function(b){
     b.parts.forEach(function(p){
       var base=partsBase[p];
       if(base){male+=base.male; female+=base.female; total+=base.total;}
       var voters=voterDB[p]||[];
       loaded+=voters.length;
-      inc+=voters.filter(function(v){return v.party==='INC';}).length;
     });
   });
-  var incPct=loaded?Math.round(inc/loaded*100):0;
-  return {male:male, female:female, total:total, inc:inc, incPct:incPct, loaded:loaded};
+  return {male:male, female:female, total:total, loaded:loaded};
 }
 
 function buildStations(list){
@@ -2866,7 +2855,6 @@ function buildStations(list){
       +'<div class="pst-ana total"><div class="pst-ana-val">'+ana.total.toLocaleString()+'</div><div class="pst-ana-lbl">Total Voters</div></div>'
       +'<div class="pst-ana male"><div class="pst-ana-val">'+ana.male.toLocaleString()+'</div><div class="pst-ana-lbl">Male</div><div class="pst-ana-bar"><div class="pst-ana-bar-fill" style="width:'+malePct+'%;background:var(--blue2)"></div></div></div>'
       +'<div class="pst-ana female"><div class="pst-ana-val">'+ana.female.toLocaleString()+'</div><div class="pst-ana-lbl">Female</div><div class="pst-ana-bar"><div class="pst-ana-bar-fill" style="width:'+femalePct+'%;background:var(--pink2)"></div></div></div>'
-      +'<div class="pst-ana inc"><div class="pst-ana-val">'+(ana.loaded?ana.incPct+'%':'—')+'</div><div class="pst-ana-lbl">INC Support</div></div>'
     +'</div>';
     var booths=g.booths.map(function(b){
       return '<div class="pst-booth" onclick="openStation('+b.no+')" title="Booth '+b.no+' — Part '+b.parts.join(", ")+'">'
@@ -2910,21 +2898,16 @@ function buildBoothGallery(){
 /* Ward-wide summary stats bar (12 stations · 38 booths · ~27K voters etc.) */
 function buildWardStats(){
   var el=document.getElementById('wardStatsBar'); if(!el)return;
-  var totalM=0,totalF=0,total=0,loaded=0,inc=0;
+  var totalM=0,totalF=0,total=0;
   Object.keys(partsBase).forEach(function(k){
     totalM+=partsBase[k].male; totalF+=partsBase[k].female; total+=partsBase[k].total;
   });
-  Object.keys(voterDB).forEach(function(k){
-    var v=voterDB[k]||[]; loaded+=v.length; inc+=v.filter(function(x){return x.party==='INC';}).length;
-  });
-  var incPct=loaded?Math.round(inc/loaded*100):0;
   el.innerHTML=''
     +'<div class="wsb-stat saffron"><div class="wsb-val">'+total.toLocaleString()+'</div><div class="wsb-lbl">Total Electors</div></div>'
     +'<div class="wsb-stat blue"><div class="wsb-val">'+totalM.toLocaleString()+'</div><div class="wsb-lbl">Male</div></div>'
     +'<div class="wsb-stat pink"><div class="wsb-val">'+totalF.toLocaleString()+'</div><div class="wsb-lbl">Female</div></div>'
     +'<div class="wsb-stat gold"><div class="wsb-val">38</div><div class="wsb-lbl">Polling Booths</div></div>'
-    +'<div class="wsb-stat gold"><div class="wsb-val">12</div><div class="wsb-lbl">Stations</div></div>'
-    +'<div class="wsb-stat green"><div class="wsb-val">'+incPct+'%</div><div class="wsb-lbl">INC Support</div></div>';
+    +'<div class="wsb-stat gold"><div class="wsb-val">12</div><div class="wsb-lbl">Stations</div></div>';
 }
 
 function filterStations(){
@@ -2974,19 +2957,18 @@ function selectPart(pno){
     document.getElementById('stat-total').textContent=Math.max(baseTotal,vlist.length);
     document.getElementById('stat-male').textContent=vlist.filter(function(v){return v.gender==='M';}).length;
     document.getElementById('stat-female').textContent=vlist.filter(function(v){return v.gender==='F';}).length;
-    document.getElementById('stat-inc').textContent=vlist.filter(function(v){return v.party==='INC';}).length;
   }
-  ['voterSearch','filterGender','filterParty','filterContact'].forEach(function(id){document.getElementById(id).value='';});
+  ['voterSearch','filterGender','filterContact'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
   applyFilters();
   var vs=document.getElementById('voter-section');vs.classList.add('visible');
   setTimeout(function(){vs.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
 }
 
 function applyFilters(){
-  var q=document.getElementById('voterSearch').value.toLowerCase(),g=document.getElementById('filterGender').value,p=document.getElementById('filterParty').value,c=document.getElementById('filterContact').value;
+  var q=document.getElementById('voterSearch').value.toLowerCase(),g=document.getElementById('filterGender').value,c=document.getElementById('filterContact').value;
   filteredCache=(voterDB[currentPartNo]||[]).filter(function(v){
     if(q&&v.name.toLowerCase().indexOf(q)<0&&v.voterId.toLowerCase().indexOf(q)<0)return false;
-    if(g&&v.gender!==g)return false;if(p&&v.party!==p)return false;if(c&&v.contact!==c)return false;return true;});
+    if(g&&v.gender!==g)return false;if(c&&v.contact!==c)return false;return true;});
   currentPage=1; renderVoterTable();
 }
 
@@ -3000,7 +2982,7 @@ function renderVoterTable(){
   var partTotal=partsBase[currentPartNo]?partsBase[currentPartNo].total:total;
   document.getElementById('vs-count').textContent='Loaded '+(voterDB[currentPartNo]||[]).length+' of '+partTotal+' electors';
   document.getElementById('vtbody').innerHTML=list.map(function(v){
-    return '<tr class="clickable-row" onclick="openProfile('+v.id+')"><td style="padding:8px 14px;"><div class="avatar-wrap">'+avatarHTML(v,36)+'<span class="avatar-sn">#'+v.serial+'</span></div></td><td style="color:#f0f4ff;font-weight:500">'+v.name+(v.sample?' <span style="font-size:9px;color:var(--text4);border:1px solid var(--border);padding:1px 4px;border-radius:4px;vertical-align:middle">sample</span>':'')+'<br><span style="font-size:11px;color:var(--text3)">'+(v.father?'S/o-D/o '+v.father:'')+'</span></td><td class="vid">'+v.voterId+'</td><td>'+v.age+'</td><td><span class="gbadge '+v.gender+'">'+(v.gender==='M'?'Male':'Female')+'</span></td><td class="sp-'+partyClass(v.party)+'"><span class="sp-dot"></span>'+v.party+'</td><td><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Yes':'No')+'</span></td>'+(isAdmin?'<td onclick="event.stopPropagation()" style="white-space:nowrap"><div style="display:flex;gap:4px"><button class="btn-icon" title="Edit" onclick="openEditVoter('+v.id+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon" title="Delete" style="color:var(--red2)" onclick="deleteVoter('+v.id+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></button></div></td>':'')+'</tr>';
+    return '<tr class="clickable-row" onclick="openProfile('+v.id+')"><td style="padding:8px 14px;"><div class="avatar-wrap">'+avatarHTML(v,36)+'<span class="avatar-sn">#'+v.serial+'</span></div></td><td style="color:#f0f4ff;font-weight:500">'+v.name+(v.sample?' <span style="font-size:9px;color:var(--text4);border:1px solid var(--border);padding:1px 4px;border-radius:4px;vertical-align:middle">sample</span>':'')+'<br><span style="font-size:11px;color:var(--text3)">'+(v.father?'S/o-D/o '+v.father:'')+'</span></td><td class="vid">'+v.voterId+'</td><td>'+v.age+'</td><td><span class="gbadge '+v.gender+'">'+(v.gender==='M'?'Male':'Female')+'</span></td><td><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Yes':'No')+'</span></td>'+(isAdmin?'<td onclick="event.stopPropagation()" style="white-space:nowrap"><div style="display:flex;gap:4px"><button class="btn-icon" title="Edit" onclick="openEditVoter('+v.id+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon" title="Delete" style="color:var(--red2)" onclick="deleteVoter('+v.id+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></button></div></td>':'')+'</tr>';
   }).join('');
   var pager=document.getElementById('vsPager');
   if(totalPages<=1){pager.innerHTML='';}
@@ -3012,7 +2994,7 @@ function findVoter(vid){for(var pno in voterDB){for(var i=0;i<voterDB[pno].lengt
 
 function openProfile(vid){
   var v=findVoter(vid);if(!v)return;var isAdmin=currentRole==='admin';
-  document.getElementById('drawerBody').innerHTML='<div class="profile-photo-area">'+avatarHTML(v,90)+'<div><div class="profile-name">'+v.name+'</div><div class="profile-vid">'+v.voterId+'</div><div class="profile-tags"><span class="gbadge '+v.gender+'" style="font-size:12px">'+(v.gender==='M'?'Male':'Female')+'</span><span class="sp-'+partyClass(v.party)+'" style="font-size:12px;padding:3px 10px;border-radius:999px;background:rgba(255,255,255,0.05)"><span class="sp-dot"></span>'+v.party+'</span><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Contacted':'Not contacted')+'</span></div></div></div>'+(isAdmin?'<div class="drawer-actions"><button class="btn btn-primary btn-sm" onclick="openEditVoter('+v.id+');closeDrawer()">Edit</button><button class="btn btn-success btn-sm" onclick="toggleContact('+v.id+')">'+(v.contact==='Yes'?'Unmark':'Mark contacted')+'</button><button class="btn btn-ghost btn-sm" onclick="showToast(\'Calling '+v.mobile+'...\')">Call</button><button class="btn btn-danger btn-sm" onclick="deleteVoter('+v.id+');closeDrawer()">Delete</button></div>':'')+'<div class="profile-section"><div class="profile-section-title">Personal details</div><div class="profile-grid"><div class="profile-field"><div class="profile-field-label">Serial No.</div><div class="profile-field-val">#'+v.serial+'</div></div><div class="profile-field"><div class="profile-field-label">Age</div><div class="profile-field-val">'+v.age+' yrs</div></div><div class="profile-field"><div class="profile-field-label">Father / Husband</div><div class="profile-field-val">'+(v.father||'-')+'</div></div><div class="profile-field"><div class="profile-field-label">House No.</div><div class="profile-field-val">'+(v.house||'-')+'</div></div><div class="profile-field"><div class="profile-field-label">Religion</div><div class="profile-field-val">'+v.religion+'</div></div><div class="profile-field"><div class="profile-field-label">Occupation</div><div class="profile-field-val">'+v.occupation+'</div></div><div class="profile-field"><div class="profile-field-label">Blood group</div><div class="profile-field-val">'+v.bloodGroup+'</div></div><div class="profile-field"><div class="profile-field-label">Part No.</div><div class="profile-field-val">Part '+v.partNo+'</div></div></div></div>'+(isAdmin?'<div class="profile-section"><div class="profile-section-title">Contact info</div><div class="profile-grid"><div class="profile-field" style="grid-column:1/-1"><div class="profile-field-label">Mobile</div><div class="profile-field-val">'+v.mobile+'</div></div><div class="profile-field" style="grid-column:1/-1"><div class="profile-field-label">Address</div><div class="profile-field-val" style="font-size:12px;line-height:1.5">'+v.address+'</div></div><div class="profile-field" style="grid-column:1/-1"><div class="profile-field-label">Volunteer</div><div class="profile-field-val">'+(v.volunteer||'Not assigned')+'</div></div></div></div>':'')+'<div class="profile-section"><div class="profile-section-title">Notes</div><div class="notes-area">'+(v.notes?v.notes:'<span class="notes-empty">No notes added.</span>')+'</div></div>';
+  document.getElementById('drawerBody').innerHTML='<div class="profile-photo-area">'+avatarHTML(v,90)+'<div><div class="profile-name">'+v.name+'</div><div class="profile-vid">'+v.voterId+'</div><div class="profile-tags"><span class="gbadge '+v.gender+'" style="font-size:12px">'+(v.gender==='M'?'Male':'Female')+'</span><span class="contact-badge '+(v.contact==='Yes'?'contact-yes':'contact-no')+'">'+(v.contact==='Yes'?'Contacted':'Not contacted')+'</span></div></div></div>'+(isAdmin?'<div class="drawer-actions"><button class="btn btn-primary btn-sm" onclick="openEditVoter('+v.id+');closeDrawer()">Edit</button><button class="btn btn-success btn-sm" onclick="toggleContact('+v.id+')">'+(v.contact==='Yes'?'Unmark':'Mark contacted')+'</button><button class="btn btn-ghost btn-sm" onclick="showToast(\'Calling '+v.mobile+'...\')">Call</button><button class="btn btn-danger btn-sm" onclick="deleteVoter('+v.id+');closeDrawer()">Delete</button></div>':'')+'<div class="profile-section"><div class="profile-section-title">Personal details</div><div class="profile-grid"><div class="profile-field"><div class="profile-field-label">Serial No.</div><div class="profile-field-val">#'+v.serial+'</div></div><div class="profile-field"><div class="profile-field-label">Age</div><div class="profile-field-val">'+v.age+' yrs</div></div><div class="profile-field"><div class="profile-field-label">Father / Husband</div><div class="profile-field-val">'+(v.father||'-')+'</div></div><div class="profile-field"><div class="profile-field-label">House No.</div><div class="profile-field-val">'+(v.house||'-')+'</div></div><div class="profile-field"><div class="profile-field-label">Religion</div><div class="profile-field-val">'+v.religion+'</div></div><div class="profile-field"><div class="profile-field-label">Occupation</div><div class="profile-field-val">'+v.occupation+'</div></div><div class="profile-field"><div class="profile-field-label">Blood group</div><div class="profile-field-val">'+v.bloodGroup+'</div></div><div class="profile-field"><div class="profile-field-label">Part No.</div><div class="profile-field-val">Part '+v.partNo+'</div></div></div></div>'+(isAdmin?'<div class="profile-section"><div class="profile-section-title">Contact info</div><div class="profile-grid"><div class="profile-field" style="grid-column:1/-1"><div class="profile-field-label">Mobile</div><div class="profile-field-val">'+v.mobile+'</div></div><div class="profile-field" style="grid-column:1/-1"><div class="profile-field-label">Address</div><div class="profile-field-val" style="font-size:12px;line-height:1.5">'+v.address+'</div></div><div class="profile-field" style="grid-column:1/-1"><div class="profile-field-label">Volunteer</div><div class="profile-field-val">'+(v.volunteer||'Not assigned')+'</div></div></div></div>':'')+'<div class="profile-section"><div class="profile-section-title">Notes</div><div class="notes-area">'+(v.notes?v.notes:'<span class="notes-empty">No notes added.</span>')+'</div></div>';
   document.getElementById('drawerOverlay').classList.add('open');
   document.getElementById('profileDrawer').classList.add('open');
 }
@@ -3021,7 +3003,7 @@ function closeDrawer(){document.getElementById('drawerOverlay').classList.remove
 function openAddVoter(){
   document.getElementById('voterModalTitle').textContent='Add voter';document.getElementById('voterModalSub').textContent='Fill in the voter details below';document.getElementById('editVoterId').value='';document.getElementById('voterModalMeta').style.display='none';
   ['f-name','f-vid','f-father','f-age','f-mobile','f-occ','f-addr','f-notes','f-house'].forEach(function(id){document.getElementById(id).value='';});
-  document.getElementById('f-gender').value='M';document.getElementById('f-part').value=currentPartNo||'';document.getElementById('f-religion').value='Islam';document.getElementById('f-blood').value='A+';document.getElementById('f-party').value='INC';document.getElementById('f-contact').value='No';document.getElementById('f-vol').value='';document.getElementById('photoPreview').style.display='none';
+  document.getElementById('f-gender').value='M';document.getElementById('f-part').value=currentPartNo||'';document.getElementById('f-religion').value='Islam';document.getElementById('f-blood').value='A+';document.getElementById('f-contact').value='No';document.getElementById('f-vol').value='';document.getElementById('photoPreview').style.display='none';
   document.getElementById('voterModal').classList.add('open');
 }
 function openEditVoter(vid){
@@ -3031,7 +3013,7 @@ function openEditVoter(vid){
   document.getElementById('voterModalMetaName').textContent=v.name;
   document.getElementById('voterModalMetaSerial').textContent=v.serial;
   document.getElementById('voterModalMetaPart').textContent=v.partNo;
-  document.getElementById('f-name').value=v.name;document.getElementById('f-vid').value=v.voterId;document.getElementById('f-father').value=v.father||'';document.getElementById('f-age').value=v.age;document.getElementById('f-gender').value=v.gender;document.getElementById('f-part').value=v.partNo;document.getElementById('f-house').value=v.house||'';document.getElementById('f-mobile').value=v.mobile;document.getElementById('f-religion').value=v.religion;document.getElementById('f-occ').value=v.occupation;document.getElementById('f-blood').value=v.bloodGroup;document.getElementById('f-party').value=v.party;document.getElementById('f-contact').value=v.contact;document.getElementById('f-vol').value=v.volunteer||'';document.getElementById('f-addr').value=v.address;document.getElementById('f-notes').value=v.notes||'';
+  document.getElementById('f-name').value=v.name;document.getElementById('f-vid').value=v.voterId;document.getElementById('f-father').value=v.father||'';document.getElementById('f-age').value=v.age;document.getElementById('f-gender').value=v.gender;document.getElementById('f-part').value=v.partNo;document.getElementById('f-house').value=v.house||'';document.getElementById('f-mobile').value=v.mobile;document.getElementById('f-religion').value=v.religion;document.getElementById('f-occ').value=v.occupation;document.getElementById('f-blood').value=v.bloodGroup;document.getElementById('f-contact').value=v.contact;document.getElementById('f-vol').value=v.volunteer||'';document.getElementById('f-addr').value=v.address;document.getElementById('f-notes').value=v.notes||'';
   var pp=document.getElementById('photoPreview');if(v.photo){pp.src=v.photo;pp.style.display='block';}else pp.style.display='none';
   document.getElementById('voterModal').classList.add('open');
 }
@@ -3042,7 +3024,7 @@ function saveVoter(){
   if(!name||!vid){showToast('Name and Voter ID are required','error');return;}
   var editId=parseInt(document.getElementById('editVoterId').value),newPno=parseInt(document.getElementById('f-part').value)||currentPartNo;
   var photo=document.getElementById('photoPreview').style.display!=='none'?document.getElementById('photoPreview').src:null;
-  var data={name:name,voterId:vid,father:document.getElementById('f-father').value,age:parseInt(document.getElementById('f-age').value)||30,gender:document.getElementById('f-gender').value,partNo:newPno,house:document.getElementById('f-house').value,mobile:document.getElementById('f-mobile').value,religion:document.getElementById('f-religion').value,occupation:document.getElementById('f-occ').value,bloodGroup:document.getElementById('f-blood').value,party:document.getElementById('f-party').value,contact:document.getElementById('f-contact').value,volunteer:document.getElementById('f-vol').value,address:document.getElementById('f-addr').value,notes:document.getElementById('f-notes').value,photo:photo,sample:false};
+  var data={name:name,voterId:vid,father:document.getElementById('f-father').value,age:parseInt(document.getElementById('f-age').value)||30,gender:document.getElementById('f-gender').value,partNo:newPno,house:document.getElementById('f-house').value,mobile:document.getElementById('f-mobile').value,religion:document.getElementById('f-religion').value,occupation:document.getElementById('f-occ').value,bloodGroup:document.getElementById('f-blood').value,contact:document.getElementById('f-contact').value,volunteer:document.getElementById('f-vol').value,address:document.getElementById('f-addr').value,notes:document.getElementById('f-notes').value,photo:photo,sample:false};
   if(editId){
     var ev=findVoter(editId);
     if(ev){
@@ -3090,8 +3072,8 @@ function currentStationObj(){for(var i=0;i<stations.length;i++){if(stations[i].n
 function downloadCSV(){
   if(!currentPartNo){showToast('Open a part first','error');return;}
   var list=voterDB[currentPartNo]||[];
-  var rows=[['Serial','Name','Father/Husband','Voter ID','Age','Gender','House','Party','Contact','Address']];
-  list.forEach(function(v){rows.push([v.serial,v.name,v.father,v.voterId,v.age,(v.gender==='M'?'Male':'Female'),v.house,v.party,v.contact,v.address]);});
+  var rows=[['Serial','Name','Father/Husband','Voter ID','Age','Gender','House','Contact','Address']];
+  list.forEach(function(v){rows.push([v.serial,v.name,v.father,v.voterId,v.age,(v.gender==='M'?'Male':'Female'),v.house,v.contact,v.address]);});
   var csv=rows.map(function(r){return r.map(function(c){return '"'+String(c==null?'':c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
   var blob=new Blob([csv],{type:'text/csv'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='Ward54_Part'+currentPartNo+'_voters.csv';a.click();URL.revokeObjectURL(url);
   showToast('CSV downloaded');
@@ -3113,7 +3095,7 @@ function downloadListPDF(){
   doc.text('Address: '+(st?st.addr:'-'),M,y);y+=14;
   doc.text('Part No: '+currentPartNo+(partSection[currentPartNo]?('   Section: '+partSection[currentPartNo]):''),M,y);y+=20;
   doc.setFont('helvetica','bold');doc.setFontSize(9);
-  doc.text('Sl',M,y);doc.text('Name',M+30,y);doc.text('Father/Husband',M+180,y);doc.text('ID',M+320,y);doc.text('Age',M+420,y);doc.text('Sex',M+450,y);doc.text('Party',M+485,y);y+=6;
+  doc.text('Sl',M,y);doc.text('Name',M+30,y);doc.text('Father/Husband',M+180,y);doc.text('ID',M+320,y);doc.text('Age',M+420,y);doc.text('Sex',M+450,y);y+=6;
   doc.line(M,y,W-M,y);y+=12;
   doc.setFont('helvetica','normal');doc.setFontSize(8);
   for(var i=0;i<list.length;i++){
@@ -3125,7 +3107,6 @@ function downloadListPDF(){
     doc.text(String(v.voterId),M+320,y);
     doc.text(String(v.age),M+420,y);
     doc.text(v.gender,M+450,y);
-    doc.text(String(v.party),M+485,y);
     y+=13;
   }
   doc.save('Ward54_Part'+currentPartNo+'_list.pdf');
@@ -3189,8 +3170,8 @@ function printFallback(kind,st,list,pb){
   if(!w){showToast('Allow pop-ups to download/print','error');return;}
   var head='<h2 style="margin:0">Ward 54 — '+(kind==='official'?'Electoral Roll 2026 (163-Entally)':'Voter List')+'</h2>'+
     '<p style="margin:4px 0;font-size:13px">Station: '+(st?st.no+'. '+st.name:'-')+'<br>Address: '+(st?st.addr:'-')+'<br>Part No: '+currentPartNo+(partSection[currentPartNo]?(' — '+partSection[currentPartNo]):'')+(pb?'<br>Electors: M '+pb.male+' / F '+pb.female+' / Total '+pb.total:'')+'</p>';
-  var rows=list.map(function(v){return '<tr><td>'+v.serial+'</td><td>'+v.name+'</td><td>'+(v.father||'')+'</td><td>'+v.voterId+'</td><td>'+v.age+'</td><td>'+(v.gender==='M'?'Male':'Female')+'</td><td>'+(v.house||'')+'</td><td>'+v.party+'</td></tr>';}).join('');
-  w.document.write('<html><head><title>Ward 54 Part '+currentPartNo+'</title><style>body{font-family:Arial;padding:20px;color:#111}table{width:100%;border-collapse:collapse;font-size:11px}th,td{border:1px solid #999;padding:4px 6px;text-align:left}th{background:#eee}@media print{button{display:none}}</style></head><body>'+head+'<button onclick="window.print()" style="padding:8px 16px;margin:8px 0;cursor:pointer">Print / Save as PDF</button><table><thead><tr><th>Sl</th><th>Name</th><th>Father/Husband</th><th>Voter ID</th><th>Age</th><th>Gender</th><th>House</th><th>Party</th></tr></thead><tbody>'+rows+'</tbody></table></body></html>');
+  var rows=list.map(function(v){return '<tr><td>'+v.serial+'</td><td>'+v.name+'</td><td>'+(v.father||'')+'</td><td>'+v.voterId+'</td><td>'+v.age+'</td><td>'+(v.gender==='M'?'Male':'Female')+'</td><td>'+(v.house||'')+'</td></tr>';}).join('');
+  w.document.write('<html><head><title>Ward 54 Part '+currentPartNo+'</title><style>body{font-family:Arial;padding:20px;color:#111}table{width:100%;border-collapse:collapse;font-size:11px}th,td{border:1px solid #999;padding:4px 6px;text-align:left}th{background:#eee}@media print{button{display:none}}</style></head><body>'+head+'<button onclick="window.print()" style="padding:8px 16px;margin:8px 0;cursor:pointer">Print / Save as PDF</button><table><thead><tr><th>Sl</th><th>Name</th><th>Father/Husband</th><th>Voter ID</th><th>Age</th><th>Gender</th><th>House</th></tr></thead><tbody>'+rows+'</tbody></table></body></html>');
   w.document.close();
   showToast('Opened printable view — use Print → Save as PDF');
 }

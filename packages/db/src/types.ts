@@ -65,8 +65,6 @@ export interface Voter {
   age: number | null;
   gender: Gender;
   photo_url: string | null;
-  /** Political affinity — admin-only column. Never selected by anon role. */
-  support: string | null;
   created_at: ISODate;
   updated_at: ISODate;
 }
