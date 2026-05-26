@@ -599,21 +599,135 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p6-body{padding:20px;flex:1;max-width:760px;width:100%;margin:0 auto;}
 .p6-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:18px;}
 .agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;}
-.agents-name-list{display:flex;flex-direction:column;gap:12px;margin-top:8px;}
-.agent-name-card{
-  background:var(--navy3);border:1px solid var(--border);
-  border-left:4px solid var(--gold);
-  border-radius:var(--r2);padding:18px 22px;
-  font-size:17px;font-weight:600;color:var(--text);
-  letter-spacing:0.01em;display:flex;align-items:center;gap:14px;
-  transition:transform 0.2s ease, border-color 0.2s ease;
+/* ═══════════════════════════════════════════════════════════════════════════
+   POLLING AGENTS — ops card (responsibilities + complaints + status)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.agents-name-list{display:flex;flex-direction:column;gap:16px;margin-top:8px;}
+.pa-card{
+  background:linear-gradient(135deg,var(--glass),var(--glass2));
+  border:1px solid var(--border);border-left:4px solid var(--gold);
+  border-radius:var(--r);padding:20px 22px;
+  transition:border-color 0.22s ease;
 }
-.agent-name-card:hover{transform:translateX(2px);border-color:var(--border2);}
-.agent-name-card .agt-num{
-  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+.pa-card:hover{border-color:var(--border2);}
+.pa-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;}
+.pa-avatar{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,rgba(201,168,76,0.20),rgba(232,130,30,0.12));
+  border:1.5px solid rgba(201,168,76,0.35);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;color:var(--gold2);font-size:14px;
+  font-family:'DM Mono',monospace;
+}
+.pa-id{flex:1;min-width:0;}
+.pa-name{font-size:17px;font-weight:600;color:var(--text);letter-spacing:0.01em;line-height:1.2;}
+.pa-role{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.12em;margin-top:3px;}
+.pa-status{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.10em;
+  padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;flex-shrink:0;
+}
+.pa-status::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;
+  box-shadow:0 0 0 0 currentColor;animation:paPulse 2s infinite;}
+@keyframes paPulse{0%,100%{box-shadow:0 0 0 0 currentColor;}50%{box-shadow:0 0 0 5px transparent;}}
+.pa-status.active   {color:#34d399;background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.25);}
+.pa-status.onduty   {color:#60a5fa;background:rgba(96,165,250,0.10);border:1px solid rgba(96,165,250,0.25);}
+.pa-status.offduty  {color:#9ca3af;background:rgba(156,163,175,0.08);border:1px solid rgba(156,163,175,0.20);}
+
+.pa-section{margin-top:14px;}
+.pa-section-label{
+  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;
+  color:var(--gold);margin-bottom:7px;display:flex;align-items:center;gap:6px;
+}
+.pa-section-label svg{width:12px;height:12px;}
+.pa-target{
+  background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);
+  padding:9px 12px;font-size:13px;color:var(--text);
+}
+.pa-resp-list{display:flex;flex-wrap:wrap;gap:6px;}
+.pa-resp-tag{
+  font-size:11px;padding:4px 10px;border-radius:999px;
+  background:rgba(59,130,246,0.10);color:#9bc1e4;
+  border:1px solid rgba(59,130,246,0.22);letter-spacing:0.02em;
+}
+.pa-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.pa-stat{
+  background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);
+  padding:8px 6px;text-align:center;
+}
+.pa-stat-num{font-family:'DM Mono',monospace;font-size:18px;font-weight:700;line-height:1;}
+.pa-stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text3);margin-top:3px;}
+.pa-stat.open    .pa-stat-num{color:#fcd34d;}
+.pa-stat.solved  .pa-stat-num{color:#34d399;}
+.pa-stat.raised  .pa-stat-num{color:#60a5fa;}
+
+.pa-complaint-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;
+}
+.pa-add-btn{
   background:rgba(201,168,76,0.10);color:var(--gold2);
-  font-family:'DM Mono',monospace;font-size:14px;font-weight:700;
-  border:1px solid rgba(201,168,76,0.25);flex-shrink:0;
+  border:1px solid rgba(201,168,76,0.30);border-radius:999px;
+  padding:5px 12px;font-size:11px;font-weight:600;font-family:'Outfit';
+  cursor:pointer;display:inline-flex;align-items:center;gap:4px;
+  transition:background 0.18s ease, border-color 0.18s ease;
+}
+.pa-add-btn:hover{background:rgba(201,168,76,0.18);border-color:rgba(201,168,76,0.50);}
+.pa-add-btn svg{width:11px;height:11px;}
+
+.pa-complaints{display:flex;flex-direction:column;gap:7px;}
+.pa-complaint{
+  background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);
+  padding:9px 12px;font-size:12px;display:flex;flex-direction:column;gap:5px;
+}
+.pa-complaint-row1{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pa-sev{
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.10em;
+  padding:2px 7px;border-radius:999px;flex-shrink:0;
+}
+.pa-sev.low {background:rgba(96,165,250,0.10);color:#9bc1e4;border:1px solid rgba(96,165,250,0.22);}
+.pa-sev.mid {background:rgba(252,211,77,0.10);color:#fcd34d;border:1px solid rgba(252,211,77,0.25);}
+.pa-sev.high{background:rgba(239,68,68,0.10);color:#fca5a5;border:1px solid rgba(239,68,68,0.25);}
+.pa-comp-title{color:var(--text);font-weight:500;flex:1;min-width:0;}
+.pa-comp-meta{font-size:10px;color:var(--text3);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pa-comp-status{font-weight:600;letter-spacing:0.06em;text-transform:uppercase;font-size:9px;padding:2px 6px;border-radius:4px;}
+.pa-comp-status.open    {color:#fcd34d;background:rgba(252,211,77,0.10);}
+.pa-comp-status.progress{color:#60a5fa;background:rgba(96,165,250,0.10);}
+.pa-comp-status.resolved{color:#34d399;background:rgba(52,211,153,0.10);}
+.pa-comp-actions{display:flex;gap:5px;margin-left:auto;}
+.pa-mini-btn{
+  background:transparent;border:1px solid var(--border);color:var(--text2);
+  border-radius:6px;padding:3px 8px;font-size:10px;font-family:'Outfit';
+  cursor:pointer;transition:all 0.18s ease;
+}
+.pa-mini-btn:hover{border-color:var(--border2);color:var(--text);}
+.pa-mini-btn.danger:hover{border-color:#ef4444;color:#fca5a5;}
+.pa-empty{text-align:center;color:var(--text3);font-size:11px;padding:14px;
+  border:1px dashed var(--border);border-radius:var(--r2);}
+
+/* Inline complaint form */
+.pa-form{
+  background:var(--navy4);border:1px solid var(--border2);border-radius:var(--r2);
+  padding:11px;display:flex;flex-direction:column;gap:7px;margin-top:7px;
+}
+.pa-form input, .pa-form select, .pa-form textarea{
+  background:var(--navy);border:1px solid var(--border);color:var(--text);
+  border-radius:6px;padding:7px 10px;font-size:12px;font-family:'Outfit';outline:none;
+}
+.pa-form input:focus, .pa-form select:focus, .pa-form textarea:focus{border-color:var(--border2);}
+.pa-form-row{display:flex;gap:7px;}
+.pa-form-row > input{flex:1;}
+.pa-form-row > select{flex:0 0 100px;}
+.pa-form-actions{display:flex;gap:7px;justify-content:flex-end;}
+.pa-form-actions button{
+  background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text2);
+  border-radius:6px;padding:6px 14px;font-size:11px;font-family:'Outfit';cursor:pointer;
+}
+.pa-form-actions .primary{background:linear-gradient(135deg,#c9a84c,#a08a3a);color:#1a1410;border-color:transparent;font-weight:600;}
+.pa-form-actions .primary:hover{filter:brightness(1.1);}
+
+@media(max-width:600px){
+  .pa-card{padding:16px 14px;}
+  .pa-head{gap:10px;}
+  .pa-comp-actions{margin-left:0;width:100%;}
 }
 .agent-card{background:linear-gradient(135deg,var(--glass),var(--glass2));border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;transition:all 0.2s;animation:fadeUp 0.4s ease both;position:relative;overflow:hidden;}
 .agent-card::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:linear-gradient(180deg,#3b82f6 0%,#8b5cf6 100%);}
@@ -3330,23 +3444,229 @@ function buildVolunteersPanel(){
     +'</div>';
   }).join('');
 }
-/* Simple 3-name polling agents list — replaces the previous 173-agent grid.
-   Names are placeholders ready for the user to fill in. */
+/* ═══════════════════════════════════════════════════════════════════════════
+   POLLING AGENTS — operational roster (3 agents, with responsibilities,
+   target area, status, and a per-agent complaint log).
+   Names + areas are placeholders ready for the user to fill in.
+   ═══════════════════════════════════════════════════════════════════════════ */
 var pollingAgentsList = [
-  'Polling Agent 1',
-  'Polling Agent 2',
-  'Polling Agent 3'
+  {
+    id: 'pa1',
+    name: 'Polling Agent 1',
+    role: 'Booth Polling Agent',
+    status: 'active',
+    targetArea: 'Entally Academy · Booths 1–5',
+    responsibilities: [
+      'Voter verification at booth',
+      'Roll observation',
+      'Result certificate sign-off',
+      'EVM mismatch flagging'
+    ]
+  },
+  {
+    id: 'pa2',
+    name: 'Polling Agent 2',
+    role: 'Area Coordinator',
+    status: 'onduty',
+    targetArea: 'Taltala Dispensary & VIP Hall area',
+    responsibilities: [
+      'Cluster supervision',
+      'Issue escalation',
+      'Volunteer rota',
+      'Voter slip distribution'
+    ]
+  },
+  {
+    id: 'pa3',
+    name: 'Polling Agent 3',
+    role: 'Outreach Volunteer',
+    status: 'active',
+    targetArea: 'Anjuman Schools & Sir Syed area',
+    responsibilities: [
+      'Door-to-door outreach',
+      'Voter slip distribution',
+      'Transport assistance',
+      'Local issue collection'
+    ]
+  }
 ];
+
+var STATUS_LABEL = { active:'Active', onduty:'On Duty', offduty:'Off Duty' };
+
+function _pacKey(agentId){ return 'ward54.complaints.' + agentId; }
+
+function _loadComplaints(agentId){
+  try{ return JSON.parse(localStorage.getItem(_pacKey(agentId)) || '[]'); }
+  catch(e){ return []; }
+}
+function _saveComplaints(agentId, list){
+  try{ localStorage.setItem(_pacKey(agentId), JSON.stringify(list)); }
+  catch(e){}
+}
+
+function _paInitials(name){
+  var parts = String(name).replace(/^(Md\.|Mr\.|Mrs\.|Ms\.|Sk\.)\s+/i,'').trim().split(/\s+/);
+  return parts.slice(0,2).map(function(p){return (p[0]||'').toUpperCase();}).join('');
+}
+
+function _paRespHTML(arr){
+  return (arr||[]).map(function(r){return '<span class="pa-resp-tag">'+escapeHtml(r)+'</span>';}).join('');
+}
+
+function _paStatsForAgent(agentId){
+  var list = _loadComplaints(agentId);
+  return {
+    total: list.length,
+    open: list.filter(function(c){return c.status==='open';}).length,
+    progress: list.filter(function(c){return c.status==='progress';}).length,
+    resolved: list.filter(function(c){return c.status==='resolved';}).length
+  };
+}
+
+function _paComplaintCard(agentId, c){
+  var sevCls = c.severity || 'mid';
+  var sevLbl = sevCls==='low'?'LOW':sevCls==='high'?'HIGH':'MID';
+  var statusCls = c.status || 'open';
+  var statusLbl = statusCls==='resolved'?'RESOLVED':statusCls==='progress'?'IN PROGRESS':'OPEN';
+  var dateStr = new Date(c.raisedAt || Date.now()).toLocaleDateString();
+  var actions = '';
+  if(c.status === 'open'){
+    actions += '<button class="pa-mini-btn" onclick="updateComplaintStatus(\''+agentId+'\',\''+c.id+'\',\'progress\')">Start</button>';
+    actions += '<button class="pa-mini-btn" onclick="updateComplaintStatus(\''+agentId+'\',\''+c.id+'\',\'resolved\')">Resolve</button>';
+  } else if(c.status === 'progress'){
+    actions += '<button class="pa-mini-btn" onclick="updateComplaintStatus(\''+agentId+'\',\''+c.id+'\',\'resolved\')">Mark Resolved</button>';
+  } else {
+    actions += '<button class="pa-mini-btn" onclick="updateComplaintStatus(\''+agentId+'\',\''+c.id+'\',\'open\')">Reopen</button>';
+  }
+  actions += '<button class="pa-mini-btn danger" onclick="deleteComplaint(\''+agentId+'\',\''+c.id+'\')">Delete</button>';
+  return '<div class="pa-complaint">'
+    + '<div class="pa-complaint-row1">'
+      + '<span class="pa-sev '+sevCls+'">'+sevLbl+'</span>'
+      + '<span class="pa-comp-title">'+escapeHtml(c.title||'(no title)')+'</span>'
+    + '</div>'
+    + (c.notes ? '<div style="font-size:11px;color:var(--text2);line-height:1.45;">'+escapeHtml(c.notes)+'</div>' : '')
+    + '<div class="pa-comp-meta">'
+      + '<span class="pa-comp-status '+statusCls+'">'+statusLbl+'</span>'
+      + '<span>·</span>'
+      + '<span>'+dateStr+'</span>'
+      + '<div class="pa-comp-actions">'+actions+'</div>'
+    + '</div>'
+    + '</div>';
+}
 
 function buildPollingAgentsList(){
   var el = document.getElementById('agents-name-list');
   if(!el) return;
-  el.innerHTML = pollingAgentsList.map(function(name, i){
-    return '<div class="agent-name-card">'
-      + '<span class="agt-num">'+(i+1)+'</span>'
-      + '<span>'+escapeHtml(name)+'</span>'
-      + '</div>';
+  el.innerHTML = pollingAgentsList.map(function(a){
+    var stats = _paStatsForAgent(a.id);
+    var complaints = _loadComplaints(a.id);
+    var compHTML = complaints.length === 0
+      ? '<div class="pa-empty">No complaints logged yet.</div>'
+      : '<div class="pa-complaints">' + complaints.map(function(c){return _paComplaintCard(a.id, c);}).join('') + '</div>';
+
+    return '<div class="pa-card">'
+      /* Header */
+      + '<div class="pa-head">'
+        + '<div class="pa-avatar">'+_paInitials(a.name)+'</div>'
+        + '<div class="pa-id">'
+          + '<div class="pa-name">'+escapeHtml(a.name)+'</div>'
+          + '<div class="pa-role">'+escapeHtml(a.role)+'</div>'
+        + '</div>'
+        + '<span class="pa-status '+a.status+'">'+(STATUS_LABEL[a.status]||a.status)+'</span>'
+      + '</div>'
+      /* Target area */
+      + '<div class="pa-section">'
+        + '<div class="pa-section-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>TARGET AREA</div>'
+        + '<div class="pa-target">'+escapeHtml(a.targetArea)+'</div>'
+      + '</div>'
+      /* Responsibilities */
+      + '<div class="pa-section">'
+        + '<div class="pa-section-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>RESPONSIBILITIES</div>'
+        + '<div class="pa-resp-list">'+_paRespHTML(a.responsibilities)+'</div>'
+      + '</div>'
+      /* Activity */
+      + '<div class="pa-section">'
+        + '<div class="pa-section-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>ACTIVITY</div>'
+        + '<div class="pa-stats">'
+          + '<div class="pa-stat raised"><div class="pa-stat-num">'+stats.total+'</div><div class="pa-stat-lbl">Raised</div></div>'
+          + '<div class="pa-stat solved"><div class="pa-stat-num">'+stats.resolved+'</div><div class="pa-stat-lbl">Solved</div></div>'
+          + '<div class="pa-stat open"><div class="pa-stat-num">'+(stats.open + stats.progress)+'</div><div class="pa-stat-lbl">Pending</div></div>'
+        + '</div>'
+      + '</div>'
+      /* Complaints */
+      + '<div class="pa-section">'
+        + '<div class="pa-complaint-head">'
+          + '<div class="pa-section-label" style="margin-bottom:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg>COMPLAINTS / ISSUES</div>'
+          + '<button class="pa-add-btn" onclick="toggleComplaintForm(\''+a.id+'\')">'
+            + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+            + 'Add Complaint'
+          + '</button>'
+        + '</div>'
+        + '<div id="paForm-'+a.id+'" style="display:none;"></div>'
+        + compHTML
+      + '</div>'
+    + '</div>';
   }).join('');
+}
+
+function toggleComplaintForm(agentId){
+  var holder = document.getElementById('paForm-'+agentId);
+  if(!holder) return;
+  if(holder.style.display === 'block'){ holder.style.display='none'; holder.innerHTML=''; return; }
+  holder.style.display = 'block';
+  holder.innerHTML = '<div class="pa-form">'
+    + '<input id="paFormTitle-'+agentId+'" placeholder="Complaint / issue (e.g. EVM mismatch at booth 2)" maxlength="120">'
+    + '<div class="pa-form-row">'
+      + '<input id="paFormArea-'+agentId+'" placeholder="Where? (booth / part / road)" maxlength="80">'
+      + '<select id="paFormSev-'+agentId+'"><option value="low">Low</option><option value="mid" selected>Mid</option><option value="high">High</option></select>'
+    + '</div>'
+    + '<textarea id="paFormNotes-'+agentId+'" placeholder="Notes (optional)" rows="2" maxlength="600"></textarea>'
+    + '<div class="pa-form-actions">'
+      + '<button onclick="toggleComplaintForm(\''+agentId+'\')">Cancel</button>'
+      + '<button class="primary" onclick="saveComplaint(\''+agentId+'\')">Log Complaint</button>'
+    + '</div>'
+  + '</div>';
+  setTimeout(function(){ document.getElementById('paFormTitle-'+agentId)?.focus(); }, 50);
+}
+
+function saveComplaint(agentId){
+  var title = document.getElementById('paFormTitle-'+agentId).value.trim();
+  if(!title){ showToast('Complaint title is required','error'); return; }
+  var area  = document.getElementById('paFormArea-'+agentId).value.trim();
+  var sev   = document.getElementById('paFormSev-'+agentId).value;
+  var notes = document.getElementById('paFormNotes-'+agentId).value.trim();
+  var list = _loadComplaints(agentId);
+  list.unshift({
+    id: 'c' + Date.now().toString(36),
+    title: title,
+    area: area,
+    severity: sev,
+    status: 'open',
+    notes: notes,
+    raisedAt: Date.now()
+  });
+  _saveComplaints(agentId, list);
+  showToast('Complaint logged');
+  buildPollingAgentsList();
+}
+
+function updateComplaintStatus(agentId, complaintId, newStatus){
+  var list = _loadComplaints(agentId);
+  var c = list.find(function(x){return x.id===complaintId;});
+  if(!c) return;
+  c.status = newStatus;
+  if(newStatus === 'resolved') c.resolvedAt = Date.now();
+  _saveComplaints(agentId, list);
+  showToast('Status: ' + newStatus);
+  buildPollingAgentsList();
+}
+
+function deleteComplaint(agentId, complaintId){
+  if(!confirm('Delete this complaint?')) return;
+  var list = _loadComplaints(agentId).filter(function(c){return c.id !== complaintId;});
+  _saveComplaints(agentId, list);
+  showToast('Complaint deleted');
+  buildPollingAgentsList();
 }
 
 function buildAgents(){
