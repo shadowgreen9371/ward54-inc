@@ -137,6 +137,22 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes heroPulseGreen{0%,100%{box-shadow:0 8px 30px rgba(19,136,8,0.20), 0 0 0 1px rgba(255,255,255,0.06) inset;}50%{box-shadow:0 12px 44px rgba(19,136,8,0.40), 0 0 0 1px rgba(255,255,255,0.10) inset;}}
 @keyframes heroDotGreen{0%,100%{box-shadow:0 0 0 0 rgba(19,136,8,0.7), 0 0 8px rgba(19,136,8,0.6);}50%{box-shadow:0 0 0 8px rgba(19,136,8,0), 0 0 12px rgba(19,136,8,0.8);}}
 
+/* Quaternary red-tinted hero CTA for "54 Ward Youth Congress" */
+.hero-cta-youth{
+  background:linear-gradient(135deg, rgba(220,38,38,0.18) 0%, rgba(248,113,113,0.10) 50%, rgba(232,130,30,0.16) 100%) !important;
+  box-shadow:0 8px 30px rgba(220,38,38,0.20), 0 0 0 1px rgba(255,255,255,0.06) inset !important;
+  animation:heroPulseRed 3.2s ease-in-out infinite !important;}
+.hero-cta-youth::before{
+  background:linear-gradient(135deg, #dc2626 0%, #FFFFFF 50%, #FF9933 100%) !important;}
+.hero-cta-youth:hover{box-shadow:0 16px 42px rgba(220,38,38,0.45), 0 0 0 1px rgba(255,255,255,0.10) inset !important;}
+.hero-cta-youth .hero-cta-icon{
+  background:linear-gradient(135deg, rgba(248,113,113,0.85), rgba(220,38,38,0.65)) !important;
+  box-shadow:0 4px 18px rgba(220,38,38,0.45), inset 0 1px 0 rgba(255,255,255,0.30) !important;color:#fff;}
+.hero-cta-youth .hero-cta-dot{background:#dc2626 !important;animation:heroDotRed 1.6s ease-in-out infinite !important;}
+.hero-cta-youth .hero-cta-title{text-shadow:0 2px 8px rgba(0,0,0,0.40), 0 0 24px rgba(220,38,38,0.30) !important;}
+@keyframes heroPulseRed{0%,100%{box-shadow:0 8px 30px rgba(220,38,38,0.20), 0 0 0 1px rgba(255,255,255,0.06) inset;}50%{box-shadow:0 12px 44px rgba(220,38,38,0.40), 0 0 0 1px rgba(255,255,255,0.10) inset;}}
+@keyframes heroDotRed{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.7), 0 0 8px rgba(220,38,38,0.6);}50%{box-shadow:0 0 0 8px rgba(220,38,38,0), 0 0 12px rgba(220,38,38,0.8);}}
+
 /* Tertiary blue-tinted hero CTA for "EFFECTIVE AGENT & RESPONSIBILITIES" */
 .hero-cta-tertiary{
   background:linear-gradient(135deg, rgba(59,130,246,0.18) 0%, rgba(96,165,250,0.10) 50%, rgba(139,92,246,0.16) 100%) !important;
@@ -700,11 +716,20 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
+      <div class="hero-cta hero-cta-youth" onclick="showToast('54 Ward Youth Congress section — coming soon')">
+        <span class="hero-cta-shimmer"></span>
+        <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="hero-cta-text">
+          <div class="hero-cta-title">54 WARD YOUTH CONGRESS</div>
+          <div class="hero-cta-desc"><span class="hero-cta-dot"></span>Youth wing &middot; Ward 54 unit</div>
+        </div>
+        <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
       <div class="hero-cta" onclick="goTo('p2')">
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <div class="hero-cta-text">
-          <div class="hero-cta-title">POLLING STATIONS &amp; POLLING LIST</div>
+          <div class="hero-cta-title">POLLING STATIONS &amp; VOTER LIST</div>
           <div class="hero-cta-desc"><span class="hero-cta-dot"></span>12 stations &middot; 38 booths &middot; Map &middot; Voters</div>
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
