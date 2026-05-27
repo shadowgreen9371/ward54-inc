@@ -1,0 +1,5154 @@
+{
+  "part": 13,
+  "extractedAt": "2026-05-27T09:47:24.384Z",
+  "extractedVia": "tesseract.js (OCR)",
+  "totals": {
+    "male": 248,
+    "female": 261,
+    "thirdGender": 5,
+    "total": 514
+  },
+  "section": "1-HARE KRISHNA KONAR",
+  "voters": [
+    {
+      "sl": 1,
+      "voterId": "WB21154090225",
+      "name": "Nageswari Devi",
+      "relType": "H",
+      "relName": "Ganga Dayal Prasad",
+      "house": "29/1",
+      "age": 70,
+      "gender": "F"
+    },
+    {
+      "sl": 2,
+      "voterId": "WB21154090225",
+      "name": "Prem Prasad",
+      "relType": "F",
+      "relName": "Ganga Dayal Prasad",
+      "house": "29/1",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 3,
+      "voterId": "WB21154090225",
+      "name": "Prchi Bibi",
+      "relType": "H",
+      "relName": "Kail Ahmed",
+      "house": "29/2",
+      "age": 81,
+      "gender": "F"
+    },
+    {
+      "sl": 4,
+      "voterId": "WB21154090515",
+      "name": "Noor Jahan",
+      "relType": "H",
+      "relName": "Md Manzoor",
+      "house": "29/2",
+      "age": 71,
+      "gender": "F"
+    },
+    {
+      "sl": 5,
+      "voterId": "WB21154090266",
+      "name": "Fabia Khatoon",
+      "relType": "H",
+      "relName": "Abdul Qayum",
+      "house": "29/2",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 6,
+      "voterId": "WB21154090266",
+      "name": "Shahjaha Begum",
+      "relType": "H",
+      "relName": "Kamaluddin",
+      "house": "29/2",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 7,
+      "voterId": "WB21154090402",
+      "name": "Hashmat Hossain",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 8,
+      "voterId": "WB21154090430",
+      "name": "Mehatab",
+      "relType": "H",
+      "relName": "Nizam Hussain",
+      "house": "29/2",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 9,
+      "voterId": "WB21154090415",
+      "name": "Shanaz Begum",
+      "relType": "H",
+      "relName": "Nadeem Ahmed",
+      "house": "29/2",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 10,
+      "voterId": "WB21154090516",
+      "name": "Fehana",
+      "relType": "H",
+      "relName": "Md.manzoor",
+      "house": "29/2",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 11,
+      "voterId": "P13S0011",
+      "name": "Manoj Prasad",
+      "relType": "F",
+      "relName": "Ganga Dayal Prasad L",
+      "house": "29/1",
+      "age": 33,
+      "gender": "M"
+    },
+    {
+      "sl": 12,
+      "voterId": "P13S0012",
+      "name": "Shamima L",
+      "relType": "H",
+      "relName": "Md. Shahjada L",
+      "house": "29/2",
+      "age": 78,
+      "gender": "F"
+    },
+    {
+      "sl": 13,
+      "voterId": "WB21154090492",
+      "name": "Saima Bogum",
+      "relType": "H",
+      "relName": "Md.suleman",
+      "house": "29/2",
+      "age": 69,
+      "gender": "F"
+    },
+    {
+      "sl": 14,
+      "voterId": "WB21154090492",
+      "name": "Ashique Rez",
+      "relType": "F",
+      "relName": "Moshin Raza",
+      "house": "29/2",
+      "age": 65,
+      "gender": "M"
+    },
+    {
+      "sl": 15,
+      "voterId": "WB21154090492",
+      "name": "Sk.munna L",
+      "relType": "F",
+      "relName": "Shahjada L",
+      "house": "29/2",
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 16,
+      "voterId": "WB21154090487",
+      "name": "Sahana Begum",
+      "relType": "H",
+      "relName": "Aftab Quad L",
+      "house": "29/2",
+      "age": 156,
+      "gender": "F"
+    },
+    {
+      "sl": 17,
+      "voterId": "WB21154090487",
+      "name": "Aki Anmed",
+      "relType": "F",
+      "relName": "Knall Anmed i",
+      "house": "29/2",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 18,
+      "voterId": "WB21154090396",
+      "name": "Kamaluuddin",
+      "relType": "F",
+      "relName": "Rahimuddin L",
+      "house": "29/2",
+      "age": 52,
+      "gender": "M"
+    },
+    {
+      "sl": 19,
+      "voterId": "P13S0019",
+      "name": "Ganga Dayal Prasad",
+      "relType": "F",
+      "relName": "Ram Dutta Bhagat",
+      "house": "29/1",
+      "age": 72,
+      "gender": "M"
+    },
+    {
+      "sl": 20,
+      "voterId": "WB21154090220",
+      "name": "Chanda Devi",
+      "relType": "H",
+      "relName": "Manoj Prasad",
+      "house": "29/1,",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 21,
+      "voterId": "WB21154090220",
+      "name": "SAKINA BEGUM",
+      "relType": "H",
+      "relName": "Rahimuddin",
+      "house": "29/2",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 22,
+      "voterId": "WB21154090220",
+      "name": "Nashima Khatoon",
+      "relType": "H",
+      "relName": "Md Amin",
+      "house": "29/2",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 23,
+      "voterId": "WB21154090400",
+      "name": "Nadeem Ahmed",
+      "relType": "F",
+      "relName": "Md.shamsuddin",
+      "house": "29/2",
+      "age": 62,
+      "gender": "M"
+    },
+    {
+      "sl": 24,
+      "voterId": "WB21154090400",
+      "name": "Tahamina Begum",
+      "relType": "H",
+      "relName": "Md. Sabir Alam",
+      "house": "29/2",
+      "age": 59,
+      "gender": "F"
+    },
+    {
+      "sl": 25,
+      "voterId": "WB21154090416",
+      "name": "Sima Begum",
+      "relType": "H",
+      "relName": "Ashiqueb Reza",
+      "house": null,
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 26,
+      "voterId": "WB21154090418",
+      "name": "Md Saim",
+      "relType": "F",
+      "relName": "Md Anwar Hussain",
+      "house": "29/2",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 27,
+      "voterId": "WB21154090418",
+      "name": "Sk Mahatab Alam",
+      "relType": "F",
+      "relName": "Sk Hafiz",
+      "house": null,
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 28,
+      "voterId": "WB21154090418",
+      "name": "Angurl Begum",
+      "relType": "H",
+      "relName": "Md Mohiuddin",
+      "house": "29/2",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 29,
+      "voterId": "WB21154090457",
+      "name": "Sk Murshid",
+      "relType": "F",
+      "relName": "Sk Hafiz",
+      "house": "29/2",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 30,
+      "voterId": "WB21154090425",
+      "name": "Mahajben Begum",
+      "relType": "H",
+      "relName": "Mehatab Alam",
+      "house": null,
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 31,
+      "voterId": "WB21154090425",
+      "name": "Md Nasim",
+      "relType": "F",
+      "relName": "Md. Waki",
+      "house": "29/2",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 32,
+      "voterId": "WB21154090425",
+      "name": "Jawed Ahmed Warsi",
+      "relType": "M",
+      "relName": "Knairunnisha Warsi",
+      "house": "29/2",
+      "age": 48,
+      "gender": "M"
+    },
+    {
+      "sl": 33,
+      "voterId": "P13S0033",
+      "name": "Farhat Parveen",
+      "relType": "F",
+      "relName": "Md. Amin",
+      "house": "29/2",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 34,
+      "voterId": "P13S0034",
+      "name": "Md Ajad",
+      "relType": "F",
+      "relName": "Mohammmad Seraj",
+      "house": "29/2",
+      "age": 45,
+      "gender": "M"
+    },
+    {
+      "sl": 35,
+      "voterId": "P13S0035",
+      "name": "Niofar Begum",
+      "relType": "F",
+      "relName": "Nizam Hossan",
+      "house": "29/2",
+      "age": 44,
+      "gender": "F"
+    },
+    {
+      "sl": 36,
+      "voterId": "P13S0036",
+      "name": "Md Wasim",
+      "relType": "F",
+      "relName": "Abdul Azz",
+      "house": "29/2",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 37,
+      "voterId": "P13S0037",
+      "name": "Shabana Begum",
+      "relType": "H",
+      "relName": "Amir Khusru",
+      "house": "29/2",
+      "age": 42,
+      "gender": "F"
+    },
+    {
+      "sl": 38,
+      "voterId": "P13S0038",
+      "name": "Md. Azharuddin",
+      "relType": "F",
+      "relName": "Md. Moinuddin",
+      "house": "29/2",
+      "age": 40,
+      "gender": "M"
+    },
+    {
+      "sl": 39,
+      "voterId": "P13S0039",
+      "name": "Sk Akhtar",
+      "relType": "F",
+      "relName": "Sk Hafiz f",
+      "house": "29/2",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 40,
+      "voterId": "P13S0040",
+      "name": "Sabana Parveen",
+      "relType": "F",
+      "relName": "Md Amin",
+      "house": "29/2",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 41,
+      "voterId": "P13S0041",
+      "name": "Shabnam Begam L",
+      "relType": "H",
+      "relName": "Sk. Munna",
+      "house": "29/2",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 42,
+      "voterId": "P13S0042",
+      "name": "Talat Parveen L",
+      "relType": "H",
+      "relName": "Jawaid Anwar",
+      "house": "29/2",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 43,
+      "voterId": "P13S0043",
+      "name": "Riyazzuddin",
+      "relType": "F",
+      "relName": "Kamaluddin",
+      "house": "29/2",
+      "age": 45,
+      "gender": "M"
+    },
+    {
+      "sl": 44,
+      "voterId": "P13S0044",
+      "name": "Md Imran",
+      "relType": "M",
+      "relName": "Salma Begum F",
+      "house": "29/2",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 45,
+      "voterId": "P13S0045",
+      "name": "Alam Ara",
+      "relType": "F",
+      "relName": "Sk.Shahjada i",
+      "house": "29/2",
+      "age": 44,
+      "gender": "F"
+    },
+    {
+      "sl": 46,
+      "voterId": "P13S0046",
+      "name": "Md. Nenal L",
+      "relType": "F",
+      "relName": "Md. Ashique L",
+      "house": "29/2",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 47,
+      "voterId": "P13S0047",
+      "name": "Md. Azharuddin L",
+      "relType": "M",
+      "relName": "Shahjahan Begum",
+      "house": "29/2",
+      "age": 41,
+      "gender": "M"
+    },
+    {
+      "sl": 48,
+      "voterId": "P13S0048",
+      "name": "Gulam Gous",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 49,
+      "voterId": "P13S0049",
+      "name": "Sk. Sahabuddin",
+      "relType": "F",
+      "relName": "Kamaluddin",
+      "house": "29/2",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 50,
+      "voterId": "P13S0050",
+      "name": "Md Sikander",
+      "relType": "F",
+      "relName": "Md Moinuddin",
+      "house": "29/2",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 51,
+      "voterId": "P13S0051",
+      "name": "Jahanara",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 44,
+      "gender": "F"
+    },
+    {
+      "sl": 52,
+      "voterId": "P13S0052",
+      "name": "Sagira Siddique",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 53,
+      "voterId": "P13S0053",
+      "name": "Razwar Fathma",
+      "relType": "H",
+      "relName": "Sk. Aftab Alam",
+      "house": "29/2",
+      "age": 4,
+      "gender": "O"
+    },
+    {
+      "sl": 54,
+      "voterId": "P13S0054",
+      "name": "Shahnaz Begum",
+      "relType": "H",
+      "relName": "Akil Ahmed",
+      "house": "29/2",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 55,
+      "voterId": "P13S0055",
+      "name": "Sk. Shakir",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 34,
+      "gender": "M"
+    },
+    {
+      "sl": 56,
+      "voterId": "P13S0056",
+      "name": "Sania Raj",
+      "relType": "F",
+      "relName": "Mahatab Alam",
+      "house": "29/2",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 57,
+      "voterId": "P13S0057",
+      "name": "Sabrin Parveen",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 58,
+      "voterId": "P13S0058",
+      "name": "Nausin Saba",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 59,
+      "voterId": "P13S0059",
+      "name": "Md. Sahid",
+      "relType": "F",
+      "relName": "Md. Moinuddin",
+      "house": "29/2",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 60,
+      "voterId": "P13S0060",
+      "name": "Md. Shahabuddin",
+      "relType": "F",
+      "relName": "Md. Yasin",
+      "house": "29/2",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 61,
+      "voterId": "P13S0061",
+      "name": "Sufiya Parveen",
+      "relType": "M",
+      "relName": "Nashima Khatoon",
+      "house": "29/2",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 62,
+      "voterId": "P13S0062",
+      "name": "Nazni Khatoon",
+      "relType": "H",
+      "relName": "Md. Asif Hussain",
+      "house": "29/2",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 63,
+      "voterId": "P13S0063",
+      "name": "Saddam Hussain",
+      "relType": "M",
+      "relName": "Rabiya Khatoon",
+      "house": "29/2",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 64,
+      "voterId": "P13S0064",
+      "name": "Firdous Khatoon",
+      "relType": "M",
+      "relName": "Anguri Begum",
+      "house": "29/2",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 65,
+      "voterId": "P13S0065",
+      "name": "ASHFAQUE TAMIM",
+      "relType": "F",
+      "relName": "AFAQUE AQLIM",
+      "house": "29/2",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 66,
+      "voterId": "P13S0066",
+      "name": "Mahzabeen Khatoon",
+      "relType": "M",
+      "relName": "Anguri Begum",
+      "house": "29/2",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 67,
+      "voterId": "P13S0067",
+      "name": "Sk. Sarwar",
+      "relType": "F",
+      "relName": "Sk. Afsar",
+      "house": "29/2",
+      "age": 26,
+      "gender": "M"
+    },
+    {
+      "sl": 68,
+      "voterId": "P13S0068",
+      "name": "Ayesha Khatoon",
+      "relType": "H",
+      "relName": "Md Afridi",
+      "house": "29/2",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 69,
+      "voterId": "P13S0069",
+      "name": "Md Asif Hussain",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 37,
+      "gender": "M"
+    },
+    {
+      "sl": 70,
+      "voterId": "P13S0070",
+      "name": "Rafia Parveen",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 33,
+      "gender": "F"
+    },
+    {
+      "sl": 71,
+      "voterId": "P13S0071",
+      "name": "NIGHAR SULTANA",
+      "relType": "F",
+      "relName": "ANWAR HUSSAIN",
+      "house": "29/2",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 72,
+      "voterId": "P13S0072",
+      "name": "Md Afridi",
+      "relType": "F",
+      "relName": "SK MUNNA",
+      "house": "29/2",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 73,
+      "voterId": "P13S0073",
+      "name": "Muskan Khatoon",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 74,
+      "voterId": "P13S0074",
+      "name": "Md. Rizwan",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 5,
+      "gender": "O"
+    },
+    {
+      "sl": 75,
+      "voterId": "P13S0075",
+      "name": "SK AFTAB ALAM",
+      "relType": "F",
+      "relName": "SK MAHATAB ALAM",
+      "house": "29/2",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 76,
+      "voterId": "P13S0076",
+      "name": "Syed Tabrez Alam",
+      "relType": "F",
+      "relName": "Syed Parwaiz Alam",
+      "house": "29/2",
+      "age": 33,
+      "gender": "M"
+    },
+    {
+      "sl": 77,
+      "voterId": "P13S0077",
+      "name": "Mehwash Kalam",
+      "relType": "M",
+      "relName": "Akhtari Begum",
+      "house": "29/2",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 78,
+      "voterId": "P13S0078",
+      "name": "MD KHURSHID",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 79,
+      "voterId": "P13S0079",
+      "name": "Safikur Rahman",
+      "relType": null,
+      "relName": null,
+      "house": "29/2H",
+      "age": 48,
+      "gender": "M"
+    },
+    {
+      "sl": 80,
+      "voterId": "P13S0080",
+      "name": "MD AYUB",
+      "relType": "F",
+      "relName": "MD NASIM L",
+      "house": "29/2",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 81,
+      "voterId": "P13S0081",
+      "name": "Shaheena Parveen",
+      "relType": "M",
+      "relName": "Sabana Parveen L",
+      "house": "29/2",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sl": 82,
+      "voterId": "P13S0082",
+      "name": "Sayeeda All",
+      "relType": "H",
+      "relName": "Md. Murtaza All L",
+      "house": "29/2",
+      "age": 42,
+      "gender": "F"
+    },
+    {
+      "sl": 83,
+      "voterId": "P13S0083",
+      "name": "Sama Begum",
+      "relType": "H",
+      "relName": "Md. Nasim",
+      "house": "29/2",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 84,
+      "voterId": "P13S0084",
+      "name": "Kahkashan Kalam",
+      "relType": "F",
+      "relName": "Md Kalam t",
+      "house": "29/2",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sl": 85,
+      "voterId": "P13S0085",
+      "name": "Md. Moinuddin",
+      "relType": "M",
+      "relName": "Shamima Begum i",
+      "house": "29/2",
+      "age": 66,
+      "gender": "M"
+    },
+    {
+      "sl": 86,
+      "voterId": "P13S0086",
+      "name": "Nazia Reza",
+      "relType": "F",
+      "relName": "Ashique Reza F",
+      "house": "29/2",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 87,
+      "voterId": "WB21154090571",
+      "name": "Suga Yasmin",
+      "relType": "F",
+      "relName": "Md Ismail i",
+      "house": "29/2",
+      "age": 123,
+      "gender": "F"
+    },
+    {
+      "sl": 88,
+      "voterId": "WB21154090571",
+      "name": "Md Alamgir",
+      "relType": "F",
+      "relName": "Md.yaqub",
+      "house": "29/2H/1",
+      "age": 71,
+      "gender": "M"
+    },
+    {
+      "sl": 89,
+      "voterId": "WB21154090571",
+      "name": "Nada Anjum",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 90,
+      "voterId": "P13S0090",
+      "name": "Shadaab Siddique",
+      "relType": "M",
+      "relName": "Sahnaz Begum",
+      "house": "29/2",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sl": 91,
+      "voterId": "P13S0091",
+      "name": "Asraf Ali",
+      "relType": "F",
+      "relName": "Md Amin",
+      "house": "29/2",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 92,
+      "voterId": "P13S0092",
+      "name": "Rozy Khatoon",
+      "relType": "H",
+      "relName": "Asraf ALI",
+      "house": "29/2",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 93,
+      "voterId": "P13S0093",
+      "name": "MD NIZAMUDDIN",
+      "relType": "F",
+      "relName": "SK RAHIMUDDIN",
+      "house": "29/2",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 94,
+      "voterId": "P13S0094",
+      "name": "Shamim Akhtar",
+      "relType": null,
+      "relName": null,
+      "house": "29/2H",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 95,
+      "voterId": "P13S0095",
+      "name": "Nasima Begum",
+      "relType": null,
+      "relName": null,
+      "house": "29/2H/1",
+      "age": 6,
+      "gender": "O"
+    },
+    {
+      "sl": 96,
+      "voterId": "P13S0096",
+      "name": "Md Sajid Hossain",
+      "relType": "F",
+      "relName": "Abid Hossain",
+      "house": "29/2H/1",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 97,
+      "voterId": "P13S0097",
+      "name": "Snamsad Begum",
+      "relType": "F",
+      "relName": "Abed Hossain",
+      "house": "29/2H/1",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 98,
+      "voterId": "P13S0098",
+      "name": "Md. Ismail",
+      "relType": "F",
+      "relName": "Md. Yunus",
+      "house": "29/2/H/1",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 99,
+      "voterId": "P13S0099",
+      "name": "Reshmi Begum",
+      "relType": "H",
+      "relName": "Md. Sahid",
+      "house": "29/2/H/1",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 100,
+      "voterId": "P13S0100",
+      "name": "Nishat Begum",
+      "relType": "F",
+      "relName": "Abed Hossain",
+      "house": "29/2/H/1",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 101,
+      "voterId": "WB21164090252",
+      "name": "Md. Jalaluddin",
+      "relType": "F",
+      "relName": "Md. Ismail",
+      "house": "29/2/H/1",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 102,
+      "voterId": "WB21164090252",
+      "name": "Md. Alauddin Sunny",
+      "relType": "F",
+      "relName": "Md. Ismail",
+      "house": "29/2/H/1",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 103,
+      "voterId": "WB21164090252",
+      "name": "Shada Iqbal",
+      "relType": "H",
+      "relName": "Hasrat abel",
+      "house": "29/24/2",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 104,
+      "voterId": "WB21164090252",
+      "name": "Sk Israfil",
+      "relType": "F",
+      "relName": "Shokh Abdul Latif",
+      "house": "29/242",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 105,
+      "voterId": "P13S0105",
+      "name": "Habibur Rahman",
+      "relType": "F",
+      "relName": "Md.Alamgir F",
+      "house": "29/2H/1",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 106,
+      "voterId": "P13S0106",
+      "name": "Zeba Alam",
+      "relType": "F",
+      "relName": "Md Alamgir",
+      "house": "29/2H/1",
+      "age": 44,
+      "gender": "F"
+    },
+    {
+      "sl": 107,
+      "voterId": "P13S0107",
+      "name": "Md. Sahed",
+      "relType": "F",
+      "relName": "Md. Yasin L",
+      "house": "29/2/H/1",
+      "age": 163,
+      "gender": "M"
+    },
+    {
+      "sl": 108,
+      "voterId": "P13S0108",
+      "name": "Keshwar Jahan L",
+      "relType": "F",
+      "relName": "Md. Sayeed",
+      "house": "29/2/H/1",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 109,
+      "voterId": "P13S0109",
+      "name": "Afsana Begum",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/1",
+      "age": 136,
+      "gender": "F"
+    },
+    {
+      "sl": 110,
+      "voterId": "P13S0110",
+      "name": "Sabnam Begum",
+      "relType": "F",
+      "relName": "Md. Ismail F",
+      "house": "29/2/H/1",
+      "age": 31,
+      "gender": "F"
+    },
+    {
+      "sl": 111,
+      "voterId": "WB21154090502",
+      "name": "Eza) Ahmed",
+      "relType": "F",
+      "relName": "Istiaque Ahmed L",
+      "house": "29/2/H/1",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 112,
+      "voterId": "WB21154090502",
+      "name": "Sk Jani",
+      "relType": "F",
+      "relName": "Sk Nathuni L",
+      "house": "29/24H/2",
+      "age": 79,
+      "gender": "M"
+    },
+    {
+      "sl": 113,
+      "voterId": "WB21154090245",
+      "name": "Ezaz Ahmed",
+      "relType": "F",
+      "relName": "Abdul Azz i",
+      "house": "29/2H/2",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 114,
+      "voterId": "WB21154090245",
+      "name": "Sultana",
+      "relType": "F",
+      "relName": "Razak L",
+      "house": "29/2+/2",
+      "age": 54,
+      "gender": "F"
+    },
+    {
+      "sl": 115,
+      "voterId": "WB21154090574",
+      "name": "Shabir Hossain",
+      "relType": "F",
+      "relName": "Abid Hossain",
+      "house": "29/2H/1",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 116,
+      "voterId": "WB21154102368",
+      "name": "Rabia Begum",
+      "relType": "H",
+      "relName": "Md. Moinuddin",
+      "house": "29/2H/1",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 117,
+      "voterId": "WB21154102368",
+      "name": "Nudrat Begum",
+      "relType": "H",
+      "relName": "Md. Sehed",
+      "house": "29/2/H/1",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 118,
+      "voterId": "WB21154102368",
+      "name": "Md. Emtiyaz",
+      "relType": "M",
+      "relName": "Mehatab",
+      "house": "29/2/H/1",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 119,
+      "voterId": "WB21154102368",
+      "name": "Nasima Khatoon",
+      "relType": "H",
+      "relName": "Md. Sajid Hossain",
+      "house": "29/2/H/1",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 120,
+      "voterId": "WB21154090217",
+      "name": "Sabana Begum",
+      "relType": "F",
+      "relName": "Md. Ismail",
+      "house": "29/2/H/1",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 121,
+      "voterId": "WB21154090217",
+      "name": "Md Fardin",
+      "relType": "F",
+      "relName": "Md Sahid",
+      "house": "29/2/H/1",
+      "age": 27,
+      "gender": "M"
+    },
+    {
+      "sl": 122,
+      "voterId": "WB21154090217",
+      "name": "Hasrat Iqbal",
+      "relType": "F",
+      "relName": "All Razak",
+      "house": "29/2H/2",
+      "age": 68,
+      "gender": "M"
+    },
+    {
+      "sl": 123,
+      "voterId": "WB21154090320",
+      "name": "Isar Ahmed",
+      "relType": "F",
+      "relName": "Abdul Aziz",
+      "house": "29/2H/2",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 124,
+      "voterId": "WB21154090271",
+      "name": "Raushan Iqbal",
+      "relType": "F",
+      "relName": "Razak Al",
+      "house": "29/2H/2",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 125,
+      "voterId": "WB21154090243",
+      "name": "Zora Khatoon",
+      "relType": null,
+      "relName": null,
+      "house": "29/2H/2",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 126,
+      "voterId": "WB21154090243",
+      "name": "Rehana Begum",
+      "relType": "F",
+      "relName": "Razak",
+      "house": "29/24/2",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 127,
+      "voterId": "WB21154090243",
+      "name": "Amreen Iqbal",
+      "relType": "F",
+      "relName": "Hasrat label",
+      "house": "29/2H/2",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 128,
+      "voterId": "P13S0128",
+      "name": "Sabina Khatun",
+      "relType": "F",
+      "relName": "Sk. Akhtar",
+      "house": "29/2/H/2",
+      "age": 131,
+      "gender": "F"
+    },
+    {
+      "sl": 129,
+      "voterId": "P13S0129",
+      "name": "Ghazal Parveen",
+      "relType": "F",
+      "relName": "Ejaz Ahmed",
+      "house": "29/2/H/2",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 130,
+      "voterId": "P13S0130",
+      "name": "Shagufa Iqbal",
+      "relType": "F",
+      "relName": "Hasrat Iqbal",
+      "house": "29/2/H/2",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 131,
+      "voterId": "WB21154090347",
+      "name": "Khairunnisha Warsi",
+      "relType": "H",
+      "relName": "Md Siddique",
+      "house": "29/2+/3",
+      "age": 176,
+      "gender": "F"
+    },
+    {
+      "sl": 132,
+      "voterId": "WB21154090347",
+      "name": "Majida Khatoon",
+      "relType": "H",
+      "relName": "Sk. Kayum",
+      "house": "29/2+H/3",
+      "age": 71,
+      "gender": "F"
+    },
+    {
+      "sl": 133,
+      "voterId": "WB21154090347",
+      "name": "Husne Ara Begum",
+      "relType": "H",
+      "relName": "Ejaz Ahmed L",
+      "house": null,
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 134,
+      "voterId": "P13S0134",
+      "name": "Najama Khatoon",
+      "relType": "F",
+      "relName": "Sk.Jani L",
+      "house": "29/2H/2",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 135,
+      "voterId": "P13S0135",
+      "name": "Shahida Begum",
+      "relType": "H",
+      "relName": "srar Ahmed L",
+      "house": "29/2H/2",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 136,
+      "voterId": "P13S0136",
+      "name": "Ayesha Khatoon",
+      "relType": "H",
+      "relName": "Sk. Akbar Al i",
+      "house": "29/2/H/2",
+      "age": 44,
+      "gender": "F"
+    },
+    {
+      "sl": 137,
+      "voterId": "P13S0137",
+      "name": "Nazni Akhtar",
+      "relType": null,
+      "relName": null,
+      "house": null,
+      "age": 31,
+      "gender": "F"
+    },
+    {
+      "sl": 138,
+      "voterId": "P13S0138",
+      "name": "Noor Yasmin",
+      "relType": "F",
+      "relName": "Sk lsrafi i",
+      "house": "29/2/H/2",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 139,
+      "voterId": "P13S0139",
+      "name": "Sk Umar All",
+      "relType": "M",
+      "relName": "Ayesha Knatoon L",
+      "house": "29/2/H/2",
+      "age": 21,
+      "gender": "M"
+    },
+    {
+      "sl": 140,
+      "voterId": "WB21154090093",
+      "name": "Tukurani Mr",
+      "relType": "F",
+      "relName": "Anwar All Mir i",
+      "house": "29/2/H/2",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 141,
+      "voterId": "WB21154090093",
+      "name": "Sajoeda Begum",
+      "relType": "F",
+      "relName": "Abdul Rezak L",
+      "house": "29/2H/3",
+      "age": 73,
+      "gender": "F"
+    },
+    {
+      "sl": 142,
+      "voterId": "WB21154090258",
+      "name": "Dulari Bibi",
+      "relType": "H",
+      "relName": "Sk Firoz i",
+      "house": "29/2H/3",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 143,
+      "voterId": "P13S0143",
+      "name": "Sheikh Muhammad Alamgir",
+      "relType": "F",
+      "relName": "Sheikh Abdul Latif",
+      "house": "29/2H/2",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 144,
+      "voterId": "P13S0144",
+      "name": "Najma Begum",
+      "relType": "F",
+      "relName": "Razak",
+      "house": "29/2H/2",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 145,
+      "voterId": "P13S0145",
+      "name": "Afreen Iqbal",
+      "relType": "F",
+      "relName": "Hasrat Iqbal",
+      "house": "29/2H/2",
+      "age": 136,
+      "gender": "F"
+    },
+    {
+      "sl": 146,
+      "voterId": "P13S0146",
+      "name": "Kainath Parveen",
+      "relType": "H",
+      "relName": "Sk. Akhtar",
+      "house": "29/2/H/2",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 147,
+      "voterId": "FND3069943",
+      "name": "Zaida Begum",
+      "relType": "F",
+      "relName": "Israt Ahmed",
+      "house": "29/2/H/2",
+      "age": 22,
+      "gender": "F"
+    },
+    {
+      "sl": 148,
+      "voterId": "FND3069943",
+      "name": "Ambarin Iqbal",
+      "relType": "H",
+      "relName": "Roshan Iqbal",
+      "house": "29/2/H/2",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 149,
+      "voterId": "FND3069943",
+      "name": "Nazneen Paveen",
+      "relType": "F",
+      "relName": "Sk. Usman Gani",
+      "house": "29/2,H/3",
+      "age": 127,
+      "gender": "F"
+    },
+    {
+      "sl": 150,
+      "voterId": "WB21154090534",
+      "name": "Sk Jahangir",
+      "relType": "F",
+      "relName": "Abdul Fezak",
+      "house": "29/2H/3",
+      "age": 71,
+      "gender": "M"
+    },
+    {
+      "sl": 151,
+      "voterId": "WB21154090259",
+      "name": "Razia Begum",
+      "relType": "H",
+      "relName": "Sk Jahangir",
+      "house": "29/2H/3",
+      "age": 63,
+      "gender": "F"
+    },
+    {
+      "sl": 152,
+      "voterId": "WB21154090262",
+      "name": "Zarar Ahmed",
+      "relType": "F",
+      "relName": "Md. Siddique",
+      "house": "29/2H/3",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 153,
+      "voterId": "WB21154090273",
+      "name": "Sk Khalique",
+      "relType": "F",
+      "relName": "Sk Bato",
+      "house": "29/2H/3",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 154,
+      "voterId": "WB21154090273",
+      "name": "Parveen Begum",
+      "relType": "F",
+      "relName": "Md Siddique",
+      "house": "29/2H/3",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 155,
+      "voterId": "WB21154090273",
+      "name": "JAMIL AHMED",
+      "relType": "F",
+      "relName": "Sk Bato",
+      "house": "29/24/3",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 156,
+      "voterId": "P13S0156",
+      "name": "Shabana Begum",
+      "relType": "F",
+      "relName": "Sk Jahangir",
+      "house": "29/2H/3",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 157,
+      "voterId": "P13S0157",
+      "name": "Shaheen Begum",
+      "relType": "H",
+      "relName": "Md Nehal",
+      "house": "29/24/3",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 158,
+      "voterId": "P13S0158",
+      "name": "Nemmi Begum",
+      "relType": "H",
+      "relName": "Jamil Ahmed",
+      "house": "29/2+/3",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 159,
+      "voterId": "WB21154090088",
+      "name": "Meherunnisha",
+      "relType": "F",
+      "relName": "Sk Batoo f",
+      "house": "29/2H/3",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 160,
+      "voterId": "WB21154090088",
+      "name": "Abdul Rahim",
+      "relType": "F",
+      "relName": "Abdul Aziz i",
+      "house": "29/2H/3",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 161,
+      "voterId": "WB21154090088",
+      "name": "Anwar Begum",
+      "relType": "H",
+      "relName": "Abdul Rashid L",
+      "house": "29/2H/3",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 162,
+      "voterId": "WB21154090275",
+      "name": "KISWAR SULTANA",
+      "relType": "H",
+      "relName": "Anwar Hussain F",
+      "house": "29/2H/3",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 163,
+      "voterId": "WB21154090275",
+      "name": "Parvin Bogam",
+      "relType": "H",
+      "relName": "Abdul Rahaman i",
+      "house": "29/2H/3",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 164,
+      "voterId": "WB21154090275",
+      "name": "Ejaz Ahmed",
+      "relType": "F",
+      "relName": "Md Siddique F",
+      "house": "29/2H/3",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 165,
+      "voterId": "WB21154090497",
+      "name": "Sk Aftab Alam",
+      "relType": "F",
+      "relName": "Sk Chand i",
+      "house": "29/2H/3",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 166,
+      "voterId": "WB21154090497",
+      "name": "RUKSANA BEGUM",
+      "relType": "F",
+      "relName": "Md llius: i",
+      "house": "29/2H/3",
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 167,
+      "voterId": "P13S0167",
+      "name": "Rashida Begum",
+      "relType": "H",
+      "relName": "Sk Ayub L",
+      "house": "29/2H/3",
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 168,
+      "voterId": "WB21154090263",
+      "name": "Md. Alamgir",
+      "relType": "F",
+      "relName": "Sk Jahangir",
+      "house": "29/2H/3",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 169,
+      "voterId": "WB21154090263",
+      "name": "Noorjahan Bibi",
+      "relType": "F",
+      "relName": "Abdul Aziz",
+      "house": "29/2H/3",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 170,
+      "voterId": "WB21154090263",
+      "name": "Razia Begum",
+      "relType": "H",
+      "relName": "Syed Parwaiz Alam",
+      "house": "29/2H/3",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 171,
+      "voterId": "WB21154090346",
+      "name": "Sk Ayub",
+      "relType": "F",
+      "relName": "Sk. Kayum",
+      "house": "29/2H/3",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 172,
+      "voterId": "WB21154090346",
+      "name": "Reshma Begam",
+      "relType": "F",
+      "relName": "Sk Chand",
+      "house": "29/2H/3",
+      "age": null,
+      "gender": "F"
+    },
+    {
+      "sl": 173,
+      "voterId": "WB21154090351",
+      "name": "Shaheen Parveen",
+      "relType": "H",
+      "relName": "Osman Ghani",
+      "house": "29/2H/3",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 174,
+      "voterId": "WB21154090351",
+      "name": "Sk. Sawkat",
+      "relType": "F",
+      "relName": "Sk. Kayum",
+      "house": "29/2H/3",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 175,
+      "voterId": "WB21154090351",
+      "name": "Sk Ershad",
+      "relType": "F",
+      "relName": "Sk Firoz",
+      "house": "29/2H/3",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 176,
+      "voterId": "WB21154090351",
+      "name": "Adisha Khatoon",
+      "relType": "F",
+      "relName": "Abdul Rashid",
+      "house": "29/2H/3",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 177,
+      "voterId": "P13S0177",
+      "name": "Md.Rizwan",
+      "relType": "F",
+      "relName": "Abdul Rashid",
+      "house": "29/2H/3",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 178,
+      "voterId": "P13S0178",
+      "name": "Farjana Begum",
+      "relType": "F",
+      "relName": "Md Elias",
+      "house": "29/2H/3",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 179,
+      "voterId": "FND1064104",
+      "name": "Sahnaz Begum",
+      "relType": "H",
+      "relName": "Zarar Ahmed",
+      "house": "29/2H/3",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 180,
+      "voterId": "FND1064104",
+      "name": "SK Imtiaz",
+      "relType": "M",
+      "relName": "Duiari Bibi",
+      "house": "29/2H/3",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 181,
+      "voterId": "FND1064104",
+      "name": "Sk Falyaz",
+      "relType": "F",
+      "relName": "Sk.Firoz",
+      "house": "29/2H/3",
+      "age": 42,
+      "gender": "M"
+    },
+    {
+      "sl": 182,
+      "voterId": "FND1064104",
+      "name": "Zulekha Knatoon",
+      "relType": "H",
+      "relName": "Ejaj Ahmed",
+      "house": "29/2H/3",
+      "age": 33,
+      "gender": "F"
+    },
+    {
+      "sl": 183,
+      "voterId": "P13S0183",
+      "name": "Shabnam Sultana",
+      "relType": "F",
+      "relName": "Azhar Hossain",
+      "house": "29/2H/3",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 184,
+      "voterId": "P13S0184",
+      "name": "REHAN AHMED",
+      "relType": "F",
+      "relName": "AKIL AHMED",
+      "house": "29/2/H/3",
+      "age": 20,
+      "gender": "M"
+    },
+    {
+      "sl": 185,
+      "voterId": "P13S0185",
+      "name": "RAZIA SULTANA",
+      "relType": "H",
+      "relName": "AZHAR HUSSAIN",
+      "house": "29/2/H/3",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 186,
+      "voterId": "P13S0186",
+      "name": "Shahista Khatoon",
+      "relType": "F",
+      "relName": "Noor Alam",
+      "house": "29/2/H/3",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 187,
+      "voterId": "P13S0187",
+      "name": "Shaheen Parveen",
+      "relType": "H",
+      "relName": "Nausad Alam",
+      "house": "29/2/H/3",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 188,
+      "voterId": "P13S0188",
+      "name": "Zeenat Shaba",
+      "relType": "M",
+      "relName": "Anwari Begum",
+      "house": "29/2/H/3",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 189,
+      "voterId": "P13S0189",
+      "name": "Rizwana Begum",
+      "relType": "M",
+      "relName": "Khairunnisha warsi f",
+      "house": "29/2H/3",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 190,
+      "voterId": "P13S0190",
+      "name": "Shabnam Begum",
+      "relType": "F",
+      "relName": "Sk . Jahangir L",
+      "house": "29/2H/3",
+      "age": 44,
+      "gender": "F"
+    },
+    {
+      "sl": 191,
+      "voterId": "P13S0191",
+      "name": "Shabana Parveen L",
+      "relType": "H",
+      "relName": "Sk. Ifat",
+      "house": "29/2H/3",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 192,
+      "voterId": "P13S0192",
+      "name": "Sk. Amir",
+      "relType": "F",
+      "relName": "Md. Kayum",
+      "house": "29/2H/3",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 193,
+      "voterId": "P13S0193",
+      "name": "Wasim Akthar",
+      "relType": "F",
+      "relName": "Abdul Rahim i",
+      "house": "29/2H/3",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 194,
+      "voterId": "P13S0194",
+      "name": "Aafiya Nehaal L",
+      "relType": "F",
+      "relName": "Md Nehal F",
+      "house": "29/2H/3",
+      "age": 21,
+      "gender": "F"
+    },
+    {
+      "sl": 195,
+      "voterId": "P13S0195",
+      "name": "Afsana Begum",
+      "relType": "H",
+      "relName": "Md. Mansoor Alam",
+      "house": "29/2/H/3",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 196,
+      "voterId": "P13S0196",
+      "name": "Farzana Knatoon",
+      "relType": "F",
+      "relName": "Noor Alam i",
+      "house": "29/2/H/3",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 197,
+      "voterId": "P13S0197",
+      "name": "Md. Nasir",
+      "relType": "F",
+      "relName": "Abdul Rahim L",
+      "house": "20/2/H/3",
+      "age": 36,
+      "gender": "M"
+    },
+    {
+      "sl": 198,
+      "voterId": "P13S0198",
+      "name": "Sk. Fayaz",
+      "relType": "F",
+      "relName": "Jahangir",
+      "house": "29/2/H/3",
+      "age": 32,
+      "gender": "M"
+    },
+    {
+      "sl": 199,
+      "voterId": "P13S0199",
+      "name": "Md.Salim",
+      "relType": null,
+      "relName": null,
+      "house": "29/2H/3",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 200,
+      "voterId": "P13S0200",
+      "name": "Falak Sultana",
+      "relType": "F",
+      "relName": "Azhar Hossain",
+      "house": "29/2H/3",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 201,
+      "voterId": "P13S0201",
+      "name": "Md. Mansoor Alam",
+      "relType": "F",
+      "relName": "Md. Qamruddin",
+      "house": "29/2/H/3",
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 202,
+      "voterId": "P13S0202",
+      "name": "Kader Khan",
+      "relType": "M",
+      "relName": "Sajeeda Begum",
+      "house": "29/2/H/3",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 203,
+      "voterId": "P13S0203",
+      "name": "Nisar Alam",
+      "relType": "M",
+      "relName": "Anwari Begum",
+      "house": "29/2/H/3",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 204,
+      "voterId": "P13S0204",
+      "name": "Firdus Begum",
+      "relType": "F",
+      "relName": "Monsur Alam",
+      "house": "29/2/H/3",
+      "age": 32,
+      "gender": "F"
+    },
+    {
+      "sl": 205,
+      "voterId": "P13S0205",
+      "name": "Nifar Begum",
+      "relType": "F",
+      "relName": "Jami Ahmed",
+      "house": "29/2/H/3",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 206,
+      "voterId": "P13S0206",
+      "name": "Maqusud Alam",
+      "relType": "F",
+      "relName": "Mansur Alam",
+      "house": "29/2/H/3",
+      "age": 27,
+      "gender": "M"
+    },
+    {
+      "sl": 207,
+      "voterId": "P13S0207",
+      "name": "MD Raj",
+      "relType": "F",
+      "relName": "Abdul Rashid",
+      "house": "29/2/H/3",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 208,
+      "voterId": "P13S0208",
+      "name": "Md Ashif",
+      "relType": "F",
+      "relName": "Md Sabbir",
+      "house": "29/2/H/3",
+      "age": 21,
+      "gender": "M"
+    },
+    {
+      "sl": 209,
+      "voterId": "P13S0209",
+      "name": "Yasmin Begum",
+      "relType": "H",
+      "relName": "Khalique",
+      "house": "29/2/H/3",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 210,
+      "voterId": "WB21164090269",
+      "name": "Md. Javed",
+      "relType": "M",
+      "relName": "Salma Begum",
+      "house": "29/2/H/3",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 211,
+      "voterId": "WB21164090269",
+      "name": "Md lorahim",
+      "relType": "F",
+      "relName": "Sk Bashiruddin",
+      "house": "29/2+/4",
+      "age": 77,
+      "gender": "M"
+    },
+    {
+      "sl": 212,
+      "voterId": "WB21164090269",
+      "name": "Chand Bibi",
+      "relType": "H",
+      "relName": "Md Salim",
+      "house": "29/2H/4",
+      "age": 71,
+      "gender": "F"
+    },
+    {
+      "sl": 213,
+      "voterId": "WB21164090269",
+      "name": "Aziza Irshad",
+      "relType": "H",
+      "relName": "shad Hussain",
+      "house": "29/2+/4",
+      "age": 67,
+      "gender": "F"
+    },
+    {
+      "sl": 214,
+      "voterId": "P13S0214",
+      "name": "Sahenaz Khatoon",
+      "relType": "H",
+      "relName": "Washim Akhtar f",
+      "house": "29/2/H/3",
+      "age": 31,
+      "gender": "F"
+    },
+    {
+      "sl": 215,
+      "voterId": "P13S0215",
+      "name": "Noksara Khatoon",
+      "relType": "H",
+      "relName": "Md Mohsin L",
+      "house": "29/2/H/3",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 216,
+      "voterId": "P13S0216",
+      "name": "Sk. Masum Ayub",
+      "relType": "F",
+      "relName": "Sk. Ayub L",
+      "house": "29/2/H/3",
+      "age": 26,
+      "gender": "M"
+    },
+    {
+      "sl": 217,
+      "voterId": "P13S0217",
+      "name": "AFROZ KHATOON",
+      "relType": "H",
+      "relName": "Sk Masum Ayub L",
+      "house": "29/2/H/3",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 218,
+      "voterId": "P13S0218",
+      "name": "Sameer Alam",
+      "relType": "F",
+      "relName": "Md Mansoor Alam i",
+      "house": "29/2/H/3",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 219,
+      "voterId": "P13S0219",
+      "name": "Sughra Irfan",
+      "relType": "H",
+      "relName": "Md. Irfan F",
+      "house": "29/2/H/3",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 220,
+      "voterId": "WB21154090384",
+      "name": "MD AADIL NAWAZ",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/3",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 221,
+      "voterId": "WB21154090384",
+      "name": "Noorjahan Bagum",
+      "relType": "H",
+      "relName": "Abdul Hamid i",
+      "house": "29/2H/4",
+      "age": 76,
+      "gender": "F"
+    },
+    {
+      "sl": 222,
+      "voterId": "WB21154090426",
+      "name": "Md Elias",
+      "relType": "F",
+      "relName": "Bashiruddin",
+      "house": "29/2H/4",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 223,
+      "voterId": "WB21154090426",
+      "name": "Sultana",
+      "relType": "H",
+      "relName": "Md Ibrahim i",
+      "house": "29/2H/4",
+      "age": 67,
+      "gender": "F"
+    },
+    {
+      "sl": 224,
+      "voterId": "WB21154090426",
+      "name": "Shagufta Begum",
+      "relType": "F",
+      "relName": "Mansoor Alam",
+      "house": "29/2/H/3",
+      "age": 31,
+      "gender": "F"
+    },
+    {
+      "sl": 225,
+      "voterId": "P13S0225",
+      "name": "Shana Anjum",
+      "relType": "M",
+      "relName": "Anwar Begum",
+      "house": "29/2/H/3",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 226,
+      "voterId": "P13S0226",
+      "name": "JUNAID AHMED",
+      "relType": "F",
+      "relName": "JAMIL AHMED",
+      "house": "29/2/H/3",
+      "age": 125,
+      "gender": "M"
+    },
+    {
+      "sl": 227,
+      "voterId": "P13S0227",
+      "name": "Kayanat Khatoon",
+      "relType": "F",
+      "relName": "Sk Ayub",
+      "house": "29/2/H/3",
+      "age": 22,
+      "gender": "F"
+    },
+    {
+      "sl": 228,
+      "voterId": "P13S0228",
+      "name": "Shazia Alamgir",
+      "relType": "H",
+      "relName": "AMIN AHMED",
+      "house": "29/2/H/3",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 229,
+      "voterId": "WB21154090222",
+      "name": "Mohammad Jainul",
+      "relType": "F",
+      "relName": "Noor Mohammad",
+      "house": "29/2/H/3",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 230,
+      "voterId": "WB21154090222",
+      "name": "SAZINA MAHVASH",
+      "relType": null,
+      "relName": null,
+      "house": "29/2,H/4",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 231,
+      "voterId": "WB21154090222",
+      "name": "Md Yasin",
+      "relType": "F",
+      "relName": "Noor Mohmed",
+      "house": "29/2H/4",
+      "age": 173,
+      "gender": "M"
+    },
+    {
+      "sl": 232,
+      "voterId": "WB21154090288",
+      "name": "Nazma Khatoon",
+      "relType": "H",
+      "relName": "Noor Hossain",
+      "house": "29/2H/4",
+      "age": 68,
+      "gender": "F"
+    },
+    {
+      "sl": 233,
+      "voterId": "WB21154090233",
+      "name": "Sk Sayeed",
+      "relType": "F",
+      "relName": "Abdul Hamid",
+      "house": "29/2H/4",
+      "age": 66,
+      "gender": "M"
+    },
+    {
+      "sl": 234,
+      "voterId": "WB21154090538",
+      "name": "Najho Bibi",
+      "relType": "F",
+      "relName": "Sk. Chunnu",
+      "house": "29/2H/4",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 235,
+      "voterId": "WB21154090454",
+      "name": "Md smal",
+      "relType": "F",
+      "relName": "Bashiruddien",
+      "house": "29/2H/4",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 236,
+      "voterId": "WB21154090454",
+      "name": "Naushad Hussain",
+      "relType": "F",
+      "relName": "Abbas Mirza",
+      "house": "29/24/4",
+      "age": 62,
+      "gender": "M"
+    },
+    {
+      "sl": 237,
+      "voterId": "P13S0237",
+      "name": "Ejaz Amin",
+      "relType": "F",
+      "relName": "Noor Hossain",
+      "house": "29/2H/4",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 238,
+      "voterId": "WB21154090234",
+      "name": "Shahnaz Hossain",
+      "relType": "H",
+      "relName": "Naushad Hossain",
+      "house": "29/2+/4",
+      "age": 155,
+      "gender": "F"
+    },
+    {
+      "sl": 239,
+      "voterId": "WB21154090234",
+      "name": "Md Murtaza Ali",
+      "relType": "F",
+      "relName": "Md Salim",
+      "house": "29/2H/4",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 240,
+      "voterId": "WB21154090234",
+      "name": "Yasim Begum",
+      "relType": "H",
+      "relName": "Sk Sayeed",
+      "house": "29/2H/4",
+      "age": 153,
+      "gender": "F"
+    },
+    {
+      "sl": 241,
+      "voterId": "WB21154090223",
+      "name": "Saima Khatoon",
+      "relType": "F",
+      "relName": "Md Salim",
+      "house": "29/24/4",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 242,
+      "voterId": "WB21154090286",
+      "name": "Farzana Khatoon",
+      "relType": "H",
+      "relName": "Ejoz Amin",
+      "house": "29/2H/4",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 243,
+      "voterId": "WB21154090286",
+      "name": "Akhtari Begam",
+      "relType": "H",
+      "relName": "Md Kalam",
+      "house": "29/2+/4",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 244,
+      "voterId": "WB21154090289",
+      "name": "Anguri Begam",
+      "relType": "H",
+      "relName": "Zahoor Hussain F",
+      "house": "29/2H/4",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 245,
+      "voterId": "WB21154090289",
+      "name": "Syed Zulfiquar Hossain",
+      "relType": "F",
+      "relName": "Syed Didar Hossain i",
+      "house": "29/2H/4",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 246,
+      "voterId": "P13S0246",
+      "name": "Md lsral",
+      "relType": "F",
+      "relName": "SHAIKH BASHIR UDDIN F",
+      "house": "29/2+/4",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 247,
+      "voterId": "WB21154090476",
+      "name": "Afaque Aqlim L",
+      "relType": "F",
+      "relName": "Noor Hossain",
+      "house": "29/2H/4",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 248,
+      "voterId": "WB21154090476",
+      "name": "Kammu Khatoon",
+      "relType": "F",
+      "relName": "Sarfaraz",
+      "house": "29/2H/4",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 249,
+      "voterId": "WB21154090309",
+      "name": "Hurmat Hussain",
+      "relType": "F",
+      "relName": "Zahoor Hussain F",
+      "house": "29/2H/4",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 250,
+      "voterId": "WB21154090326",
+      "name": "Farhat Hussain",
+      "relType": "F",
+      "relName": "Zahoor Hussain i",
+      "house": "29/2H/4",
+      "age": 52,
+      "gender": "M"
+    },
+    {
+      "sl": 251,
+      "voterId": "WB21154090336",
+      "name": "Md Sabir",
+      "relType": "F",
+      "relName": "Abdul Samad i",
+      "house": "29/2+/4",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 252,
+      "voterId": "WB21164090410",
+      "name": "Reshma Khatoon",
+      "relType": "H",
+      "relName": "Sarfaraz L",
+      "house": "29/2H/4",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 253,
+      "voterId": "WB21164090410",
+      "name": "Shabbir All",
+      "relType": "M",
+      "relName": "Tasiima Begum i",
+      "house": "29/2+/4",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 254,
+      "voterId": "WB21154090448",
+      "name": "Md Ishaque",
+      "relType": "F",
+      "relName": "Bashiruddin",
+      "house": "29/2H/4",
+      "age": 65,
+      "gender": "M"
+    },
+    {
+      "sl": 255,
+      "voterId": "WB21154090427",
+      "name": "Romana",
+      "relType": "H",
+      "relName": "Md lliyas",
+      "house": "29/2H/4",
+      "age": 63,
+      "gender": "F"
+    },
+    {
+      "sl": 256,
+      "voterId": "WB21154090064",
+      "name": "Md. Salam",
+      "relType": "F",
+      "relName": "Sk. Chunnu",
+      "house": "29/2H/4",
+      "age": 157,
+      "gender": "M"
+    },
+    {
+      "sl": 257,
+      "voterId": "WB21154090028",
+      "name": "Midhat Hossain",
+      "relType": "F",
+      "relName": "Zahoor Hussain",
+      "house": "29/2H/4",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 258,
+      "voterId": "WB21154090163",
+      "name": "Naiyab Kalim",
+      "relType": "F",
+      "relName": "Md. Noor Hossain",
+      "house": "29/2+/4",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 259,
+      "voterId": "WB21154090287",
+      "name": "Shahida Parveen",
+      "relType": "F",
+      "relName": "Noor Hossain",
+      "house": "29/2H/4",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 260,
+      "voterId": "WB21154090287",
+      "name": "Sk Samsuddin",
+      "relType": "F",
+      "relName": "Abdul Aziz",
+      "house": "29/2H/4",
+      "age": 52,
+      "gender": "M"
+    },
+    {
+      "sl": 261,
+      "voterId": "WB21154090230",
+      "name": "Mustafa Ai",
+      "relType": "F",
+      "relName": "Md Salim",
+      "house": "29/2+H/4",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 262,
+      "voterId": "WB21154090291",
+      "name": "Sultana Begam",
+      "relType": "F",
+      "relName": "Zahoor Hussain",
+      "house": "29/2H/4",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 263,
+      "voterId": "FD1063672",
+      "name": "Shahana Begum",
+      "relType": "H",
+      "relName": "Midhat Majaj",
+      "house": "29/2H/4",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 264,
+      "voterId": "P13S0264",
+      "name": "Nichat shad",
+      "relType": "F",
+      "relName": "Irshad Hussain",
+      "house": "29/2H/4",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 265,
+      "voterId": "P13S0265",
+      "name": "Amir Khusru",
+      "relType": "F",
+      "relName": "Noor Hossain",
+      "house": "29/2H/4",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 266,
+      "voterId": "P13S0266",
+      "name": "Rizwana Begum",
+      "relType": "H",
+      "relName": "Kamaluddin",
+      "house": "29/2H/4",
+      "age": 40,
+      "gender": "F"
+    },
+    {
+      "sl": 267,
+      "voterId": "P13S0267",
+      "name": "Md Salm Ahmed",
+      "relType": "F",
+      "relName": "Nadeom Ahmed",
+      "house": "29/2H/4",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 268,
+      "voterId": "WB21154090459",
+      "name": "Mudashar Hussain",
+      "relType": "F",
+      "relName": "Midhat Hussain",
+      "house": "29/2H/4",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sl": 269,
+      "voterId": "WB21154090459",
+      "name": "Nazia Sutana",
+      "relType": "H",
+      "relName": "Mustafa Al",
+      "house": "29/2H/4",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 270,
+      "voterId": "WB21154090459",
+      "name": "Yeasmin Begum",
+      "relType": "H",
+      "relName": "Md. Salam",
+      "house": "29/2/H/4",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 271,
+      "voterId": "WB21154090459",
+      "name": "Md. Shakir",
+      "relType": "F",
+      "relName": "Abdul Samad",
+      "house": "29/2/H/4",
+      "age": 40,
+      "gender": "M"
+    },
+    {
+      "sl": 272,
+      "voterId": "P13S0272",
+      "name": "Rabia Khatoon",
+      "relType": "F",
+      "relName": "Abdul Samad",
+      "house": "29/2H/4",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 273,
+      "voterId": "P13S0273",
+      "name": "Md Mustafa",
+      "relType": "F",
+      "relName": "Md.lbrahim",
+      "house": "29/2H/4",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 274,
+      "voterId": "P13S0274",
+      "name": "Nasima Ara",
+      "relType": "F",
+      "relName": "Sk.Manna",
+      "house": "29/2H/4",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 275,
+      "voterId": "P13S0275",
+      "name": "Aina Khatoon",
+      "relType": "F",
+      "relName": "Md. Salim",
+      "house": "29/2H/4",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 276,
+      "voterId": "P13S0276",
+      "name": "Md. Azeem Ahmed",
+      "relType": "F",
+      "relName": "Nadeem Ahmed",
+      "house": "29/2H/4",
+      "age": 37,
+      "gender": "M"
+    },
+    {
+      "sl": 277,
+      "voterId": "P13S0277",
+      "name": "Aasefah Irshad",
+      "relType": "F",
+      "relName": "Irshad Hussain",
+      "house": "29/2H/4",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 278,
+      "voterId": "P13S0278",
+      "name": "REYAN ALI",
+      "relType": "F",
+      "relName": "MUSTAFA ALI",
+      "house": "29/2 H/4",
+      "age": 20,
+      "gender": "M"
+    },
+    {
+      "sl": 279,
+      "voterId": "P13S0279",
+      "name": "Farhat Jahan",
+      "relType": "H",
+      "relName": "Md. Israi",
+      "house": "29/2/H/4",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 280,
+      "voterId": "P13S0280",
+      "name": "Md. Imran",
+      "relType": "F",
+      "relName": "Md. Ibrahim",
+      "house": "29/2/H/4",
+      "age": 41,
+      "gender": "M"
+    },
+    {
+      "sl": 281,
+      "voterId": "P13S0281",
+      "name": "Mubarak Bano",
+      "relType": "H",
+      "relName": "Farhat Hussain",
+      "house": "29/2/H/4",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 282,
+      "voterId": "P13S0282",
+      "name": "Waqar Alam",
+      "relType": "M",
+      "relName": "Taslima Begum",
+      "house": "29/2H/4",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 283,
+      "voterId": "P13S0283",
+      "name": "Ruby Begum",
+      "relType": "H",
+      "relName": "Hurmat Hossain",
+      "house": "29/2H/4",
+      "age": 44,
+      "gender": "F"
+    },
+    {
+      "sl": 284,
+      "voterId": "P13S0284",
+      "name": "Shamima Ara",
+      "relType": null,
+      "relName": null,
+      "house": "29/2H/4",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 285,
+      "voterId": "P13S0285",
+      "name": "Sagupta Khatoon",
+      "relType": "F",
+      "relName": "Md. Salim",
+      "house": "29/2H/4",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 286,
+      "voterId": "P13S0286",
+      "name": "ZAINAB ALI",
+      "relType": "F",
+      "relName": "MUSTAFA ALI",
+      "house": "29/2 H/4",
+      "age": 20,
+      "gender": "F"
+    },
+    {
+      "sl": 287,
+      "voterId": "P13S0287",
+      "name": "Sajda Khatoon",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/4",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 288,
+      "voterId": "P13S0288",
+      "name": "Firdous Khatoon",
+      "relType": "M",
+      "relName": "Kamrun Nissa",
+      "house": "29/2/H/4",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 289,
+      "voterId": "P13S0289",
+      "name": "Asif Hassan Khan",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/4",
+      "age": 29,
+      "gender": "M"
+    },
+    {
+      "sl": 290,
+      "voterId": "P13S0290",
+      "name": "Md Ashan",
+      "relType": "F",
+      "relName": "Md Salam",
+      "house": "29/2/H/4",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 291,
+      "voterId": "P13S0291",
+      "name": "Firdous Samsuddin",
+      "relType": "F",
+      "relName": "Sk Samsuddin",
+      "house": "29/2/H/4",
+      "age": 22,
+      "gender": "F"
+    },
+    {
+      "sl": 292,
+      "voterId": "P13S0292",
+      "name": "Yasmin Parveen",
+      "relType": "H",
+      "relName": "Sultan Hossain",
+      "house": "29/2/H/4",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 293,
+      "voterId": "P13S0293",
+      "name": "Mehjabin Begum L",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/4",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 294,
+      "voterId": "P13S0294",
+      "name": "Amber Samim L",
+      "relType": "F",
+      "relName": "Afaque Aglim",
+      "house": "29/2/H/4",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 295,
+      "voterId": "P13S0295",
+      "name": "Hachina Sardar L",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/4",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 296,
+      "voterId": "P13S0296",
+      "name": "Syed Ejaz Hossain",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/4",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 297,
+      "voterId": "P13S0297",
+      "name": "Marium Shaima",
+      "relType": "F",
+      "relName": "Sk. Sayeed",
+      "house": "29/2/H/4",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 298,
+      "voterId": "P13S0298",
+      "name": "Nasreen Hossain",
+      "relType": "F",
+      "relName": "Naushad Hussain",
+      "house": "29/2/H/4",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 299,
+      "voterId": "P13S0299",
+      "name": "Akil Ahmed",
+      "relType": "F",
+      "relName": "Md. Shamsuddin",
+      "house": "29/2/H/4",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 300,
+      "voterId": "P13S0300",
+      "name": "BAQAR ALI HOSSAIN",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/4.",
+      "age": null,
+      "gender": "O"
+    },
+    {
+      "sl": 301,
+      "voterId": "P13S0301",
+      "name": "Resham Nadeem",
+      "relType": null,
+      "relName": null,
+      "house": "29/2/H/4",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 302,
+      "voterId": "P13S0302",
+      "name": "Sadaf Shaheen",
+      "relType": "F",
+      "relName": "Najib",
+      "house": "29/2/H/4",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 303,
+      "voterId": "P13S0303",
+      "name": "Sk Fakhruddin",
+      "relType": "F",
+      "relName": "Sk Badruddin",
+      "house": "29/3",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 304,
+      "voterId": "P13S0304",
+      "name": "Nuzrat Rahaman",
+      "relType": "H",
+      "relName": "Masiur Rahaman",
+      "house": "29/3",
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 305,
+      "voterId": "P13S0305",
+      "name": "Sk lsmal",
+      "relType": "F",
+      "relName": "Sk Shahjahan All",
+      "house": "29/3",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 306,
+      "voterId": "P13S0306",
+      "name": "Rehan Wasi",
+      "relType": "F",
+      "relName": "Arif Anwer",
+      "house": "29/3",
+      "age": 30,
+      "gender": "M"
+    },
+    {
+      "sl": 307,
+      "voterId": "P13S0307",
+      "name": "Wagar Faisal",
+      "relType": "F",
+      "relName": "orar Alam",
+      "house": "29/3",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 308,
+      "voterId": "WB21154090543",
+      "name": "Decba Parween",
+      "relType": "M",
+      "relName": "Nusrat Parveen",
+      "house": "29/3",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 309,
+      "voterId": "WB21154090543",
+      "name": "Waquash Faizal",
+      "relType": "F",
+      "relName": "orar Alam",
+      "house": null,
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 310,
+      "voterId": "WB21154090543",
+      "name": "Fazila Khatoon",
+      "relType": "H",
+      "relName": "Md. Zarif",
+      "house": "30A",
+      "age": 75,
+      "gender": "F"
+    },
+    {
+      "sl": 311,
+      "voterId": "WB21154090543",
+      "name": "Masiur Rahman",
+      "relType": "M",
+      "relName": "Mehboob Rahaman",
+      "house": "29/3",
+      "age": 58,
+      "gender": "M"
+    },
+    {
+      "sl": 312,
+      "voterId": "P13S0312",
+      "name": "ARJUMAND IQBAL",
+      "relType": "F",
+      "relName": "SHAHABUDDIN",
+      "house": "29/3",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 313,
+      "voterId": "P13S0313",
+      "name": "Maimuna Khatoon",
+      "relType": "H",
+      "relName": "Falyaz Khan",
+      "house": "29/3",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 314,
+      "voterId": "P13S0314",
+      "name": "Sajda Begum",
+      "relType": "H",
+      "relName": "Sk.Fakhruddin",
+      "house": "29/3",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 315,
+      "voterId": "P13S0315",
+      "name": "Md. Shamshad L",
+      "relType": "F",
+      "relName": "Md. Jan",
+      "house": "29/3",
+      "age": 37,
+      "gender": "M"
+    },
+    {
+      "sl": 316,
+      "voterId": "P13S0316",
+      "name": "Farheen Alam",
+      "relType": "F",
+      "relName": "Faiyaz khan",
+      "house": "29/3",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 317,
+      "voterId": "P13S0317",
+      "name": "FIRDOUS FAKHRUDDIN",
+      "relType": "F",
+      "relName": "SK FAKHRUDDIN",
+      "house": "29/3",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 318,
+      "voterId": "P13S0318",
+      "name": "FIRDAUSH KHAN",
+      "relType": "M",
+      "relName": "MAIMUNA KHATOON",
+      "house": "29/3",
+      "age": 26,
+      "gender": "M"
+    },
+    {
+      "sl": 319,
+      "voterId": "P13S0319",
+      "name": "Warisha Zeb",
+      "relType": "F",
+      "relName": "Abdul Haque Ansari",
+      "house": "29/3",
+      "age": 22,
+      "gender": "F"
+    },
+    {
+      "sl": 320,
+      "voterId": "P13S0320",
+      "name": "Md. Anwer",
+      "relType": "F",
+      "relName": "Jagan Mia",
+      "house": "30A",
+      "age": 65,
+      "gender": "M"
+    },
+    {
+      "sl": 321,
+      "voterId": "WB21154063392",
+      "name": "Arf Anwer",
+      "relType": "F",
+      "relName": "Wasi Ahmed",
+      "house": "29/3",
+      "age": 58,
+      "gender": "M"
+    },
+    {
+      "sl": 322,
+      "voterId": "WB21154063392",
+      "name": "AYESHA IQBAL",
+      "relType": "F",
+      "relName": "ARJUMAND [BAL",
+      "house": "29/3,",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sl": 323,
+      "voterId": "WB21154063392",
+      "name": "Saba Parvin",
+      "relType": "H",
+      "relName": "rar Alam",
+      "house": "29/3",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 324,
+      "voterId": "P13S0324",
+      "name": "SHAGUFTA IQBAL",
+      "relType": "H",
+      "relName": "ARJUMAND IQBAL",
+      "house": "29/3",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 325,
+      "voterId": "P13S0325",
+      "name": "Anwar All",
+      "relType": "F",
+      "relName": "Md. Zahiruddin",
+      "house": "29/3",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 326,
+      "voterId": "P13S0326",
+      "name": "Neelam Afroz",
+      "relType": "F",
+      "relName": "lbrar Alam",
+      "house": "29/3",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 327,
+      "voterId": "P13S0327",
+      "name": "NAZIA ALAM",
+      "relType": "M",
+      "relName": "MAIMUNA KHATOON",
+      "house": "29/3",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 328,
+      "voterId": "P13S0328",
+      "name": "Zafar Khan",
+      "relType": "M",
+      "relName": "Maimuna Knatoon",
+      "house": "29/3",
+      "age": 124,
+      "gender": "M"
+    },
+    {
+      "sl": 329,
+      "voterId": "P13S0329",
+      "name": "Gajal Far Hayat",
+      "relType": "F",
+      "relName": "lorar Alam",
+      "house": "29/3",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sl": 330,
+      "voterId": "P13S0330",
+      "name": "Mohammed Nasinuddin",
+      "relType": "F",
+      "relName": "Abdul Jail",
+      "house": "30A",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 331,
+      "voterId": "P13S0331",
+      "name": "Md Fakruddin",
+      "relType": "F",
+      "relName": "Md. Zariff",
+      "house": "30A",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 332,
+      "voterId": "WB21154090007",
+      "name": "Md Firoz",
+      "relType": "F",
+      "relName": "Md Nasiruddin",
+      "house": "30A",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 333,
+      "voterId": "WB21154090007",
+      "name": "Kajal Chowdhury",
+      "relType": "F",
+      "relName": "Kanai Lal Chowdhury",
+      "house": "30A",
+      "age": 32,
+      "gender": "M"
+    },
+    {
+      "sl": 334,
+      "voterId": "WB21154090007",
+      "name": "Samsuzzaman",
+      "relType": "F",
+      "relName": "Md Akhtar",
+      "house": "308",
+      "age": 76,
+      "gender": "M"
+    },
+    {
+      "sl": 335,
+      "voterId": "WB21154090527",
+      "name": "Aboo zaid Malick",
+      "relType": "F",
+      "relName": "lorahim Malick",
+      "house": "30B",
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 336,
+      "voterId": "WB21154090527",
+      "name": "Masihujaman",
+      "relType": "F",
+      "relName": "Samsujjaman",
+      "house": "308",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 337,
+      "voterId": "WB21154090527",
+      "name": "MD DILSHAD",
+      "relType": "F",
+      "relName": "Md. lsmal",
+      "house": "308",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 338,
+      "voterId": "WB21154090249",
+      "name": "Md Farooque",
+      "relType": "F",
+      "relName": "Md Ismail",
+      "house": "308",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 339,
+      "voterId": "WB21154090249",
+      "name": "Uzma Mansoor",
+      "relType": "F",
+      "relName": "Md Mansoor Alam",
+      "house": "308",
+      "age": 21,
+      "gender": "F"
+    },
+    {
+      "sl": 340,
+      "voterId": "WB21154090249",
+      "name": "Jahiruddin Khan",
+      "relType": "F",
+      "relName": "Jabbar Khan",
+      "house": "30C/H/2",
+      "age": 66,
+      "gender": "M"
+    },
+    {
+      "sl": 341,
+      "voterId": "WB21154090249",
+      "name": "Md Alauddin",
+      "relType": "F",
+      "relName": "Md. Zariff F",
+      "house": "30A",
+      "age": 45,
+      "gender": "M"
+    },
+    {
+      "sl": 342,
+      "voterId": "WB21154090432",
+      "name": "Gita Chowdhury",
+      "relType": "F",
+      "relName": "Rangalal Chowdhury",
+      "house": "30A",
+      "age": 71,
+      "gender": "F"
+    },
+    {
+      "sl": 343,
+      "voterId": "WB21154090432",
+      "name": "RUBI KHATOON",
+      "relType": "F",
+      "relName": "Md. Zarit",
+      "house": "30A",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 344,
+      "voterId": "P13S0344",
+      "name": "Md.Mahmood Alam",
+      "relType": "F",
+      "relName": "Md. Moinuddin i",
+      "house": "308",
+      "age": 65,
+      "gender": "M"
+    },
+    {
+      "sl": 345,
+      "voterId": "P13S0345",
+      "name": "Md Magsood Alam",
+      "relType": "F",
+      "relName": "Md. Moinuddin",
+      "house": "308",
+      "age": 60,
+      "gender": "M"
+    },
+    {
+      "sl": 346,
+      "voterId": "P13S0346",
+      "name": "Md. Imran",
+      "relType": "F",
+      "relName": "Md. Ismail F",
+      "house": "308",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 347,
+      "voterId": "P13S0347",
+      "name": "Md. Shoab",
+      "relType": "F",
+      "relName": "Md. Ismail i",
+      "house": "308",
+      "age": 32,
+      "gender": "M"
+    },
+    {
+      "sl": 348,
+      "voterId": "P13S0348",
+      "name": "Md Irfan",
+      "relType": "F",
+      "relName": "Md Ismail i",
+      "house": "308",
+      "age": 42,
+      "gender": "M"
+    },
+    {
+      "sl": 349,
+      "voterId": "P13S0349",
+      "name": "Anjum Sahar",
+      "relType": "H",
+      "relName": "Md. Mansoor Alam i",
+      "house": "308",
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 350,
+      "voterId": "P13S0350",
+      "name": "Md. Imteyaz Khan",
+      "relType": "F",
+      "relName": "Ms. Ashraf Khan i",
+      "house": "30C/H/2",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 351,
+      "voterId": "P13S0351",
+      "name": "Shahana khatoon",
+      "relType": "F",
+      "relName": "Md. Zariff",
+      "house": "30A",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 352,
+      "voterId": "P13S0352",
+      "name": "Shila Chowdhury",
+      "relType": "H",
+      "relName": "Kanai Lal Chowdhury",
+      "house": "30A",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 353,
+      "voterId": "P13S0353",
+      "name": "Rukshar Khatoon",
+      "relType": "F",
+      "relName": "Md Mirajuddin",
+      "house": "304",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 354,
+      "voterId": "P13S0354",
+      "name": "Md. Ismail",
+      "relType": "F",
+      "relName": "Imam Bukhsh",
+      "house": "308",
+      "age": 62,
+      "gender": "M"
+    },
+    {
+      "sl": 355,
+      "voterId": "P13S0355",
+      "name": "Md Mansoor Alam",
+      "relType": "F",
+      "relName": "Md. Moinuddin",
+      "house": "308",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 356,
+      "voterId": "P13S0356",
+      "name": "Md. Ashfaque",
+      "relType": "F",
+      "relName": "Md. Ismail",
+      "house": "308",
+      "age": 37,
+      "gender": "M"
+    },
+    {
+      "sl": 357,
+      "voterId": "WB21154042166",
+      "name": "Shabham Ara",
+      "relType": "F",
+      "relName": "Md Ismail",
+      "house": "308",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 358,
+      "voterId": "WB21154042166",
+      "name": "Ayesha Mansoor",
+      "relType": "F",
+      "relName": "Mansoor Alam",
+      "house": "308",
+      "age": 22,
+      "gender": "F"
+    },
+    {
+      "sl": 359,
+      "voterId": "WB21154042166",
+      "name": "Md. Shakil Farid",
+      "relType": "F",
+      "relName": "Md. Moinuddin",
+      "house": "30C",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 360,
+      "voterId": "WB21154042166",
+      "name": "Md. Jawed Khan",
+      "relType": "F",
+      "relName": "Md. Ahmed khan",
+      "house": "30G/H/2",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 361,
+      "voterId": "WB21154090095",
+      "name": "Md. Farhatulah Khan",
+      "relType": "F",
+      "relName": "Abdul Rahim Khan",
+      "house": "30C/H/2",
+      "age": 48,
+      "gender": "M"
+    },
+    {
+      "sl": 362,
+      "voterId": "WB21154090095",
+      "name": "Md Saiful Hassan",
+      "relType": "F",
+      "relName": "Md. Shams Hassan",
+      "house": "30C/H/3",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 363,
+      "voterId": "WB21154090095",
+      "name": "Md. Aasim",
+      "relType": "F",
+      "relName": "Md. Abu Zafar",
+      "house": "30F",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 364,
+      "voterId": "P13S0364",
+      "name": "Md. Hussain Rizwi",
+      "relType": "F",
+      "relName": "Md. Mojiour Rahman",
+      "house": "30F/H/1",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 365,
+      "voterId": "WB21154090493",
+      "name": "Rizwana Khatoon",
+      "relType": "H",
+      "relName": "lbrar Ahmed",
+      "house": "30F/H/1",
+      "age": 40,
+      "gender": "F"
+    },
+    {
+      "sl": 366,
+      "voterId": "WB21154090493",
+      "name": "Mohammad Reyaz",
+      "relType": "F",
+      "relName": "Md Jawaid Ahmed",
+      "house": "30,F H/S",
+      "age": 37,
+      "gender": "M"
+    },
+    {
+      "sl": 367,
+      "voterId": "WB21154090493",
+      "name": "Shakia Begam",
+      "relType": "H",
+      "relName": "Jawaid Ahmed",
+      "house": "30F/H/5",
+      "age": 54,
+      "gender": "F"
+    },
+    {
+      "sl": 368,
+      "voterId": "WB21154090456",
+      "name": "Nausheen Parveen",
+      "relType": "F",
+      "relName": "Md. Jawaid Ahmed",
+      "house": "30F/H/S",
+      "age": 129,
+      "gender": "F"
+    },
+    {
+      "sl": 369,
+      "voterId": "WB21154090456",
+      "name": "Rahmat Al",
+      "relType": "F",
+      "relName": "Jokhan Mian",
+      "house": "32",
+      "age": 66,
+      "gender": "M"
+    },
+    {
+      "sl": 370,
+      "voterId": "WB21154090355",
+      "name": "Md. Tajuddin Khan",
+      "relType": "F",
+      "relName": "Ashraf Khan F",
+      "house": "30C/H/2",
+      "age": 42,
+      "gender": "M"
+    },
+    {
+      "sl": 371,
+      "voterId": "WB21154090103",
+      "name": "Md Seraju Hassan L",
+      "relType": "F",
+      "relName": "Md. Shamsu Hassan L",
+      "house": "30G/H/3",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 372,
+      "voterId": "WB21154090103",
+      "name": "Md. Mojibur Rahman",
+      "relType": "F",
+      "relName": "Md. Hanif",
+      "house": "30F/H/1",
+      "age": 85,
+      "gender": "M"
+    },
+    {
+      "sl": 373,
+      "voterId": "P13S0373",
+      "name": "Shagufta Shireen",
+      "relType": "H",
+      "relName": "Md. Hussain Rizwi i",
+      "house": "30F/H/1",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 374,
+      "voterId": "P13S0374",
+      "name": "Md. Sarfaraz Ahmed",
+      "relType": "F",
+      "relName": "Md. Jawid Ahmed F",
+      "house": "30F H/5.",
+      "age": 26,
+      "gender": "M"
+    },
+    {
+      "sl": 375,
+      "voterId": "P13S0375",
+      "name": "Md Maral Ahmed",
+      "relType": "F",
+      "relName": "Md Jawaid Ahmed f",
+      "house": "30F H/5",
+      "age": 27,
+      "gender": "M"
+    },
+    {
+      "sl": 376,
+      "voterId": "P13S0376",
+      "name": "Md. Faiyaz Ahmed",
+      "relType": "F",
+      "relName": "Md. Jawid Ahmed i",
+      "house": "30F/H/5",
+      "age": 34,
+      "gender": "M"
+    },
+    {
+      "sl": 377,
+      "voterId": "P13S0377",
+      "name": "Shanawaz Ahmed L",
+      "relType": "F",
+      "relName": "Md Jawaid Ahmed",
+      "house": "30F/H/S",
+      "age": 21,
+      "gender": "M"
+    },
+    {
+      "sl": 378,
+      "voterId": "P13S0378",
+      "name": "Md Shamim",
+      "relType": "F",
+      "relName": "Abdul Kadir i",
+      "house": "32",
+      "age": 66,
+      "gender": "M"
+    },
+    {
+      "sl": 379,
+      "voterId": "P13S0379",
+      "name": "Md. Azharuddin Khan",
+      "relType": "F",
+      "relName": "Md. Zahiruddin Khan",
+      "house": "30C/H/2",
+      "age": 40,
+      "gender": "M"
+    },
+    {
+      "sl": 380,
+      "voterId": "P13S0380",
+      "name": "Md. Shahbaz Khan",
+      "relType": "F",
+      "relName": "Md. Zahiruddin Khan",
+      "house": "30C/H/2",
+      "age": 32,
+      "gender": "M"
+    },
+    {
+      "sl": 381,
+      "voterId": "P13S0381",
+      "name": "lbrar Ahmed",
+      "relType": "F",
+      "relName": "Md. Hafiz",
+      "house": "30F/H/1",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 382,
+      "voterId": "WB21154090020",
+      "name": "Md. Aakif",
+      "relType": "F",
+      "relName": "Md. Abu Zafar",
+      "house": "30F/H/1",
+      "age": 129,
+      "gender": "M"
+    },
+    {
+      "sl": 383,
+      "voterId": "WB21154090020",
+      "name": "Neyaz Ahmed",
+      "relType": "F",
+      "relName": "Md. Jawaid Ahmed",
+      "house": "30,F H/5",
+      "age": 34,
+      "gender": "M"
+    },
+    {
+      "sl": 384,
+      "voterId": "WB21154090020",
+      "name": "Md. Jawid Ahmed",
+      "relType": "F",
+      "relName": "Rezaul Haque",
+      "house": "30F/H/5",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 385,
+      "voterId": "WB21154090450",
+      "name": "Nahid Parveen",
+      "relType": "F",
+      "relName": "Jawid Ahmed",
+      "house": "30F/H/5",
+      "age": 31,
+      "gender": "F"
+    },
+    {
+      "sl": 386,
+      "voterId": "WB21154090450",
+      "name": "Farzana Khatoon",
+      "relType": "H",
+      "relName": "Abdus Salam",
+      "house": "32",
+      "age": 69,
+      "gender": "F"
+    },
+    {
+      "sl": 387,
+      "voterId": "WB21154090183",
+      "name": "Md.shahjahan",
+      "relType": "F",
+      "relName": "Md.syed Ali",
+      "house": "32",
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 388,
+      "voterId": "WB21154090203",
+      "name": "Md.qayamuddin",
+      "relType": null,
+      "relName": null,
+      "house": "32",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 389,
+      "voterId": "P13S0389",
+      "name": "Sada Shamim",
+      "relType": "H",
+      "relName": "Md. Shamim",
+      "house": "32",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 390,
+      "voterId": "P13S0390",
+      "name": "Md Nawab",
+      "relType": null,
+      "relName": null,
+      "house": "32",
+      "age": 32,
+      "gender": "M"
+    },
+    {
+      "sl": 391,
+      "voterId": "WB21154090434",
+      "name": "Shabana Begum",
+      "relType": "F",
+      "relName": "Md Shamim",
+      "house": null,
+      "age": 40,
+      "gender": "F"
+    },
+    {
+      "sl": 392,
+      "voterId": "WB21154090434",
+      "name": "Noor jahan Khatun",
+      "relType": "H",
+      "relName": "Md Salim",
+      "house": "32",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 393,
+      "voterId": "WB21154090434",
+      "name": "Nasi Sultana",
+      "relType": "H",
+      "relName": "Abdus Sattar",
+      "house": "32/1",
+      "age": 180,
+      "gender": "F"
+    },
+    {
+      "sl": 394,
+      "voterId": "WB21154090322",
+      "name": "Hena Zia",
+      "relType": "F",
+      "relName": "Abdus Sattar",
+      "house": "32/1",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 395,
+      "voterId": "WB21154090322",
+      "name": "Md. Perwaz Abbas",
+      "relType": null,
+      "relName": null,
+      "house": "32/28",
+      "age": 33,
+      "gender": "M"
+    },
+    {
+      "sl": 396,
+      "voterId": "WB21154090322",
+      "name": "Md Ata At Al Hashmi",
+      "relType": null,
+      "relName": null,
+      "house": "328",
+      "age": 23,
+      "gender": "M"
+    },
+    {
+      "sl": 397,
+      "voterId": "P13S0397",
+      "name": "Abdul Qadir",
+      "relType": "F",
+      "relName": "Md. Isiam i",
+      "house": "32",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 398,
+      "voterId": "P13S0398",
+      "name": "Md fthakhar Alam",
+      "relType": "F",
+      "relName": "Md Zainul Abedin L",
+      "house": "32",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 399,
+      "voterId": "P13S0399",
+      "name": "Shabana Salam",
+      "relType": "F",
+      "relName": "Abdus Salam L",
+      "house": "32",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 400,
+      "voterId": "P13S0400",
+      "name": "Afreen Mansoor",
+      "relType": "H",
+      "relName": "Md Mansoor",
+      "house": "32",
+      "age": 32,
+      "gender": "F"
+    },
+    {
+      "sl": 401,
+      "voterId": "P13S0401",
+      "name": "Yasmin Begum",
+      "relType": "F",
+      "relName": "Md Shamim i",
+      "house": "32",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 402,
+      "voterId": "WB21154090318",
+      "name": "MD SHAAN SHAMIM",
+      "relType": "F",
+      "relName": "MD SHAMIM i",
+      "house": "32",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sl": 403,
+      "voterId": "WB21154090318",
+      "name": "Rais Sultan",
+      "relType": "H",
+      "relName": "Anis Ahmed L",
+      "house": "32/1",
+      "age": 75,
+      "gender": "F"
+    },
+    {
+      "sl": 404,
+      "voterId": "WB21154090318",
+      "name": "Nehan Perwaiz",
+      "relType": "F",
+      "relName": "Perwaiz Abbas i",
+      "house": "32/1",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 405,
+      "voterId": "P13S0405",
+      "name": "Barkat Yasmin",
+      "relType": "H",
+      "relName": "Md. Hurmat All L",
+      "house": "328",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 406,
+      "voterId": "WB21154090097",
+      "name": "Md. Modarris All Hashmi",
+      "relType": "F",
+      "relName": "Md. Hurmat Al",
+      "house": "32/8",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 407,
+      "voterId": "WB21154090097",
+      "name": "Md.shamim",
+      "relType": "F",
+      "relName": "Abdul Aziz",
+      "house": "32",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 408,
+      "voterId": "WB21154090097",
+      "name": "Md Nasim",
+      "relType": "F",
+      "relName": "Abdul Aziz",
+      "house": "32",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 409,
+      "voterId": "WB21154090097",
+      "name": "Md. Mansoor",
+      "relType": "F",
+      "relName": "Md. Lukman",
+      "house": "32",
+      "age": 37,
+      "gender": "M"
+    },
+    {
+      "sl": 410,
+      "voterId": "WB21154099224",
+      "name": "Imran Kabir",
+      "relType": "F",
+      "relName": "Mohammad Kabir",
+      "house": "32",
+      "age": 27,
+      "gender": "M"
+    },
+    {
+      "sl": 411,
+      "voterId": "WB21154099224",
+      "name": "Shahjahan Bibi",
+      "relType": "H",
+      "relName": "Md Shamim",
+      "house": "32",
+      "age": 155,
+      "gender": "F"
+    },
+    {
+      "sl": 412,
+      "voterId": "WB21154090321",
+      "name": "Mohammed Wasim",
+      "relType": "F",
+      "relName": "Md. Shamim",
+      "house": "32",
+      "age": 37,
+      "gender": "M"
+    },
+    {
+      "sl": 413,
+      "voterId": "WB21154090321",
+      "name": "Kahkashan Perwaiz",
+      "relType": "H",
+      "relName": "Perwaiz Abbas",
+      "house": "32/1",
+      "age": 60,
+      "gender": "F"
+    },
+    {
+      "sl": 414,
+      "voterId": "WB21154090321",
+      "name": "Mohammed Perwaiz Abbas",
+      "relType": "F",
+      "relName": "Md. Abbas",
+      "house": "32/28",
+      "age": 73,
+      "gender": "M"
+    },
+    {
+      "sl": 415,
+      "voterId": "WB21154090321",
+      "name": "Md Hurmat Ali",
+      "relType": "F",
+      "relName": "Md Hashim",
+      "house": "328",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 416,
+      "voterId": "P13S0416",
+      "name": "Shareque",
+      "relType": "M",
+      "relName": "Farzana Khatoon",
+      "house": "32H/18",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 417,
+      "voterId": "WB21154090207",
+      "name": "Insha Yasmin",
+      "relType": "F",
+      "relName": "Md. Hurmat Ali",
+      "house": "32H/18",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 418,
+      "voterId": "WB21154090207",
+      "name": "Anjum Ara",
+      "relType": null,
+      "relName": null,
+      "house": "33",
+      "age": 64,
+      "gender": "F"
+    },
+    {
+      "sl": 419,
+      "voterId": "WB21154090207",
+      "name": "Rana Tabassum",
+      "relType": "H",
+      "relName": "Khaled Entesham Shadan",
+      "house": "33",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 420,
+      "voterId": "WB21154090207",
+      "name": "Md. Aiman Sarosh",
+      "relType": "F",
+      "relName": "Belal Asha",
+      "house": "33",
+      "age": 42,
+      "gender": "M"
+    },
+    {
+      "sl": 421,
+      "voterId": "P13S0421",
+      "name": "Sarah Biquis Khaled",
+      "relType": "F",
+      "relName": "Khaled Entesham Shadan",
+      "house": "33",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 422,
+      "voterId": "WB21154090247",
+      "name": "Sufia Khanam",
+      "relType": "F",
+      "relName": "Md. Manzoor",
+      "house": "33/1",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 423,
+      "voterId": "WB21154090247",
+      "name": "Mahnoor",
+      "relType": "H",
+      "relName": "Rahamat Alam",
+      "house": "33/1A",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 424,
+      "voterId": "WB21154090247",
+      "name": "Husna Knatoon",
+      "relType": "H",
+      "relName": "Md Isha",
+      "house": null,
+      "age": 78,
+      "gender": "F"
+    },
+    {
+      "sl": 425,
+      "voterId": "WB21154090395",
+      "name": "Parveen Negar",
+      "relType": "H",
+      "relName": "Abdul Hafiz",
+      "house": "33/18",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 426,
+      "voterId": "WB21154090395",
+      "name": "Md. Samsad Alam",
+      "relType": "F",
+      "relName": "Md. Musa",
+      "house": "33/18",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 427,
+      "voterId": "WB21154090061",
+      "name": "Ayesha Siddiqua",
+      "relType": "H",
+      "relName": "Md. Abu Zar L",
+      "house": "33",
+      "age": 78,
+      "gender": "F"
+    },
+    {
+      "sl": 428,
+      "voterId": "WB21154090061",
+      "name": "Khaled Entesham Shadan",
+      "relType": "F",
+      "relName": "Md Abuzar i",
+      "house": "33",
+      "age": 59,
+      "gender": "M"
+    },
+    {
+      "sl": 429,
+      "voterId": "P13S0429",
+      "name": "Md Rahmat",
+      "relType": "F",
+      "relName": "Md.Humayun Akhter",
+      "house": "33",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 430,
+      "voterId": "P13S0430",
+      "name": "Ghaosiya Nahid",
+      "relType": "H",
+      "relName": "Md. Aiman Sarosh L",
+      "house": "33",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 431,
+      "voterId": "WB21154090389",
+      "name": "Belal Ashraf",
+      "relType": "F",
+      "relName": "Abdush Shakoor F",
+      "house": "33",
+      "age": 71,
+      "gender": "M"
+    },
+    {
+      "sl": 432,
+      "voterId": "WB21154090389",
+      "name": "Rahmat Alam",
+      "relType": "F",
+      "relName": "Md. Manzoor F",
+      "house": "33/1A",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 433,
+      "voterId": "WB21154090330",
+      "name": "Zakaria Maaz",
+      "relType": "F",
+      "relName": "Rahmat Alam L",
+      "house": "33/1",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 434,
+      "voterId": "WB21154090330",
+      "name": "Surama Begum",
+      "relType": "F",
+      "relName": "Abdul Hanan i",
+      "house": "33/18",
+      "age": 71,
+      "gender": "F"
+    },
+    {
+      "sl": 435,
+      "voterId": "WB21154090466",
+      "name": "Mohammed Sahajahan",
+      "relType": "F",
+      "relName": "Abdul Zabbar i",
+      "house": null,
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 436,
+      "voterId": "WB21154090205",
+      "name": "Shaheda Nusrat",
+      "relType": "H",
+      "relName": "Belal Ashraf",
+      "house": "33",
+      "age": 65,
+      "gender": "F"
+    },
+    {
+      "sl": 437,
+      "voterId": "WB21154090205",
+      "name": "Nikhat Parveen",
+      "relType": "F",
+      "relName": "Md.humayun Akhter",
+      "house": "33",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 438,
+      "voterId": "WB21154090205",
+      "name": "Rahat Humayun",
+      "relType": "F",
+      "relName": "Md Humayun Akhter",
+      "house": null,
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 439,
+      "voterId": "WB21154090205",
+      "name": "Omar Maaz Khaled",
+      "relType": "F",
+      "relName": "Khaled Ehtesham Shadan",
+      "house": "33",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 440,
+      "voterId": "WB21154054819",
+      "name": "Zainab Aftab",
+      "relType": "F",
+      "relName": "Aftab Alam",
+      "house": "33/1",
+      "age": 22,
+      "gender": "F"
+    },
+    {
+      "sl": 441,
+      "voterId": "WB21154054819",
+      "name": "YAHYA MAAZ",
+      "relType": "F",
+      "relName": "RAHMAT ALAM",
+      "house": "33/1A",
+      "age": 22,
+      "gender": "M"
+    },
+    {
+      "sl": 442,
+      "voterId": "WB21154054819",
+      "name": "Zebeta Khatoon",
+      "relType": "H",
+      "relName": "Md. Noor Alam",
+      "house": "33/1A",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 443,
+      "voterId": "WB21154090443",
+      "name": "Md. Istekhar Alam",
+      "relType": "F",
+      "relName": "Md. Isa",
+      "house": "33/18",
+      "age": 161,
+      "gender": "M"
+    },
+    {
+      "sl": 444,
+      "voterId": "WB21154090315",
+      "name": "Md Shahnawaz Alam",
+      "relType": "F",
+      "relName": "Md Isha",
+      "house": "33/18",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 445,
+      "voterId": "WB21154090301",
+      "name": "Md Mumtaz Alam",
+      "relType": "F",
+      "relName": "Md Isha",
+      "house": "33/18",
+      "age": 52,
+      "gender": "M"
+    },
+    {
+      "sl": 446,
+      "voterId": "WB21154090302",
+      "name": "Afreen Nigar",
+      "relType": "F",
+      "relName": "Md Isha",
+      "house": "33/18",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 447,
+      "voterId": "WB21154090302",
+      "name": "Shabana Parveen",
+      "relType": "F",
+      "relName": "Abdul Hafiz",
+      "house": "33/18",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 448,
+      "voterId": "P13S0448",
+      "name": "SURAB ALAM",
+      "relType": "F",
+      "relName": "Abdul Hanan",
+      "house": "33/18",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 449,
+      "voterId": "WB21154090524",
+      "name": "Zeenat Nigar",
+      "relType": "F",
+      "relName": "Md. Musa",
+      "house": "33/18",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 450,
+      "voterId": "WB21154090524",
+      "name": "Kundan Kumar Singh",
+      "relType": "F",
+      "relName": "Shiv Shankar Kumar Singh",
+      "house": "33/18",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 451,
+      "voterId": "WB21154090524",
+      "name": "Shagufta Jabeen",
+      "relType": "F",
+      "relName": "Md Abdullah",
+      "house": "33/1C",
+      "age": 154,
+      "gender": "F"
+    },
+    {
+      "sl": 452,
+      "voterId": "WB21154090524",
+      "name": "Tuba Khanam",
+      "relType": "F",
+      "relName": "A.M.K Masumi",
+      "house": "33/1",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 453,
+      "voterId": "WB21154090114",
+      "name": "Homaid Muftakhar",
+      "relType": "F",
+      "relName": "A.M.K. Masumi",
+      "house": "33/1-C",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 454,
+      "voterId": "WB21154090437",
+      "name": "Md kalam",
+      "relType": "F",
+      "relName": "Md.younus",
+      "house": "33/1D",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 455,
+      "voterId": "WB21154090437",
+      "name": "Md. Naushad Alam",
+      "relType": "F",
+      "relName": "Md. Musa f",
+      "house": "33/18",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 456,
+      "voterId": "P13S0456",
+      "name": "Anwar Hossain",
+      "relType": "F",
+      "relName": "Md. Asdul Jabbar i",
+      "house": "33/18",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 457,
+      "voterId": "P13S0457",
+      "name": "Md. Faraz Alam",
+      "relType": "F",
+      "relName": "Abdul Hafiz L",
+      "house": "33/18",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 458,
+      "voterId": "P13S0458",
+      "name": "HAMZA ALAM L",
+      "relType": null,
+      "relName": null,
+      "house": "33/18",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 459,
+      "voterId": "P13S0459",
+      "name": "Darakshan Parveen",
+      "relType": "F",
+      "relName": "Abdul Haliz i",
+      "house": "33/18",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 460,
+      "voterId": "WB21154090391",
+      "name": "Shahnaz Nigar",
+      "relType": "F",
+      "relName": "Md. Musa F",
+      "house": "33/18,",
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 461,
+      "voterId": "WB21154090391",
+      "name": "Naushad Alam",
+      "relType": "F",
+      "relName": "Sk. Md. Abdulah i",
+      "house": "33/1C",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 462,
+      "voterId": "WB21154090391",
+      "name": "Khushnuma Parveen",
+      "relType": "H",
+      "relName": "Homaid Muftakhar L",
+      "house": "33/1C",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 463,
+      "voterId": "WB21154090404",
+      "name": "Md Nasim",
+      "relType": "F",
+      "relName": "Md Hussain i",
+      "house": "33/1D",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 464,
+      "voterId": "WB21154090404",
+      "name": "Jahanara Begam",
+      "relType": "H",
+      "relName": "Md.ari i",
+      "house": "33/10",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 465,
+      "voterId": "P13S0465",
+      "name": "Md. Feroz",
+      "relType": "F",
+      "relName": "Abdul Zabbar",
+      "house": "33/18",
+      "age": 48,
+      "gender": "M"
+    },
+    {
+      "sl": 466,
+      "voterId": "P13S0466",
+      "name": "Md. Manawar Hossain",
+      "relType": "F",
+      "relName": "Md. Abdul Jabbar",
+      "house": "33/18",
+      "age": 41,
+      "gender": "M"
+    },
+    {
+      "sl": 467,
+      "voterId": "P13S0467",
+      "name": "Zamar Nasim",
+      "relType": "F",
+      "relName": "Md Nasim",
+      "house": "33/18",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 468,
+      "voterId": "WB21154090525",
+      "name": "ADNAN ALAM",
+      "relType": "F",
+      "relName": "SURAB ALAM",
+      "house": "33/18",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 469,
+      "voterId": "WB21154090525",
+      "name": "Dinesh Kumar Singh",
+      "relType": "F",
+      "relName": "R.8. Singh",
+      "house": null,
+      "age": 152,
+      "gender": "M"
+    },
+    {
+      "sl": 470,
+      "voterId": "WB21154090525",
+      "name": "Kausar Parveen",
+      "relType": "F",
+      "relName": "Md Abdullah",
+      "house": "33/1C",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 471,
+      "voterId": "WB21154090523",
+      "name": "Shaista Jabeen",
+      "relType": "F",
+      "relName": "Md Abdulah",
+      "house": "33/1C",
+      "age": 152,
+      "gender": "F"
+    },
+    {
+      "sl": 472,
+      "voterId": "WB21154090523",
+      "name": "Niofar Begum",
+      "relType": "H",
+      "relName": "Md Shahnawaz",
+      "house": "33/1C",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 473,
+      "voterId": "WB21154090352",
+      "name": "Md.salam",
+      "relType": "F",
+      "relName": "Md Yunus",
+      "house": "33/1D",
+      "age": 59,
+      "gender": "M"
+    },
+    {
+      "sl": 474,
+      "voterId": "WB21154090352",
+      "name": "Amin Yunis",
+      "relType": "F",
+      "relName": "Md. Yunus",
+      "house": "33/1D",
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 475,
+      "voterId": "P13S0475",
+      "name": "Md. Islam",
+      "relType": "F",
+      "relName": "Md.Yunus",
+      "house": "33/10",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 476,
+      "voterId": "P13S0476",
+      "name": "Shaki Salam",
+      "relType": "F",
+      "relName": "Md. Salam",
+      "house": "33/1D",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 477,
+      "voterId": "P13S0477",
+      "name": "Sabahat Nasim",
+      "relType": "F",
+      "relName": "Md. Nasim",
+      "house": "33/10",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 478,
+      "voterId": "WB21154090329",
+      "name": "MUSARRAT JAHAN",
+      "relType": "H",
+      "relName": "MD. SHAH KHALID",
+      "house": "33/10",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 479,
+      "voterId": "WB21154090329",
+      "name": "Nagra Parveen",
+      "relType": "H",
+      "relName": "Md Arshad All",
+      "house": "33/1D",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 480,
+      "voterId": "WB21154090329",
+      "name": "Rashida Khatoon",
+      "relType": "H",
+      "relName": "Aftab Alam",
+      "house": "33/1N",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 481,
+      "voterId": "WB21154090329",
+      "name": "Intekhab Alam",
+      "relType": "F",
+      "relName": "Abdul Hannan",
+      "house": "33/1N",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 482,
+      "voterId": "WB21154090329",
+      "name": "FARHA AARZOO",
+      "relType": "F",
+      "relName": "MD NASIM AKHTAR",
+      "house": "33/1",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 483,
+      "voterId": "P13S0483",
+      "name": "Ghazala Aziz",
+      "relType": "H",
+      "relName": "Mustabeen Ahmed",
+      "house": "33/38",
+      "age": 42,
+      "gender": "F"
+    },
+    {
+      "sl": 484,
+      "voterId": "P13S0484",
+      "name": "SABA NOOR",
+      "relType": "F",
+      "relName": "MAHAMMAD NOOR ALAM",
+      "house": "33/3K",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 485,
+      "voterId": "P13S0485",
+      "name": "Sultana Quraishi",
+      "relType": "H",
+      "relName": "Saifulah Quraishi i",
+      "house": "33/1D",
+      "age": 40,
+      "gender": "O"
+    },
+    {
+      "sl": 486,
+      "voterId": "P13S0486",
+      "name": "Md. Arshad Al",
+      "relType": "F",
+      "relName": "Md. Ari",
+      "house": "33/1D",
+      "age": 36,
+      "gender": "M"
+    },
+    {
+      "sl": 487,
+      "voterId": "P13S0487",
+      "name": "Md. Hossain All",
+      "relType": "M",
+      "relName": "Jahanara Begum i",
+      "house": "33/1D",
+      "age": 27,
+      "gender": "M"
+    },
+    {
+      "sl": 488,
+      "voterId": "P13S0488",
+      "name": "Naseem Arzoo",
+      "relType": "F",
+      "relName": "Abdul Hannan i",
+      "house": "33/1",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 489,
+      "voterId": "P13S0489",
+      "name": "Zarqua Aftab",
+      "relType": "F",
+      "relName": "Aftab Alam i",
+      "house": "33/1N",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 490,
+      "voterId": "WB21154090358",
+      "name": "Nafisa lqoal",
+      "relType": "F",
+      "relName": "Md Iqbal i",
+      "house": "33/1",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 491,
+      "voterId": "WB21154090358",
+      "name": "Md. Noor Alam",
+      "relType": "F",
+      "relName": "Md. Manzoor L",
+      "house": "33/3K",
+      "age": 58,
+      "gender": "M"
+    },
+    {
+      "sl": 492,
+      "voterId": "WB21154090358",
+      "name": "Tuba Noor",
+      "relType": "F",
+      "relName": "Md Noor Alam i",
+      "house": "33/3",
+      "age": 22,
+      "gender": "F"
+    },
+    {
+      "sl": 493,
+      "voterId": "P13S0493",
+      "name": "Md Shah Khalid",
+      "relType": "F",
+      "relName": "Md Nasim",
+      "house": "33/1D",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 494,
+      "voterId": "P13S0494",
+      "name": "Aisha Khatoon",
+      "relType": "H",
+      "relName": "Md. Islam",
+      "house": "33/10",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 495,
+      "voterId": "WB21154090333",
+      "name": "NISHAT NASIM",
+      "relType": "F",
+      "relName": "MD. ILIAS",
+      "house": "33/10",
+      "age": null,
+      "gender": "F"
+    },
+    {
+      "sl": 496,
+      "voterId": "WB21154090333",
+      "name": "MOHAMMAD SHAH SAFI KHAN",
+      "relType": "F",
+      "relName": "MOHAMMAD SHAKIL",
+      "house": "33/10",
+      "age": 26,
+      "gender": "M"
+    },
+    {
+      "sl": 497,
+      "voterId": "WB21154090333",
+      "name": "Aftab Alam",
+      "relType": "F",
+      "relName": "Abdul Hannan",
+      "house": "33/1N",
+      "age": 59,
+      "gender": "M"
+    },
+    {
+      "sl": 498,
+      "voterId": "WB21154090333",
+      "name": "Sanawar Alam",
+      "relType": "F",
+      "relName": "Abdul Hanan",
+      "house": "33/1N",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 499,
+      "voterId": "WB21154090333",
+      "name": "Alfia Aftab",
+      "relType": "F",
+      "relName": "Aftab Alam",
+      "house": "33/1N",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 500,
+      "voterId": "P13S0500",
+      "name": "Aman Aftab",
+      "relType": "F",
+      "relName": "Aftab Alam",
+      "house": "33/IN",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 501,
+      "voterId": "P13S0501",
+      "name": "Md. Shoaib Alam",
+      "relType": "F",
+      "relName": "Noor Alam",
+      "house": "33/3",
+      "age": 30,
+      "gender": "M"
+    },
+    {
+      "sl": 502,
+      "voterId": "P13S0502",
+      "name": "Md Nayeem",
+      "relType": "F",
+      "relName": "Md Ismail",
+      "house": "34/1A",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 503,
+      "voterId": "P13S0503",
+      "name": "Afsana Begum",
+      "relType": "F",
+      "relName": "Md. Fakhere Alam",
+      "house": "33/18",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 504,
+      "voterId": "P13S0504",
+      "name": "Zinat Parveen",
+      "relType": "F",
+      "relName": "Md Zahiruddin",
+      "house": "29/3",
+      "age": 20,
+      "gender": "F"
+    },
+    {
+      "sl": 505,
+      "voterId": "P13S0505",
+      "name": "Nisha Chowdhury",
+      "relType": "F",
+      "relName": "Netai Chowdhury",
+      "house": "47/H/13",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 506,
+      "voterId": "P13S0506",
+      "name": "Sk Afnawaz",
+      "relType": "F",
+      "relName": "Sk Munna",
+      "house": "29/2",
+      "age": 21,
+      "gender": "M"
+    },
+    {
+      "sl": 507,
+      "voterId": "P13S0507",
+      "name": "Kaniz Fatma",
+      "relType": "F",
+      "relName": "Mansoor Alam",
+      "house": "29/2,",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 508,
+      "voterId": "P13S0508",
+      "name": "Namira Khatoon",
+      "relType": "F",
+      "relName": "Md Nizamuddin",
+      "house": "29/2",
+      "age": 19,
+      "gender": "F"
+    },
+    {
+      "sl": 509,
+      "voterId": "P13S0509",
+      "name": "Rounak Khatoon",
+      "relType": "F",
+      "relName": "Md Zahiruddin",
+      "house": "29/3",
+      "age": 22,
+      "gender": "F"
+    },
+    {
+      "sl": 510,
+      "voterId": "P13S0510",
+      "name": "FIZA PARVEEN",
+      "relType": "F",
+      "relName": "SABIR ALI",
+      "house": "29/2/H/4",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 511,
+      "voterId": "P13S0511",
+      "name": "Kayenat Parveen",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 20,
+      "gender": "F"
+    },
+    {
+      "sl": 512,
+      "voterId": "P13S0512",
+      "name": "Faran Ahamed",
+      "relType": "F",
+      "relName": "Israr Ahamed",
+      "house": "29/2,",
+      "age": 19,
+      "gender": "M"
+    },
+    {
+      "sl": 513,
+      "voterId": "P13S0513",
+      "name": "Tarannum Parveen",
+      "relType": "F",
+      "relName": "Md. Igbal Hossain",
+      "house": "29/2",
+      "age": 32,
+      "gender": "F"
+    },
+    {
+      "sl": 514,
+      "voterId": "P13S0514",
+      "name": "SK OSMAN GHANI",
+      "relType": null,
+      "relName": null,
+      "house": "29/2",
+      "age": 55,
+      "gender": "M"
+    }
+  ]
+}
