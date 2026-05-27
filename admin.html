@@ -2898,15 +2898,17 @@ function buildAdminPollingAgentsList(){
     listEl.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:20px;border:1px dashed var(--border);border-radius:var(--r2)">No polling agents yet. Click "+ Add Agent" to add the first one.</div>';
     return;
   }
-  /* Row layout mirrors the Congress Committee admin form: photo box on the
-     left + Part / Name / Role / Phone inputs to its right + per-row Save +
-     Delete + "Photo ✕" buttons. */
+  /* Each agent renders as a wrapper containing:
+     1. The PIC row (photo + Part + Name + Role + Phone + Save/Delete)
+     2. An expandable "Workers Allocated" section beneath it (add/edit/delete) */
   listEl.innerHTML = list.map(function(a, i){
+    var workers = Array.isArray(a.workers) ? a.workers : [];
     var photoBlock = a.photo
       ? '<img src="'+a.photo+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">'
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:22px;height:22px;color:var(--text3)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
-    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;border-radius:var(--r2);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
-      /* Photo upload box */
+
+    var paRow =
+        '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;border-radius:var(--r2) var(--r2) 0 0;padding:12px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
       + '<label style="flex:0 0 56px;width:56px;height:64px;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(135deg,rgba(96,165,250,0.12),rgba(59,130,246,0.06));border:1.5px dashed rgba(96,165,250,0.40);overflow:hidden;position:relative;" title="Click to upload photo">'
         + photoBlock
         + '<input type="file" accept="image/*" capture="user" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onPollingAgentPhotoPick('+i+',this)">'
@@ -2919,7 +2921,114 @@ function buildAdminPollingAgentsList(){
       + (a.photo ? '<button class="btn btn-sm" style="background:transparent;color:var(--text3);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="removePollingAgentPhoto('+i+')" title="Remove photo">Photo ✕</button>' : '')
       + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deletePollingAgent('+i+')">Delete</button>'
     + '</div>';
+
+    /* Workers panel — collapsible. Header shows count + Add button. */
+    var workersPanel =
+        '<details open style="background:rgba(96,165,250,0.04);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r2) var(--r2);padding:0;margin-bottom:14px;">'
+      +   '<summary style="cursor:pointer;list-style:none;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:#9bc1e4;">'
+      +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+      +     'Workers Allocated <span style="background:rgba(96,165,250,0.12);color:#9bc1e4;font-family:DM Mono,monospace;font-size:10px;padding:2px 7px;border-radius:999px;letter-spacing:0;border:1px solid rgba(96,165,250,0.25);">'+workers.length+'</span>'
+      +     '<button class="btn btn-sm" style="margin-left:auto;background:rgba(96,165,250,0.12);color:#9bc1e4;border:1px solid rgba(96,165,250,0.30);padding:5px 12px;font-size:11px;" onclick="event.preventDefault();addWorker('+i+');">+ Add Worker</button>'
+      +   '</summary>'
+      +   '<div style="padding:0 14px 14px 14px;">';
+
+    if(workers.length === 0){
+      workersPanel += '<div style="text-align:center;color:var(--text3);font-size:11px;padding:14px;border:1px dashed var(--border);border-radius:var(--r2);">No workers yet. Click "+ Add Worker" above.</div>';
+    } else {
+      workers.forEach(function(w, wi){
+        var wPhoto = w.photo
+          ? '<img src="'+w.photo+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:5px;">'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:18px;height:18px;color:var(--text3)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+        workersPanel +=
+            '<div style="background:var(--navy);border:1px solid var(--border);border-radius:var(--r2);padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">'
+          + '<label style="flex:0 0 42px;width:42px;height:48px;border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(135deg,rgba(96,165,250,0.10),rgba(59,130,246,0.04));border:1.5px dashed rgba(96,165,250,0.30);overflow:hidden;position:relative;">'
+          +   wPhoto
+          +   '<input type="file" accept="image/*" capture="user" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onWorkerPhotoPick('+i+','+wi+',this)">'
+          + '</label>'
+          + '<div style="flex:1;min-width:120px;"><input class="form-input" data-w-field="name" data-pa-idx="'+i+'" data-w-idx="'+wi+'" value="'+escapeAttr(w.name||'')+'" placeholder="Worker name" style="padding:5px 8px;font-size:12px;font-weight:500;"></div>'
+          + '<div style="flex:1;min-width:120px;"><input class="form-input" data-w-field="responsibility" data-pa-idx="'+i+'" data-w-idx="'+wi+'" value="'+escapeAttr(w.responsibility||'')+'" placeholder="Responsibility" style="padding:5px 8px;font-size:11px;color:#9bc1e4;"></div>'
+          + '<div style="flex:0 0 140px;"><input class="form-input" data-w-field="phone" data-pa-idx="'+i+'" data-w-idx="'+wi+'" value="'+escapeAttr(w.phone||'')+'" placeholder="+91 …" style="padding:5px 8px;font-family:DM Mono,monospace;font-size:11px;"></div>'
+          + '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:4px 10px;font-size:10px;" onclick="saveWorkerRow('+i+','+wi+')">Save</button>'
+          + (w.photo ? '<button class="btn btn-sm" style="background:transparent;color:var(--text3);border:1px solid var(--border);padding:4px 8px;font-size:10px;" onclick="removeWorkerPhoto('+i+','+wi+')" title="Remove photo">✕</button>' : '')
+          + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:4px 10px;font-size:10px;" onclick="deleteWorker('+i+','+wi+')">Delete</button>'
+          + '</div>';
+      });
+    }
+    workersPanel += '</div></details>';
+
+    return '<div style="margin-bottom:8px;">' + paRow + workersPanel + '</div>';
   }).join('');
+}
+
+/* ---- Worker management (per polling agent) ---- */
+function addWorker(paIdx){
+  var list = getPollingAgents().slice();
+  if(!list[paIdx]) return;
+  if(!Array.isArray(list[paIdx].workers)) list[paIdx].workers = [];
+  list[paIdx].workers.push({ name:'', responsibility:'', phone:'', photo:null });
+  setPollingAgents(list);
+  buildAdminPollingAgentsList();
+  setTimeout(function(){
+    var inputs = document.querySelectorAll('[data-w-field="name"][data-pa-idx="'+paIdx+'"]');
+    if(inputs.length){
+      var last = inputs[inputs.length-1];
+      last.scrollIntoView({behavior:'smooth',block:'center'});
+      last.focus();
+    }
+  }, 80);
+}
+
+function saveWorkerRow(paIdx, wIdx){
+  var list = getPollingAgents().slice();
+  if(!list[paIdx] || !list[paIdx].workers || !list[paIdx].workers[wIdx]) return;
+  ['name','responsibility','phone'].forEach(function(f){
+    var el = document.querySelector('[data-w-field="'+f+'"][data-pa-idx="'+paIdx+'"][data-w-idx="'+wIdx+'"]');
+    if(el) list[paIdx].workers[wIdx][f] = el.value.trim();
+  });
+  setPollingAgents(list);
+  showToast('Worker saved');
+  buildAdminPollingAgentsList();
+}
+
+function deleteWorker(paIdx, wIdx){
+  var list = getPollingAgents().slice();
+  if(!list[paIdx] || !list[paIdx].workers) return;
+  var nm = list[paIdx].workers[wIdx] ? (list[paIdx].workers[wIdx].name || 'this worker') : 'this worker';
+  if(!confirm('Delete worker "'+nm+'"?')) return;
+  list[paIdx].workers.splice(wIdx, 1);
+  setPollingAgents(list);
+  buildAdminPollingAgentsList();
+  showToast('Worker removed');
+}
+
+function onWorkerPhotoPick(paIdx, wIdx, input){
+  var file = input.files && input.files[0];
+  if(!file) return;
+  showToast('Processing photo…');
+  processCommitteePhoto(file, function(dataUrl, err){
+    if(err){ showToast(err, 'error'); return; }
+    var list = getPollingAgents().slice();
+    if(!list[paIdx] || !list[paIdx].workers || !list[paIdx].workers[wIdx]) return;
+    /* Also pick up any unsaved field edits in this row */
+    ['name','responsibility','phone'].forEach(function(f){
+      var inp = document.querySelector('[data-w-field="'+f+'"][data-pa-idx="'+paIdx+'"][data-w-idx="'+wIdx+'"]');
+      if(inp) list[paIdx].workers[wIdx][f] = inp.value.trim();
+    });
+    list[paIdx].workers[wIdx].photo = dataUrl;
+    setPollingAgents(list);
+    buildAdminPollingAgentsList();
+    showToast('Photo saved');
+  });
+  input.value = '';
+}
+
+function removeWorkerPhoto(paIdx, wIdx){
+  if(!confirm('Remove this photo?')) return;
+  var list = getPollingAgents().slice();
+  if(!list[paIdx] || !list[paIdx].workers || !list[paIdx].workers[wIdx]) return;
+  list[paIdx].workers[wIdx].photo = null;
+  setPollingAgents(list);
+  buildAdminPollingAgentsList();
 }
 
 function savePollingAgentRow(idx){
