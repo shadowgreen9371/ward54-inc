@@ -14,7 +14,11 @@
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "db:push": "supabase db push",
-    "db:reset": "supabase db reset"
+    "db:reset": "supabase db reset",
+    "extract:voters": "node scripts/extract-voters.mjs"
+  },
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
     "typescript": "^5.6.3",

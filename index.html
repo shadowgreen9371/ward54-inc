@@ -2911,6 +2911,57 @@ function openStation(no){
   goTo('p3');
 }
 
+/* Track which parts we've already hydrated with the full PDF-extracted JSON. */
+var _hydratedParts = {};
+
+/* Try to load data/voters/part-NN.json. If present, REPLACE the in-memory
+   voterDB[pno] with the real Electoral Roll extract. Silent no-op if the
+   JSON doesn't exist yet (parts still have their sample voter data). */
+function hydratePartFromJson(pno){
+  if(_hydratedParts[pno]) return Promise.resolve();
+  var url = 'data/voters/part-' + String(pno).padStart(2,'0') + '.json';
+  return fetch(url, { cache: 'no-cache' })
+    .then(function(r){ if(!r.ok) throw new Error('no json'); return r.json(); })
+    .then(function(data){
+      if(data && Array.isArray(data.voters) && data.voters.length){
+        /* Wrap each record with the runtime fields the renderer expects:
+           id (counter), serial, photo:null, contact:'No', notes:'', father */
+        var rows = data.voters.map(function(v, i){
+          return {
+            id: (pno * 100000) + i + 1,
+            serial: v.sl || (i + 1),
+            voterId: v.voterId,
+            name: v.name,
+            father: v.relName || '',
+            relType: v.relType || 'F',
+            age: v.age || null,
+            gender: v.gender || 'O',
+            house: v.house || '',
+            mobile: '',
+            address: '',
+            religion: '',
+            occupation: '',
+            bloodGroup: 'Unknown',
+            contact: 'No',
+            volunteer: '',
+            notes: '',
+            photo: null,
+            sample: false
+          };
+        });
+        voterDB[pno] = rows;
+        /* Sync the cover-page totals if present */
+        if(data.totals && partsBase[pno]){
+          partsBase[pno].male  = data.totals.male  || partsBase[pno].male;
+          partsBase[pno].female= data.totals.female|| partsBase[pno].female;
+          partsBase[pno].total = data.totals.total || partsBase[pno].total;
+        }
+        _hydratedParts[pno] = true;
+      }
+    })
+    .catch(function(){ /* json not present yet — fall through to sample data */ });
+}
+
 function selectPart(pno){
   if(!partsBase[pno]){showToast('Sample voter data for Part '+pno+' not added yet','error');return;}
   currentPartNo=pno;currentPage=1;
@@ -2919,6 +2970,11 @@ function selectPart(pno){
   var secTxt=partSection[pno]?(' — '+partSection[pno]):'';
   document.getElementById('vs-title').textContent='Part '+pno+' — voter list'+secTxt;
   ['voterSearch','filterGender','filterContact'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  /* Try to hydrate from the JSON extract first, then render. The .then runs
+     synchronously if already hydrated (Promise.resolve) so the table refreshes
+     immediately. On first visit it briefly shows sample data, then swaps to
+     the real Electoral Roll once the fetch resolves (~50–150 ms). */
+  hydratePartFromJson(pno).then(function(){ applyFilters(); });
   applyFilters();
   var vs=document.getElementById('voter-section');vs.classList.add('visible');
   setTimeout(function(){vs.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
