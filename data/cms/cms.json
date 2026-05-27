@@ -1,0 +1,73 @@
+{
+  "_exportedAt": "2026-05-27T00:00:00.000Z",
+  "_exportedBy": "claude-on-behalf-of-admin",
+  "_schemaVersion": 1,
+  "_note": "Committee names + phones bootstrapped from desktop screenshot. Photos remain on the admin's local device until exported. Replace this file by uploading a fresh cms.json from admin → Publish to Live Site → Export & Download.",
+
+  "mainPage": {
+    "ward": "WARD NO. 54",
+    "kmc": "Kolkata Municipal Corporation",
+    "ctas": [
+      { "title": "54 WARD CONGRESS COMMITTEE",      "desc": "All parts · All voters · Card view" },
+      { "title": "54 WARD YOUTH CONGRESS",          "desc": "Youth wing · Ward 54 unit" },
+      { "title": "POLLING STATIONS & VOTER LIST",   "desc": "12 stations · 38 booths · Map · Voters" },
+      { "title": "POLLING AGENTS",                  "desc": "Booth agents · Roles · Duties" }
+    ]
+  },
+
+  "committee": {
+    "congress": [
+      { "post": "President",         "name": "Md. Shakil",       "phone": "9836513741" },
+      { "post": "Vice President",    "name": "Mohammad Nadim",   "phone": "9903476305" },
+      { "post": "Vice President",    "name": "Manas Sarkar",     "phone": "9830039011" },
+      { "post": "General Secretary", "name": "Samir Alam",       "phone": "8296028972" },
+      { "post": "Secretary",         "name": "Atif Azmi",        "phone": "9748860300" }
+    ],
+    "youth": [
+      { "post": "President",         "name": "", "phone": "" },
+      { "post": "Vice President",    "name": "", "phone": "" },
+      { "post": "Vice President",    "name": "", "phone": "" },
+      { "post": "General Secretary", "name": "", "phone": "" },
+      { "post": "Secretary",         "name": "", "phone": "" }
+    ]
+  },
+
+  "pollingAgents": [
+    {
+      "name": "Polling Agent 1",
+      "role": "Booth Polling Agent",
+      "status": "active",
+      "targetArea": "Entally Academy · Booths 1–5",
+      "responsibilities": [
+        "Voter verification at booth",
+        "Roll observation",
+        "Result certificate sign-off",
+        "EVM mismatch flagging"
+      ]
+    },
+    {
+      "name": "Polling Agent 2",
+      "role": "Area Coordinator",
+      "status": "onduty",
+      "targetArea": "Taltala Dispensary & VIP Hall area",
+      "responsibilities": [
+        "Cluster supervision",
+        "Issue escalation",
+        "Volunteer rota",
+        "Voter slip distribution"
+      ]
+    },
+    {
+      "name": "Polling Agent 3",
+      "role": "Outreach Volunteer",
+      "status": "active",
+      "targetArea": "Anjuman Schools & Sir Syed area",
+      "responsibilities": [
+        "Door-to-door outreach",
+        "Voter slip distribution",
+        "Transport assistance",
+        "Local issue collection"
+      ]
+    }
+  ]
+}

@@ -4061,16 +4061,33 @@ function _applyCmsObject(cms){
     }
   }
 
-  /* Committee rosters */
+  /* Committee rosters.
+     Merge order: existing in-memory record (from localStorage Stage 1 or
+     hardcoded defaults) gives us a photo fallback. Repo JSON wins for
+     names/phones/posts but only overrides the photo if it actually has one.
+     This way, an admin who uploaded photos locally + committed a no-photo
+     cms.json from a different device still sees their own photos. */
   if(cms.committee){
     if(Array.isArray(cms.committee.congress)) {
-      congressCommittee = cms.committee.congress.map(function(m){
-        return Object.assign({ photo:null, empty:!m.name }, m);
+      var existingC = Array.isArray(congressCommittee) ? congressCommittee : [];
+      congressCommittee = cms.committee.congress.map(function(m, i){
+        var prev = existingC[i] || {};
+        return Object.assign(
+          { empty: !m.name },
+          m,
+          { photo: m.photo || prev.photo || null }
+        );
       });
     }
     if(Array.isArray(cms.committee.youth)) {
-      youthCommittee = cms.committee.youth.map(function(m){
-        return Object.assign({ photo:null, empty:!m.name }, m);
+      var existingY = Array.isArray(youthCommittee) ? youthCommittee : [];
+      youthCommittee = cms.committee.youth.map(function(m, i){
+        var prev = existingY[i] || {};
+        return Object.assign(
+          { empty: !m.name },
+          m,
+          { photo: m.photo || prev.photo || null }
+        );
       });
     }
   }
