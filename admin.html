@@ -2454,12 +2454,23 @@ var COMMITTEE_DEFAULTS = {
     { post:'General Secretary',  name:'Raza',       phone:'123456' },
     { post:'Secretary',          name:'Mahfooz',    phone:'123456' }
   ],
-  youth: []
+  /* Same 5-slot template — admin fills in real names + photos later. */
+  youth: [
+    { post:'President',          name:'', phone:'' },
+    { post:'Vice President',     name:'', phone:'' },
+    { post:'Vice President',     name:'', phone:'' },
+    { post:'General Secretary',  name:'', phone:'' },
+    { post:'Secretary',          name:'', phone:'' }
+  ]
 };
 function getCommittee(which){
   var d = cmsRead();
   if(!d.committee) d.committee = {};
-  if(!d.committee[which]) d.committee[which] = COMMITTEE_DEFAULTS[which].slice();
+  /* Seed with defaults when missing OR when previously initialised as an
+     empty array (covers older admin sessions that saved Youth as []). */
+  if(!d.committee[which] || (Array.isArray(d.committee[which]) && d.committee[which].length === 0)){
+    d.committee[which] = COMMITTEE_DEFAULTS[which].slice();
+  }
   return d.committee[which];
 }
 function setCommittee(which, list){

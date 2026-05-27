@@ -3196,34 +3196,23 @@ function ensureVolPartFilter(){
    Rows mirror the paper table exactly — Post / Name / Number / Pic.
    "Secretary (5)" on the note = 5 secretary positions, only Mahfooz named.
    Empty rows render as dashed "+ Add" placeholders, ready for data entry. */
+/* 5-slot default — admin's CMS overlay supplies the real names + photos.
+   Kept as a sensible fallback if no localStorage CMS data exists yet. */
 var congressCommittee = [
   { post:'President',          name:'Md. Shakil', phone:'9836513741', photo:null },
   { post:'Vice President',     name:'Israil',     phone:'123456',     photo:null },
   { post:'Vice President',     name:'Chadu',      phone:'127456',     photo:null },
   { post:'General Secretary',  name:'Raza',       phone:'123456',     photo:null },
-  { post:'Secretary 1 of 5',   name:'Mahfooz',    phone:'123456',     photo:null },
-  { post:'Secretary 2 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary 3 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary 4 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary 5 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'Secretary',          name:'Mahfooz',    phone:'123456',     photo:null }
 ];
 
+/* Same 5-slot template as Congress Committee — admin will fill names later */
 var youthCommittee = [
-  { post:'President',          name:'',           phone:'',           photo:null, empty:true },
-  { post:'Vice President',     name:'',           phone:'',           photo:null, empty:true },
-  { post:'Vice President',     name:'',           phone:'',           photo:null, empty:true },
-  { post:'General Secretary',  name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary 1 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary 2 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary 3 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary 4 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Secretary 5 of 5',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
-  { post:'Executive Member',   name:'',           phone:'',           photo:null, empty:true },
+  { post:'President',          name:'', phone:'', photo:null, empty:true },
+  { post:'Vice President',     name:'', phone:'', photo:null, empty:true },
+  { post:'Vice President',     name:'', phone:'', photo:null, empty:true },
+  { post:'General Secretary',  name:'', phone:'', photo:null, empty:true },
+  { post:'Secretary',          name:'', phone:'', photo:null, empty:true }
 ];
 
 function committeeInitials(name){
