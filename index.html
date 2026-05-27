@@ -3723,6 +3723,70 @@ function buildAgentsStats(){
     +'<div class="wsb-stat green"><div class="wsb-val">'+(counts['Volunteer']||0)+'</div><div class="wsb-lbl">Volunteers</div></div>';
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   CMS OVERRIDE LOADER
+   Reads localStorage["ward54.cms"] (written by admin.html's control panel)
+   and overrides:
+     - .ward-big text   ← mainPage.ward
+     - .kmc-line text   ← mainPage.kmc
+     - the 4 hero CTA titles + descriptions ← mainPage.ctas[i]
+     - congressCommittee data               ← committee.congress
+     - youthCommittee data                  ← committee.youth
+     - pollingAgentsList data               ← pollingAgents
+   Falls through silently if nothing is configured.
+   ───────────────────────────────────────────────────────────────────────── */
+(function applyCmsOverrides(){
+  var cms = null;
+  try{ cms = JSON.parse(localStorage.getItem('ward54.cms') || 'null'); }catch(e){ return; }
+  if(!cms) return;
+
+  /* Main page text */
+  if(cms.mainPage){
+    if(cms.mainPage.ward){
+      var w=document.querySelector('.ward-big'); if(w) w.textContent = cms.mainPage.ward;
+    }
+    if(cms.mainPage.kmc){
+      var k=document.querySelector('.kmc-line'); if(k) k.textContent = cms.mainPage.kmc;
+    }
+    if(Array.isArray(cms.mainPage.ctas)){
+      var titles = document.querySelectorAll('.entry-bar-group .hero-cta-title');
+      var descs  = document.querySelectorAll('.entry-bar-group .hero-cta-desc');
+      for(var i=0; i<cms.mainPage.ctas.length && i<titles.length; i++){
+        var cta = cms.mainPage.ctas[i];
+        if(cta && cta.title) titles[i].textContent = cta.title;
+        if(cta && cta.desc && descs[i]){
+          /* Preserve the leading pulsing dot — only replace trailing text */
+          var dot = descs[i].querySelector('.hero-cta-dot');
+          descs[i].innerHTML = '';
+          if(dot) descs[i].appendChild(dot);
+          descs[i].appendChild(document.createTextNode(cta.desc));
+        }
+      }
+    }
+  }
+
+  /* Committee rosters */
+  if(cms.committee){
+    if(Array.isArray(cms.committee.congress)) {
+      congressCommittee = cms.committee.congress.map(function(m){
+        return Object.assign({ photo:null, empty:!m.name }, m);
+      });
+    }
+    if(Array.isArray(cms.committee.youth)) {
+      youthCommittee = cms.committee.youth.map(function(m){
+        return Object.assign({ photo:null, empty:!m.name }, m);
+      });
+    }
+  }
+
+  /* Polling agents */
+  if(Array.isArray(cms.pollingAgents) && cms.pollingAgents.length){
+    pollingAgentsList = cms.pollingAgents.map(function(a, i){
+      return Object.assign({ id:'pa'+(i+1) }, a);
+    });
+  }
+})();
+
 buildStations(stations);
 buildWardStats();
 </script>

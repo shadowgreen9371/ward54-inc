@@ -727,6 +727,69 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="voter-mgmt-grid" id="voterMgmtGrid"></div>
     </div>
 
+    <!-- Section: Main Page (Homepage) Content -->
+    <div class="p4-section">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Main Page Content</div>
+          <div class="p4-section-sub">Edit the homepage title, KMC line, and the 4 hero buttons</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="saveMainPageContent()">Save Changes</button>
+      </div>
+      <div class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="form-group"><label class="form-label">Ward title</label><input class="form-input" id="mp-ward" placeholder="WARD NO. 54"></div>
+        <div class="form-group"><label class="form-label">Kolkata Municipal Corporation line</label><input class="form-input" id="mp-kmc" placeholder="Kolkata Municipal Corporation"></div>
+        <div class="form-group" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:14px;margin-top:4px;"><label class="form-label" style="color:var(--gold);text-transform:uppercase;letter-spacing:0.18em;font-size:11px;">CTA 1 — Green (Congress)</label></div>
+        <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta1-t" placeholder="54 WARD CONGRESS COMMITTEE"></div>
+        <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta1-d" placeholder="All parts · All voters · Card view"></div>
+        <div class="form-group" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:14px;margin-top:4px;"><label class="form-label" style="color:#c4b5fd;text-transform:uppercase;letter-spacing:0.18em;font-size:11px;">CTA 2 — Violet (Youth Congress)</label></div>
+        <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta2-t" placeholder="54 WARD YOUTH CONGRESS"></div>
+        <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta2-d" placeholder="Youth wing · Ward 54 unit"></div>
+        <div class="form-group" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:14px;margin-top:4px;"><label class="form-label" style="color:var(--inc-saffron);text-transform:uppercase;letter-spacing:0.18em;font-size:11px;">CTA 3 — Saffron (Polling Stations)</label></div>
+        <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta3-t" placeholder="POLLING STATIONS &amp; VOTER LIST"></div>
+        <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta3-d" placeholder="12 stations · 38 booths · Map · Voters"></div>
+        <div class="form-group" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:14px;margin-top:4px;"><label class="form-label" style="color:#60a5fa;text-transform:uppercase;letter-spacing:0.18em;font-size:11px;">CTA 4 — Blue (Polling Agents)</label></div>
+        <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta4-t" placeholder="POLLING AGENTS"></div>
+        <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta4-d" placeholder="Booth agents · Roles · Duties"></div>
+      </div>
+    </div>
+
+    <!-- Section: Congress Committee Office Bearers -->
+    <div class="p4-section">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V6l-8-4z"/><circle cx="12" cy="11" r="2.5"/></svg>Congress Committee — Office Bearers</div>
+          <div class="p4-section-sub">Add, edit or remove members of the 54 Ward Congress Committee</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addCommitteeMember('congress')">+ Add Member</button>
+      </div>
+      <div id="adminCongressList"></div>
+    </div>
+
+    <!-- Section: Youth Congress Office Bearers -->
+    <div class="p4-section">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Youth Congress — Office Bearers</div>
+          <div class="p4-section-sub">Add, edit or remove members of the 54 Ward Youth Congress</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addCommitteeMember('youth')">+ Add Member</button>
+      </div>
+      <div id="adminYouthList"></div>
+    </div>
+
+    <!-- Section: Polling Agents (the 3-agent ops roster) -->
+    <div class="p4-section">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Polling Agents</div>
+          <div class="p4-section-sub">Edit name, role, target area, status, responsibilities</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="savePollingAgents()">Save Changes</button>
+      </div>
+      <div id="adminPollingAgentsList"></div>
+    </div>
+
   </div>
 </div>
 
@@ -2336,6 +2399,160 @@ function openAdminPanel(){
   buildStationAdminList();
   buildVoterMgmtGrid();
   refreshP4Stats();
+  loadMainPageContent();
+  buildAdminCommitteeList('congress');
+  buildAdminCommitteeList('youth');
+  buildAdminPollingAgentsList();
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CMS — written to localStorage["ward54.cms"], read by index.html on boot
+   ───────────────────────────────────────────────────────────────────────── */
+var CMS_KEY = 'ward54.cms';
+function cmsRead(){ try{ return JSON.parse(localStorage.getItem(CMS_KEY)||'{}'); }catch(e){ return {}; } }
+function cmsWrite(d){ localStorage.setItem(CMS_KEY, JSON.stringify(d)); }
+function cmsPatch(section, value){ var d=cmsRead(); d[section]=value; cmsWrite(d); }
+
+/* ---- Main Page Content ---- */
+function saveMainPageContent(){
+  var data = {
+    ward:  document.getElementById('mp-ward').value.trim(),
+    kmc:   document.getElementById('mp-kmc').value.trim(),
+    ctas: [
+      { title:document.getElementById('mp-cta1-t').value.trim(), desc:document.getElementById('mp-cta1-d').value.trim() },
+      { title:document.getElementById('mp-cta2-t').value.trim(), desc:document.getElementById('mp-cta2-d').value.trim() },
+      { title:document.getElementById('mp-cta3-t').value.trim(), desc:document.getElementById('mp-cta3-d').value.trim() },
+      { title:document.getElementById('mp-cta4-t').value.trim(), desc:document.getElementById('mp-cta4-d').value.trim() }
+    ]
+  };
+  cmsPatch('mainPage', data);
+  showToast('Main page content saved');
+}
+function loadMainPageContent(){
+  var mp = cmsRead().mainPage || {};
+  document.getElementById('mp-ward').value = mp.ward || 'WARD NO. 54';
+  document.getElementById('mp-kmc').value  = mp.kmc  || 'Kolkata Municipal Corporation';
+  var defaults = [
+    { title:'54 WARD CONGRESS COMMITTEE',   desc:'All parts · All voters · Card view' },
+    { title:'54 WARD YOUTH CONGRESS',       desc:'Youth wing · Ward 54 unit' },
+    { title:'POLLING STATIONS & VOTER LIST', desc:'12 stations · 38 booths · Map · Voters' },
+    { title:'POLLING AGENTS',                desc:'Booth agents · Roles · Duties' }
+  ];
+  for(var i=0;i<4;i++){
+    var c = (mp.ctas && mp.ctas[i]) || defaults[i];
+    document.getElementById('mp-cta'+(i+1)+'-t').value = c.title || defaults[i].title;
+    document.getElementById('mp-cta'+(i+1)+'-d').value = c.desc  || defaults[i].desc;
+  }
+}
+
+/* ---- Committee members (Congress + Youth) ---- */
+var COMMITTEE_DEFAULTS = {
+  congress: [
+    { post:'President',          name:'Md. Shakil', phone:'9836513741' },
+    { post:'Vice President',     name:'Israil',     phone:'123456' },
+    { post:'Vice President',     name:'Chadu',      phone:'127456' },
+    { post:'General Secretary',  name:'Raza',       phone:'123456' },
+    { post:'Secretary',          name:'Mahfooz',    phone:'123456' }
+  ],
+  youth: []
+};
+function getCommittee(which){
+  var d = cmsRead();
+  if(!d.committee) d.committee = {};
+  if(!d.committee[which]) d.committee[which] = COMMITTEE_DEFAULTS[which].slice();
+  return d.committee[which];
+}
+function setCommittee(which, list){
+  var d = cmsRead();
+  if(!d.committee) d.committee = {};
+  d.committee[which] = list;
+  cmsWrite(d);
+}
+function buildAdminCommitteeList(which){
+  var listEl = document.getElementById(which==='youth' ? 'adminYouthList' : 'adminCongressList');
+  if(!listEl) return;
+  var list = getCommittee(which);
+  if(list.length === 0){
+    listEl.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:20px;border:1px dashed var(--border);border-radius:var(--r2)">No members yet. Click "+ Add Member" to add the first one.</div>';
+    return;
+  }
+  listEl.innerHTML = list.map(function(m, i){
+    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid '+(which==='youth'?'#a855f7':'var(--gold)')+';border-radius:var(--r2);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+      + '<div style="flex:0 0 130px;"><input class="form-input" data-cm-field="post" data-cm-which="'+which+'" data-cm-idx="'+i+'" value="'+escapeAttr(m.post||'')+'" placeholder="Post" style="font-size:11px;padding:6px 8px;text-transform:uppercase;letter-spacing:0.1em;color:'+(which==='youth'?'#c4b5fd':'var(--gold2)')+';font-weight:600"></div>'
+      + '<div style="flex:1;min-width:140px;"><input class="form-input" data-cm-field="name" data-cm-which="'+which+'" data-cm-idx="'+i+'" value="'+escapeAttr(m.name||'')+'" placeholder="Name" style="padding:6px 8px;font-weight:500"></div>'
+      + '<div style="flex:0 0 140px;"><input class="form-input" data-cm-field="phone" data-cm-which="'+which+'" data-cm-idx="'+i+'" value="'+escapeAttr(m.phone||'')+'" placeholder="Phone" style="padding:6px 8px;font-family:DM Mono,monospace;font-size:12px"></div>'
+      + '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px 12px;font-size:11px;" onclick="saveCommitteeRow(\''+which+'\','+i+')">Save</button>'
+      + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deleteCommitteeMember(\''+which+'\','+i+')">Delete</button>'
+      + '</div>';
+  }).join('');
+}
+function escapeAttr(s){ return String(s).replace(/"/g,'&quot;').replace(/&/g,'&amp;'); }
+function saveCommitteeRow(which, idx){
+  var list = getCommittee(which).slice();
+  ['post','name','phone'].forEach(function(field){
+    var input = document.querySelector('[data-cm-field="'+field+'"][data-cm-which="'+which+'"][data-cm-idx="'+idx+'"]');
+    if(input && list[idx]) list[idx][field] = input.value.trim();
+  });
+  setCommittee(which, list);
+  showToast('Member saved');
+}
+function addCommitteeMember(which){
+  var list = getCommittee(which).slice();
+  list.push({ post:'Member', name:'New Member', phone:'' });
+  setCommittee(which, list);
+  buildAdminCommitteeList(which);
+}
+function deleteCommitteeMember(which, idx){
+  if(!confirm('Remove this member?')) return;
+  var list = getCommittee(which).slice();
+  list.splice(idx, 1);
+  setCommittee(which, list);
+  buildAdminCommitteeList(which);
+  showToast('Member removed');
+}
+
+/* ---- Polling Agents (3 fixed slots) ---- */
+var PA_DEFAULTS = [
+  { name:'Polling Agent 1', role:'Booth Polling Agent',  status:'active', targetArea:'Entally Academy · Booths 1–5',          responsibilities:['Voter verification at booth','Roll observation','Result certificate sign-off','EVM mismatch flagging'] },
+  { name:'Polling Agent 2', role:'Area Coordinator',     status:'onduty', targetArea:'Taltala Dispensary & VIP Hall area',     responsibilities:['Cluster supervision','Issue escalation','Volunteer rota','Voter slip distribution'] },
+  { name:'Polling Agent 3', role:'Outreach Volunteer',   status:'active', targetArea:'Anjuman Schools & Sir Syed area',        responsibilities:['Door-to-door outreach','Voter slip distribution','Transport assistance','Local issue collection'] }
+];
+function getPollingAgents(){
+  var d = cmsRead();
+  if(!d.pollingAgents) d.pollingAgents = PA_DEFAULTS.slice();
+  return d.pollingAgents;
+}
+function buildAdminPollingAgentsList(){
+  var listEl = document.getElementById('adminPollingAgentsList');
+  if(!listEl) return;
+  var list = getPollingAgents();
+  listEl.innerHTML = list.map(function(a, i){
+    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;border-radius:var(--r2);padding:14px 16px;margin-bottom:10px;">'
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
+        + '<div class="form-group" style="margin:0"><label class="form-label">Name</label><input class="form-input" data-pa-field="name" data-pa-idx="'+i+'" value="'+escapeAttr(a.name||'')+'"></div>'
+        + '<div class="form-group" style="margin:0"><label class="form-label">Role</label><input class="form-input" data-pa-field="role" data-pa-idx="'+i+'" value="'+escapeAttr(a.role||'')+'"></div>'
+        + '<div class="form-group" style="margin:0"><label class="form-label">Target Area</label><input class="form-input" data-pa-field="targetArea" data-pa-idx="'+i+'" value="'+escapeAttr(a.targetArea||'')+'"></div>'
+        + '<div class="form-group" style="margin:0"><label class="form-label">Status</label><select class="form-select" data-pa-field="status" data-pa-idx="'+i+'">'
+          + '<option value="active"'+(a.status==='active'?' selected':'')+'>Active</option>'
+          + '<option value="onduty"'+(a.status==='onduty'?' selected':'')+'>On Duty</option>'
+          + '<option value="offduty"'+(a.status==='offduty'?' selected':'')+'>Off Duty</option>'
+        + '</select></div>'
+        + '<div class="form-group" style="margin:0;grid-column:1/-1"><label class="form-label">Responsibilities (one per line)</label><textarea class="form-textarea" data-pa-field="responsibilities" data-pa-idx="'+i+'" rows="3" style="font-size:12px">'+escapeAttr((a.responsibilities||[]).join('\n'))+'</textarea></div>'
+      + '</div></div>';
+  }).join('');
+}
+function savePollingAgents(){
+  var list = getPollingAgents().slice();
+  for(var i=0;i<list.length;i++){
+    ['name','role','targetArea','status'].forEach(function(f){
+      var el=document.querySelector('[data-pa-field="'+f+'"][data-pa-idx="'+i+'"]');
+      if(el) list[i][f] = el.value.trim();
+    });
+    var rEl=document.querySelector('[data-pa-field="responsibilities"][data-pa-idx="'+i+'"]');
+    if(rEl) list[i].responsibilities = rEl.value.split(/\n+/).map(function(s){return s.trim();}).filter(Boolean);
+  }
+  var d=cmsRead(); d.pollingAgents = list; cmsWrite(d);
+  showToast('Polling agents saved');
 }
 function doLogout(){
   currentRole='viewer';
