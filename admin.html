@@ -727,6 +727,42 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="voter-mgmt-grid" id="voterMgmtGrid"></div>
     </div>
 
+    <!-- Section: Cloud Sync (GitHub PAT auto-publish) -->
+    <div class="p4-section" id="cloudSyncSection" style="border:1px solid rgba(16,185,129,0.40);background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(16,185,129,0.02));">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            Cloud Sync &middot; Auto-publish to GitHub
+          </div>
+          <div class="p4-section-sub" id="cloudSyncStatus">Paste a GitHub Personal Access Token below to auto-publish every save (no more manual upload).</div>
+        </div>
+        <span id="cloudSyncBadge" style="font-size:11px;padding:5px 12px;border-radius:999px;background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.25);font-weight:600;letter-spacing:0.04em;">NOT CONFIGURED</span>
+      </div>
+
+      <details id="cloudSyncSetup" style="background:rgba(0,0,0,0.20);border:1px dashed var(--border);border-radius:var(--r2);padding:14px 16px;font-size:12.5px;line-height:1.65;color:var(--text2);margin-bottom:12px;">
+        <summary style="cursor:pointer;color:var(--gold2);font-weight:600;letter-spacing:0.04em;">How to get a GitHub Personal Access Token (2 minutes)</summary>
+        <ol style="margin:10px 0 0;padding-left:18px;">
+          <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;">github.com/settings/personal-access-tokens/new</a> in a new tab</li>
+          <li>Sign in if needed (use the same account that owns this repo)</li>
+          <li><strong>Token name:</strong> <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;">ward54-admin-publish</code></li>
+          <li><strong>Expiration:</strong> 1 year (or whatever feels right)</li>
+          <li><strong>Repository access:</strong> "Only select repositories" &rarr; pick <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;">shadowgreen9371/ward54-inc</code></li>
+          <li>Expand <strong>Repository permissions</strong> and set <strong>Contents</strong> to <strong>Read and write</strong> (leave everything else as Default / No access)</li>
+          <li>Click <strong>Generate token</strong> &mdash; copy the value (starts with <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;">github_pat_</code>)</li>
+          <li>Paste it in the field below and click <strong>Connect</strong></li>
+        </ol>
+        <p style="margin:10px 0 0;font-size:11px;color:var(--text3);">The token is stored only in this browser's localStorage. It never leaves your device except in HTTPS calls to GitHub's API. To revoke later: same GitHub Settings page, click the token, Delete.</p>
+      </details>
+
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input type="password" class="form-input" id="ghPatInput" placeholder="github_pat_…" autocomplete="off" spellcheck="false" style="flex:1;min-width:220px;font-family:DM Mono,monospace;font-size:12px;">
+        <button class="btn btn-primary btn-sm" onclick="connectGithubPat()" style="background:linear-gradient(135deg,#16a34a,#10b981);color:#fff;font-weight:600;">Connect</button>
+        <button class="btn btn-sm" onclick="testGithubPat()" style="background:rgba(255,255,255,0.06);color:var(--text2);border:1px solid var(--border);">Test</button>
+        <button class="btn btn-sm" onclick="disconnectGithubPat()" style="background:rgba(239,68,68,0.08);color:var(--red2);border:1px solid rgba(239,68,68,0.25);">Disconnect</button>
+      </div>
+    </div>
+
     <!-- Section: Publish to Site (export → commit JSON to repo) -->
     <div class="p4-section" style="border:1px solid rgba(232,130,30,0.40);background:linear-gradient(135deg,rgba(232,130,30,0.08),rgba(232,130,30,0.02));">
       <div class="p4-section-head">
@@ -2429,6 +2465,7 @@ function openAdminPanel(){
   buildAdminCommitteeList('congress');
   buildAdminCommitteeList('youth');
   buildAdminPollingAgentsList();
+  if(typeof updateCloudSyncUI === 'function') updateCloudSyncUI();
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -2437,7 +2474,164 @@ function openAdminPanel(){
 var CMS_KEY = 'ward54.cms';
 function cmsRead(){ try{ return JSON.parse(localStorage.getItem(CMS_KEY)||'{}'); }catch(e){ return {}; } }
 function cmsWrite(d){ localStorage.setItem(CMS_KEY, JSON.stringify(d)); }
-function cmsPatch(section, value){ var d=cmsRead(); d[section]=value; cmsWrite(d); }
+function cmsPatch(section, value){
+  var d=cmsRead(); d[section]=value; cmsWrite(d);
+  /* Auto-publish to GitHub if a PAT is configured. autoPublish() is a
+     no-op when no PAT is set, so safe to always call. */
+  if(typeof autoPublish==='function') autoPublish('Update '+section);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CLOUD SYNC — GitHub PAT auto-publish
+   Every time the admin saves (committee row, polling agent, main page,
+   photo upload), if a PAT is configured we commit data/cms/cms.json to
+   the repo directly via the GitHub REST API. Pages rebuilds in ~30s
+   and every device picks up the new file.
+   ───────────────────────────────────────────────────────────────────────── */
+var GH_OWNER = 'shadowgreen9371';
+var GH_REPO  = 'ward54-inc';
+var GH_PATH  = 'data/cms/cms.json';
+var GH_BRANCH= 'main';
+var GH_PAT_KEY = 'ward54.ghpat';
+var _ghBusy = false;  /* guard against rapid double-saves */
+
+function getGhPat(){ try{ return localStorage.getItem(GH_PAT_KEY) || ''; }catch(e){ return ''; } }
+function setGhPat(t){ try{ localStorage.setItem(GH_PAT_KEY, t); }catch(e){} }
+function clearGhPat(){ try{ localStorage.removeItem(GH_PAT_KEY); }catch(e){} }
+
+function updateCloudSyncUI(){
+  var badge  = document.getElementById('cloudSyncBadge');
+  var status = document.getElementById('cloudSyncStatus');
+  var input  = document.getElementById('ghPatInput');
+  if(!badge) return;
+  var pat = getGhPat();
+  if(pat){
+    badge.textContent = '✓ CONNECTED';
+    badge.style.background = 'rgba(16,185,129,0.15)';
+    badge.style.color = '#34d399';
+    badge.style.borderColor = 'rgba(16,185,129,0.40)';
+    status.textContent = 'Auto-publish is ON. Every save commits cms.json to GitHub; the live site updates in ~30 seconds.';
+    if(input) input.placeholder = 'github_pat_•••••••••••••••• (saved)';
+  } else {
+    badge.textContent = 'NOT CONFIGURED';
+    badge.style.background = 'rgba(239,68,68,0.10)';
+    badge.style.color = 'var(--red2)';
+    badge.style.borderColor = 'rgba(239,68,68,0.25)';
+    status.textContent = 'Paste a GitHub Personal Access Token below to auto-publish every save (no more manual upload).';
+    if(input) input.placeholder = 'github_pat_…';
+  }
+}
+
+function connectGithubPat(){
+  var input = document.getElementById('ghPatInput');
+  var v = (input.value || '').trim();
+  if(!v){ showToast('Paste a token first','error'); return; }
+  if(!/^(github_pat_|ghp_|ghu_|gho_)/.test(v)){
+    if(!confirm('That doesn\'t look like a GitHub token (no github_pat_ / ghp_ / ghu_ prefix). Save anyway?')) return;
+  }
+  setGhPat(v);
+  input.value = '';
+  updateCloudSyncUI();
+  showToast('Token saved. Run "Test" to verify.');
+}
+
+function disconnectGithubPat(){
+  if(!confirm('Disconnect Cloud Sync? Future saves will only go to localStorage until you reconnect.')) return;
+  clearGhPat();
+  updateCloudSyncUI();
+  showToast('Disconnected.');
+}
+
+function testGithubPat(){
+  var pat = getGhPat();
+  if(!pat){ showToast('No token configured','error'); return; }
+  showToast('Testing…');
+  fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO,
+    { headers: { 'Authorization': 'Bearer '+pat, 'Accept': 'application/vnd.github+json' }})
+    .then(function(r){
+      if(r.ok) showToast('✓ Token works — has access to the repo');
+      else if(r.status === 401) showToast('✗ Token invalid or expired','error');
+      else if(r.status === 404) showToast('✗ Repo not visible to this token','error');
+      else showToast('✗ Unexpected status '+r.status,'error');
+    })
+    .catch(function(e){ showToast('✗ Network error: '+e.message,'error'); });
+}
+
+/* Reusable base64 encoder for the UTF-8 cms.json string (browsers' btoa
+   chokes on multi-byte chars like emoji in section names). */
+function _utf8b64(s){
+  return btoa(unescape(encodeURIComponent(s)));
+}
+
+/* Publish the CURRENT cms localStorage state to data/cms/cms.json on the
+   repo. Returns a Promise resolving on success, rejecting on any error.
+   Quietly no-ops if no PAT is configured. */
+function publishCmsToGithub(commitMessage){
+  var pat = getGhPat();
+  if(!pat) return Promise.resolve({ skipped: true });
+  if(_ghBusy) return Promise.resolve({ busy: true });
+  _ghBusy = true;
+
+  var url = 'https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+GH_PATH+'?ref='+GH_BRANCH;
+  var headers = {
+    'Authorization': 'Bearer '+pat,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28'
+  };
+
+  /* Step 1 — get the current file's SHA (needed to update, not create) */
+  return fetch(url, { headers: headers })
+    .then(function(r){
+      if(r.status === 404) return { sha: null };           // first time — file doesn't exist
+      if(!r.ok) throw new Error('GET failed: '+r.status);
+      return r.json();
+    })
+    .then(function(meta){
+      /* Step 2 — PUT the new content */
+      var cmsObj = cmsRead();
+      cmsObj._exportedAt = new Date().toISOString();
+      cmsObj._exportedBy = _adminEmail || 'admin';
+      cmsObj._schemaVersion = 1;
+      var content = JSON.stringify(cmsObj, null, 2);
+      var body = {
+        message: commitMessage || 'Admin save · '+ new Date().toISOString().split('T')[0],
+        content: _utf8b64(content),
+        branch:  GH_BRANCH
+      };
+      if(meta.sha) body.sha = meta.sha;
+      return fetch(
+        'https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+GH_PATH,
+        { method:'PUT', headers: headers, body: JSON.stringify(body) }
+      );
+    })
+    .then(function(r){
+      if(!r.ok) return r.json().then(function(err){ throw new Error('PUT '+r.status+': '+(err.message||'unknown')); });
+      return r.json();
+    })
+    .then(function(result){
+      _ghBusy = false;
+      return { ok: true, commitSha: result.commit && result.commit.sha };
+    })
+    .catch(function(e){
+      _ghBusy = false;
+      throw e;
+    });
+}
+
+/* Convenience helper called from every Save handler. Shows a toast and
+   updates the Cloud Sync UI as it goes. */
+function autoPublish(actionLabel){
+  publishCmsToGithub(actionLabel || 'Admin save')
+    .then(function(res){
+      if(res.skipped) return;       // no PAT — silently skip
+      if(res.busy)    return;       // overlapping save — skip
+      showToast('☁️ Published to GitHub — live in ~30s');
+    })
+    .catch(function(e){
+      console.error('Cloud Sync error:', e);
+      showToast('Cloud Sync failed: '+e.message,'error');
+    });
+}
 
 /* ---- Export / Import CMS as JSON for repo commit ----
    localStorage is per-device. To publish your edits to every device
@@ -2549,6 +2743,7 @@ function setCommittee(which, list){
   if(!d.committee) d.committee = {};
   d.committee[which] = list;
   cmsWrite(d);
+  if(typeof autoPublish==='function') autoPublish('Update '+which+' committee');
 }
 function buildAdminCommitteeList(which){
   var listEl = document.getElementById(which==='youth' ? 'adminYouthList' : 'adminCongressList');
@@ -2693,6 +2888,7 @@ function setPollingAgents(list){
   var d = cmsRead();
   d.pollingAgents = list;
   cmsWrite(d);
+  if(typeof autoPublish==='function') autoPublish('Update polling agents');
 }
 function buildAdminPollingAgentsList(){
   var listEl = document.getElementById('adminPollingAgentsList');

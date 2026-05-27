@@ -98,30 +98,6 @@
         "Result certificate sign-off",
         "EVM mismatch flagging"
       ]
-    },
-    {
-      "name": "Polling Agent 2",
-      "role": "Area Coordinator",
-      "status": "onduty",
-      "targetArea": "Taltala Dispensary & VIP Hall area",
-      "responsibilities": [
-        "Cluster supervision",
-        "Issue escalation",
-        "Volunteer rota",
-        "Voter slip distribution"
-      ]
-    },
-    {
-      "name": "Polling Agent 3",
-      "role": "Outreach Volunteer",
-      "status": "active",
-      "targetArea": "Anjuman Schools & Sir Syed area",
-      "responsibilities": [
-        "Door-to-door outreach",
-        "Voter slip distribution",
-        "Transport assistance",
-        "Local issue collection"
-      ]
     }
   ]
 }
