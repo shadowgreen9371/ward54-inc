@@ -3267,6 +3267,17 @@ var JITSI_ROOMS = {
   congress: 'Ward54-INC-Congress-Committee-Hall',
   youth:    'Ward54-INC-Youth-Congress-Hall'
 };
+/* Per-committee video call passwords.
+   - First member to join becomes the moderator and the app auto-sets this
+     password on the room.
+   - Subsequent committee members auto-submit it (no manual prompt).
+   - Anyone who finds the room URL without knowing the password sees the
+     standard Jitsi "Enter password" gate and can't join.
+   To rotate: just change the strings here and push. */
+var COMMITTEE_CALL_PASSWORDS = {
+  congress: 'Ward54Congress!2026',
+  youth:    'Ward54Youth!2026'
+};
 var CHAT_LABELS = {
   congress: { title:'Congress Committee Chat', sub:'54 Ward Congress Committee members' },
   youth:    { title:'Youth Congress Chat',     sub:'54 Ward Youth Congress members' }
@@ -3376,9 +3387,49 @@ function _mountJitsi(room, displayName, label){
       }
     });
     _jitsiApi.addListener('readyToClose', closeCommitteeCall);
+
+    /* Track moderator status — only moderators can SET the password.
+       The first user to join a fresh room is auto-promoted. */
+    var _isModerator = false;
+    _jitsiApi.addListener('participantRoleChanged', function(ev){
+      if(ev && ev.role === 'moderator'){
+        _isModerator = true;
+        var pwd = COMMITTEE_CALL_PASSWORDS[_activeCallRoom];
+        if(pwd){
+          try{ _jitsiApi.executeCommand('password', pwd); }catch(e){}
+        }
+      }
+    });
+
     _jitsiApi.addListener('videoConferenceJoined', function(){
       var meta=document.getElementById('callModalMeta');
-      if(meta) meta.textContent = 'Live · '+ (label||'Call');
+      var pwd = COMMITTEE_CALL_PASSWORDS[_activeCallRoom];
+      if(meta){
+        if(pwd){
+          meta.innerHTML = 'Live · password <strong style="color:#34d399;font-family:DM Mono,monospace;letter-spacing:0.02em">'+escapeHtml(pwd)+'</strong>';
+        } else {
+          meta.textContent = 'Live · '+ (label||'Call');
+        }
+      }
+      /* If we're the only/first participant after a small delay, claim moderator
+         and set the password proactively. (participantRoleChanged sometimes
+         fires before videoConferenceJoined on a fresh room, sometimes not.) */
+      setTimeout(function(){
+        var pwd = COMMITTEE_CALL_PASSWORDS[_activeCallRoom];
+        if(pwd){
+          try{ _jitsiApi.executeCommand('password', pwd); }catch(e){}
+        }
+      }, 1500);
+    });
+
+    /* Non-moderator joiners (anyone after the first member) get prompted by
+       Jitsi for the password. Auto-submit on their behalf so members see no
+       gate at all — only outsiders without our app would actually see it. */
+    _jitsiApi.addListener('passwordRequired', function(){
+      var pwd = COMMITTEE_CALL_PASSWORDS[_activeCallRoom];
+      if(pwd){
+        try{ _jitsiApi.executeCommand('password', pwd); }catch(e){}
+      }
     });
   } catch(e){
     console.error('Jitsi API mount failed, falling back to iframe:', e);
