@@ -1,0 +1,4904 @@
+{
+  "part": 3,
+  "extractedAt": "2026-05-27T08:42:00.242Z",
+  "extractedVia": "tesseract.js (OCR)",
+  "totals": {
+    "male": 222,
+    "female": 262,
+    "thirdGender": 5,
+    "total": 489
+  },
+  "section": "1-GOPE LANE (ALL PREMI",
+  "voters": [
+    {
+      "sl": 1,
+      "voterId": "P03S0001",
+      "name": "ARUN GHOSH",
+      "relType": "F",
+      "relName": "SACHINDRANATH GHOSH",
+      "house": "n0038",
+      "age": 66,
+      "gender": "M"
+    },
+    {
+      "sl": 2,
+      "voterId": "P03S0002",
+      "name": "PANNA SINHA",
+      "relType": "F",
+      "relName": "Rakhal Sinha",
+      "house": null,
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 3,
+      "voterId": "P03S0003",
+      "name": "Piyall Sinha",
+      "relType": "H",
+      "relName": "Jodesp Sinha",
+      "house": "1",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 4,
+      "voterId": "P03S0004",
+      "name": "Mahajabi Begum",
+      "relType": "H",
+      "relName": "Sk. Yasin All",
+      "house": "1FL-2F-28",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 5,
+      "voterId": "P03S0005",
+      "name": "Monimala Adhikary",
+      "relType": "H",
+      "relName": "Chandan Adhikary",
+      "house": "2",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 6,
+      "voterId": "WB21154015590",
+      "name": "Sujana Sardar",
+      "relType": "H",
+      "relName": "Pal Sardar",
+      "house": "2",
+      "age": 83,
+      "gender": "F"
+    },
+    {
+      "sl": 7,
+      "voterId": "WB21154015590",
+      "name": "Sharmila Sardar",
+      "relType": "H",
+      "relName": "Swapan Sardar",
+      "house": "2",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 8,
+      "voterId": "WB21154015590",
+      "name": "Brazi Anthony Sardar",
+      "relType": "F",
+      "relName": "Francis Sardar",
+      "house": "2",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 9,
+      "voterId": "WB21154015590",
+      "name": "Giatri Ghosh",
+      "relType": "H",
+      "relName": "Pralladh Ghosh",
+      "house": "3",
+      "age": 68,
+      "gender": "F"
+    },
+    {
+      "sl": 10,
+      "voterId": "P03S0010",
+      "name": "Biswanath Ghosh",
+      "relType": "F",
+      "relName": "Nandalal Ghosh F",
+      "house": "n0048",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 11,
+      "voterId": "P03S0011",
+      "name": "Nita Sinha",
+      "relType": "H",
+      "relName": "Amit Sinha f",
+      "house": "1",
+      "age": 67,
+      "gender": "F"
+    },
+    {
+      "sl": 12,
+      "voterId": "P03S0012",
+      "name": "Dipal (pal) Sinha",
+      "relType": "H",
+      "relName": "Ashit Sinha",
+      "house": "1",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 13,
+      "voterId": "P03S0013",
+      "name": "Aneek Sinha",
+      "relType": "F",
+      "relName": "Ashit Sinha i",
+      "house": "1",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 14,
+      "voterId": "P03S0014",
+      "name": "Sandhya Rani Adhikary",
+      "relType": "H",
+      "relName": "Ranjit Adhikary",
+      "house": "2",
+      "age": 77,
+      "gender": "F"
+    },
+    {
+      "sl": 15,
+      "voterId": "WB21154015330",
+      "name": "Rittika Adhikary",
+      "relType": "F",
+      "relName": "Chandan Adikary F",
+      "house": "2",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 16,
+      "voterId": "WB21154015330",
+      "name": "Mania Sardar",
+      "relType": "H",
+      "relName": "Pitar Sardar i",
+      "house": "2",
+      "age": 73,
+      "gender": "F"
+    },
+    {
+      "sl": 17,
+      "voterId": "P03S0017",
+      "name": "Shahid Hussain L",
+      "relType": "F",
+      "relName": "MANAWAR HUSSAIN",
+      "house": "3",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 18,
+      "voterId": "P03S0018",
+      "name": "Bikash Ghosh",
+      "relType": "F",
+      "relName": "Prolladh Ghosh L",
+      "house": "3",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 19,
+      "voterId": "WB21154015240",
+      "name": "Debabrata Ghosh",
+      "relType": "F",
+      "relName": "Dipak Ghosh",
+      "house": "n0030",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 20,
+      "voterId": "WB21154015240",
+      "name": "Ashit Sinha",
+      "relType": "F",
+      "relName": "Rakhal Sinha",
+      "house": "1",
+      "age": 66,
+      "gender": "M"
+    },
+    {
+      "sl": 21,
+      "voterId": "WB21154015240",
+      "name": "Joydeep Sinha",
+      "relType": "F",
+      "relName": "Amit Sinha",
+      "house": null,
+      "age": 41,
+      "gender": "M"
+    },
+    {
+      "sl": 22,
+      "voterId": "WB21154015390",
+      "name": "Sawood Hussain",
+      "relType": "F",
+      "relName": "Sheikh Yasin All",
+      "house": "12ND FL",
+      "age": 30,
+      "gender": "M"
+    },
+    {
+      "sl": 23,
+      "voterId": "WB21154015390",
+      "name": "Chandan Adhikary",
+      "relType": "F",
+      "relName": "Ranjt Adhikary",
+      "house": "2",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 24,
+      "voterId": "WB21154015390",
+      "name": "Mina Chetri",
+      "relType": "F",
+      "relName": "Matilal Chetri",
+      "house": "2",
+      "age": 60,
+      "gender": "F"
+    },
+    {
+      "sl": 25,
+      "voterId": "WB21154015689",
+      "name": "Swapan Sardar",
+      "relType": "F",
+      "relName": "Pitar Sardar",
+      "house": "2",
+      "age": 62,
+      "gender": "M"
+    },
+    {
+      "sl": 26,
+      "voterId": "WB21154015689",
+      "name": "Anthony Sardar",
+      "relType": "F",
+      "relName": "Tapan Sardar",
+      "house": "2",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 27,
+      "voterId": "WB21154015689",
+      "name": "Razia Khatoon",
+      "relType": "H",
+      "relName": "Shahid Hussain",
+      "house": "3",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 28,
+      "voterId": "P03S0028",
+      "name": "Pratima Ghosh",
+      "relType": "H",
+      "relName": "Bikash Ghosh",
+      "house": "3",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 29,
+      "voterId": "P03S0029",
+      "name": "Bivash Ghosh",
+      "relType": "F",
+      "relName": "Prolladh Ghosh",
+      "house": "3",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 30,
+      "voterId": "P03S0030",
+      "name": "Zahid Hussain",
+      "relType": "F",
+      "relName": "Manawar Hussain",
+      "house": "3",
+      "age": 40,
+      "gender": "M"
+    },
+    {
+      "sl": 31,
+      "voterId": "P03S0031",
+      "name": "Goutam Ram Routh",
+      "relType": "F",
+      "relName": "Golam Ram Routh",
+      "house": "3",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 32,
+      "voterId": "P03S0032",
+      "name": "Soni Routh",
+      "relType": "H",
+      "relName": "Uttam Ram Routh",
+      "house": "3",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 33,
+      "voterId": "WB21154016579",
+      "name": "Rishabh Routh",
+      "relType": "F",
+      "relName": "Gopal Routh",
+      "house": "3",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 34,
+      "voterId": "WB21154016579",
+      "name": "Rana Sarkar",
+      "relType": "F",
+      "relName": "Sovan Sarkar",
+      "house": "3/1C",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 35,
+      "voterId": "WB21154016579",
+      "name": "Snigdha Singh",
+      "relType": "F",
+      "relName": "Francis Samuel Singh",
+      "house": "3/1D",
+      "age": 72,
+      "gender": "F"
+    },
+    {
+      "sl": 36,
+      "voterId": "WB21154016615",
+      "name": "Joan Singh",
+      "relType": "H",
+      "relName": "Samarijit Singh",
+      "house": "3/1",
+      "age": 67,
+      "gender": "F"
+    },
+    {
+      "sl": 37,
+      "voterId": "WB21154016615",
+      "name": "TULIKA SINGH",
+      "relType": "H",
+      "relName": "Surojit Singh",
+      "house": "3/1D",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 38,
+      "voterId": "WB21154016615",
+      "name": "Rittik Singh",
+      "relType": "F",
+      "relName": "Surojit Singh",
+      "house": "3/1D",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 39,
+      "voterId": "P03S0039",
+      "name": "Ruma Ghosh",
+      "relType": "H",
+      "relName": "Bivash Ghosh F",
+      "house": "3",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 40,
+      "voterId": "P03S0040",
+      "name": "Tapati Kundu",
+      "relType": "H",
+      "relName": "Tapash Jyoti Kundu f",
+      "house": "3",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 41,
+      "voterId": "P03S0041",
+      "name": "Alka Routh",
+      "relType": "H",
+      "relName": "Sumit Routh L",
+      "house": "3",
+      "age": 40,
+      "gender": "F"
+    },
+    {
+      "sl": 42,
+      "voterId": "P03S0042",
+      "name": "Ritesh Routh",
+      "relType": "F",
+      "relName": "Uttam Ram Routh",
+      "house": "3",
+      "age": 23,
+      "gender": "M"
+    },
+    {
+      "sl": 43,
+      "voterId": "WB22160459332",
+      "name": "Mira Sarkar",
+      "relType": "H",
+      "relName": "Rana Sarkar L",
+      "house": "3/1C",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 44,
+      "voterId": "WB22160459332",
+      "name": "Samariit Singh",
+      "relType": "F",
+      "relName": "Francis Samuel Singh i",
+      "house": "3/10",
+      "age": 71,
+      "gender": "M"
+    },
+    {
+      "sl": 45,
+      "voterId": "P03S0045",
+      "name": "Dipali Singh",
+      "relType": "F",
+      "relName": "Francis Samuel Singh",
+      "house": "3/1D",
+      "age": 67,
+      "gender": "F"
+    },
+    {
+      "sl": 46,
+      "voterId": "P03S0046",
+      "name": "Palabi Singh",
+      "relType": "H",
+      "relName": "Satyajit Singh i",
+      "house": "3/10",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 47,
+      "voterId": "P03S0047",
+      "name": "Prerona Singh",
+      "relType": "F",
+      "relName": "Satyajit Singh i",
+      "house": "3/1D",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 48,
+      "voterId": "P03S0048",
+      "name": "Srija Ghosh",
+      "relType": null,
+      "relName": null,
+      "house": "3",
+      "age": 21,
+      "gender": "F"
+    },
+    {
+      "sl": 49,
+      "voterId": "P03S0049",
+      "name": "Tapamita Kundu",
+      "relType": "F",
+      "relName": "Tapash Jyoti Kundu",
+      "house": "3",
+      "age": 33,
+      "gender": "F"
+    },
+    {
+      "sl": 50,
+      "voterId": "WB21154015226",
+      "name": "Archana Routh",
+      "relType": "F",
+      "relName": "G R Routh",
+      "house": "3",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 51,
+      "voterId": "WB21154015226",
+      "name": "Avinash Routh",
+      "relType": "F",
+      "relName": "Gopal Routh",
+      "house": "3",
+      "age": 33,
+      "gender": "M"
+    },
+    {
+      "sl": 52,
+      "voterId": "WB21154015226",
+      "name": "Suchandra Narayan",
+      "relType": "F",
+      "relName": "Doctor Chitaranjan",
+      "house": "3/1C",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 53,
+      "voterId": "WB21154015182",
+      "name": "IRA SARKAR",
+      "relType": "F",
+      "relName": "RANA SARKAR",
+      "house": "3/1C",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 54,
+      "voterId": "WB21154015182",
+      "name": "Surojit Singh",
+      "relType": "F",
+      "relName": "Francis Samuel Singh",
+      "house": "3/1D",
+      "age": 67,
+      "gender": "M"
+    },
+    {
+      "sl": 55,
+      "voterId": "WB21154015082",
+      "name": "Satyait Singh",
+      "relType": "F",
+      "relName": "Francis Samuel Singh",
+      "house": "3/1D",
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 56,
+      "voterId": "WB21154015598",
+      "name": "Richard Abhisekh Singh",
+      "relType": "F",
+      "relName": "Samarjt Singh",
+      "house": "3/10",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 57,
+      "voterId": "WB21154015598",
+      "name": "Debabrata Shah",
+      "relType": "F",
+      "relName": "Nirmal Kanti Shah",
+      "house": "3/1E",
+      "age": 69,
+      "gender": "M"
+    },
+    {
+      "sl": 58,
+      "voterId": "WB21154015599",
+      "name": "Ratna Shah",
+      "relType": "H",
+      "relName": "Debabrata Shah",
+      "house": "3/1E",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 59,
+      "voterId": "WB21154015367",
+      "name": "Pratima Dessa",
+      "relType": "H",
+      "relName": "Edmond Lawrence",
+      "house": "3/1G",
+      "age": 78,
+      "gender": "F"
+    },
+    {
+      "sl": 60,
+      "voterId": "WB21154015083",
+      "name": "Giloert Dessa",
+      "relType": "F",
+      "relName": "Edmond Lawrence",
+      "house": "3/1G",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 61,
+      "voterId": "WB21154015083",
+      "name": "Donald D Costa",
+      "relType": "F",
+      "relName": "Amalendu Denis D Costa",
+      "house": "3/1H",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 62,
+      "voterId": "WB21154015146",
+      "name": "Sumita Bachi",
+      "relType": "F",
+      "relName": "Biren Bachi",
+      "house": "4/1",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 63,
+      "voterId": "WB21154015146",
+      "name": "Asim Basu",
+      "relType": "F",
+      "relName": "Puspomoy Basu",
+      "house": "4/1A",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 64,
+      "voterId": "WB21154027106",
+      "name": "Rajen Biswas",
+      "relType": "F",
+      "relName": "Benu Biswas",
+      "house": "4/1",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 65,
+      "voterId": "WB21154027106",
+      "name": "Ashish Chakrabarti",
+      "relType": "F",
+      "relName": "Shyama Charan Chakrabarti",
+      "house": null,
+      "age": 74,
+      "gender": "M"
+    },
+    {
+      "sl": 66,
+      "voterId": "WB21154027106",
+      "name": "Ram Prosad Das",
+      "relType": "F",
+      "relName": "Sudhanya Kr Das",
+      "house": "4/1",
+      "age": 59,
+      "gender": "M"
+    },
+    {
+      "sl": 67,
+      "voterId": "WB21154015688",
+      "name": "Tumpa Das",
+      "relType": "H",
+      "relName": "Dibyendu Bikash Das",
+      "house": "4/1",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 68,
+      "voterId": "WB21154015688",
+      "name": "Sabita Shah",
+      "relType": "H",
+      "relName": "Nirupam Shah i",
+      "house": "3/1F",
+      "age": 78,
+      "gender": "F"
+    },
+    {
+      "sl": 69,
+      "voterId": "WB21154015688",
+      "name": "Basanti Dessa",
+      "relType": "H",
+      "relName": "Hiftonalien Dessa i",
+      "house": "3/1G",
+      "age": 74,
+      "gender": "F"
+    },
+    {
+      "sl": 70,
+      "voterId": "P03S0070",
+      "name": "MARIA GRAY",
+      "relType": "F",
+      "relName": "MICHAEL GRAY i",
+      "house": "4/1A",
+      "age": 127,
+      "gender": "F"
+    },
+    {
+      "sl": 71,
+      "voterId": "P03S0071",
+      "name": "Suita Basu",
+      "relType": "H",
+      "relName": "Puspomoy Basu",
+      "house": "4/1A",
+      "age": 71,
+      "gender": "F"
+    },
+    {
+      "sl": 72,
+      "voterId": "P03S0072",
+      "name": "Ruma Basu",
+      "relType": "H",
+      "relName": "Asit Basu i",
+      "house": "4/1A",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 73,
+      "voterId": "P03S0073",
+      "name": "Shibasish Biswas",
+      "relType": "F",
+      "relName": "Kumud Ranjan Biswas L",
+      "house": "4/1A",
+      "age": 152,
+      "gender": "M"
+    },
+    {
+      "sl": 74,
+      "voterId": "P03S0074",
+      "name": "Manju Chakrabarti",
+      "relType": "H",
+      "relName": "Ashish Chakrabarti L",
+      "house": "4/1A",
+      "age": 70,
+      "gender": "F"
+    },
+    {
+      "sl": 75,
+      "voterId": "P03S0075",
+      "name": "Krishna Das",
+      "relType": "H",
+      "relName": "Ram Prosad Das i",
+      "house": "4/1A",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 76,
+      "voterId": "WB21154015434",
+      "name": "Sufal Das",
+      "relType": "F",
+      "relName": "Ram Prosad Das i",
+      "house": "4/1A",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 77,
+      "voterId": "WB21154015434",
+      "name": "Ashim Shah",
+      "relType": "F",
+      "relName": "Nirupam Shah",
+      "house": "3/1F",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 78,
+      "voterId": "WB21154015434",
+      "name": "Robert Dessa",
+      "relType": "F",
+      "relName": "Edmond Lawrence Dessa",
+      "house": "3/1G",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 79,
+      "voterId": "WB21154015223",
+      "name": "Dorothy D Costa",
+      "relType": "F",
+      "relName": "Amalendu Denis D",
+      "house": "3/1H",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 80,
+      "voterId": "WB21154015128",
+      "name": "Taraknath Bachi",
+      "relType": "F",
+      "relName": "Biren Bachi",
+      "house": "4/1A",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 81,
+      "voterId": "WB21154015393",
+      "name": "Asit Basu",
+      "relType": "F",
+      "relName": "Puspomoy Basu",
+      "house": "4/1A",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 82,
+      "voterId": "FND2786788",
+      "name": "Megha Basu",
+      "relType": "F",
+      "relName": "Ashit Basu",
+      "house": "4/1A",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 83,
+      "voterId": "FND2786788",
+      "name": "Kakali Biswas",
+      "relType": "H",
+      "relName": "Rajen Biswas",
+      "house": "4/1A",
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 84,
+      "voterId": "WB21154015347",
+      "name": "Nayantara Das",
+      "relType": "H",
+      "relName": "Dulal Ch Das",
+      "house": "4/1A",
+      "age": 79,
+      "gender": "F"
+    },
+    {
+      "sl": 85,
+      "voterId": "WB21154015632",
+      "name": "Dakhina Ranjan Das",
+      "relType": "F",
+      "relName": "Nayantara Das",
+      "house": "4/1A",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 86,
+      "voterId": "WB21154015632",
+      "name": "Aniket Das",
+      "relType": "F",
+      "relName": "Dibyendu Bikash Das",
+      "house": "4/1A",
+      "age": 23,
+      "gender": "M"
+    },
+    {
+      "sl": 87,
+      "voterId": "WB21154016133",
+      "name": "Gopinath Dey",
+      "relType": "F",
+      "relName": "Tulsi Charan Dey",
+      "house": "4/1A",
+      "age": 83,
+      "gender": "M"
+    },
+    {
+      "sl": 88,
+      "voterId": "WB21154016133",
+      "name": "Minat Dey",
+      "relType": "H",
+      "relName": "Tapan Kr Dey",
+      "house": "4/1A",
+      "age": 59,
+      "gender": "F"
+    },
+    {
+      "sl": 89,
+      "voterId": "WB21154016133",
+      "name": "Swapnal Dey",
+      "relType": "F",
+      "relName": "Tapan Kumar Dey",
+      "house": "4/1A",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 90,
+      "voterId": "WB21154219346",
+      "name": "Dilip Kr Ghosh",
+      "relType": "F",
+      "relName": "Santosh Ghosh",
+      "house": "4/1A",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 91,
+      "voterId": "WB21154219346",
+      "name": "Sibani Ghosh (Das",
+      "relType": null,
+      "relName": null,
+      "house": "4/1",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 92,
+      "voterId": "WB21154015311",
+      "name": "Anuradha Roy",
+      "relType": "F",
+      "relName": "Abani Kumar Roy",
+      "house": "4/1A",
+      "age": 65,
+      "gender": "F"
+    },
+    {
+      "sl": 93,
+      "voterId": "WB21154015160",
+      "name": "Amab Roy",
+      "relType": "F",
+      "relName": "Ashit Roy",
+      "house": "4/1",
+      "age": 34,
+      "gender": "M"
+    },
+    {
+      "sl": 94,
+      "voterId": "WB21154015160",
+      "name": "Ramen Sarkar",
+      "relType": "F",
+      "relName": "Rasamoy Sarkar",
+      "house": "4/1A",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 95,
+      "voterId": "WB21154016617",
+      "name": "Niam Sarkar",
+      "relType": "H",
+      "relName": "Rathin Sarkar",
+      "house": "4/1",
+      "age": 68,
+      "gender": "F"
+    },
+    {
+      "sl": 96,
+      "voterId": "WB21154016617",
+      "name": "Shefal Sarkar",
+      "relType": "H",
+      "relName": "Monoranjan Sarkar",
+      "house": "4/1A",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 97,
+      "voterId": "WB21154015304",
+      "name": "Tapan Kr Dey",
+      "relType": "F",
+      "relName": "Tarapada Dey",
+      "house": "4/1A",
+      "age": 71,
+      "gender": "M"
+    },
+    {
+      "sl": 98,
+      "voterId": "WB21154015304",
+      "name": "Eshita Dey",
+      "relType": "F",
+      "relName": "Gopinath Dey i",
+      "house": "4/1A",
+      "age": 40,
+      "gender": "F"
+    },
+    {
+      "sl": 99,
+      "voterId": "P03S0099",
+      "name": "Skha Dutta L",
+      "relType": "F",
+      "relName": "Basudeb Dutta L",
+      "house": "4/1A",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 100,
+      "voterId": "P03S0100",
+      "name": "Joydeb Ghosh L",
+      "relType": "F",
+      "relName": "Santosh Ghosh",
+      "house": "4/1A",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 101,
+      "voterId": "P03S0101",
+      "name": "Samuwel Hansda",
+      "relType": "F",
+      "relName": "Newton Hansda",
+      "house": "4/1",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 102,
+      "voterId": "P03S0102",
+      "name": "Rita Roy",
+      "relType": "H",
+      "relName": "Ashit Roy F",
+      "house": "4/1A",
+      "age": 64,
+      "gender": "F"
+    },
+    {
+      "sl": 103,
+      "voterId": "P03S0103",
+      "name": "Anuradha Sarkar",
+      "relType": "H",
+      "relName": "Chandan Sarkar i",
+      "house": "4/1",
+      "age": 133,
+      "gender": "F"
+    },
+    {
+      "sl": 104,
+      "voterId": "P03S0104",
+      "name": "Gobindo Ch Sarkar",
+      "relType": "F",
+      "relName": "Jogendra Sarkar i",
+      "house": "4/1A",
+      "age": 73,
+      "gender": "M"
+    },
+    {
+      "sl": 105,
+      "voterId": "P03S0105",
+      "name": "Ratan Chandra Sarkar",
+      "relType": "F",
+      "relName": "Rasamoy Sarkar F",
+      "house": "4/1A",
+      "age": 66,
+      "gender": "M"
+    },
+    {
+      "sl": 106,
+      "voterId": "P03S0106",
+      "name": "Rita Sarkar L",
+      "relType": "H",
+      "relName": "Ramen Sarkar L",
+      "house": "4/1A",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 107,
+      "voterId": "WB21154015504",
+      "name": "Rani Dey",
+      "relType": "H",
+      "relName": "Gopinath Dey",
+      "house": "4/1A",
+      "age": 71,
+      "gender": "F"
+    },
+    {
+      "sl": 108,
+      "voterId": "WB21154015504",
+      "name": "Sayan Dey",
+      "relType": "F",
+      "relName": "Tapan Kumar Dey",
+      "house": "4/14",
+      "age": 36,
+      "gender": "M"
+    },
+    {
+      "sl": 109,
+      "voterId": "WB21154015478",
+      "name": "Niimarani Ghosh",
+      "relType": "H",
+      "relName": "Santosh Ghosh",
+      "house": "4/1",
+      "age": 81,
+      "gender": "F"
+    },
+    {
+      "sl": 110,
+      "voterId": "WB21154015478",
+      "name": "Sumita Ghosh",
+      "relType": "H",
+      "relName": "Joydeb Ghosh",
+      "house": "4/1A",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 111,
+      "voterId": "WB21154015478",
+      "name": "Saini Hansda",
+      "relType": "F",
+      "relName": "Samuwel Hansda",
+      "house": "4/1A",
+      "age": 31,
+      "gender": "F"
+    },
+    {
+      "sl": 112,
+      "voterId": "P03S0112",
+      "name": "Suman Roy",
+      "relType": "F",
+      "relName": "Panu Kumar Roy",
+      "house": "4/1A",
+      "age": 40,
+      "gender": "M"
+    },
+    {
+      "sl": 113,
+      "voterId": "P03S0113",
+      "name": "Ankita Roy",
+      "relType": "F",
+      "relName": "Ashit Kumar Roy",
+      "house": "4/1A",
+      "age": 31,
+      "gender": "F"
+    },
+    {
+      "sl": 114,
+      "voterId": "P03S0114",
+      "name": "Sandhya Rani Sarkar",
+      "relType": "F",
+      "relName": "Jogendra Sarkar",
+      "house": "4/1A",
+      "age": 69,
+      "gender": "F"
+    },
+    {
+      "sl": 115,
+      "voterId": "P03S0115",
+      "name": "Chitta Ranjan Sarkar",
+      "relType": "F",
+      "relName": "Narahari Sarkar",
+      "house": "4/1A",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 116,
+      "voterId": "P03S0116",
+      "name": "Chabi Sarkar",
+      "relType": "H",
+      "relName": "Barun Sarkar",
+      "house": "4/1A",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 117,
+      "voterId": "P03S0117",
+      "name": "Paul Singh",
+      "relType": null,
+      "relName": null,
+      "house": "4/1A",
+      "age": 64,
+      "gender": "M"
+    },
+    {
+      "sl": 118,
+      "voterId": "P03S0118",
+      "name": "Rina Dey",
+      "relType": "H",
+      "relName": "Sukamal Kanti Dey",
+      "house": "4/1/A",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 119,
+      "voterId": "P03S0119",
+      "name": "Dilip Kumar Paswan",
+      "relType": null,
+      "relName": null,
+      "house": "4/1C",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 120,
+      "voterId": "P03S0120",
+      "name": "Shyamali Sarkar",
+      "relType": "H",
+      "relName": "Ratan chandra",
+      "house": "4/1A",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 121,
+      "voterId": "P03S0121",
+      "name": "Chandan Sarkar",
+      "relType": "F",
+      "relName": "Rathin Sarkar",
+      "house": "4/1A",
+      "age": 42,
+      "gender": "M"
+    },
+    {
+      "sl": 122,
+      "voterId": "P03S0122",
+      "name": "Mary Sangeeta Sarkar",
+      "relType": "F",
+      "relName": "Prabir Sarkar",
+      "house": "4/14",
+      "age": 29,
+      "gender": "F"
+    },
+    {
+      "sl": 123,
+      "voterId": "P03S0123",
+      "name": "Monoroma Singh",
+      "relType": "M",
+      "relName": "Rekha Sarkar",
+      "house": "4/1A",
+      "age": 63,
+      "gender": "F"
+    },
+    {
+      "sl": 124,
+      "voterId": "P03S0124",
+      "name": "Denzjl Anthony",
+      "relType": "F",
+      "relName": "Edward Anthony",
+      "house": "4/1/A",
+      "age": 48,
+      "gender": "M"
+    },
+    {
+      "sl": 125,
+      "voterId": "P03S0125",
+      "name": "Shankar Dey",
+      "relType": "M",
+      "relName": "Rina Dey",
+      "house": "4/1/A",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 126,
+      "voterId": "P03S0126",
+      "name": "Dipa Biswas",
+      "relType": "H",
+      "relName": "Amit Biswas",
+      "house": "4/18",
+      "age": 58,
+      "gender": "F"
+    },
+    {
+      "sl": 127,
+      "voterId": "WB21164015475",
+      "name": "Susmita Chowdhury",
+      "relType": "F",
+      "relName": "Robin Chowdhury",
+      "house": "4/18",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 128,
+      "voterId": "WB21164015475",
+      "name": "Mala Dey",
+      "relType": "H",
+      "relName": "Gopal Dey",
+      "house": "4/1",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 129,
+      "voterId": "WB21164015475",
+      "name": "Saraswati Paswan",
+      "relType": "H",
+      "relName": "Diip Kumar Paswan",
+      "house": "4/1C",
+      "age": 42,
+      "gender": "F"
+    },
+    {
+      "sl": 130,
+      "voterId": "P03S0130",
+      "name": "Raja Sarkar",
+      "relType": null,
+      "relName": null,
+      "house": "4/1A",
+      "age": null,
+      "gender": "O"
+    },
+    {
+      "sl": 131,
+      "voterId": "P03S0131",
+      "name": "Senjuti Sarkar",
+      "relType": null,
+      "relName": null,
+      "house": "4/1A",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 132,
+      "voterId": "P03S0132",
+      "name": "Peter Singh",
+      "relType": "F",
+      "relName": "Paul Singh",
+      "house": "4/1A",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 133,
+      "voterId": "P03S0133",
+      "name": "KHUKU MARY SARKAR",
+      "relType": "F",
+      "relName": "JATINDRA KUMAR SARKAR",
+      "house": "4/1 A GOPE LANE",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 134,
+      "voterId": "P03S0134",
+      "name": "Sudip Biswas",
+      "relType": null,
+      "relName": null,
+      "house": "4/18",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 135,
+      "voterId": "P03S0135",
+      "name": "Gour Gopal Roy",
+      "relType": null,
+      "relName": null,
+      "house": "4/18",
+      "age": null,
+      "gender": "O"
+    },
+    {
+      "sl": 136,
+      "voterId": "P03S0136",
+      "name": "Papiya Dey",
+      "relType": null,
+      "relName": null,
+      "house": "4/1C",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 137,
+      "voterId": "WB21154102069",
+      "name": "Pradip Paswan",
+      "relType": "F",
+      "relName": "Rameswer Paswan",
+      "house": "4/1C",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 138,
+      "voterId": "WB21154102069",
+      "name": "Michael Nigle Xavier",
+      "relType": "F",
+      "relName": "Ivan Ronald Xavier",
+      "house": "4/1C",
+      "age": 57,
+      "gender": "M"
+    },
+    {
+      "sl": 139,
+      "voterId": "WB21154102069",
+      "name": "ARNOLD AERON XAVIER",
+      "relType": "F",
+      "relName": "ADRIEN PETER XAVIER",
+      "house": "4/1C",
+      "age": 25,
+      "gender": "M"
+    },
+    {
+      "sl": 140,
+      "voterId": "WB21154102069",
+      "name": "Sahay Bhengra",
+      "relType": "F",
+      "relName": "Joy Mashi Bhengra",
+      "house": "4/1D",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 141,
+      "voterId": "P03S0141",
+      "name": "Anil Bhengra",
+      "relType": "F",
+      "relName": "John Bhengra",
+      "house": "4/1D",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 142,
+      "voterId": "P03S0142",
+      "name": "Sujit Bhengra",
+      "relType": "F",
+      "relName": "Sahay Bhengra",
+      "house": "4/1D",
+      "age": 40,
+      "gender": "M"
+    },
+    {
+      "sl": 143,
+      "voterId": "P03S0143",
+      "name": "Philomena Aroti Tigga",
+      "relType": "H",
+      "relName": "Anand Prakash Tigga",
+      "house": "4/1D",
+      "age": 65,
+      "gender": "F"
+    },
+    {
+      "sl": 144,
+      "voterId": "P03S0144",
+      "name": "Rosy Willams",
+      "relType": "H",
+      "relName": "Ruel Willams",
+      "house": null,
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 145,
+      "voterId": "WB21154015282",
+      "name": "PIKKU SHAW",
+      "relType": "F",
+      "relName": "BHIKHARI SAV",
+      "house": "4/1/D",
+      "age": 33,
+      "gender": "M"
+    },
+    {
+      "sl": 146,
+      "voterId": "WB21154015282",
+      "name": "Cristina Priya Joseph",
+      "relType": "F",
+      "relName": "Ceceil Romeo Joseph",
+      "house": "4/1",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 147,
+      "voterId": "WB21154015282",
+      "name": "Shoba Xavier",
+      "relType": "H",
+      "relName": "Michale Xavier F",
+      "house": "4/1C",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 148,
+      "voterId": "P03S0148",
+      "name": "Hramani Bhengra",
+      "relType": "H",
+      "relName": "Joy Mashi Bhengra",
+      "house": "4/1D",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 149,
+      "voterId": "P03S0149",
+      "name": "Enny Bhengra",
+      "relType": "F",
+      "relName": "Sahay Bhengra i",
+      "house": "4/10",
+      "age": 42,
+      "gender": "F"
+    },
+    {
+      "sl": 150,
+      "voterId": "WB21154015596",
+      "name": "Ela Bhengra",
+      "relType": "F",
+      "relName": "Sahay Bhengra",
+      "house": "4/1D",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 151,
+      "voterId": "WB21154015596",
+      "name": "Ruel Williams",
+      "relType": "F",
+      "relName": "Danel Williams F",
+      "house": "4/1D",
+      "age": 58,
+      "gender": "M"
+    },
+    {
+      "sl": 152,
+      "voterId": "WB21154015596",
+      "name": "Julie Willams",
+      "relType": "H",
+      "relName": "Mathew Wiliams i",
+      "house": null,
+      "age": 133,
+      "gender": "F"
+    },
+    {
+      "sl": 153,
+      "voterId": "P03S0153",
+      "name": "SAMIR D COSTA L",
+      "relType": "F",
+      "relName": "Manik D Costa L",
+      "house": "4/1",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 154,
+      "voterId": "P03S0154",
+      "name": "Gloria May Joseph",
+      "relType": "F",
+      "relName": "Cecil Romeo Joseph L",
+      "house": "4/1",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 155,
+      "voterId": "P03S0155",
+      "name": "Avinashi Minj",
+      "relType": "F",
+      "relName": "Ignace Min L",
+      "house": "4/1",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 156,
+      "voterId": "WB21154016568",
+      "name": "Adrien Peter Xavier",
+      "relType": "F",
+      "relName": "Ivan Ronald Xavier",
+      "house": "4/1C",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 157,
+      "voterId": "WB21154016568",
+      "name": "John Bhengra",
+      "relType": "F",
+      "relName": "Joy Mash Bhengra",
+      "house": "4/10",
+      "age": 71,
+      "gender": "M"
+    },
+    {
+      "sl": 158,
+      "voterId": "WB21154015291",
+      "name": "Bardani Bhengra",
+      "relType": "H",
+      "relName": "John Bhengra",
+      "house": "4/1D",
+      "age": 161,
+      "gender": "F"
+    },
+    {
+      "sl": 159,
+      "voterId": "WB21154015291",
+      "name": "Punam Bhengra",
+      "relType": "F",
+      "relName": "John Bhengra",
+      "house": "4/1D",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 160,
+      "voterId": "WB21154016131",
+      "name": "Melanie Horo",
+      "relType": "F",
+      "relName": "Naman Horo",
+      "house": "4/1",
+      "age": 48,
+      "gender": "F"
+    },
+    {
+      "sl": 161,
+      "voterId": "WB21154016131",
+      "name": "Mathew Williams",
+      "relType": "F",
+      "relName": "Danel Wiliams",
+      "house": "4/1D",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 162,
+      "voterId": "WB21154015636",
+      "name": "Rahul Williams",
+      "relType": "F",
+      "relName": "Ruel Willams",
+      "house": "4/1D",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 163,
+      "voterId": "WB21154015636",
+      "name": "Maria Joseph",
+      "relType": "H",
+      "relName": "Romeo Joseph",
+      "house": "4/1E",
+      "age": 63,
+      "gender": "F"
+    },
+    {
+      "sl": 164,
+      "voterId": "WB21154015296",
+      "name": "Sofia Ming",
+      "relType": "H",
+      "relName": "Egnes Ming",
+      "house": "4/1E",
+      "age": 63,
+      "gender": "F"
+    },
+    {
+      "sl": 165,
+      "voterId": "WB21154015296",
+      "name": "Madhumita Mondal",
+      "relType": "H",
+      "relName": "Benedict Joy Mondal",
+      "house": "4/1E",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 166,
+      "voterId": "WB21154016655",
+      "name": "Benedict Joy Mondol",
+      "relType": "F",
+      "relName": "Bipin Mondol",
+      "house": "4/1E",
+      "age": 41,
+      "gender": "M"
+    },
+    {
+      "sl": 167,
+      "voterId": "WB21154016655",
+      "name": "Payal Jasinta Tigga",
+      "relType": "F",
+      "relName": "Ari Tigga",
+      "house": "4/1E",
+      "age": 129,
+      "gender": "F"
+    },
+    {
+      "sl": 168,
+      "voterId": "WB21154015583",
+      "name": "Santa Ghosh",
+      "relType": "H",
+      "relName": "Bash Ghosh",
+      "house": "4A",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 169,
+      "voterId": "WB21154015583",
+      "name": "Kalpada Das",
+      "relType": "F",
+      "relName": "Shyam Chandra Das",
+      "house": "48",
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 170,
+      "voterId": "WB21154016528",
+      "name": "Santana Dhar",
+      "relType": "H",
+      "relName": "Tamal Banerjee",
+      "house": "48",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 171,
+      "voterId": "WB21154016528",
+      "name": "Bikash Ghosh",
+      "relType": null,
+      "relName": null,
+      "house": "48",
+      "age": 6,
+      "gender": "M"
+    },
+    {
+      "sl": 172,
+      "voterId": "FND0954186",
+      "name": "Chitra Ghosh",
+      "relType": "H",
+      "relName": "Bidyut Ghosh",
+      "house": "48",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 173,
+      "voterId": "WB21154016690",
+      "name": "Sarita Ghosh",
+      "relType": "F",
+      "relName": "Arun Ghosh",
+      "house": "5",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 174,
+      "voterId": "WB21154016690",
+      "name": "Dorothy Tigga",
+      "relType": "F",
+      "relName": "Alois Tigga f",
+      "house": "4/1E",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 175,
+      "voterId": "WB21154015656",
+      "name": "Ambica Tigga",
+      "relType": "H",
+      "relName": "Amrit Tigga f",
+      "house": "4/1E",
+      "age": 60,
+      "gender": "F"
+    },
+    {
+      "sl": 176,
+      "voterId": "WB21154015656",
+      "name": "Kaberi Ghosh",
+      "relType": "H",
+      "relName": "Tapas Ghosh F",
+      "house": "14",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 177,
+      "voterId": "P03S0177",
+      "name": "Mina Rani Das L",
+      "relType": "H",
+      "relName": "Gour Baran Das L",
+      "house": "48",
+      "age": 79,
+      "gender": "F"
+    },
+    {
+      "sl": 178,
+      "voterId": "P03S0178",
+      "name": "Madhuri Dhar",
+      "relType": "H",
+      "relName": "Sudendu Dhar i",
+      "house": "48",
+      "age": 70,
+      "gender": "F"
+    },
+    {
+      "sl": 179,
+      "voterId": "WB21164015488",
+      "name": "Bidyut Kanti Ghosh",
+      "relType": "F",
+      "relName": "Bimal Kanti Ghosh F",
+      "house": "48",
+      "age": 67,
+      "gender": "M"
+    },
+    {
+      "sl": 180,
+      "voterId": "WB21164015488",
+      "name": "Partha Ghosh",
+      "relType": "F",
+      "relName": "Rashmohan Ghosh i",
+      "house": "48",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 181,
+      "voterId": "WB21164015488",
+      "name": "Ananya Ghosh",
+      "relType": "F",
+      "relName": "Bikash Ghosh L",
+      "house": "48",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 182,
+      "voterId": "WB21154015689",
+      "name": "Mary Barla",
+      "relType": "H",
+      "relName": "Sugan Baria L",
+      "house": "5/1/1",
+      "age": 81,
+      "gender": "F"
+    },
+    {
+      "sl": 183,
+      "voterId": "WB21154015689",
+      "name": "Anand Prakash Tigga",
+      "relType": "F",
+      "relName": "Alois Tigga",
+      "house": "4/1E",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 184,
+      "voterId": "WB21154015691",
+      "name": "Monika Tigga",
+      "relType": "F",
+      "relName": "Alois Tigga",
+      "house": "4/1E",
+      "age": 59,
+      "gender": "F"
+    },
+    {
+      "sl": 185,
+      "voterId": "WB21154015691",
+      "name": "Poritosh Mathew Tigga",
+      "relType": "F",
+      "relName": "Anand Prakash Tigga",
+      "house": "4/1/€",
+      "age": 134,
+      "gender": "M"
+    },
+    {
+      "sl": 186,
+      "voterId": "WB21154015239",
+      "name": "Biswanath Das",
+      "relType": "F",
+      "relName": "Shyam Chandra Das",
+      "house": "48",
+      "age": 64,
+      "gender": "M"
+    },
+    {
+      "sl": 187,
+      "voterId": "WB21154015239",
+      "name": "Somnath Dhar",
+      "relType": "F",
+      "relName": "Sudhendu Dhar",
+      "house": "48",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 188,
+      "voterId": "WB21154015345",
+      "name": "Shibani Ghosh",
+      "relType": "F",
+      "relName": "Bimal Kanti Ghosh",
+      "house": "48",
+      "age": 63,
+      "gender": "F"
+    },
+    {
+      "sl": 189,
+      "voterId": "WB21154015486",
+      "name": "Sundar Ghosh",
+      "relType": "F",
+      "relName": "Rashmohan Ghosh",
+      "house": "48",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 190,
+      "voterId": "WB21154015486",
+      "name": "Biswanath Sen",
+      "relType": "F",
+      "relName": "Subodh Chandra Sen",
+      "house": "48",
+      "age": 163,
+      "gender": "M"
+    },
+    {
+      "sl": 191,
+      "voterId": "WB21154015675",
+      "name": "SHRABANI GHOSH",
+      "relType": "H",
+      "relName": "ARUN GHOSH",
+      "house": "§",
+      "age": 54,
+      "gender": "F"
+    },
+    {
+      "sl": 192,
+      "voterId": "WB21154015675",
+      "name": "Susari Barla",
+      "relType": "F",
+      "relName": "Sugan Barla",
+      "house": "5/1/1",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 193,
+      "voterId": "P03S0193",
+      "name": "Disha Shirin Rasika Horo",
+      "relType": "F",
+      "relName": "Samir Horo",
+      "house": "5/1/1",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 194,
+      "voterId": "P03S0194",
+      "name": "Vani Moka Lepcha",
+      "relType": "H",
+      "relName": "Choon Tshering Lepcha",
+      "house": "5/1/1",
+      "age": 42,
+      "gender": "F"
+    },
+    {
+      "sl": 195,
+      "voterId": "WB21154015349",
+      "name": "Sital Topno",
+      "relType": "F",
+      "relName": "Prabhu Dayal Topno",
+      "house": "5/1/1",
+      "age": 157,
+      "gender": "M"
+    },
+    {
+      "sl": 196,
+      "voterId": "WB21154015349",
+      "name": "Md Knalk",
+      "relType": null,
+      "relName": null,
+      "house": "5/1A/18",
+      "age": 26,
+      "gender": "M"
+    },
+    {
+      "sl": 197,
+      "voterId": "WB21154015349",
+      "name": "Ajit Kr Ghosh",
+      "relType": "F",
+      "relName": "Sukumar Ghosh",
+      "house": "5/18",
+      "age": 78,
+      "gender": "M"
+    },
+    {
+      "sl": 198,
+      "voterId": "WB21154015349",
+      "name": "Sharmila Ghosh",
+      "relType": "H",
+      "relName": "Ani Kumar Ghosh",
+      "house": "5/18",
+      "age": 64,
+      "gender": "F"
+    },
+    {
+      "sl": 199,
+      "voterId": "P03S0199",
+      "name": "Sanjoy Ghosh",
+      "relType": "F",
+      "relName": "Aloke Ghosh",
+      "house": "5/18",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 200,
+      "voterId": "P03S0200",
+      "name": "Sumit Ghosh",
+      "relType": "M",
+      "relName": "Chabi Ghosh",
+      "house": "5/18",
+      "age": 41,
+      "gender": "M"
+    },
+    {
+      "sl": 201,
+      "voterId": "P03S0201",
+      "name": "Shital Johnson Barla",
+      "relType": "F",
+      "relName": "Sugan Barla F",
+      "house": "5/1/1",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 202,
+      "voterId": "P03S0202",
+      "name": "Barnat Lapcha",
+      "relType": "H",
+      "relName": "Madan Lepcha F",
+      "house": "5/1/1",
+      "age": 76,
+      "gender": "F"
+    },
+    {
+      "sl": 203,
+      "voterId": "P03S0203",
+      "name": "John Soy",
+      "relType": "F",
+      "relName": "Saymal Soy i",
+      "house": "5/1/1",
+      "age": 91,
+      "gender": "M"
+    },
+    {
+      "sl": 204,
+      "voterId": "P03S0204",
+      "name": "Roseline Topno L",
+      "relType": "H",
+      "relName": "Sital Topno L",
+      "house": "5/1/1",
+      "age": 54,
+      "gender": "F"
+    },
+    {
+      "sl": 205,
+      "voterId": "P03S0205",
+      "name": "Tanwir Alam",
+      "relType": "F",
+      "relName": "SK. Qamruddin i",
+      "house": "5/18",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 206,
+      "voterId": "P03S0206",
+      "name": "Anil Kumar Ghosh",
+      "relType": "F",
+      "relName": "Sukumar Ghosh t",
+      "house": null,
+      "age": 70,
+      "gender": "M"
+    },
+    {
+      "sl": 207,
+      "voterId": "WB21154015350",
+      "name": "Jhma Ghosh",
+      "relType": "H",
+      "relName": "Amit Ghosh i",
+      "house": "5/18",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 208,
+      "voterId": "WB21154015350",
+      "name": "Joydesp Ghosh",
+      "relType": "F",
+      "relName": "Ajit Ghosh F",
+      "house": "5/18",
+      "age": 49,
+      "gender": "M"
+    },
+    {
+      "sl": 209,
+      "voterId": "WB21154015350",
+      "name": "Soma Ghosh",
+      "relType": "H",
+      "relName": "Sanjoy Ghosh L",
+      "house": "5/18",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 210,
+      "voterId": "P03S0210",
+      "name": "Sudipa Ghosh",
+      "relType": "F",
+      "relName": "Anil Kr. Ghosh L",
+      "house": "5/18",
+      "age": 40,
+      "gender": "F"
+    },
+    {
+      "sl": 211,
+      "voterId": "WB21154015594",
+      "name": "Samir Horo",
+      "relType": "F",
+      "relName": "Jonathan Horo",
+      "house": "5/1/1",
+      "age": 62,
+      "gender": "M"
+    },
+    {
+      "sl": 212,
+      "voterId": "WB21154015594",
+      "name": "Choon Tshering Lepcha",
+      "relType": "F",
+      "relName": "Late Madan Lepcha",
+      "house": "5/1/1",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 213,
+      "voterId": "WB21154015594",
+      "name": "Susari Soy",
+      "relType": "F",
+      "relName": "John Soy",
+      "house": "5/1/1",
+      "age": 156,
+      "gender": "F"
+    },
+    {
+      "sl": 214,
+      "voterId": "WB21154015594",
+      "name": "Esran Soy",
+      "relType": "F",
+      "relName": "John Soy",
+      "house": "5/1A",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 215,
+      "voterId": "WB21154015351",
+      "name": "Neolam Ghazala",
+      "relType": "F",
+      "relName": "Md. Alauddin",
+      "house": "5/18",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 216,
+      "voterId": "WB21154015351",
+      "name": "Kalyani Ghosh",
+      "relType": "H",
+      "relName": "Ajit Ghosh",
+      "house": "5/18",
+      "age": 69,
+      "gender": "F"
+    },
+    {
+      "sl": 217,
+      "voterId": "WB21154015298",
+      "name": "Monoj Ghosh",
+      "relType": "F",
+      "relName": "Aloke Ghosh",
+      "house": "5/18",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 218,
+      "voterId": "WB21154015298",
+      "name": "Ranjit Ghosh",
+      "relType": "F",
+      "relName": "Alok Ghosh",
+      "house": "5/18",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 219,
+      "voterId": "WB21154015298",
+      "name": "Angela Ghosh",
+      "relType": "H",
+      "relName": "Rant Ghosh",
+      "house": "5/18",
+      "age": 43,
+      "gender": "F"
+    },
+    {
+      "sl": 220,
+      "voterId": "P03S0220",
+      "name": "Rupak Kumar Ghosh",
+      "relType": "F",
+      "relName": "Amit Kumar Ghosh",
+      "house": "5/18",
+      "age": 30,
+      "gender": "M"
+    },
+    {
+      "sl": 221,
+      "voterId": "WB21154102072",
+      "name": "Sabiha Parveen",
+      "relType": "H",
+      "relName": "Md Shafiullah",
+      "house": "5/18",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 222,
+      "voterId": "WB21154102072",
+      "name": "Shabana Gias",
+      "relType": "H",
+      "relName": "Md. Giasuddin",
+      "house": "5/1/8",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 223,
+      "voterId": "WB21154102072",
+      "name": "Erum Feroz",
+      "relType": "F",
+      "relName": "Feroz Alam",
+      "house": "5/1/8",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 224,
+      "voterId": "WB21154015305",
+      "name": "MOHD MUSA KALEEM",
+      "relType": "F",
+      "relName": "MOHD JASIMUDDIN",
+      "house": "5/1/8",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 225,
+      "voterId": "WB21154015305",
+      "name": "Shanta Ghosh",
+      "relType": "H",
+      "relName": "Akhibandhu Ghosh",
+      "house": "5/1C",
+      "age": 65,
+      "gender": "F"
+    },
+    {
+      "sl": 226,
+      "voterId": "WB21154015305",
+      "name": "Moumita Ghosh",
+      "relType": "F",
+      "relName": "Akhil Bandhu Ghosh",
+      "house": "5/1C",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 227,
+      "voterId": "WB21154015305",
+      "name": "Manisha Ghosh",
+      "relType": "F",
+      "relName": "Narayan Chandra Ghosh",
+      "house": "5/1C",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 228,
+      "voterId": "WB21154015124",
+      "name": "SHRADDHA MISHRA",
+      "relType": "F",
+      "relName": "RAM SANKAR MISHRA",
+      "house": "5/10",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 229,
+      "voterId": "WB21154015124",
+      "name": "Arpita Misra",
+      "relType": "H",
+      "relName": "Rabi Sankar Misra",
+      "house": "5/1D",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 230,
+      "voterId": "WB21154015124",
+      "name": "Pradip Kr Saha",
+      "relType": "F",
+      "relName": "Monindraial Saha",
+      "house": "5/1",
+      "age": 76,
+      "gender": "M"
+    },
+    {
+      "sl": 231,
+      "voterId": "WB21154015124",
+      "name": "Md Shafiulah",
+      "relType": "F",
+      "relName": "Md Shamsher F",
+      "house": "5/18",
+      "age": 41,
+      "gender": "M"
+    },
+    {
+      "sl": 232,
+      "voterId": "P03S0232",
+      "name": "ANAM FEROZ",
+      "relType": "F",
+      "relName": "FEROZ ALAM i",
+      "house": "5/1/8",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sl": 233,
+      "voterId": "P03S0233",
+      "name": "Bushra Parveen",
+      "relType": "H",
+      "relName": "Mohd Musa Kaleem F",
+      "house": "5/1/8",
+      "age": 33,
+      "gender": "F"
+    },
+    {
+      "sl": 234,
+      "voterId": "P03S0234",
+      "name": "Narayan Chandra Ghosh",
+      "relType": "F",
+      "relName": "Rabindranath Ghosh",
+      "house": "5/1C",
+      "age": 60,
+      "gender": "M"
+    },
+    {
+      "sl": 235,
+      "voterId": "P03S0235",
+      "name": "Somnath Ghosh",
+      "relType": "F",
+      "relName": "Akhil Bandhu Ghosh L",
+      "house": "5/1C",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 236,
+      "voterId": "P03S0236",
+      "name": "Rabi Sankar Mishra L",
+      "relType": "F",
+      "relName": "Panchanan Mishra L",
+      "house": "5/10",
+      "age": 60,
+      "gender": "M"
+    },
+    {
+      "sl": 237,
+      "voterId": "P03S0237",
+      "name": "Panchanan Misra",
+      "relType": "F",
+      "relName": "Manindranath Misra L",
+      "house": "5/1D",
+      "age": 83,
+      "gender": "M"
+    },
+    {
+      "sl": 238,
+      "voterId": "P03S0238",
+      "name": "Udayan Misra",
+      "relType": "F",
+      "relName": "Rabi Sankar Misra i",
+      "house": "5/10",
+      "age": 24,
+      "gender": "M"
+    },
+    {
+      "sl": 239,
+      "voterId": "P03S0239",
+      "name": "Aloke Kumar Saha",
+      "relType": "F",
+      "relName": "Monindralal Saha L",
+      "house": "5/18",
+      "age": 69,
+      "gender": "M"
+    },
+    {
+      "sl": 240,
+      "voterId": "WB21154093679",
+      "name": "Md. Giasuddin",
+      "relType": "F",
+      "relName": "Md. Sulaiman",
+      "house": "5/1/8",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 241,
+      "voterId": "WB21154093679",
+      "name": "Shamael Feroz",
+      "relType": "F",
+      "relName": "Feroz Alam",
+      "house": "5/1/8",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 242,
+      "voterId": "WB21154015168",
+      "name": "Hamza Gias",
+      "relType": "F",
+      "relName": "Mohammad Giasuddin",
+      "house": "5/1/8",
+      "age": 123,
+      "gender": "M"
+    },
+    {
+      "sl": 243,
+      "voterId": "WB21154015168",
+      "name": "Akhilbandhu Ghosh",
+      "relType": "F",
+      "relName": "Rabindranath Ghosh",
+      "house": "5/1C",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 244,
+      "voterId": "WB21154015168",
+      "name": "Sagarika Ghosh",
+      "relType": "H",
+      "relName": "Narayan Ch. Ghosh",
+      "house": "5/1C",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 245,
+      "voterId": "WB21154015431",
+      "name": "Sarika Ghosh",
+      "relType": "H",
+      "relName": "Somnath Ghosh",
+      "house": "5/1C",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 246,
+      "voterId": "WB21154015431",
+      "name": "Tanima Mishra",
+      "relType": "H",
+      "relName": "Ram shankar Mishra",
+      "house": "5/1d",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 247,
+      "voterId": "WB21154015431",
+      "name": "Tarasundari Misra",
+      "relType": "H",
+      "relName": "Panchanan Misra",
+      "house": "5/1D",
+      "age": 178,
+      "gender": "F"
+    },
+    {
+      "sl": 248,
+      "voterId": "WB21154015650",
+      "name": "Sibayan Misra",
+      "relType": "F",
+      "relName": "Rabi Sankar Misra",
+      "house": "5/10",
+      "age": 23,
+      "gender": "M"
+    },
+    {
+      "sl": 249,
+      "voterId": "WB21154015650",
+      "name": "Smrity Saha",
+      "relType": "H",
+      "relName": "Aloke Kumar Saha",
+      "house": "5/1",
+      "age": 69,
+      "gender": "F"
+    },
+    {
+      "sl": 250,
+      "voterId": "WB21154015650",
+      "name": "Madhurima Saha",
+      "relType": "F",
+      "relName": "Aloke Kumar Saha",
+      "house": "5/1E",
+      "age": 45,
+      "gender": "O"
+    },
+    {
+      "sl": 251,
+      "voterId": "WB21154015337",
+      "name": "Kalyani Chakraborty",
+      "relType": "H",
+      "relName": "Pranab Chakraborty",
+      "house": "5/2",
+      "age": 65,
+      "gender": "F"
+    },
+    {
+      "sl": 252,
+      "voterId": "WB21154015337",
+      "name": "Dipak Ghosh",
+      "relType": "F",
+      "relName": "Jatindranath Ghosh",
+      "house": "5/3",
+      "age": 79,
+      "gender": "M"
+    },
+    {
+      "sl": 253,
+      "voterId": "WB21154015337",
+      "name": "Samar Ghosh",
+      "relType": "F",
+      "relName": "Jatindranath Ghosh",
+      "house": "5/3",
+      "age": 72,
+      "gender": "M"
+    },
+    {
+      "sl": 254,
+      "voterId": "P03S0254",
+      "name": "Sma Ghosh",
+      "relType": "H",
+      "relName": "Subrata Ghosh",
+      "house": "5/3",
+      "age": 46,
+      "gender": "F"
+    },
+    {
+      "sl": 255,
+      "voterId": "P03S0255",
+      "name": "Pradip Kumar Chakraborty",
+      "relType": "F",
+      "relName": "Badal Chandra Chakraborty",
+      "house": "5/4",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 256,
+      "voterId": "WB21154018317",
+      "name": "PRADIP KUMAR",
+      "relType": null,
+      "relName": null,
+      "house": "5/4",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 257,
+      "voterId": "WB21154018317",
+      "name": "Apara Das",
+      "relType": "H",
+      "relName": "Debasis Das",
+      "house": "6/1",
+      "age": 68,
+      "gender": "F"
+    },
+    {
+      "sl": 258,
+      "voterId": "WB21154015556",
+      "name": "Amrita Das",
+      "relType": "F",
+      "relName": "Sut Kumar Das",
+      "house": "6/1",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 259,
+      "voterId": "WB21154015556",
+      "name": "Shyamakanta Banerjee",
+      "relType": "F",
+      "relName": "Bhupal Das Banerjee",
+      "house": "6/2",
+      "age": 77,
+      "gender": "M"
+    },
+    {
+      "sl": 260,
+      "voterId": "WB21154015556",
+      "name": "Prosun Saha",
+      "relType": "F",
+      "relName": "Prodip Saha F",
+      "house": "5/1E",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 261,
+      "voterId": "P03S0261",
+      "name": "Abhilt Chakraborty",
+      "relType": "F",
+      "relName": "Ashok Kumar Chakraborty i",
+      "house": "5/2",
+      "age": 46,
+      "gender": "M"
+    },
+    {
+      "sl": 262,
+      "voterId": "WB21154015326",
+      "name": "Aparna Ghosh L",
+      "relType": "H",
+      "relName": "Gopal Ch Ghosh L",
+      "house": "5/3",
+      "age": 79,
+      "gender": "F"
+    },
+    {
+      "sl": 263,
+      "voterId": "WB21154015326",
+      "name": "Moniva Ghosh L",
+      "relType": "H",
+      "relName": "Samar Ghosh L",
+      "house": "5/3",
+      "age": 69,
+      "gender": "F"
+    },
+    {
+      "sl": 264,
+      "voterId": "WB21154015326",
+      "name": "Sandip Ghosh",
+      "relType": "F",
+      "relName": "Samar Ghosh",
+      "house": "5/3",
+      "age": 44,
+      "gender": "M"
+    },
+    {
+      "sl": 265,
+      "voterId": "P03S0265",
+      "name": "Manashi Chakraborty",
+      "relType": "H",
+      "relName": "Pradip Kr F",
+      "house": null,
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 266,
+      "voterId": "WB21164015433",
+      "name": "Sujit Kr Das",
+      "relType": "F",
+      "relName": "Makhanlal Das L",
+      "house": "6/1",
+      "age": 79,
+      "gender": "M"
+    },
+    {
+      "sl": 267,
+      "voterId": "WB21154015255",
+      "name": "Kalyan Kr Das",
+      "relType": "F",
+      "relName": "Sudhir Das i",
+      "house": null,
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 268,
+      "voterId": "WB21154015558",
+      "name": "Debjani Das L",
+      "relType": "F",
+      "relName": "Debasis Das",
+      "house": "6/1",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 269,
+      "voterId": "WB21154015558",
+      "name": "Srilekha Banerjee",
+      "relType": "H",
+      "relName": "Shyama Kanta L",
+      "house": null,
+      "age": 65,
+      "gender": "F"
+    },
+    {
+      "sl": 270,
+      "voterId": "P03S0270",
+      "name": "Pranab Kumar Chakraborty",
+      "relType": "F",
+      "relName": "Jiban Krishna Chakraborty",
+      "house": "5/2",
+      "age": 68,
+      "gender": "M"
+    },
+    {
+      "sl": 271,
+      "voterId": "WB21154015338",
+      "name": "Payel Chakraborty",
+      "relType": "F",
+      "relName": "Pranab Kumar Chakrobarty",
+      "house": "5/2",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 272,
+      "voterId": "WB21154015338",
+      "name": "Padmabati Ghosh",
+      "relType": "H",
+      "relName": "Dipak Ghosh",
+      "house": "5/3",
+      "age": 174,
+      "gender": "F"
+    },
+    {
+      "sl": 273,
+      "voterId": "WB21154015007",
+      "name": "Subrata Ghosh",
+      "relType": "F",
+      "relName": "Gopal Ch Ghosh",
+      "house": "5/3",
+      "age": 59,
+      "gender": "M"
+    },
+    {
+      "sl": 274,
+      "voterId": "WB21154015007",
+      "name": "Srilopa Ghosh",
+      "relType": "F",
+      "relName": "Subrata Ghosh",
+      "house": "5/3",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 275,
+      "voterId": "WB21154015007",
+      "name": "Aniruddha Chakraborty",
+      "relType": "F",
+      "relName": "Pradip Kumar Chakraborty",
+      "house": "5/4",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 276,
+      "voterId": "WB21154015253",
+      "name": "Suvra Das",
+      "relType": "H",
+      "relName": "Sujit Das",
+      "house": "6/1",
+      "age": 68,
+      "gender": "F"
+    },
+    {
+      "sl": 277,
+      "voterId": "WB21154015253",
+      "name": "Kanchan Kr Das",
+      "relType": "F",
+      "relName": "Sudhir Das",
+      "house": "6/1",
+      "age": 155,
+      "gender": "M"
+    },
+    {
+      "sl": 278,
+      "voterId": "WB21154016557",
+      "name": "Bela Banerjee",
+      "relType": "H",
+      "relName": "Bhupal Das",
+      "house": "6/2",
+      "age": 93,
+      "gender": "F"
+    },
+    {
+      "sl": 279,
+      "voterId": "FDZ360004",
+      "name": "Areejit Banerjee",
+      "relType": "F",
+      "relName": "Shyama Kanta Banerjee",
+      "house": "6/2",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 280,
+      "voterId": "FDZ360004",
+      "name": "Tapas Kumar Maity",
+      "relType": "F",
+      "relName": "Beharilal Maity",
+      "house": "6A",
+      "age": 55,
+      "gender": "M"
+    },
+    {
+      "sl": 281,
+      "voterId": "WB21154015269",
+      "name": "Sandhya Chatteriee",
+      "relType": "H",
+      "relName": "Patitpaban Chatterioe",
+      "house": "6C",
+      "age": 75,
+      "gender": "F"
+    },
+    {
+      "sl": 282,
+      "voterId": "WB21154015269",
+      "name": "Subir Kr Dey",
+      "relType": "F",
+      "relName": "Gobinda Ch Dey",
+      "house": "6C",
+      "age": 174,
+      "gender": "M"
+    },
+    {
+      "sl": 283,
+      "voterId": "WB21154015269",
+      "name": "Bandana Dey",
+      "relType": "H",
+      "relName": "Prabir Dey",
+      "house": "6C",
+      "age": 68,
+      "gender": "F"
+    },
+    {
+      "sl": 284,
+      "voterId": "P03S0284",
+      "name": "Subir Kumar Chatterjee",
+      "relType": "F",
+      "relName": "Sailendranath Chatterjee",
+      "house": "7",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 285,
+      "voterId": "P03S0285",
+      "name": "Soumik Chatterjee",
+      "relType": "F",
+      "relName": "Subir Chatterjee",
+      "house": "7",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 286,
+      "voterId": "P03S0286",
+      "name": "Sanchita Sahu",
+      "relType": "F",
+      "relName": "Khagendra Nath Sahu",
+      "house": "7/1",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 287,
+      "voterId": "WB20139789298",
+      "name": "Shampa Ghosh",
+      "relType": "H",
+      "relName": "Biswanath Ghosh",
+      "house": "7/2",
+      "age": 157,
+      "gender": "F"
+    },
+    {
+      "sl": 288,
+      "voterId": "WB20139789298",
+      "name": "Manju Sarkar",
+      "relType": "H",
+      "relName": "Gurudas Sarkar",
+      "house": "8",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 289,
+      "voterId": "WB20139789298",
+      "name": "Chaitali Dey",
+      "relType": "H",
+      "relName": "Tarun Dey",
+      "house": "9",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 290,
+      "voterId": "WB20139789298",
+      "name": "Arup Dey",
+      "relType": "F",
+      "relName": "Bijoy Kr Dey L",
+      "house": "68",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 291,
+      "voterId": "WB21154015230",
+      "name": "Manka Dey",
+      "relType": "F",
+      "relName": "Gobinda Ch Dey i",
+      "house": "6C",
+      "age": 79,
+      "gender": "F"
+    },
+    {
+      "sl": 292,
+      "voterId": "WB21154015230",
+      "name": "Prabir Kr Dey",
+      "relType": "F",
+      "relName": "Gobinda Ch Dey L",
+      "house": "6C",
+      "age": 74,
+      "gender": "M"
+    },
+    {
+      "sl": 293,
+      "voterId": "P03S0293",
+      "name": "Sanchita Dey",
+      "relType": "F",
+      "relName": "Subir Kr Dey i",
+      "house": "6C",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 294,
+      "voterId": "P03S0294",
+      "name": "Prabir Kumar Chatterjee",
+      "relType": "F",
+      "relName": "Sallendranath L",
+      "house": null,
+      "age": 62,
+      "gender": "M"
+    },
+    {
+      "sl": 295,
+      "voterId": "WB21164015485",
+      "name": "Khagendra Nath Sahu",
+      "relType": "F",
+      "relName": "Ananta Kumar Sahu t",
+      "house": null,
+      "age": 59,
+      "gender": "M"
+    },
+    {
+      "sl": 296,
+      "voterId": "WB21164015485",
+      "name": "Goutam Ghosh",
+      "relType": "F",
+      "relName": "Nandalal Ghosh L",
+      "house": "7/2",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 297,
+      "voterId": "WB21164015485",
+      "name": "Shilpashree Ghosh",
+      "relType": "F",
+      "relName": "Gautam Ghosh F",
+      "house": "7/2",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 298,
+      "voterId": "P03S0298",
+      "name": "Goutam Sarkar",
+      "relType": "F",
+      "relName": "Manju Sarkar i",
+      "house": "8",
+      "age": 47,
+      "gender": "M"
+    },
+    {
+      "sl": 299,
+      "voterId": "WB21154015573",
+      "name": "Pritha Dey",
+      "relType": "H",
+      "relName": "Swapan Dey L",
+      "house": "9",
+      "age": 42,
+      "gender": "F"
+    },
+    {
+      "sl": 300,
+      "voterId": "WB21154015573",
+      "name": "Sanghaitra Dey",
+      "relType": "H",
+      "relName": "Arup Dey",
+      "house": "6B",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 301,
+      "voterId": "WB21154015214",
+      "name": "Tanika Dey",
+      "relType": "F",
+      "relName": "Gobinda Ch Dey",
+      "house": "6C",
+      "age": 75,
+      "gender": "F"
+    },
+    {
+      "sl": 302,
+      "voterId": "WB21154015270",
+      "name": "Sipra Dey",
+      "relType": "H",
+      "relName": "Subir Dey",
+      "house": "6C",
+      "age": 68,
+      "gender": "F"
+    },
+    {
+      "sl": 303,
+      "voterId": "WB21154015270",
+      "name": "Subhamoy Dey",
+      "relType": "F",
+      "relName": "Prabir Kumar Dey",
+      "house": "6/C",
+      "age": 36,
+      "gender": "M"
+    },
+    {
+      "sl": 304,
+      "voterId": "WB21154015270",
+      "name": "Mallka Chatterjee",
+      "relType": "H",
+      "relName": "Subir Kumar Chatteriee",
+      "house": "7",
+      "age": 156,
+      "gender": "F"
+    },
+    {
+      "sl": 305,
+      "voterId": "P03S0305",
+      "name": "Archana Sahu",
+      "relType": "H",
+      "relName": "Khagendra Nath Sahu",
+      "house": "7/1",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 306,
+      "voterId": "P03S0306",
+      "name": "Namita Ghosh",
+      "relType": "H",
+      "relName": "Goutam Ghosh",
+      "house": "7/2",
+      "age": 58,
+      "gender": "F"
+    },
+    {
+      "sl": 307,
+      "voterId": "P03S0307",
+      "name": "Arpita Ghosh",
+      "relType": "F",
+      "relName": "Biswanath Ghosh",
+      "house": "7/2",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 308,
+      "voterId": "P03S0308",
+      "name": "Sabitri Chakraborty",
+      "relType": "F",
+      "relName": "Ashok Kumar Chakraborty",
+      "house": "9",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 309,
+      "voterId": "P03S0309",
+      "name": "Rahul Dey",
+      "relType": "F",
+      "relName": "Tapan Kumar Dey",
+      "house": "09",
+      "age": 32,
+      "gender": "M"
+    },
+    {
+      "sl": 310,
+      "voterId": "WB21154015469",
+      "name": "Swapan Mukherjee",
+      "relType": "H",
+      "relName": "Dipak Ranjan",
+      "house": "9FL-1",
+      "age": 65,
+      "gender": "F"
+    },
+    {
+      "sl": 311,
+      "voterId": "WB21154016343",
+      "name": "Shrabani Dey",
+      "relType": "H",
+      "relName": "Tapan Kr Dey",
+      "house": "9FL-2",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 312,
+      "voterId": "WB21154016343",
+      "name": "Rohit Kumar Dey",
+      "relType": "F",
+      "relName": "Tapan Kumar Dey",
+      "house": "9FL-2",
+      "age": 37,
+      "gender": "M"
+    },
+    {
+      "sl": 313,
+      "voterId": "WB21154016232",
+      "name": "Pradip Ranjan Mukherjee",
+      "relType": "F",
+      "relName": "Anadinath Mukherjee",
+      "house": "10A",
+      "age": 78,
+      "gender": "M"
+    },
+    {
+      "sl": 314,
+      "voterId": "WB21154016232",
+      "name": "Alok Roy",
+      "relType": "F",
+      "relName": "Sachindra Nath Roy",
+      "house": "10A",
+      "age": 64,
+      "gender": "M"
+    },
+    {
+      "sl": 315,
+      "voterId": "WB21154016232",
+      "name": "Mohandas Badiani",
+      "relType": "F",
+      "relName": "Dharmdas Badiani",
+      "house": "108",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 316,
+      "voterId": "WB21154016232",
+      "name": "Aradhana Debi",
+      "relType": "H",
+      "relName": "Rabi La",
+      "house": "10/8",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 317,
+      "voterId": "WB21154016232",
+      "name": "Vishal Lal",
+      "relType": "F",
+      "relName": "Rabi Lal",
+      "house": "10/8",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 318,
+      "voterId": "P03S0318",
+      "name": "NEHA KUMARI MAHATO",
+      "relType": "F",
+      "relName": "SHIV PRASAD MAHATO",
+      "house": "11A",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 319,
+      "voterId": "P03S0319",
+      "name": "Mahadeb Mukherjee",
+      "relType": "F",
+      "relName": "Dipak Ranjan Mukherjee F",
+      "house": "9, 1st Floor",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 320,
+      "voterId": "P03S0320",
+      "name": "Tapan Kr Dey",
+      "relType": "F",
+      "relName": "Shyamsundar Dey i",
+      "house": "9FL-2",
+      "age": 69,
+      "gender": "M"
+    },
+    {
+      "sl": 321,
+      "voterId": "P03S0321",
+      "name": "Tanmay Kumar Dey",
+      "relType": "F",
+      "relName": "Shyam Sundar Dey",
+      "house": "9FL-2",
+      "age": 156,
+      "gender": "M"
+    },
+    {
+      "sl": 322,
+      "voterId": "P03S0322",
+      "name": "Runa Nandy",
+      "relType": "H",
+      "relName": "Subir Kr Nandy L",
+      "house": "9GR",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 323,
+      "voterId": "P03S0323",
+      "name": "Purnima Mukhopadhyay",
+      "relType": "F",
+      "relName": "Pradip Ranjan",
+      "house": null,
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 324,
+      "voterId": "P03S0324",
+      "name": "Ratna Roy",
+      "relType": "H",
+      "relName": "Alok Roy F",
+      "house": "10A",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 325,
+      "voterId": "P03S0325",
+      "name": "Sunita Badiani",
+      "relType": "H",
+      "relName": "Mohandas Badiani i",
+      "house": null,
+      "age": 58,
+      "gender": "F"
+    },
+    {
+      "sl": 326,
+      "voterId": "P03S0326",
+      "name": "Rabi Lal",
+      "relType": "F",
+      "relName": "Sona Lal i",
+      "house": "10/8",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 327,
+      "voterId": "P03S0327",
+      "name": "Prabhabatl Debi L",
+      "relType": "H",
+      "relName": "Debendra Prasad",
+      "house": "11A",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 328,
+      "voterId": "WB21154015468",
+      "name": "Debendra Prasad",
+      "relType": "F",
+      "relName": "Dharam Nath Prasad i",
+      "house": "11A",
+      "age": 58,
+      "gender": "M"
+    },
+    {
+      "sl": 329,
+      "voterId": "WB21154015468",
+      "name": "Dipak Ranjan Mukherjee",
+      "relType": "F",
+      "relName": "Anadinath Mukherioe",
+      "house": "9FL-1",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 330,
+      "voterId": "WB21154015334",
+      "name": "Tarun Dey",
+      "relType": "F",
+      "relName": "Shyam Sundar Dey",
+      "house": "9FL-2",
+      "age": 62,
+      "gender": "M"
+    },
+    {
+      "sl": 331,
+      "voterId": "WB21154015334",
+      "name": "Swapan Dey",
+      "relType": "F",
+      "relName": "Shyam Sundar Dey",
+      "house": "9FL-2",
+      "age": 154,
+      "gender": "M"
+    },
+    {
+      "sl": 332,
+      "voterId": "WB21154015519",
+      "name": "Lachmandas Badlani",
+      "relType": "F",
+      "relName": "Dharmdas Badlani",
+      "house": "10/3",
+      "age": 59,
+      "gender": "M"
+    },
+    {
+      "sl": 333,
+      "voterId": "WB21154015519",
+      "name": "Sandhya Ray",
+      "relType": "H",
+      "relName": "Mritunjay Ray",
+      "house": "10A",
+      "age": 69,
+      "gender": "F"
+    },
+    {
+      "sl": 334,
+      "voterId": "WB21154015519",
+      "name": "Arpita Roy",
+      "relType": "F",
+      "relName": "Alok Roy",
+      "house": "10A",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 335,
+      "voterId": "P03S0335",
+      "name": "DIVIYA BADLANI",
+      "relType": "F",
+      "relName": "MOHAN DAS BADLANI",
+      "house": "108",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 336,
+      "voterId": "P03S0336",
+      "name": "Avinash Lal",
+      "relType": "F",
+      "relName": "Rabi Lal",
+      "house": "10/8",
+      "age": 130,
+      "gender": "M"
+    },
+    {
+      "sl": 337,
+      "voterId": "P03S0337",
+      "name": "Ram Sakhi Devi",
+      "relType": "H",
+      "relName": "Mahesh Sah",
+      "house": "11A",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 338,
+      "voterId": "P03S0338",
+      "name": "Nagendra Prasad",
+      "relType": "F",
+      "relName": "Dharam Nath Prasad",
+      "house": "1A",
+      "age": 45,
+      "gender": "M"
+    },
+    {
+      "sl": 339,
+      "voterId": "P03S0339",
+      "name": "Ajit Prasad",
+      "relType": "F",
+      "relName": "Devendra Prasad",
+      "house": "11A",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 340,
+      "voterId": "P03S0340",
+      "name": "Mahesh Sah",
+      "relType": "F",
+      "relName": "Ram Sagar Sah",
+      "house": "11A",
+      "age": 60,
+      "gender": "M"
+    },
+    {
+      "sl": 341,
+      "voterId": "P03S0341",
+      "name": "POOJA SHAW",
+      "relType": "F",
+      "relName": "MAHESH SHAW",
+      "house": "114",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 342,
+      "voterId": "P03S0342",
+      "name": "Dipak Kumar Mahato",
+      "relType": "F",
+      "relName": "Shiv Prasad Mahato",
+      "house": "11/A",
+      "age": 31,
+      "gender": "M"
+    },
+    {
+      "sl": 343,
+      "voterId": "P03S0343",
+      "name": "Babita Ghosh",
+      "relType": "H",
+      "relName": "Dulal Ghosh",
+      "house": "12",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 344,
+      "voterId": "FND2781060",
+      "name": "Seema Sil",
+      "relType": "H",
+      "relName": "Oliv Sil",
+      "house": "13/A",
+      "age": 47,
+      "gender": "F"
+    },
+    {
+      "sl": 345,
+      "voterId": "FND2781060",
+      "name": "Mohit Singh",
+      "relType": "F",
+      "relName": "Atibal Singh",
+      "house": "14",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 346,
+      "voterId": "FND2781060",
+      "name": "Rajo Ghosh",
+      "relType": "F",
+      "relName": "Rabindra Nath Ghosh",
+      "house": "15",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 347,
+      "voterId": "FND2781060",
+      "name": "Ata Roy",
+      "relType": "H",
+      "relName": "Subir Roy",
+      "house": "15",
+      "age": 63,
+      "gender": "F"
+    },
+    {
+      "sl": 348,
+      "voterId": "FND2781060",
+      "name": "Sourish Bhattacharya",
+      "relType": "F",
+      "relName": "Shamik Bhattacharya",
+      "house": "168",
+      "age": 33,
+      "gender": "M"
+    },
+    {
+      "sl": 349,
+      "voterId": "P03S0349",
+      "name": "Neha Kumari Prasad",
+      "relType": "F",
+      "relName": "Devendra Prasad f",
+      "house": "11A",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 350,
+      "voterId": "P03S0350",
+      "name": "Asad Anwar",
+      "relType": "F",
+      "relName": "Anwar Ahmad",
+      "house": "18,",
+      "age": 29,
+      "gender": "M"
+    },
+    {
+      "sl": 351,
+      "voterId": "P03S0351",
+      "name": "Punam Devi",
+      "relType": "H",
+      "relName": "Shiv Prasad Mahato",
+      "house": "11/A",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 352,
+      "voterId": "P03S0352",
+      "name": "Sweta Kundu L",
+      "relType": "F",
+      "relName": "Alok Kundu L",
+      "house": "118",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 353,
+      "voterId": "P03S0353",
+      "name": "Dipyaman Ghosh",
+      "relType": "F",
+      "relName": "Dulal Ch Ghosh",
+      "house": "12",
+      "age": 39,
+      "gender": "M"
+    },
+    {
+      "sl": 354,
+      "voterId": "P03S0354",
+      "name": "Pronab Ghosh",
+      "relType": "F",
+      "relName": "Dhirendranath Ghosh t",
+      "house": "14",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 355,
+      "voterId": "P03S0355",
+      "name": "Nilma Ghosh",
+      "relType": "H",
+      "relName": "Rabindra Nath Ghosh L",
+      "house": "15",
+      "age": 78,
+      "gender": "F"
+    },
+    {
+      "sl": 356,
+      "voterId": "P03S0356",
+      "name": "Soma Ghosh",
+      "relType": "H",
+      "relName": "Rajib Ghosh F",
+      "house": "15",
+      "age": 50,
+      "gender": "F"
+    },
+    {
+      "sl": 357,
+      "voterId": "P03S0357",
+      "name": "Surajit Roy",
+      "relType": "M",
+      "relName": "Rita Roy",
+      "house": "15",
+      "age": 30,
+      "gender": "M"
+    },
+    {
+      "sl": 358,
+      "voterId": "P03S0358",
+      "name": "Asok Chatterjee kL",
+      "relType": "F",
+      "relName": "Khagendra Chatterjee",
+      "house": null,
+      "age": 79,
+      "gender": "M"
+    },
+    {
+      "sl": 359,
+      "voterId": "P03S0359",
+      "name": "INDRADEO RAY",
+      "relType": "F",
+      "relName": "DHARAI RAY",
+      "house": "11A",
+      "age": 59,
+      "gender": "M"
+    },
+    {
+      "sl": 360,
+      "voterId": "WB21154015627",
+      "name": "Nikita Sah",
+      "relType": "F",
+      "relName": "Mahesh Sah",
+      "house": "11A",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sl": 361,
+      "voterId": "WB21154015627",
+      "name": "Kalpana Ghosh",
+      "relType": "H",
+      "relName": "Manobendra Ghosh",
+      "house": "12",
+      "age": 76,
+      "gender": "F"
+    },
+    {
+      "sl": 362,
+      "voterId": "WB21154015344",
+      "name": "Champa Bose",
+      "relType": "F",
+      "relName": "Rabindranath Bose",
+      "house": "13/1",
+      "age": 73,
+      "gender": "F"
+    },
+    {
+      "sl": 363,
+      "voterId": "WB21154015344",
+      "name": "Rekha Sing",
+      "relType": "H",
+      "relName": "Sanjeeb Kumar Sing",
+      "house": "14",
+      "age": 44,
+      "gender": "F"
+    },
+    {
+      "sl": 364,
+      "voterId": "WB21154016535",
+      "name": "Nilima Ghosh",
+      "relType": "H",
+      "relName": "Lakshmi Ghosh",
+      "house": "15",
+      "age": 76,
+      "gender": "F"
+    },
+    {
+      "sl": 365,
+      "voterId": "WB21154016535",
+      "name": "Aith Ghosh",
+      "relType": "F",
+      "relName": "Rajib Ghosh",
+      "house": "15",
+      "age": 26,
+      "gender": "M"
+    },
+    {
+      "sl": 366,
+      "voterId": "WB21154016535",
+      "name": "Sutapa Bhattacharjee",
+      "relType": "H",
+      "relName": "Shamik",
+      "house": "168",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 367,
+      "voterId": "WB21154016535",
+      "name": "Swati Chatterjee",
+      "relType": "H",
+      "relName": "Asok Chatterjee",
+      "house": "168.",
+      "age": 159,
+      "gender": "F"
+    },
+    {
+      "sl": 368,
+      "voterId": "P03S0368",
+      "name": "Satyaki Chatterjee",
+      "relType": "F",
+      "relName": "Asok Chatterjee",
+      "house": "168",
+      "age": 30,
+      "gender": "M"
+    },
+    {
+      "sl": 369,
+      "voterId": "P03S0369",
+      "name": "Charubala Maity",
+      "relType": "H",
+      "relName": "Narayan Ch Maity",
+      "house": "16C",
+      "age": 71,
+      "gender": "F"
+    },
+    {
+      "sl": 370,
+      "voterId": "P03S0370",
+      "name": "Manju Prasad Chhetri",
+      "relType": "H",
+      "relName": "Ramesh Chhetri",
+      "house": "16C",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 371,
+      "voterId": "WB21154015196",
+      "name": "Soma Roy",
+      "relType": "H",
+      "relName": "Suit Roy",
+      "house": "16C",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 372,
+      "voterId": "WB21154015196",
+      "name": "SANKAR DEY",
+      "relType": "F",
+      "relName": "Krishna Chandra Dey",
+      "house": "16C",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 373,
+      "voterId": "WB21154015196",
+      "name": "Jhumpa Mustafi",
+      "relType": "H",
+      "relName": "Ashoke Kumar",
+      "house": "16/C",
+      "age": 57,
+      "gender": "F"
+    },
+    {
+      "sl": 374,
+      "voterId": "WB21154015196",
+      "name": "Mouita Roy",
+      "relType": "F",
+      "relName": "Mohan Roy",
+      "house": "17",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 375,
+      "voterId": "P03S0375",
+      "name": "Mina Ghosh",
+      "relType": "F",
+      "relName": "Krishna Chandra Ghosh",
+      "house": "18/1",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 376,
+      "voterId": "P03S0376",
+      "name": "Samir Biswas",
+      "relType": "F",
+      "relName": "Ismail Biswas",
+      "house": "19",
+      "age": 71,
+      "gender": "M"
+    },
+    {
+      "sl": 377,
+      "voterId": "P03S0377",
+      "name": "Kiran Biswas",
+      "relType": "H",
+      "relName": "Kunal Biswas",
+      "house": "19",
+      "age": 51,
+      "gender": "F"
+    },
+    {
+      "sl": 378,
+      "voterId": "P03S0378",
+      "name": "GOURI MUSTAFI",
+      "relType": "F",
+      "relName": "JOY GOPAL MUSTAFI L",
+      "house": "16",
+      "age": 77,
+      "gender": "F"
+    },
+    {
+      "sl": 379,
+      "voterId": "P03S0379",
+      "name": "Arjeat Mustaf",
+      "relType": "F",
+      "relName": "Ashok Kr. Mustafi L",
+      "house": "16C",
+      "age": 40,
+      "gender": "M"
+    },
+    {
+      "sl": 380,
+      "voterId": "P03S0380",
+      "name": "Subrata Roy L",
+      "relType": "F",
+      "relName": "Sachindranath Roy L",
+      "house": null,
+      "age": 65,
+      "gender": "M"
+    },
+    {
+      "sl": 381,
+      "voterId": "P03S0381",
+      "name": "Sayan Roy",
+      "relType": "F",
+      "relName": "Sut Roy i",
+      "house": "16C",
+      "age": 32,
+      "gender": "M"
+    },
+    {
+      "sl": 382,
+      "voterId": "P03S0382",
+      "name": "Sriit Mustaf L",
+      "relType": "F",
+      "relName": "Ashoke Kr Mustaf L",
+      "house": "16/C",
+      "age": 27,
+      "gender": "M"
+    },
+    {
+      "sl": 383,
+      "voterId": "P03S0383",
+      "name": "Mehol Roy",
+      "relType": "F",
+      "relName": "Mohan Roy i",
+      "house": "17",
+      "age": 27,
+      "gender": "F"
+    },
+    {
+      "sl": 384,
+      "voterId": "WB21154015257",
+      "name": "Sudipta Biswas",
+      "relType": "F",
+      "relName": "smal Biswas i",
+      "house": "19",
+      "age": 63,
+      "gender": "F"
+    },
+    {
+      "sl": 385,
+      "voterId": "WB21154015257",
+      "name": "Akashdeep Biswas",
+      "relType": "F",
+      "relName": "Kunal Biswas L",
+      "house": "19",
+      "age": 29,
+      "gender": "M"
+    },
+    {
+      "sl": 386,
+      "voterId": "P03S0386",
+      "name": "Ramesh Chhetr",
+      "relType": "F",
+      "relName": "Kharak Bahadur Chhetri",
+      "house": "16C",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 387,
+      "voterId": "P03S0387",
+      "name": "TANUSREE MUSTAFI",
+      "relType": "H",
+      "relName": "ARIJEET MUSTAFI",
+      "house": "16C",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 388,
+      "voterId": "WB21154016611",
+      "name": "Sandhya Roy",
+      "relType": "H",
+      "relName": "Subroto Roy",
+      "house": "16C",
+      "age": 54,
+      "gender": "F"
+    },
+    {
+      "sl": 389,
+      "voterId": "WB21154016611",
+      "name": "Sayak Roy",
+      "relType": "F",
+      "relName": "Subrata Roy",
+      "house": "16C",
+      "age": 29,
+      "gender": "M"
+    },
+    {
+      "sl": 390,
+      "voterId": "WB21154016611",
+      "name": "Ashoke Kumar Mustafi",
+      "relType": "F",
+      "relName": "Joy Gopal Mustali",
+      "house": "16/C",
+      "age": 69,
+      "gender": "M"
+    },
+    {
+      "sl": 391,
+      "voterId": "WB21154016611",
+      "name": "Mukta Roy",
+      "relType": "H",
+      "relName": "Mohan Roy",
+      "house": "17",
+      "age": 56,
+      "gender": "F"
+    },
+    {
+      "sl": 392,
+      "voterId": "WB21154016611",
+      "name": "Bina Ghosh",
+      "relType": "F",
+      "relName": "Chunilal Ghosh",
+      "house": "18/1",
+      "age": 59,
+      "gender": "F"
+    },
+    {
+      "sl": 393,
+      "voterId": "P03S0393",
+      "name": "Naizeel Prince Maseyk",
+      "relType": "F",
+      "relName": "Randolph S Maseyk",
+      "house": "18/1",
+      "age": 26,
+      "gender": "M"
+    },
+    {
+      "sl": 394,
+      "voterId": "P03S0394",
+      "name": "Kunal Biswas",
+      "relType": "F",
+      "relName": "Ismail Biswas",
+      "house": "19",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 395,
+      "voterId": "P03S0395",
+      "name": "Tuku Biswas",
+      "relType": "H",
+      "relName": "Akashdeep Biswas",
+      "house": "19",
+      "age": 26,
+      "gender": "F"
+    },
+    {
+      "sl": 396,
+      "voterId": "P03S0396",
+      "name": "Kaku Biswas",
+      "relType": "F",
+      "relName": "Kunal Biswas",
+      "house": "19",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 397,
+      "voterId": "P03S0397",
+      "name": "Beven Anthony D cruze",
+      "relType": "F",
+      "relName": "Richard Sanjip D cruze",
+      "house": "19",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 398,
+      "voterId": "P03S0398",
+      "name": "Liza Preeti DCruze",
+      "relType": "H",
+      "relName": "Bevane Anthony",
+      "house": "19",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 399,
+      "voterId": "P03S0399",
+      "name": "Musha Khan",
+      "relType": "F",
+      "relName": "Sajahan All",
+      "house": "19",
+      "age": 50,
+      "gender": "M"
+    },
+    {
+      "sl": 400,
+      "voterId": "P03S0400",
+      "name": "Foshma Khan",
+      "relType": "F",
+      "relName": "Akbar Hossain",
+      "house": "19",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 401,
+      "voterId": "P03S0401",
+      "name": "Randolph Moseyk",
+      "relType": "F",
+      "relName": "Rudolph Moseyk",
+      "house": "19",
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 402,
+      "voterId": "P03S0402",
+      "name": "Sheoji Yadav",
+      "relType": "F",
+      "relName": "Ramal Yadav",
+      "house": "20A",
+      "age": 64,
+      "gender": "M"
+    },
+    {
+      "sl": 403,
+      "voterId": "P03S0403",
+      "name": "Nitu Yadav",
+      "relType": "F",
+      "relName": "Sheoji Yadav",
+      "house": "204",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 404,
+      "voterId": "P03S0404",
+      "name": "Md. Faiyaz",
+      "relType": "F",
+      "relName": "Md. Reyaz",
+      "house": "208",
+      "age": 43,
+      "gender": "M"
+    },
+    {
+      "sl": 405,
+      "voterId": "P03S0405",
+      "name": "Md. Shahnawaz",
+      "relType": "F",
+      "relName": "Md. Reyaz",
+      "house": "20/8",
+      "age": 41,
+      "gender": "M"
+    },
+    {
+      "sl": 406,
+      "voterId": "P03S0406",
+      "name": "Renu Bose",
+      "relType": null,
+      "relName": null,
+      "house": "19",
+      "age": 65,
+      "gender": "F"
+    },
+    {
+      "sl": 407,
+      "voterId": "P03S0407",
+      "name": "Agnes Deruze",
+      "relType": "H",
+      "relName": "Richard Sanjip Dcruze",
+      "house": "19",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 408,
+      "voterId": "P03S0408",
+      "name": "Jessica Aloysia Gomes",
+      "relType": "F",
+      "relName": "Manobendra Gomej",
+      "house": "19",
+      "age": 24,
+      "gender": "F"
+    },
+    {
+      "sl": 409,
+      "voterId": "P03S0409",
+      "name": "Masoom Khan",
+      "relType": "F",
+      "relName": "Sajahan Al",
+      "house": "19",
+      "age": 45,
+      "gender": "M"
+    },
+    {
+      "sl": 410,
+      "voterId": "P03S0410",
+      "name": "Ranzel Edwin Maseyk",
+      "relType": "F",
+      "relName": "Randolph Maseyk",
+      "house": "19",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 411,
+      "voterId": "P03S0411",
+      "name": "Rakhi Singh Bose",
+      "relType": "H",
+      "relName": "Tushar Kanti Bose",
+      "house": "19",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 412,
+      "voterId": "P03S0412",
+      "name": "CHAMPA DEVI YADAV",
+      "relType": "H",
+      "relName": "SHEOJI YADAV",
+      "house": "20A",
+      "age": 61,
+      "gender": "F"
+    },
+    {
+      "sl": 413,
+      "voterId": "P03S0413",
+      "name": "Aneeta Yadav",
+      "relType": "F",
+      "relName": "Sheoi Yadav",
+      "house": "204",
+      "age": 32,
+      "gender": "F"
+    },
+    {
+      "sl": 414,
+      "voterId": "P03S0414",
+      "name": "Afrozi Begum",
+      "relType": "H",
+      "relName": "Md Faiyaz",
+      "house": "208",
+      "age": 38,
+      "gender": "F"
+    },
+    {
+      "sl": 415,
+      "voterId": "P03S0415",
+      "name": "Reshma Parveen kL",
+      "relType": "H",
+      "relName": "Md. Shahnawaz",
+      "house": "20/8",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 416,
+      "voterId": "FND2380805",
+      "name": "Tushar Kanti Bose",
+      "relType": "F",
+      "relName": "Kumar Kan Bose",
+      "house": "19",
+      "age": 42,
+      "gender": "M"
+    },
+    {
+      "sl": 417,
+      "voterId": "FND2380805",
+      "name": "Richard Sanjip Druze",
+      "relType": "F",
+      "relName": "George Doruze",
+      "house": "19",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 418,
+      "voterId": "WB21154016170",
+      "name": "Sajahan Al Khan",
+      "relType": "F",
+      "relName": "Ahad All khan",
+      "house": "19",
+      "age": 80,
+      "gender": "M"
+    },
+    {
+      "sl": 419,
+      "voterId": "WB21154016170",
+      "name": "Mithu Khan",
+      "relType": "F",
+      "relName": "Sahjahan All Khan",
+      "house": "19",
+      "age": 40,
+      "gender": "M"
+    },
+    {
+      "sl": 420,
+      "voterId": "WB21154016170",
+      "name": "Fonald Moseyk",
+      "relType": "F",
+      "relName": "Rudolph Moseyk",
+      "house": "19",
+      "age": 67,
+      "gender": "M"
+    },
+    {
+      "sl": 421,
+      "voterId": "FD3085087",
+      "name": "Kiran Kumari Yadev",
+      "relType": "F",
+      "relName": "Sheoj Yadev",
+      "house": "20A",
+      "age": 40,
+      "gender": "F"
+    },
+    {
+      "sl": 422,
+      "voterId": "FD3085087",
+      "name": "Rimpa Yadav",
+      "relType": "F",
+      "relName": "Sheoji Yadav",
+      "house": "20A",
+      "age": 37,
+      "gender": "F"
+    },
+    {
+      "sl": 423,
+      "voterId": "WB21154081052",
+      "name": "Satish Yadav",
+      "relType": "F",
+      "relName": "Sheoji Yadav",
+      "house": "20A",
+      "age": 30,
+      "gender": "M"
+    },
+    {
+      "sl": 424,
+      "voterId": "WB21154081052",
+      "name": "Md. Reyaz",
+      "relType": "F",
+      "relName": "Md. Ishak",
+      "house": "20/8",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 425,
+      "voterId": "WB21154081052",
+      "name": "Shabnam Shaheli Naheed",
+      "relType": "H",
+      "relName": "Syed Rezaul Karim",
+      "house": "20C",
+      "age": 60,
+      "gender": "F"
+    },
+    {
+      "sl": 426,
+      "voterId": "P03S0426",
+      "name": "Syed limaz Sahriyar Khondakar",
+      "relType": "M",
+      "relName": "Shabnam Shahaili Naheed",
+      "house": "20C",
+      "age": 35,
+      "gender": "M"
+    },
+    {
+      "sl": 427,
+      "voterId": "P03S0427",
+      "name": "Shyamal Roy",
+      "relType": "F",
+      "relName": "Sachindranath Roy",
+      "house": "20C",
+      "age": 67,
+      "gender": "M"
+    },
+    {
+      "sl": 428,
+      "voterId": "P03S0428",
+      "name": "Kiran Gupta",
+      "relType": "H",
+      "relName": "Sunil Kumar Gupta",
+      "house": "20/C",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 429,
+      "voterId": "WB21154015157",
+      "name": "Soni Gupta",
+      "relType": "F",
+      "relName": "Sunil Kumar Gupta",
+      "house": "20/C",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 430,
+      "voterId": "WB21154015157",
+      "name": "Anasuya Bhar",
+      "relType": "H",
+      "relName": "Souvik Bhar",
+      "house": "20D",
+      "age": 52,
+      "gender": "F"
+    },
+    {
+      "sl": 431,
+      "voterId": "WB21154015157",
+      "name": "Tanmoy Chakraborty",
+      "relType": "F",
+      "relName": "Ram Narayan",
+      "house": "22",
+      "age": 62,
+      "gender": "M"
+    },
+    {
+      "sl": 432,
+      "voterId": "WB21154015157",
+      "name": "Tumpa Ghosh",
+      "relType": "H",
+      "relName": "Sudipta Ghosh",
+      "house": "23A",
+      "age": 45,
+      "gender": "F"
+    },
+    {
+      "sl": 433,
+      "voterId": "P03S0433",
+      "name": "Anuska Ghosh",
+      "relType": "F",
+      "relName": "Sudipta Ghosh",
+      "house": "23/A",
+      "age": 21,
+      "gender": "F"
+    },
+    {
+      "sl": 434,
+      "voterId": "P03S0434",
+      "name": "Biswalt Pradhan",
+      "relType": null,
+      "relName": null,
+      "house": "23/A",
+      "age": 38,
+      "gender": "M"
+    },
+    {
+      "sl": 435,
+      "voterId": "P03S0435",
+      "name": "NEHA AGARWAL",
+      "relType": "F",
+      "relName": "SUNIL KUMAR AGARWAL",
+      "house": "23C",
+      "age": 25,
+      "gender": "F"
+    },
+    {
+      "sl": 436,
+      "voterId": "P03S0436",
+      "name": "Rupashree Roy",
+      "relType": "H",
+      "relName": "Shyamal Roy F",
+      "house": "20C",
+      "age": 156,
+      "gender": "F"
+    },
+    {
+      "sl": 437,
+      "voterId": "P03S0437",
+      "name": "Rahul Gupta L",
+      "relType": "F",
+      "relName": "Suni Gupta",
+      "house": "20/C",
+      "age": 27,
+      "gender": "M"
+    },
+    {
+      "sl": 438,
+      "voterId": "P03S0438",
+      "name": "Souvik Bhar",
+      "relType": "F",
+      "relName": "Sukumar Bhar",
+      "house": "20D",
+      "age": 51,
+      "gender": "M"
+    },
+    {
+      "sl": 439,
+      "voterId": "P03S0439",
+      "name": "Maitreyee Chakraborty",
+      "relType": "F",
+      "relName": "Tanmoy Chakraborty F",
+      "house": "22",
+      "age": 28,
+      "gender": "F"
+    },
+    {
+      "sl": 440,
+      "voterId": "WB21154015609",
+      "name": "Biswajt Pradhan",
+      "relType": "M",
+      "relName": "Lata Pradhan i",
+      "house": "23A",
+      "age": 67,
+      "gender": "M"
+    },
+    {
+      "sl": 441,
+      "voterId": "WB21154015609",
+      "name": "Magdeline Pradhan",
+      "relType": "H",
+      "relName": "Biswajit Pradhan F",
+      "house": "23/A",
+      "age": 60,
+      "gender": "F"
+    },
+    {
+      "sl": 442,
+      "voterId": "P03S0442",
+      "name": "Bhananjoy Ghosh L",
+      "relType": "F",
+      "relName": "Janandranath Ghosh",
+      "house": "238",
+      "age": 81,
+      "gender": "M"
+    },
+    {
+      "sl": 443,
+      "voterId": "WB22153039578",
+      "name": "Sandhya Gupta",
+      "relType": "F",
+      "relName": "Sunil Kr. Gupta",
+      "house": "20C",
+      "age": 39,
+      "gender": "F"
+    },
+    {
+      "sl": 444,
+      "voterId": "WB22153039578",
+      "name": "Sunil Gupta",
+      "relType": "F",
+      "relName": "Ram Jivan Gupta",
+      "house": "20/C",
+      "age": 63,
+      "gender": "M"
+    },
+    {
+      "sl": 445,
+      "voterId": "WB21154016559",
+      "name": "Sibani Gupta",
+      "relType": "F",
+      "relName": "Sunil Kumar Gupta",
+      "house": "20/C",
+      "age": 34,
+      "gender": "F"
+    },
+    {
+      "sl": 446,
+      "voterId": "WB21154016559",
+      "name": "Anuradha Bhar",
+      "relType": "H",
+      "relName": "Sukumar Bhar",
+      "house": "200",
+      "age": 74,
+      "gender": "F"
+    },
+    {
+      "sl": 447,
+      "voterId": "WB21154016559",
+      "name": "Ghhabi Chakraborty",
+      "relType": "H",
+      "relName": "Tanmay Chakraborty",
+      "house": "22",
+      "age": 68,
+      "gender": "F"
+    },
+    {
+      "sl": 448,
+      "voterId": "WB21154016559",
+      "name": "Sudipta Ghosh",
+      "relType": "F",
+      "relName": "Samar Chandra Ghosh",
+      "house": "23A",
+      "age": 58,
+      "gender": "M"
+    },
+    {
+      "sl": 449,
+      "voterId": "P03S0449",
+      "name": "Dabasish Ghosh",
+      "relType": "F",
+      "relName": "Dhananjoy Ghosh",
+      "house": "23/A",
+      "age": 45,
+      "gender": "M"
+    },
+    {
+      "sl": 450,
+      "voterId": "P03S0450",
+      "name": "Debra Pradhan",
+      "relType": "F",
+      "relName": "Biswajit Pradhan",
+      "house": "23/A",
+      "age": 42,
+      "gender": "F"
+    },
+    {
+      "sl": 451,
+      "voterId": "P03S0451",
+      "name": "Moumita Ghosh",
+      "relType": "H",
+      "relName": "Debasish Ghosh",
+      "house": "23.8",
+      "age": 35,
+      "gender": "F"
+    },
+    {
+      "sl": 452,
+      "voterId": "P03S0452",
+      "name": "Pawan Kr. Agarwal",
+      "relType": "F",
+      "relName": "Kanhayalal Agarwal",
+      "house": "23C",
+      "age": 64,
+      "gender": "M"
+    },
+    {
+      "sl": 453,
+      "voterId": "P03S0453",
+      "name": "Geeta Agarwal",
+      "relType": "H",
+      "relName": "Parmod Agarwal",
+      "house": "23C",
+      "age": 62,
+      "gender": "F"
+    },
+    {
+      "sl": 454,
+      "voterId": "P03S0454",
+      "name": "Suni Kr Agarwal",
+      "relType": "F",
+      "relName": "Kanahiyalal Agarwal",
+      "house": "23C",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 455,
+      "voterId": "P03S0455",
+      "name": "Aarti Agarwal",
+      "relType": "F",
+      "relName": "Pawan Kumar Agarwal",
+      "house": "23C",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 456,
+      "voterId": "P03S0456",
+      "name": "Gaurav Agarwal",
+      "relType": "F",
+      "relName": "Ashok Kumar Agarwal",
+      "house": "23C",
+      "age": 33,
+      "gender": "M"
+    },
+    {
+      "sl": 457,
+      "voterId": "P03S0457",
+      "name": "RIDHI AGARWAL",
+      "relType": "H",
+      "relName": "SONU AGARWAL",
+      "house": "23C",
+      "age": 32,
+      "gender": "F"
+    },
+    {
+      "sl": 458,
+      "voterId": "P03S0458",
+      "name": "JAYSHREE AGARWAL",
+      "relType": "F",
+      "relName": "ASHOK KUMAR AGARWAL",
+      "house": "230",
+      "age": 125,
+      "gender": "F"
+    },
+    {
+      "sl": 459,
+      "voterId": "P03S0459",
+      "name": "Singh Nancy",
+      "relType": "H",
+      "relName": "John Singh",
+      "house": "24",
+      "age": 55,
+      "gender": "F"
+    },
+    {
+      "sl": 460,
+      "voterId": "P03S0460",
+      "name": "Ehsan Akhtar Ansari",
+      "relType": "F",
+      "relName": "Afaque Akhtar Ansari",
+      "house": "24",
+      "age": 29,
+      "gender": "M"
+    },
+    {
+      "sl": 461,
+      "voterId": "P03S0461",
+      "name": "Jharna Roy",
+      "relType": "H",
+      "relName": "Pahari Lal Roy",
+      "house": "25/A",
+      "age": 174,
+      "gender": "F"
+    },
+    {
+      "sl": 462,
+      "voterId": "P03S0462",
+      "name": "Ashok kumar Agarwal",
+      "relType": "F",
+      "relName": "Kanhayalal Agarwal L",
+      "house": "23C",
+      "age": 61,
+      "gender": "M"
+    },
+    {
+      "sl": 463,
+      "voterId": "P03S0463",
+      "name": "Pooja Agarwal",
+      "relType": "F",
+      "relName": "Pramod Agarwal i",
+      "house": "23C",
+      "age": 36,
+      "gender": "F"
+    },
+    {
+      "sl": 464,
+      "voterId": "P03S0464",
+      "name": "Kishan Kumar Agarwal",
+      "relType": "F",
+      "relName": "Kanhaya Lal Agarwal",
+      "house": "23C",
+      "age": 33,
+      "gender": "M"
+    },
+    {
+      "sl": 465,
+      "voterId": "P03S0465",
+      "name": "Manohar Agarwal",
+      "relType": "F",
+      "relName": "Pawan Kr Agarwal F",
+      "house": "23C",
+      "age": 29,
+      "gender": "M"
+    },
+    {
+      "sl": 466,
+      "voterId": "P03S0466",
+      "name": "Prarthana Agarwal",
+      "relType": "F",
+      "relName": "Suni Kr. Agarwal",
+      "house": "23C",
+      "age": 123,
+      "gender": "F"
+    },
+    {
+      "sl": 467,
+      "voterId": "P03S0467",
+      "name": "Shabana Ansari",
+      "relType": "H",
+      "relName": "Afaque Akhtar Ansari i",
+      "house": "24",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 468,
+      "voterId": "P03S0468",
+      "name": "Benoite Singh",
+      "relType": "M",
+      "relName": "Nancy Singh",
+      "house": "24",
+      "age": 30,
+      "gender": "F"
+    },
+    {
+      "sl": 469,
+      "voterId": "P03S0469",
+      "name": "Nitu Shaw",
+      "relType": "F",
+      "relName": "Munna Shaw",
+      "house": "59/C/H/24",
+      "age": 41,
+      "gender": "F"
+    },
+    {
+      "sl": 470,
+      "voterId": "P03S0470",
+      "name": "Bimala Agarwal",
+      "relType": "H",
+      "relName": "Pawan Agarwal",
+      "house": "23C",
+      "age": 60,
+      "gender": "F"
+    },
+    {
+      "sl": 471,
+      "voterId": "P03S0471",
+      "name": "PARMESHWARI AGARWAL",
+      "relType": "H",
+      "relName": "Ashok Kumar Agarwal",
+      "house": "23C",
+      "age": 53,
+      "gender": "F"
+    },
+    {
+      "sl": 472,
+      "voterId": "P03S0472",
+      "name": "Sonu Agarwal",
+      "relType": "F",
+      "relName": "Pramod Kumar Agarwal",
+      "house": "23C",
+      "age": 138,
+      "gender": "M"
+    },
+    {
+      "sl": 473,
+      "voterId": "P03S0473",
+      "name": "Jyoti Agarwal",
+      "relType": "F",
+      "relName": "Pawan Kumar Agarwal",
+      "house": "23C",
+      "age": 135,
+      "gender": "F"
+    },
+    {
+      "sl": 474,
+      "voterId": "WB21154015259",
+      "name": "Radheshyam Agarwal",
+      "relType": "F",
+      "relName": "Pramod Kumar Agarwal",
+      "house": "23C",
+      "age": 32,
+      "gender": "M"
+    },
+    {
+      "sl": 475,
+      "voterId": "WB21154015259",
+      "name": "Shubham Agarwal",
+      "relType": "F",
+      "relName": "Ashok Kumar Agarwal",
+      "house": "23C",
+      "age": null,
+      "gender": "M"
+    },
+    {
+      "sl": 476,
+      "voterId": "WB21154015259",
+      "name": "Samui Naha",
+      "relType": "F",
+      "relName": "Bishnu Pada Naha",
+      "house": "23C",
+      "age": 49,
+      "gender": "F"
+    },
+    {
+      "sl": 477,
+      "voterId": "WB22157219187",
+      "name": "AFAQUE AKHTAR ANSARI",
+      "relType": "F",
+      "relName": "H M ISMAIL",
+      "house": "24",
+      "age": 159,
+      "gender": "M"
+    },
+    {
+      "sl": 478,
+      "voterId": "WB22157219187",
+      "name": "Shadab Hussain",
+      "relType": "M",
+      "relName": "Mahajabi Begum",
+      "house": "FL-28 1",
+      "age": 28,
+      "gender": "M"
+    },
+    {
+      "sl": 479,
+      "voterId": "P03S0479",
+      "name": "NAZIA ANWER",
+      "relType": null,
+      "relName": null,
+      "house": "5/1A/1,",
+      "age": null,
+      "gender": "O"
+    },
+    {
+      "sl": 480,
+      "voterId": "P03S0480",
+      "name": "Lawrance Dipu Gomes",
+      "relType": null,
+      "relName": null,
+      "house": "8/2",
+      "age": 54,
+      "gender": "M"
+    },
+    {
+      "sl": 481,
+      "voterId": "P03S0481",
+      "name": "Rashida Begum",
+      "relType": "H",
+      "relName": "Anwar Ahmad",
+      "house": "1",
+      "age": 66,
+      "gender": "F"
+    },
+    {
+      "sl": 482,
+      "voterId": "P03S0482",
+      "name": "Afzalulah Khan",
+      "relType": "F",
+      "relName": "Abdus Sattar Khan",
+      "house": "Flat 4B, 4th Floor",
+      "age": 74,
+      "gender": "M"
+    },
+    {
+      "sl": 483,
+      "voterId": "P03S0483",
+      "name": "Adriel Xess",
+      "relType": "M",
+      "relName": "Avinashi Minj",
+      "house": "4/1E",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sl": 484,
+      "voterId": "P03S0484",
+      "name": "Debasmita Bhattacharya",
+      "relType": "F",
+      "relName": "Shambhu Bhattacharya",
+      "house": null,
+      "age": 32,
+      "gender": "F"
+    },
+    {
+      "sl": 485,
+      "voterId": "P03S0485",
+      "name": "Gloria Gomes",
+      "relType": "F",
+      "relName": "Lawrence Dipu Gomes",
+      "house": "8/2",
+      "age": 23,
+      "gender": "F"
+    },
+    {
+      "sl": 486,
+      "voterId": "P03S0486",
+      "name": "Shahbaz Karim",
+      "relType": "F",
+      "relName": "Magsood Alam",
+      "house": "3rd floor fat no 3A",
+      "age": 56,
+      "gender": "M"
+    },
+    {
+      "sl": 487,
+      "voterId": "P03S0487",
+      "name": "RINKI BISWAS SAHA",
+      "relType": null,
+      "relName": null,
+      "house": "5/1E",
+      "age": null,
+      "gender": "O"
+    },
+    {
+      "sl": 488,
+      "voterId": "P03S0488",
+      "name": "JAMES SANJAY DCOSTA",
+      "relType": "F",
+      "relName": "BERNARD MANICK",
+      "house": "4/1E,",
+      "age": 53,
+      "gender": "M"
+    },
+    {
+      "sl": 489,
+      "voterId": "P03S0489",
+      "name": "Margaret Pinky Gomes",
+      "relType": "H",
+      "relName": "Lawrence Dipu Gomes",
+      "house": "8/2",
+      "age": 46,
+      "gender": "F"
+    }
+  ]
+}

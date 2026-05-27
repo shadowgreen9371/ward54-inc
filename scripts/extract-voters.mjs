@@ -41,14 +41,27 @@ const ROOT     = join(__dirname, '..');
 const PDF_DIR  = join(ROOT, 'data', 'pdfs');
 const OUT_DIR  = join(ROOT, 'data', 'voters');
 
-// Lazy import — gives a helpful error if user hasn't `npm install`-ed
-let pdfParse;
-try {
-  pdfParse = (await import('pdf-parse')).default;
-} catch (e) {
+// Lazy import — tries standard install first, then a private .tools/ install
+// (helpful when the project is a pnpm workspace that blocks plain npm install
+// at the root). pdf-parse v1.1.1 has a buggy index.js that tries to read a
+// non-existent debug file at load time, so we always import the inner lib path.
+import { pathToFileURL } from 'node:url';
+async function importPdfParse() {
+  const candidates = [
+    'pdf-parse/lib/pdf-parse.js',
+    join(ROOT, 'node_modules/pdf-parse/lib/pdf-parse.js'),
+    join(ROOT, '.tools/pdf-parse-isolated/node_modules/pdf-parse/lib/pdf-parse.js'),
+  ];
+  for (const c of candidates) {
+    try {
+      const url = c.startsWith('/') ? pathToFileURL(c).href : c;
+      return (await import(url)).default;
+    } catch {}
+  }
   console.error('\n❌ pdf-parse not installed. Run:\n   npm install pdf-parse\n');
   process.exit(1);
 }
+const pdfParse = await importPdfParse();
 
 // ---------------------------------------------------------------------------
 

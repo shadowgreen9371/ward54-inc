@@ -33,3 +33,16 @@ next-env.d.ts
 supabase/.branches/
 supabase/.temp/
 supabase/.env
+
+# Electoral Roll source PDFs — kept local only, JSON output is committed
+data/pdfs/Part_*.pdf
+
+# OCR pipeline working files — kept local only
+.tools/
+data/ocr-text/
+data/ocr-extract.log
+data/ocr-extract.pid
+eng.traineddata
+*.bak
+*.bak2
+*.bak3
