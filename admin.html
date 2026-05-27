@@ -727,6 +727,32 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="voter-mgmt-grid" id="voterMgmtGrid"></div>
     </div>
 
+    <!-- Section: Publish to Site (export → commit JSON to repo) -->
+    <div class="p4-section" style="border:1px solid rgba(232,130,30,0.40);background:linear-gradient(135deg,rgba(232,130,30,0.08),rgba(232,130,30,0.02));">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Publish to Live Site</div>
+          <div class="p4-section-sub">Edits are saved on this device only. To make them appear on every device (including mobile), export → upload to GitHub.</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-sm" style="background:rgba(255,255,255,0.06);color:var(--text2);border:1px solid var(--border);padding:8px 14px;font-size:12px;" onclick="document.getElementById('cmsImportFile').click()">Import .json</button>
+          <input type="file" id="cmsImportFile" accept=".json,application/json" style="display:none" onchange="importCmsJson(this)">
+          <button class="btn btn-primary btn-sm" onclick="exportCmsJson()" style="background:linear-gradient(135deg,#e8821e,#c9a84c);color:#1a1410;font-weight:700;padding:8px 18px;">
+            Export &amp; Download
+          </button>
+        </div>
+      </div>
+      <div style="background:rgba(0,0,0,0.20);border:1px dashed var(--border);border-radius:var(--r2);padding:14px 16px;font-size:12.5px;line-height:1.65;color:var(--text2);">
+        <div style="color:var(--gold2);font-weight:700;margin-bottom:6px;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;">How to publish your changes</div>
+        <ol style="margin:0;padding-left:18px;">
+          <li>Click <strong style="color:var(--gold)">Export &amp; Download</strong> — saves a <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-family:DM Mono,monospace;">cms.json</code> file</li>
+          <li>Go to <a href="https://github.com/shadowgreen9371/ward54-inc/upload/main/data/cms" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;">github.com/.../data/cms (upload)</a></li>
+          <li>Drag the downloaded <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-family:DM Mono,monospace;">cms.json</code> into the drop zone &middot; commit</li>
+          <li>~1 minute later the public site picks it up on <strong>every device</strong></li>
+        </ol>
+      </div>
+    </div>
+
     <!-- Section: Main Page (Homepage) Content -->
     <div class="p4-section">
       <div class="p4-section-head">
@@ -2412,6 +2438,51 @@ var CMS_KEY = 'ward54.cms';
 function cmsRead(){ try{ return JSON.parse(localStorage.getItem(CMS_KEY)||'{}'); }catch(e){ return {}; } }
 function cmsWrite(d){ localStorage.setItem(CMS_KEY, JSON.stringify(d)); }
 function cmsPatch(section, value){ var d=cmsRead(); d[section]=value; cmsWrite(d); }
+
+/* ---- Export / Import CMS as JSON for repo commit ----
+   localStorage is per-device. To publish your edits to every device
+   (your mobile, other admins, public visitors), export this JSON and
+   upload it to data/cms/cms.json in the repo. The public site reads
+   that file at startup BEFORE falling back to localStorage. */
+function exportCmsJson(){
+  var d = cmsRead();
+  d._exportedAt   = new Date().toISOString();
+  d._exportedBy   = _adminEmail || 'admin';
+  d._schemaVersion= 1;
+  var blob = new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' });
+  var url  = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'cms.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  showToast('cms.json downloaded — now upload it to data/cms/ in the repo');
+}
+
+function importCmsJson(input){
+  var file = input.files && input.files[0];
+  if(!file) return;
+  if(!confirm('Replace this device\'s admin data with the contents of '+file.name+'?\n\nThis will overwrite any unsaved edits in localStorage on this browser.')) {
+    input.value = ''; return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    try{
+      var data = JSON.parse(ev.target.result);
+      // Strip the metadata fields we add on export
+      delete data._exportedAt; delete data._exportedBy; delete data._schemaVersion;
+      cmsWrite(data);
+      showToast('Imported successfully — refreshing…');
+      setTimeout(function(){ window.location.reload(); }, 800);
+    } catch(e){
+      showToast('Import failed: invalid JSON', 'error');
+    }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
 
 /* ---- Main Page Content ---- */
 function saveMainPageContent(){

@@ -4033,9 +4033,7 @@ function buildAgentsStats(){
      - pollingAgentsList data               ← pollingAgents
    Falls through silently if nothing is configured.
    ───────────────────────────────────────────────────────────────────────── */
-(function applyCmsOverrides(){
-  var cms = null;
-  try{ cms = JSON.parse(localStorage.getItem('ward54.cms') || 'null'); }catch(e){ return; }
+function _applyCmsObject(cms){
   if(!cms) return;
 
   /* Main page text */
@@ -4083,6 +4081,36 @@ function buildAgentsStats(){
       return Object.assign({ id:'pa'+(i+1) }, a);
     });
   }
+}
+
+/* Two-stage CMS load:
+   1. Apply localStorage immediately (fast, syncs with admin edits on this device)
+   2. Fetch data/cms/cms.json from the repo — if present, it WINS, ensuring
+      every device (mobile, desktop, others) sees the same data the admin
+      uploaded to GitHub. Re-renders any active page that's listening. */
+(function applyCmsOverrides(){
+  /* Stage 1: localStorage — instant */
+  try{
+    var local = JSON.parse(localStorage.getItem('ward54.cms') || 'null');
+    if(local) _applyCmsObject(local);
+  }catch(e){}
+
+  /* Stage 2: repo JSON — fetched, ~50-200 ms on a warm cache */
+  fetch('data/cms/cms.json', { cache: 'no-cache' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(repo){
+      if(!repo) return;
+      _applyCmsObject(repo);
+      /* Re-render anything that was already painted with stale data. The
+         committee + polling-agents builders are idempotent. */
+      var active = document.querySelector('.page.active');
+      if(active){
+        if(active.id === 'p5' && typeof buildCommittee === 'function') buildCommittee('congress');
+        if(active.id === 'p7' && typeof buildCommittee === 'function') buildCommittee('youth');
+        if(active.id === 'p6' && typeof buildPollingAgentsList === 'function') buildPollingAgentsList();
+      }
+    })
+    .catch(function(){ /* repo JSON not present yet — localStorage wins */ });
 })();
 
 buildStations(stations);
