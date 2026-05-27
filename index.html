@@ -996,6 +996,55 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .chat-drawer.youth .chat-msg.me{background:linear-gradient(135deg,#a855f7,#ec4899);}
 .chat-drawer.youth .chat-send{background:linear-gradient(135deg,#a855f7,#ec4899);}
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   VIDEO CALL MODAL — embeds Jitsi Meet fullscreen inside the app
+   ═══════════════════════════════════════════════════════════════════════════ */
+.call-modal{
+  position:fixed;inset:0;background:#000;z-index:9998;
+  display:none;flex-direction:column;
+  animation:callIn 0.32s cubic-bezier(0.16,1,0.3,1);
+}
+.call-modal.open{display:flex;}
+@keyframes callIn{from{opacity:0;transform:scale(0.985);}to{opacity:1;transform:scale(1);}}
+.call-modal-head{
+  flex:0 0 52px;display:flex;align-items:center;gap:12px;
+  padding:0 14px;background:linear-gradient(180deg,rgba(10,15,30,0.96),rgba(10,15,30,0.85));
+  border-bottom:1px solid var(--border);backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+.call-modal-head .call-dot{
+  width:9px;height:9px;border-radius:50%;background:#22c55e;flex-shrink:0;
+  box-shadow:0 0 0 0 rgba(34,197,94,0.7);animation:callDot 1.6s ease-in-out infinite;
+}
+@keyframes callDot{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.7);}50%{box-shadow:0 0 0 10px rgba(34,197,94,0);}}
+.call-modal-title{font-size:14px;font-weight:600;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.call-modal-meta{font-size:11px;color:var(--text3);letter-spacing:0.04em;display:none;}
+@media(min-width:640px){.call-modal-meta{display:inline;}}
+.call-modal-close{
+  background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.35);
+  color:#fca5a5;padding:7px 14px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;
+  font-family:'Outfit',sans-serif;cursor:pointer;transition:all 0.18s ease;
+}
+.call-modal-close:hover{background:rgba(239,68,68,0.20);border-color:rgba(239,68,68,0.55);color:#ef4444;}
+.call-modal-close svg{width:14px;height:14px;}
+.call-modal-body{flex:1;position:relative;background:#000;overflow:hidden;}
+.call-modal-body iframe, .call-modal-body > div{
+  position:absolute;inset:0;width:100% !important;height:100% !important;border:0;
+}
+.call-loading{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:14px;color:var(--text2);font-size:13px;
+}
+.call-loading-spinner{
+  width:36px;height:36px;border:2px solid rgba(255,255,255,0.10);
+  border-top-color:#22c55e;border-radius:50%;animation:callSpin 0.85s linear infinite;
+}
+@keyframes callSpin{to{transform:rotate(360deg);}}
+.call-modal.youth .call-modal-head{background:linear-gradient(180deg,rgba(35,18,55,0.96),rgba(20,10,35,0.85));}
+.call-modal.youth .call-dot{background:#a855f7;box-shadow:0 0 0 0 rgba(168,85,247,0.7);}
+.call-modal.youth @keyframes callDot{0%,100%{box-shadow:0 0 0 0 rgba(168,85,247,0.7);}50%{box-shadow:0 0 0 10px rgba(168,85,247,0);}}
+
 @media(max-width:600px){
   .chat-drawer{width:100%;}
   .comm-bar{flex-direction:column;align-items:stretch;}
@@ -1230,6 +1279,25 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </button>
       </div>
       <div class="committee-grid" id="youthCommitteeGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Committee Video Call Modal (embedded Jitsi Meet — fullscreen) -->
+<div class="call-modal" id="callModal" role="dialog" aria-label="Video Call">
+  <div class="call-modal-head">
+    <span class="call-dot" aria-hidden="true"></span>
+    <div class="call-modal-title" id="callModalTitle">Committee Video Call</div>
+    <span class="call-modal-meta" id="callModalMeta">Live · Share link with members</span>
+    <button class="call-modal-close" onclick="closeCommitteeCall()" aria-label="Leave call">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" transform="rotate(135 12 12)"/></svg>
+      Leave Call
+    </button>
+  </div>
+  <div class="call-modal-body" id="callContainer">
+    <div class="call-loading">
+      <div class="call-loading-spinner"></div>
+      <div>Joining call…</div>
     </div>
   </div>
 </div>
@@ -3241,13 +3309,117 @@ function _firebaseReady(){
   }
 }
 
+var _jitsiApi = null;
+var _activeCallRoom = null;
+
 function startCommitteeCall(which){
   var room = JITSI_ROOMS[which];
   if(!room){ showToast('Unknown committee'); return; }
-  var url = 'https://meet.jit.si/'+room+'#config.prejoinPageEnabled=true';
-  window.open(url, '_blank', 'noopener,noreferrer');
-  showToast('Opening video call — share the same link with members');
+  _activeCallRoom = which;
+  var label = which==='youth' ? 'Youth Congress' : 'Congress Committee';
+
+  /* Pre-fill display name from the chat module's remembered name. */
+  var displayName = (localStorage.getItem('ward54.chatName') || '').trim();
+  if(!displayName) displayName = 'Ward 54 Member';
+
+  var modal = document.getElementById('callModal');
+  modal.classList.toggle('youth', which==='youth');
+  document.getElementById('callModalTitle').textContent = label + ' · Live Video Call';
+  document.getElementById('callModalMeta').textContent = 'Joining ' + room + '…';
+  /* Reset body with the loading spinner so subsequent reopens look clean. */
+  document.getElementById('callContainer').innerHTML =
+    '<div class="call-loading">'
+    + '<div class="call-loading-spinner"></div>'
+    + '<div>Joining call as <strong>'+escapeHtml(displayName)+'</strong>…</div>'
+    + '</div>';
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  /* Lock screen orientation to landscape if supported (better video UX on phone) */
+  try{ if(screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(function(){}); }catch(e){}
+
+  /* Lazy-load the Jitsi External API the first time. Falls back to a plain
+     iframe if the script can't load (offline / blocked by extension). */
+  if(window.JitsiMeetExternalAPI){
+    _mountJitsi(room, displayName, label);
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://meet.jit.si/external_api.js';
+    s.async = true;
+    s.onload  = function(){ _mountJitsi(room, displayName, label); };
+    s.onerror = function(){ _mountJitsiIframe(room, displayName); };
+    document.head.appendChild(s);
+  }
 }
+
+function _mountJitsi(room, displayName, label){
+  var container = document.getElementById('callContainer');
+  container.innerHTML = '';
+  try{
+    _jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', {
+      roomName: room,
+      parentNode: container,
+      width: '100%',
+      height: '100%',
+      userInfo: { displayName: displayName },
+      configOverwrite: {
+        prejoinPageEnabled: false,
+        disableDeepLinking: true,
+        startWithAudioMuted: false,
+        startWithVideoMuted: false,
+        defaultLanguage: 'en'
+      },
+      interfaceConfigOverwrite: {
+        SHOW_JITSI_WATERMARK: false,
+        DEFAULT_BACKGROUND: '#000000',
+        TOOLBAR_BUTTONS: ['microphone','camera','chat','desktop','raisehand','fullscreen','hangup','participants-pane','tileview','select-background','settings']
+      }
+    });
+    _jitsiApi.addListener('readyToClose', closeCommitteeCall);
+    _jitsiApi.addListener('videoConferenceJoined', function(){
+      var meta=document.getElementById('callModalMeta');
+      if(meta) meta.textContent = 'Live · '+ (label||'Call');
+    });
+  } catch(e){
+    console.error('Jitsi API mount failed, falling back to iframe:', e);
+    _mountJitsiIframe(room, displayName);
+  }
+}
+
+function _mountJitsiIframe(room, displayName){
+  var container = document.getElementById('callContainer');
+  var name = encodeURIComponent('"'+displayName+'"');
+  container.innerHTML = '<iframe '
+    + 'allow="camera; microphone; fullscreen; display-capture; autoplay; clipboard-write" '
+    + 'src="https://meet.jit.si/'+encodeURIComponent(room)
+    + '#userInfo.displayName='+name
+    + '&config.prejoinPageEnabled=false"></iframe>';
+}
+
+function closeCommitteeCall(){
+  var modal = document.getElementById('callModal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  /* Cleanly dispose the Jitsi instance so the call actually ends
+     (otherwise the call thread keeps the mic/camera open in the background). */
+  if(_jitsiApi){
+    try{ _jitsiApi.dispose(); }catch(e){}
+    _jitsiApi = null;
+  }
+  /* Empty container — also stops the fallback iframe by removing it. */
+  document.getElementById('callContainer').innerHTML = '';
+  _activeCallRoom = null;
+  /* Release any orientation lock we set. */
+  try{ if(screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); }catch(e){}
+}
+
+/* ESC key closes the call (Jitsi catches most keys, but if focus is outside
+   the iframe — e.g. just after opening — this gives the user a quick exit). */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && document.getElementById('callModal')?.classList.contains('open')){
+    closeCommitteeCall();
+  }
+});
 
 function openCommitteeChat(which){
   _activeChatRoom = which;
