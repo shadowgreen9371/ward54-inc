@@ -94,9 +94,19 @@ let grandTotalVoters = 0;
 const summary = [];
 const t0 = Date.now();
 
+const FORCE = args.includes('--force'); // re-extract even if output exists
+
 for (const file of files) {
   const partNo = parseInt(file.match(/Part_(\d{2})/i)[1], 10);
   if (ONLY_PART !== null && ONLY_PART !== partNo) continue;
+
+  const outPath = join(OUT_DIR, `part-${String(partNo).padStart(2,'0')}.json`);
+  /* Skip parts whose JSON already exists (idempotent resume across crashes
+     or interrupted runs). Pass --force to re-extract regardless. */
+  if (!FORCE && existsSync(outPath) && !ONLY_PAGE) {
+    console.log(`─── Part ${String(partNo).padStart(2,'0')}: already extracted, skipping (--force to re-run) ───`);
+    continue;
+  }
 
   const inPath = join(PDF_DIR, file);
   const sizeMB = ((await stat(inPath)).size / 1048576).toFixed(1);
@@ -111,7 +121,6 @@ for (const file of files) {
   // Parse voter records out of the OCR text
   const result = parsePart(fullText, partNo);
 
-  const outPath = join(OUT_DIR, `part-${String(partNo).padStart(2,'0')}.json`);
   await writeFile(outPath, JSON.stringify(result, null, 2), 'utf8');
 
   const dt = ((Date.now() - partT0) / 1000).toFixed(0);
