@@ -785,7 +785,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Polling Agents</div>
           <div class="p4-section-sub">Edit name, role, target area, status, responsibilities</div>
         </div>
-        <button class="btn btn-primary btn-sm" onclick="savePollingAgents()">Save Changes</button>
+        <button class="btn btn-primary btn-sm" onclick="addPollingAgent()">+ Add Agent</button>
       </div>
       <div id="adminPollingAgentsList"></div>
     </div>
@@ -2618,12 +2618,28 @@ function getPollingAgents(){
   if(!d.pollingAgents) d.pollingAgents = PA_DEFAULTS.slice();
   return d.pollingAgents;
 }
+function setPollingAgents(list){
+  var d = cmsRead();
+  d.pollingAgents = list;
+  cmsWrite(d);
+}
 function buildAdminPollingAgentsList(){
   var listEl = document.getElementById('adminPollingAgentsList');
   if(!listEl) return;
   var list = getPollingAgents();
+  if(list.length === 0){
+    listEl.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:20px;border:1px dashed var(--border);border-radius:var(--r2)">No polling agents yet. Click "+ Add Agent" to add the first one.</div>';
+    return;
+  }
   listEl.innerHTML = list.map(function(a, i){
     return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;border-radius:var(--r2);padding:14px 16px;margin-bottom:10px;">'
+      /* Row header with index + per-row actions */
+      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--border);">'
+        + '<div style="width:28px;height:28px;border-radius:50%;background:rgba(96,165,250,0.15);color:#60a5fa;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:DM Mono,monospace;font-size:12px;border:1px solid rgba(96,165,250,0.30);">'+(i+1)+'</div>'
+        + '<div style="flex:1;font-size:13px;font-weight:600;color:var(--text);min-width:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">'+escapeAttr(a.name||'(unnamed agent)')+'</div>'
+        + '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px 12px;font-size:11px;" onclick="savePollingAgentRow('+i+')">Save</button>'
+        + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deletePollingAgent('+i+')">Delete</button>'
+      + '</div>'
       + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
         + '<div class="form-group" style="margin:0"><label class="form-label">Name</label><input class="form-input" data-pa-field="name" data-pa-idx="'+i+'" value="'+escapeAttr(a.name||'')+'"></div>'
         + '<div class="form-group" style="margin:0"><label class="form-label">Role</label><input class="form-input" data-pa-field="role" data-pa-idx="'+i+'" value="'+escapeAttr(a.role||'')+'"></div>'
@@ -2637,6 +2653,61 @@ function buildAdminPollingAgentsList(){
       + '</div></div>';
   }).join('');
 }
+
+/* Save just this one agent row (matches the Committee Members pattern). */
+function savePollingAgentRow(idx){
+  var list = getPollingAgents().slice();
+  if(!list[idx]) return;
+  ['name','role','targetArea','status'].forEach(function(f){
+    var el = document.querySelector('[data-pa-field="'+f+'"][data-pa-idx="'+idx+'"]');
+    if(el) list[idx][f] = el.value.trim();
+  });
+  var rEl = document.querySelector('[data-pa-field="responsibilities"][data-pa-idx="'+idx+'"]');
+  if(rEl){
+    list[idx].responsibilities = rEl.value.split(/\n+/).map(function(s){return s.trim();}).filter(Boolean);
+  }
+  setPollingAgents(list);
+  showToast('Polling agent #'+(idx+1)+' saved');
+  /* Refresh the header so the name pill updates immediately */
+  buildAdminPollingAgentsList();
+}
+
+function addPollingAgent(){
+  var list = getPollingAgents().slice();
+  list.push({
+    name: 'New Polling Agent',
+    role: 'Polling Agent',
+    status: 'active',
+    targetArea: '',
+    responsibilities: []
+  });
+  setPollingAgents(list);
+  buildAdminPollingAgentsList();
+  /* Scroll the new row into view so it's obvious where it went */
+  setTimeout(function(){
+    var listEl = document.getElementById('adminPollingAgentsList');
+    if(listEl && listEl.lastElementChild) {
+      listEl.lastElementChild.scrollIntoView({ behavior:'smooth', block:'center' });
+      var nameInput = listEl.lastElementChild.querySelector('[data-pa-field="name"]');
+      if(nameInput) nameInput.focus();
+    }
+  }, 100);
+}
+
+function deletePollingAgent(idx){
+  var list = getPollingAgents().slice();
+  if(!list[idx]) return;
+  var nm = list[idx].name || 'this agent';
+  if(!confirm('Delete polling agent "' + nm + '"?\n\nThis also removes any complaints logged for them.')) return;
+  /* Clean up the complaint log keyed by the agent's id (if any) */
+  try{ localStorage.removeItem('ward54.complaints.pa' + (idx+1)); }catch(e){}
+  list.splice(idx, 1);
+  setPollingAgents(list);
+  buildAdminPollingAgentsList();
+  showToast('Polling agent removed');
+}
+
+/* Back-compat — old "Save Changes" button calls this. Saves every row. */
 function savePollingAgents(){
   var list = getPollingAgents().slice();
   for(var i=0;i<list.length;i++){
@@ -2647,8 +2718,8 @@ function savePollingAgents(){
     var rEl=document.querySelector('[data-pa-field="responsibilities"][data-pa-idx="'+i+'"]');
     if(rEl) list[i].responsibilities = rEl.value.split(/\n+/).map(function(s){return s.trim();}).filter(Boolean);
   }
-  var d=cmsRead(); d.pollingAgents = list; cmsWrite(d);
-  showToast('Polling agents saved');
+  setPollingAgents(list);
+  showToast('All polling agents saved');
 }
 function doLogout(){
   currentRole='viewer';
