@@ -12,6 +12,7 @@ on:
       - 'admin.html'
       - 'CNAME'
       - '.nojekyll'
+      - 'data/**'                 # voter JSON + cms.json must trigger a deploy
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -39,8 +40,25 @@ jobs:
           touch _site/.nojekyll
           [ -f CNAME ] && cp CNAME _site/ || true
           [ -f README.md ] && cp README.md _site/ || true
-          echo "Staged files:"
-          ls -la _site/
+          # Copy the data/ tree EXCEPT the source PDFs (those are gitignored
+          # but defensive copy in case anyone unpins them). Includes:
+          #   data/cms/cms.json        — committee + main-page CMS data
+          #   data/voters/part-NN.json — OCR-extracted voter rolls per part
+          #   data/voters/manifest.json
+          if [ -d data ]; then
+            mkdir -p _site/data
+            # Walk subdirs explicitly to skip data/pdfs/ (large source PDFs)
+            for sub in data/*/; do
+              name=$(basename "$sub")
+              if [ "$name" != "pdfs" ] && [ "$name" != "ocr-text" ]; then
+                cp -R "$sub" "_site/data/"
+              fi
+            done
+          fi
+          echo "Staged tree:"
+          find _site -maxdepth 3 -type f | sort | head -50
+          echo "Total files in _site:"
+          find _site -type f | wc -l
 
       # Pinned to v4 — the v5 tarball had CDN issues on the previous run.
       - name: Setup Pages
