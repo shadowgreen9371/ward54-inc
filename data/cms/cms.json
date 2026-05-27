@@ -88,16 +88,11 @@
   },
   "pollingAgents": [
     {
-      "name": "Polling Agent 1",
-      "role": "Booth Polling Agent",
-      "status": "active",
-      "targetArea": "Entally Academy · Booths 1–5",
-      "responsibilities": [
-        "Voter verification at booth",
-        "Roll observation",
-        "Result certificate sign-off",
-        "EVM mismatch flagging"
-      ]
+      "part": "Part 1",
+      "name": "Md. Shakil",
+      "role": "PIC",
+      "phone": "+91 98365 13741",
+      "photo": null
     }
   ]
 }

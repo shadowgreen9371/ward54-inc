@@ -2874,10 +2874,10 @@ function deleteCommitteeMember(which, idx){
 }
 
 /* ---- Polling Agents (3 fixed slots) ---- */
+/* Simple committee-style schema:
+   { part: "Part 1", name: "Md. Shakil", role: "PIC", phone: "+91 …", photo: null } */
 var PA_DEFAULTS = [
-  { name:'Polling Agent 1', role:'Booth Polling Agent',  status:'active', targetArea:'Entally Academy · Booths 1–5',          responsibilities:['Voter verification at booth','Roll observation','Result certificate sign-off','EVM mismatch flagging'] },
-  { name:'Polling Agent 2', role:'Area Coordinator',     status:'onduty', targetArea:'Taltala Dispensary & VIP Hall area',     responsibilities:['Cluster supervision','Issue escalation','Volunteer rota','Voter slip distribution'] },
-  { name:'Polling Agent 3', role:'Outreach Volunteer',   status:'active', targetArea:'Anjuman Schools & Sir Syed area',        responsibilities:['Door-to-door outreach','Voter slip distribution','Transport assistance','Local issue collection'] }
+  { part:'Part 1', name:'Polling Agent 1', role:'PIC', phone:'', photo:null }
 ];
 function getPollingAgents(){
   var d = cmsRead();
@@ -2898,59 +2898,48 @@ function buildAdminPollingAgentsList(){
     listEl.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:20px;border:1px dashed var(--border);border-radius:var(--r2)">No polling agents yet. Click "+ Add Agent" to add the first one.</div>';
     return;
   }
+  /* Row layout mirrors the Congress Committee admin form: photo box on the
+     left + Part / Name / Role / Phone inputs to its right + per-row Save +
+     Delete + "Photo ✕" buttons. */
   listEl.innerHTML = list.map(function(a, i){
-    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;border-radius:var(--r2);padding:14px 16px;margin-bottom:10px;">'
-      /* Row header with index + per-row actions */
-      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--border);">'
-        + '<div style="width:28px;height:28px;border-radius:50%;background:rgba(96,165,250,0.15);color:#60a5fa;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:DM Mono,monospace;font-size:12px;border:1px solid rgba(96,165,250,0.30);">'+(i+1)+'</div>'
-        + '<div style="flex:1;font-size:13px;font-weight:600;color:var(--text);min-width:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">'+escapeAttr(a.name||'(unnamed agent)')+'</div>'
-        + '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px 12px;font-size:11px;" onclick="savePollingAgentRow('+i+')">Save</button>'
-        + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deletePollingAgent('+i+')">Delete</button>'
-      + '</div>'
-      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
-        + '<div class="form-group" style="margin:0"><label class="form-label">Name</label><input class="form-input" data-pa-field="name" data-pa-idx="'+i+'" value="'+escapeAttr(a.name||'')+'"></div>'
-        + '<div class="form-group" style="margin:0"><label class="form-label">Role</label><input class="form-input" data-pa-field="role" data-pa-idx="'+i+'" value="'+escapeAttr(a.role||'')+'"></div>'
-        + '<div class="form-group" style="margin:0"><label class="form-label">Target Area</label><input class="form-input" data-pa-field="targetArea" data-pa-idx="'+i+'" value="'+escapeAttr(a.targetArea||'')+'"></div>'
-        + '<div class="form-group" style="margin:0"><label class="form-label">Status</label><select class="form-select" data-pa-field="status" data-pa-idx="'+i+'">'
-          + '<option value="active"'+(a.status==='active'?' selected':'')+'>Active</option>'
-          + '<option value="onduty"'+(a.status==='onduty'?' selected':'')+'>On Duty</option>'
-          + '<option value="offduty"'+(a.status==='offduty'?' selected':'')+'>Off Duty</option>'
-        + '</select></div>'
-        + '<div class="form-group" style="margin:0;grid-column:1/-1"><label class="form-label">Responsibilities (one per line)</label><textarea class="form-textarea" data-pa-field="responsibilities" data-pa-idx="'+i+'" rows="3" style="font-size:12px">'+escapeAttr((a.responsibilities||[]).join('\n'))+'</textarea></div>'
-      + '</div></div>';
+    var photoBlock = a.photo
+      ? '<img src="'+a.photo+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:22px;height:22px;color:var(--text3)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;border-radius:var(--r2);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+      /* Photo upload box */
+      + '<label style="flex:0 0 56px;width:56px;height:64px;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(135deg,rgba(96,165,250,0.12),rgba(59,130,246,0.06));border:1.5px dashed rgba(96,165,250,0.40);overflow:hidden;position:relative;" title="Click to upload photo">'
+        + photoBlock
+        + '<input type="file" accept="image/*" capture="user" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onPollingAgentPhotoPick('+i+',this)">'
+      + '</label>'
+      + '<div style="flex:0 0 100px;"><input class="form-input" data-pa-field="part" data-pa-idx="'+i+'" value="'+escapeAttr(a.part||'')+'" placeholder="Part 1" style="font-size:11px;padding:6px 8px;text-transform:uppercase;letter-spacing:0.1em;color:#9bc1e4;font-weight:600;"></div>'
+      + '<div style="flex:1;min-width:140px;"><input class="form-input" data-pa-field="name" data-pa-idx="'+i+'" value="'+escapeAttr(a.name||'')+'" placeholder="Name" style="padding:6px 8px;font-weight:500;"></div>'
+      + '<div style="flex:0 0 90px;"><input class="form-input" data-pa-field="role" data-pa-idx="'+i+'" value="'+escapeAttr(a.role||'')+'" placeholder="PIC" style="padding:6px 8px;text-transform:uppercase;letter-spacing:0.1em;font-size:11px;color:var(--gold2);font-weight:600;"></div>'
+      + '<div style="flex:0 0 160px;"><input class="form-input" data-pa-field="phone" data-pa-idx="'+i+'" value="'+escapeAttr(a.phone||'')+'" placeholder="+91 98365 13741" style="padding:6px 8px;font-family:DM Mono,monospace;font-size:12px;"></div>'
+      + '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px 12px;font-size:11px;" onclick="savePollingAgentRow('+i+')">Save</button>'
+      + (a.photo ? '<button class="btn btn-sm" style="background:transparent;color:var(--text3);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="removePollingAgentPhoto('+i+')" title="Remove photo">Photo ✕</button>' : '')
+      + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deletePollingAgent('+i+')">Delete</button>'
+    + '</div>';
   }).join('');
 }
 
-/* Save just this one agent row (matches the Committee Members pattern). */
 function savePollingAgentRow(idx){
   var list = getPollingAgents().slice();
   if(!list[idx]) return;
-  ['name','role','targetArea','status'].forEach(function(f){
+  ['part','name','role','phone'].forEach(function(f){
     var el = document.querySelector('[data-pa-field="'+f+'"][data-pa-idx="'+idx+'"]');
     if(el) list[idx][f] = el.value.trim();
   });
-  var rEl = document.querySelector('[data-pa-field="responsibilities"][data-pa-idx="'+idx+'"]');
-  if(rEl){
-    list[idx].responsibilities = rEl.value.split(/\n+/).map(function(s){return s.trim();}).filter(Boolean);
-  }
   setPollingAgents(list);
   showToast('Polling agent #'+(idx+1)+' saved');
-  /* Refresh the header so the name pill updates immediately */
   buildAdminPollingAgentsList();
 }
 
 function addPollingAgent(){
   var list = getPollingAgents().slice();
-  list.push({
-    name: 'New Polling Agent',
-    role: 'Polling Agent',
-    status: 'active',
-    targetArea: '',
-    responsibilities: []
-  });
+  var nextPart = 'Part ' + (list.length + 1);
+  list.push({ part: nextPart, name: '', role: 'PIC', phone: '', photo: null });
   setPollingAgents(list);
   buildAdminPollingAgentsList();
-  /* Scroll the new row into view so it's obvious where it went */
   setTimeout(function(){
     var listEl = document.getElementById('adminPollingAgentsList');
     if(listEl && listEl.lastElementChild) {
@@ -2959,6 +2948,38 @@ function addPollingAgent(){
       if(nameInput) nameInput.focus();
     }
   }, 100);
+}
+
+/* Photo upload — reuses the same canvas-crop pipeline as committee photos */
+function onPollingAgentPhotoPick(idx, input){
+  var file = input.files && input.files[0];
+  if(!file) return;
+  showToast('Processing photo…');
+  processCommitteePhoto(file, function(dataUrl, err){
+    if(err){ showToast(err, 'error'); return; }
+    var list = getPollingAgents().slice();
+    if(!list[idx]) return;
+    /* Pick up any unsaved field edits in this row before saving */
+    ['part','name','role','phone'].forEach(function(f){
+      var inp = document.querySelector('[data-pa-field="'+f+'"][data-pa-idx="'+idx+'"]');
+      if(inp) list[idx][f] = inp.value.trim();
+    });
+    list[idx].photo = dataUrl;
+    setPollingAgents(list);
+    buildAdminPollingAgentsList();
+    showToast('Photo saved');
+  });
+  input.value = '';
+}
+
+function removePollingAgentPhoto(idx){
+  if(!confirm('Remove this photo?')) return;
+  var list = getPollingAgents().slice();
+  if(!list[idx]) return;
+  list[idx].photo = null;
+  setPollingAgents(list);
+  buildAdminPollingAgentsList();
+  showToast('Photo removed');
 }
 
 function deletePollingAgent(idx){

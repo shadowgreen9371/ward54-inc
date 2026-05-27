@@ -602,7 +602,13 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 /* ═══════════════════════════════════════════════════════════════════════════
    POLLING AGENTS — ops card (responsibilities + complaints + status)
    ═══════════════════════════════════════════════════════════════════════════ */
-.agents-name-list{display:flex;flex-direction:column;gap:16px;margin-top:8px;}
+/* Polling agents share the .committee-card layout — render them in the same
+   responsive grid the Congress Committee uses (auto-fill, min 260px). */
+.agents-name-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:14px;margin-top:8px;
+}
 .pa-card{
   background:linear-gradient(135deg,var(--glass),var(--glass2));
   border:1px solid var(--border);border-left:4px solid var(--gold);
@@ -3743,49 +3749,22 @@ function buildVolunteersPanel(){
   }).join('');
 }
 /* ═══════════════════════════════════════════════════════════════════════════
-   POLLING AGENTS — operational roster (3 agents, with responsibilities,
-   target area, status, and a per-agent complaint log).
-   Names + areas are placeholders ready for the user to fill in.
+   POLLING AGENTS — committee-style roster (Part · Name · PIC · Phone · Photo).
+   Default fallback used only when no CMS overlay is available; cms.json on
+   the repo is the source of truth.
    ═══════════════════════════════════════════════════════════════════════════ */
 var pollingAgentsList = [
   {
     id: 'pa1',
-    name: 'Polling Agent 1',
-    role: 'Booth Polling Agent',
+    part: 'Part 1',
+    name: 'Md. Shakil',
+    role: 'PIC',
+    phone: '+91 98365 13741',
+    photo: null,
+    /* Backward-compat fields (older complaint tracker may still read these): */
     status: 'active',
-    targetArea: 'Entally Academy · Booths 1–5',
-    responsibilities: [
-      'Voter verification at booth',
-      'Roll observation',
-      'Result certificate sign-off',
-      'EVM mismatch flagging'
-    ]
-  },
-  {
-    id: 'pa2',
-    name: 'Polling Agent 2',
-    role: 'Area Coordinator',
-    status: 'onduty',
-    targetArea: 'Taltala Dispensary & VIP Hall area',
-    responsibilities: [
-      'Cluster supervision',
-      'Issue escalation',
-      'Volunteer rota',
-      'Voter slip distribution'
-    ]
-  },
-  {
-    id: 'pa3',
-    name: 'Polling Agent 3',
-    role: 'Outreach Volunteer',
-    status: 'active',
-    targetArea: 'Anjuman Schools & Sir Syed area',
-    responsibilities: [
-      'Door-to-door outreach',
-      'Voter slip distribution',
-      'Transport assistance',
-      'Local issue collection'
-    ]
+    targetArea: '',
+    responsibilities: []
   }
 ];
 
@@ -3852,56 +3831,41 @@ function _paComplaintCard(agentId, c){
     + '</div>';
 }
 
+/* Simple committee-style card — Photo + Part label + Name + PIC + Phone +
+   WhatsApp button. Mirrors the .committee-card layout exactly so the two
+   sections feel cohesive. */
 function buildPollingAgentsList(){
   var el = document.getElementById('agents-name-list');
   if(!el) return;
   el.innerHTML = pollingAgentsList.map(function(a){
-    var stats = _paStatsForAgent(a.id);
-    var complaints = _loadComplaints(a.id);
-    var compHTML = complaints.length === 0
-      ? '<div class="pa-empty">No complaints logged yet.</div>'
-      : '<div class="pa-complaints">' + complaints.map(function(c){return _paComplaintCard(a.id, c);}).join('') + '</div>';
-
-    return '<div class="pa-card">'
-      /* Header */
-      + '<div class="pa-head">'
-        + '<div class="pa-avatar">'+_paInitials(a.name)+'</div>'
-        + '<div class="pa-id">'
-          + '<div class="pa-name">'+escapeHtml(a.name)+'</div>'
-          + '<div class="pa-role">'+escapeHtml(a.role)+'</div>'
+    var photoHTML = a.photo
+      ? '<div class="committee-photo"><img src="'+a.photo+'" alt=""></div>'
+      : (a.name
+          ? '<div class="committee-photo">'+committeeInitials(a.name)+'</div>'
+          : '<div class="committee-photo empty">photo</div>');
+    var phoneHTML = '';
+    if(a.phone){
+      var cleanPhone = String(a.phone).replace(/\D/g, '');
+      var waNumber  = cleanPhone.length >= 12 ? cleanPhone : '91' + cleanPhone;
+      var waText    = encodeURIComponent('Namaste, this is from the Ward 54 INC polling team.');
+      phoneHTML =
+          '<div class="committee-phone">'
+        +   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>'
+        +   '<a href="tel:'+cleanPhone+'">'+escapeHtml(a.phone)+'</a>'
         + '</div>'
-        + '<span class="pa-status '+a.status+'">'+(STATUS_LABEL[a.status]||a.status)+'</span>'
-      + '</div>'
-      /* Target area */
-      + '<div class="pa-section">'
-        + '<div class="pa-section-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>TARGET AREA</div>'
-        + '<div class="pa-target">'+escapeHtml(a.targetArea)+'</div>'
-      + '</div>'
-      /* Responsibilities */
-      + '<div class="pa-section">'
-        + '<div class="pa-section-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>RESPONSIBILITIES</div>'
-        + '<div class="pa-resp-list">'+_paRespHTML(a.responsibilities)+'</div>'
-      + '</div>'
-      /* Activity */
-      + '<div class="pa-section">'
-        + '<div class="pa-section-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>ACTIVITY</div>'
-        + '<div class="pa-stats">'
-          + '<div class="pa-stat raised"><div class="pa-stat-num">'+stats.total+'</div><div class="pa-stat-lbl">Raised</div></div>'
-          + '<div class="pa-stat solved"><div class="pa-stat-num">'+stats.resolved+'</div><div class="pa-stat-lbl">Solved</div></div>'
-          + '<div class="pa-stat open"><div class="pa-stat-num">'+(stats.open + stats.progress)+'</div><div class="pa-stat-lbl">Pending</div></div>'
-        + '</div>'
-      + '</div>'
-      /* Complaints */
-      + '<div class="pa-section">'
-        + '<div class="pa-complaint-head">'
-          + '<div class="pa-section-label" style="margin-bottom:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg>COMPLAINTS / ISSUES</div>'
-          + '<button class="pa-add-btn" onclick="toggleComplaintForm(\''+a.id+'\')">'
-            + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
-            + 'Add Complaint'
-          + '</button>'
-        + '</div>'
-        + '<div id="paForm-'+a.id+'" style="display:none;"></div>'
-        + compHTML
+        + '<a class="committee-wa" href="https://wa.me/'+waNumber+'?text='+waText+'" target="_blank" rel="noopener noreferrer" aria-label="Open WhatsApp chat with '+escapeHtml(a.name||'agent')+'">'
+        +   '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>'
+        +   'WhatsApp'
+        + '</a>';
+    }
+    /* Use committee-card markup so the styling matches Congress section exactly */
+    return '<div class="committee-card">'
+      + photoHTML
+      + '<div class="committee-info">'
+        + '<span class="committee-post">'+escapeHtml(a.part||'Part')+'</span>'
+        + '<div class="committee-name">'+escapeHtml(a.name||'')+'</div>'
+        + (a.role ? '<div style="font-size:11px;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:0.12em;margin:4px 0 2px;">'+escapeHtml(a.role)+'</div>' : '')
+        + phoneHTML
       + '</div>'
     + '</div>';
   }).join('');
