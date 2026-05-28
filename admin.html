@@ -822,6 +822,18 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       </div>
     </div>
 
+    <!-- Section: Recent Changes (local audit trail) -->
+    <div class="p4-section">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Recent Changes</div>
+          <div class="p4-section-sub">Every edit made on this device — time, who, and what changed</div>
+        </div>
+        <button class="btn btn-sm" onclick="clearChangeLog()" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);">Clear history</button>
+      </div>
+      <div id="adminChangeLog" style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;max-height:280px;overflow-y:auto;"></div>
+    </div>
+
     <!-- Section: Main Page (Homepage) Content -->
     <div class="p4-section">
       <div class="p4-section-head">
@@ -2545,6 +2557,7 @@ function openAdminPanel(){
   buildAdminCongressWorkersList();
   buildAdminNoticesList();
   buildAdminGalleryList();
+  buildChangeLog();
   if(typeof updateCloudSyncUI === 'function') updateCloudSyncUI();
 }
 
@@ -2554,8 +2567,49 @@ function openAdminPanel(){
 var CMS_KEY = 'ward54.cms';
 function cmsRead(){ try{ return JSON.parse(localStorage.getItem(CMS_KEY)||'{}'); }catch(e){ return {}; } }
 function cmsWrite(d){ localStorage.setItem(CMS_KEY, JSON.stringify(d)); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CHANGE LOG — local audit trail of every admin edit.
+   Stored in localStorage["ward54.changelog"] (NOT in the public cms.json,
+   so editor emails / activity stay private to this device). Capped at 200.
+   ───────────────────────────────────────────────────────────────────────── */
+var CHANGELOG_KEY = 'ward54.changelog';
+var CHANGELOG_MAX = 200;
+function getChangeLog(){ try{ return JSON.parse(localStorage.getItem(CHANGELOG_KEY)||'[]'); }catch(e){ return []; } }
+function logChange(label){
+  try{
+    var list = getChangeLog();
+    list.unshift({ t: Date.now(), who: (_adminEmail||'admin'), label: String(label||'change') });
+    if(list.length > CHANGELOG_MAX) list = list.slice(0, CHANGELOG_MAX);
+    localStorage.setItem(CHANGELOG_KEY, JSON.stringify(list));
+  }catch(e){}
+  if(typeof buildChangeLog==='function') buildChangeLog();
+}
+function clearChangeLog(){
+  if(!confirm('Clear the change history on this device? This cannot be undone.')) return;
+  try{ localStorage.removeItem(CHANGELOG_KEY); }catch(e){}
+  if(typeof buildChangeLog==='function') buildChangeLog();
+  showToast('Change history cleared');
+}
+function buildChangeLog(){
+  var el = document.getElementById('adminChangeLog');
+  if(!el) return;
+  var list = getChangeLog();
+  if(!list.length){ el.innerHTML='<div style="text-align:center;color:var(--text3);font-size:12px;padding:18px;border:1px dashed var(--border);border-radius:var(--r2)">No changes recorded yet on this device.</div>'; return; }
+  el.innerHTML = list.slice(0,50).map(function(c){
+    var d=new Date(c.t);
+    var when=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})+' '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    return '<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px;">'
+      + '<span style="width:8px;height:8px;border-radius:50%;background:var(--green2);flex-shrink:0;"></span>'
+      + '<span style="flex:1;color:var(--text);">'+escapeHtml(c.label)+'</span>'
+      + '<span style="color:var(--text3);font-family:DM Mono,monospace;font-size:10px;white-space:nowrap;">'+escapeHtml(c.who)+' · '+when+'</span>'
+      + '</div>';
+  }).join('');
+}
+
 function cmsPatch(section, value){
   var d=cmsRead(); d[section]=value; cmsWrite(d);
+  logChange('Updated ' + section);
   /* Auto-publish to GitHub if a PAT is configured. autoPublish() is a
      no-op when no PAT is set, so safe to always call. */
   if(typeof autoPublish==='function') autoPublish('Update '+section);
@@ -2840,6 +2894,7 @@ function setCommittee(which, list){
   if(!d.committee) d.committee = {};
   d.committee[which] = list;
   cmsWrite(d);
+  logChange('Updated ' + which + ' committee');
   if(typeof autoPublish==='function') autoPublish('Update '+which+' committee');
 }
 function buildAdminCommitteeList(which){
@@ -2988,6 +3043,7 @@ function setPollingAgents(list){
   var d = cmsRead();
   d.pollingAgents = list;
   cmsWrite(d);
+  logChange('Updated polling agents');
   if(typeof autoPublish==='function') autoPublish('Update polling agents');
 }
 function buildAdminPollingAgentsList(){
