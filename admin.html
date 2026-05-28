@@ -2945,7 +2945,8 @@ function removeCommitteePhoto(which, idx){
   buildAdminCommitteeList(which);
   showToast('Photo removed');
 }
-function escapeAttr(s){ return String(s).replace(/"/g,'&quot;').replace(/&/g,'&amp;'); }
+function escapeAttr(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
+function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function saveCommitteeRow(which, idx){
   var list = getCommittee(which).slice();
   ['post','name','phone'].forEach(function(field){
