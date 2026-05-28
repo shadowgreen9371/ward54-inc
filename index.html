@@ -81,9 +81,51 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p1-orb.white{width:210px;height:210px;background:#fff;top:55%;left:55%;opacity:0.07;animation-delay:-8s;}
 @keyframes orbDrift{0%,100%{transform:translate(0,0);}33%{transform:translate(34px,-24px);}66%{transform:translate(-22px,44px);}}
 /* Directory pages get a subtle warm backdrop */
-#p2,#p3,#p4{background:
+#p3,#p4{background:
   radial-gradient(ellipse 90% 50% at 50% 0%,rgba(232,130,30,0.05) 0%,transparent 60%),
   radial-gradient(ellipse 60% 80% at 100% 100%,rgba(201,168,76,0.04) 0%,transparent 60%),
+  var(--navy);}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   INSIDE-PAGE THEMING — cinematic backdrop + inspiring watermark icon + bold
+   highlighted header. Each page sets --acc / --acc2 to its section colour.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.page{position:relative;}
+.page-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+.page-fx .pf-glow{position:absolute;border-radius:50%;filter:blur(110px);background:var(--acc);opacity:0.42;}
+.page-fx .pf-glow-a{width:360px;height:360px;top:-110px;left:-110px;}
+.page-fx .pf-glow-b{width:320px;height:320px;bottom:-120px;right:-110px;background:var(--acc2);opacity:0.30;}
+.page-fx .pf-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 70%);mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 70%);}
+.page-fx .pf-wm{position:absolute;right:-5%;top:11%;width:min(62vw,430px);color:var(--acc);opacity:0.14;
+  filter:drop-shadow(0 0 36px var(--acc));transform:rotate(-7deg);animation:pfFloat 16s ease-in-out infinite;}
+.page-fx .pf-wm svg{width:100%;height:auto;display:block;}
+@keyframes pfFloat{0%,100%{transform:rotate(-7deg) translateY(0);}50%{transform:rotate(-7deg) translateY(-16px);}}
+/* keep body content above the fx layer */
+.p2-body,.p5-body,.p6-body,.p7-body{position:relative;z-index:1;}
+
+/* Bold, highlighted page headers (the centered topbar title) */
+.tb-title-center{font-weight:800 !important;letter-spacing:0.05em;position:relative;padding-bottom:5px;text-transform:uppercase;font-size:15px;
+  background:linear-gradient(120deg,var(--acc,#e8821e),var(--acc2,#c9a84c)) !important;
+  -webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;
+  filter:drop-shadow(0 1px 6px color-mix(in srgb,var(--acc,#e8821e) 50%,transparent));}
+.tb-title-center::after{content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:42px;height:3px;border-radius:3px;background:var(--acc,#e8821e);box-shadow:0 0 12px var(--acc,#e8821e);}
+/* Per-page accent palettes */
+#p2{--acc:#e8821e;--acc2:#1aaa0c;}
+#p5{--acc:#1aaa0c;--acc2:#e8821e;}
+#p6{--acc:#3b82f6;--acc2:#8b5cf6;}
+#p7{--acc:#a855f7;--acc2:#ec4899;}
+/* Richer per-page page backgrounds (tinted to the accent) */
+#p2{background:
+  radial-gradient(ellipse 100% 55% at 50% 0%,rgba(232,130,30,0.12) 0%,transparent 60%),
+  radial-gradient(ellipse 70% 80% at 100% 100%,rgba(26,170,12,0.08) 0%,transparent 62%),
+  var(--navy);}
+#p7{background:
+  radial-gradient(ellipse 100% 55% at 50% 0%,rgba(168,85,247,0.12) 0%,transparent 60%),
+  radial-gradient(ellipse 70% 80% at 100% 100%,rgba(236,72,153,0.08) 0%,transparent 62%),
   var(--navy);}
 .p1-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.7rem;padding:1.4rem 1.5rem;max-width:500px;width:100%;animation:fadeUp 0.8s ease both;}
 .inc-logo{width:94px;height:94px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);position:relative;z-index:2;box-shadow:0 0 0 1px rgba(255,255,255,0.10), 0 0 38px rgba(201,168,76,0.40), 0 0 90px rgba(232,130,30,0.25), 0 10px 30px rgba(0,0,0,0.5);}
@@ -325,19 +367,25 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .tb-user{display:flex;align-items:center;gap:7px;background:var(--glass);border:1px solid var(--border);border-radius:999px;padding:5px 12px 5px 6px;font-size:12px;color:var(--text2);}
 .tb-avatar{width:22px;height:22px;border-radius:50%;background:rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--gold);}
 
-/* PAGE 2 */
-#p2{background:var(--navy);}
+/* PAGE 2 — background themed above (#p2 accent rule) */
 .p2-body{padding:20px;flex:1;max-width:900px;width:100%;margin:0 auto;}
-#stationMap{height:300px;width:100%;border-radius:var(--r);border:1px solid var(--border);margin-bottom:18px;background:var(--navy3);z-index:1;}
+#stationMap{height:380px;width:100%;border-radius:var(--r);border:1px solid rgba(232,130,30,0.30);margin-bottom:18px;background:var(--navy3);z-index:1;
+  box-shadow:0 10px 34px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04) inset, 0 0 40px rgba(232,130,30,0.10);}
 .map-fallback{height:auto;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;text-align:center;}
 .map-fallback svg{width:32px;height:32px;color:var(--text3);}
 .map-fallback p{font-size:13px;color:var(--text3);}
-.leaflet-popup-content-wrapper{background:var(--navy2);color:var(--text);border-radius:8px;}
-.leaflet-popup-content{margin:10px 12px;font-family:'Outfit',sans-serif;}
+.leaflet-popup-content-wrapper{background:var(--navy2);color:var(--text);border-radius:12px;border:1px solid rgba(232,130,30,0.30);box-shadow:0 14px 40px rgba(0,0,0,0.55);overflow:hidden;}
+.leaflet-popup-content{margin:0;font-family:'Outfit',sans-serif;width:auto!important;}
 .leaflet-popup-tip{background:var(--navy2);}
-.map-popup-name{font-weight:600;font-size:13px;color:var(--text);}
-.map-popup-addr{font-size:11px;color:var(--text2);margin-top:3px;}
-.map-popup-parts{font-size:10px;color:var(--inc-saffron);margin-top:4px;}
+.map-popup-photo{margin:-1px -1px 8px;height:104px;overflow:hidden;background:var(--navy3);}
+.map-popup-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.map-popup-name{font-weight:700;font-size:13px;color:var(--text);padding:0 12px;}
+.map-popup-addr{font-size:11px;color:var(--text2);margin-top:3px;padding:0 12px;}
+.map-popup-stat{font-size:11px;color:var(--text);margin-top:6px;padding:0 12px;}
+.map-popup-stat b{color:var(--inc-saffron);font-size:13px;}
+.map-popup-parts{font-size:10px;color:var(--inc-saffron);margin-top:4px;padding:0 12px;line-height:1.45;}
+.map-popup-cta{font-size:10px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#fff;margin-top:8px;padding:7px 12px;
+  background:linear-gradient(135deg,rgba(232,130,30,0.9),rgba(201,84,15,0.9));}
 .search-wrap{display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:10px 14px;margin-bottom:16px;}
 .search-wrap svg{width:16px;height:16px;color:var(--text3);flex-shrink:0;}
 .search-wrap input{background:none;border:none;outline:none;font-size:13px;color:var(--text);flex:1;font-family:'Outfit',sans-serif;}
@@ -548,7 +596,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   .admin-stats{grid-template-columns:1fr 1fr;}
   .drawer-actions{grid-template-columns:1fr;}
   .profile-grid{grid-template-columns:1fr;}
-  #stationMap{height:240px;}
+  #stationMap{height:300px;}
 }
 
 /* PAGE 4 — ADMIN CONTROL PANEL */
@@ -1325,6 +1373,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <span class="tb-title tb-title-center">Polling Stations &amp; Polling Booth Details</span>
     <div class="tb-right"><span class="tb-badge">Ward 54 &middot; 12 stations &middot; 38 booths</span></div>
   </div>
+  <div class="page-fx" aria-hidden="true">
+    <span class="pf-glow pf-glow-a"></span><span class="pf-glow pf-glow-b"></span><span class="pf-grid"></span>
+    <span class="pf-wm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+  </div>
   <div class="p2-body">
     <div id="stationMap"></div>
 
@@ -1382,6 +1434,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <span class="tb-title tb-title-center">54 Ward Congress Committee</span>
     <div class="tb-right"><span class="tb-badge">Office Bearers &middot; Members</span></div>
   </div>
+  <div class="page-fx" aria-hidden="true">
+    <span class="pf-glow pf-glow-a"></span><span class="pf-glow pf-glow-b"></span><span class="pf-grid"></span>
+    <span class="pf-wm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V6l-8-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
+  </div>
   <div class="p5-body">
     <!-- 54 Ward Congress Committee — Office Bearers (top of page) -->
     <div class="committee-section" id="congressCommitteeSectionTop">
@@ -1420,6 +1476,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <span class="tb-title tb-title-center">Polling Agents</span>
     <div class="tb-right"><span class="tb-badge">3 agents</span></div>
   </div>
+  <div class="page-fx" aria-hidden="true">
+    <span class="pf-glow pf-glow-a"></span><span class="pf-glow pf-glow-b"></span><span class="pf-grid"></span>
+    <span class="pf-wm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+  </div>
   <div class="p6-body">
     <div class="pa-sec-head">
       <span class="pa-sec-ico" style="--c:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
@@ -1453,6 +1513,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <button class="back-btn" onclick="goTo('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Home</button>
     <span class="tb-title tb-title-center">54 Ward Youth Congress</span>
     <div class="tb-right"><span class="tb-badge">Youth wing &middot; Ward 54</span></div>
+  </div>
+  <div class="page-fx" aria-hidden="true">
+    <span class="pf-glow pf-glow-a"></span><span class="pf-glow pf-glow-b"></span><span class="pf-grid"></span>
+    <span class="pf-wm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
   </div>
   <div class="p7-body">
     <div class="p7-hero">
@@ -2950,8 +3014,23 @@ function initMap(){
   var el=document.getElementById('stationMap');
   if(typeof L==='undefined'||!el){ showMapFallback(el); return; }
   try{
-    leafMap=L.map('stationMap',{scrollWheelZoom:false}).setView([22.5592,88.3718],15);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap, &copy; CARTO',maxZoom:19}).addTo(leafMap);
+    leafMap=L.map('stationMap',{scrollWheelZoom:false,zoomControl:true}).setView([22.5592,88.3718],16);
+    /* Layered tiles: a clean labelled street map (default), a satellite view,
+       and the original dark theme — switchable via the layer control. */
+    var streets = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+      {attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:20,subdomains:'abcd'});
+    var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {attribution:'&copy; Esri, Maxar, Earthstar Geographics',maxZoom:20});
+    var labels = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png',
+      {attribution:'',maxZoom:20,subdomains:'abcd',pane:'shadowPane'});
+    var dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+      {attribution:'&copy; OpenStreetMap, &copy; CARTO',maxZoom:20,subdomains:'abcd'});
+    streets.addTo(leafMap);
+    var satGroup = L.layerGroup([satellite, labels]);
+    L.control.layers(
+      { 'Street map': streets, 'Satellite': satGroup, 'Dark': dark },
+      null, { position:'topright', collapsed:true }
+    ).addTo(leafMap);
     var bounds=[];
     /* One marker per *physical* polling station (12 buildings) — not per booth */
     var groups=groupedStationsFrom(stations);
@@ -2960,7 +3039,18 @@ function initMap(){
       var icon=L.divIcon({className:'',html:'<div style="background:#e8821e;color:#fff;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.4);"><span style="transform:rotate(45deg);font-size:12px;font-weight:700;font-family:Outfit,sans-serif;">'+labelNo+'</span></div>',iconSize:[30,30],iconAnchor:[15,30]});
       var m=L.marker([g.lat,g.lng],{icon:icon}).addTo(leafMap);
       var boothList=g.booths.map(function(b){return 'Booth '+b.no+(b.room?' ('+b.room+')':'');}).join(', ');
-      m.bindPopup('<div class="map-popup-name">'+labelNo+'. '+g.name+'</div><div class="map-popup-addr">'+g.addr+'</div><div class="map-popup-parts">'+count+' booth'+(count>1?'s':'')+': '+boothList+'</div>');
+      var photoSrc=(typeof buildingPhotos!=='undefined' && buildingPhotos[g.name])||'';
+      var ana=(typeof stationAnalytics==='function')?stationAnalytics(g):null;
+      var photoHTML=photoSrc?'<div class="map-popup-photo"><img src="'+photoSrc+'" alt=""></div>':'';
+      var statHTML=(ana&&ana.total)?'<div class="map-popup-stat"><b>'+ana.total.toLocaleString()+'</b> voters &middot; '+count+' booth'+(count>1?'s':'')+'</div>':'<div class="map-popup-parts">'+count+' booth'+(count>1?'s':'')+'</div>';
+      m.bindPopup(
+        photoHTML
+        +'<div class="map-popup-name">'+labelNo+'. '+g.name+'</div>'
+        +'<div class="map-popup-addr">'+g.addr+'</div>'
+        +statHTML
+        +'<div class="map-popup-parts">'+boothList+'</div>'
+        +'<div class="map-popup-cta">Tap marker → open booth ▸</div>',
+        {maxWidth:240,minWidth:200});
       /* Click opens the FIRST booth of this station so user lands somewhere useful */
       var firstBoothNo=g.booths[0].no;
       m.on('click',function(){setTimeout(function(){openStation(firstBoothNo);},400);});
