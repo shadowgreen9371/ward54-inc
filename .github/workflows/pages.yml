@@ -13,6 +13,9 @@ on:
       - 'CNAME'
       - '.nojekyll'
       - 'data/**'                 # voter JSON + cms.json must trigger a deploy
+      - 'manifest.webmanifest'    # PWA manifest
+      - 'sw.js'                   # PWA service worker
+      - 'icons/**'                # PWA app icons
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -40,6 +43,10 @@ jobs:
           touch _site/.nojekyll
           [ -f CNAME ] && cp CNAME _site/ || true
           [ -f README.md ] && cp README.md _site/ || true
+          # PWA assets — manifest, service worker, app icons
+          [ -f manifest.webmanifest ] && cp manifest.webmanifest _site/ || true
+          [ -f sw.js ] && cp sw.js _site/ || true
+          [ -d icons ] && cp -R icons _site/ || true
           # Copy the data/ tree EXCEPT the source PDFs (those are gitignored
           # but defensive copy in case anyone unpins them). Includes:
           #   data/cms/cms.json        — committee + main-page CMS data
