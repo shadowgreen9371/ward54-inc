@@ -60,10 +60,26 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p1-orb.white{width:200px;height:200px;background:#fff;top:55%;left:55%;opacity:0.08;animation-delay:-8s;}
 @keyframes orbDrift{0%,100%{transform:translate(0,0);}33%{transform:translate(30px,-20px);}66%{transform:translate(-20px,40px);}}
 /* Directory pages get a subtle warm backdrop */
-#p2,#p3,#p4{background:
+#p2,#p3{background:
   radial-gradient(ellipse 90% 50% at 50% 0%,rgba(232,130,30,0.05) 0%,transparent 60%),
   radial-gradient(ellipse 60% 80% at 100% 100%,rgba(201,168,76,0.04) 0%,transparent 60%),
   var(--navy);}
+
+/* ── Admin (p4) themed backdrop — gold control-room feel ── */
+.page{position:relative;}
+#p4{--acc:#c9a84c;--acc2:#e8821e;background:
+  radial-gradient(ellipse 100% 55% at 50% 0%,rgba(201,168,76,0.10) 0%,transparent 60%),
+  radial-gradient(ellipse 70% 80% at 100% 100%,rgba(232,130,30,0.06) 0%,transparent 62%),
+  var(--navy);}
+.page-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
+.page-fx .pf-glow{position:absolute;border-radius:50%;filter:blur(110px);background:var(--acc);opacity:0.32;}
+.page-fx .pf-glow-a{width:340px;height:340px;top:-110px;left:-110px;}
+.page-fx .pf-glow-b{width:300px;height:300px;bottom:-120px;right:-110px;background:var(--acc2);opacity:0.22;}
+.page-fx .pf-wm{position:absolute;right:-4%;top:8%;width:min(48vw,360px);color:var(--acc);opacity:0.10;
+  filter:drop-shadow(0 0 30px var(--acc));transform:rotate(-7deg);}
+.page-fx .pf-wm svg{width:100%;height:auto;display:block;}
+.p4-body{position:relative;z-index:1;}
+#p4 .tb-title{font-weight:800;background:linear-gradient(120deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .p1-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.2rem;padding:2rem;max-width:540px;width:100%;animation:fadeUp 0.8s ease both;}
 .inc-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 40px rgba(201,168,76,0.25), 0 0 80px rgba(232,130,30,0.15);}
 /* The landing logo gets a slow continuous spin + halo + halo pulse */
@@ -436,8 +452,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   #stationMap{height:240px;}
 }
 
-/* PAGE 4 — ADMIN CONTROL PANEL */
-#p4{background:var(--navy);}
+/* PAGE 4 — ADMIN CONTROL PANEL (background themed above) */
 .p4-body{padding:20px;flex:1;max-width:920px;width:100%;margin:0 auto;}
 .p4-section{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:18px;}
 .p4-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px;flex-wrap:wrap;}
@@ -665,6 +680,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="tb-user" id="tb-user-p4"><div class="tb-avatar">A</div><span id="p4-admin-email-label">Admin</span></div>
       <button class="btn btn-danger btn-sm" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Logout</button>
     </div>
+  </div>
+  <div class="page-fx" aria-hidden="true">
+    <span class="pf-glow pf-glow-a"></span><span class="pf-glow pf-glow-b"></span>
+    <span class="pf-wm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V6l-8-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
   </div>
   <div class="p4-body">
 
