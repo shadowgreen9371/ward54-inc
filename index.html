@@ -1359,6 +1359,43 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 }
 .p7-hero-title{font-size:clamp(20px,4vw,28px);font-weight:700;color:var(--text);letter-spacing:0.02em;margin-bottom:6px;}
 .p7-hero-sub{font-size:13px;color:var(--text3);}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PWA install button + offline badge + loading shimmer + committee polish
+   ═══════════════════════════════════════════════════════════════════════════ */
+/* Floating "Install app" pill (shown only when installable / iOS) */
+.install-fab{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120%);
+  z-index:900;display:none;align-items:center;gap:9px;cursor:pointer;
+  padding:11px 20px;border-radius:999px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.03em;color:#1a1410;
+  background:linear-gradient(135deg,#ffd9a8,#e8821e);border:1.5px solid rgba(255,255,255,0.35);
+  box-shadow:0 10px 30px rgba(232,130,30,0.45), inset 0 1px 0 rgba(255,255,255,0.4);
+  transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .25s ease;animation:fabGlow 2.6s ease-in-out infinite;}
+.install-fab.show{display:inline-flex;transform:translateX(-50%) translateY(0);}
+.install-fab:hover{box-shadow:0 14px 38px rgba(232,130,30,0.6);}
+.install-fab svg{width:17px;height:17px;}
+.install-fab .close-x{margin-left:4px;opacity:0.6;font-weight:700;}
+@keyframes fabGlow{0%,100%{box-shadow:0 10px 30px rgba(232,130,30,0.40), inset 0 1px 0 rgba(255,255,255,0.4);}50%{box-shadow:0 12px 40px rgba(232,130,30,0.6), inset 0 1px 0 rgba(255,255,255,0.4);}}
+
+/* Offline badge */
+.offline-pill{position:fixed;top:10px;left:50%;transform:translateX(-50%) translateY(-150%);
+  z-index:1000;display:inline-flex;align-items:center;gap:7px;
+  padding:6px 14px;border-radius:999px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;color:#fff;
+  background:rgba(40,18,18,0.92);border:1px solid rgba(239,68,68,0.5);backdrop-filter:blur(6px);
+  box-shadow:0 6px 20px rgba(0,0,0,0.4);transition:transform .35s ease;}
+.offline-pill.show{transform:translateX(-50%) translateY(0);}
+.offline-pill .dot{width:8px;height:8px;border-radius:50%;background:#ef4444;box-shadow:0 0 8px #ef4444;}
+
+/* Loading shimmer on empty photo placeholders */
+@keyframes cardShimmer{0%{background-position:-160% 0;}100%{background-position:260% 0;}}
+.committee-photo.empty, .pst-photo-wrap:empty{
+  background-image:linear-gradient(100deg,transparent 20%,rgba(255,255,255,0.07) 50%,transparent 80%);
+  background-size:200% 100%;animation:cardShimmer 1.8s linear infinite;}
+
+/* Committee-card premium polish (applies to both Congress p5 + Youth p7) */
+.committee-card{box-shadow:0 8px 24px rgba(0,0,0,0.28);}
+.committee-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.42);}
+.committee-section.youth .committee-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.42), 0 0 30px rgba(168,85,247,0.16);}
+.committee-section:not(.youth) .committee-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.42), 0 0 30px rgba(26,170,12,0.14);}
 </style>
 </head>
 <body>
@@ -4581,6 +4618,58 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.register('sw.js').catch(function(){/* offline-first is best-effort */});
   });
 }
+
+/* ── Install-app button + offline badge ─────────────────────────────────── */
+(function(){
+  var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  var isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  var deferredPrompt = null;
+
+  /* Build the floating install pill */
+  var fab = document.createElement('div');
+  fab.className = 'install-fab';
+  fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 21h14"/></svg><span>Install App</span><span class="close-x">✕</span>';
+  document.body.appendChild(fab);
+
+  function showFab(){ if(!isStandalone) fab.classList.add('show'); }
+  function hideFab(){ fab.classList.remove('show'); }
+
+  /* Dismiss (✕) — remember for this session */
+  fab.querySelector('.close-x').addEventListener('click', function(e){
+    e.stopPropagation(); hideFab(); try{ sessionStorage.setItem('ward54.fabDismissed','1'); }catch(_){}
+  });
+
+  fab.addEventListener('click', function(){
+    if(deferredPrompt){
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.finally(function(){ deferredPrompt = null; hideFab(); });
+    } else if(isiOS){
+      alert('To install:\n\n1. Tap the Share button (□↑) at the bottom of Safari\n2. Choose "Add to Home Screen"\n3. Tap Add\n\nThe Ward 54 app icon will appear on your home screen.');
+    }
+  });
+
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault(); deferredPrompt = e;
+    try{ if(sessionStorage.getItem('ward54.fabDismissed')) return; }catch(_){}
+    showFab();
+  });
+  window.addEventListener('appinstalled', function(){ hideFab(); deferredPrompt = null; });
+
+  /* iOS has no beforeinstallprompt — show the pill with manual instructions */
+  if(isiOS && !isStandalone){
+    try{ if(!sessionStorage.getItem('ward54.fabDismissed')) setTimeout(showFab, 1500); }catch(_){ setTimeout(showFab,1500); }
+  }
+
+  /* Offline badge */
+  var pill = document.createElement('div');
+  pill.className = 'offline-pill';
+  pill.innerHTML = '<span class="dot"></span><span>Offline — showing saved data</span>';
+  document.body.appendChild(pill);
+  function syncNet(){ if(navigator.onLine) pill.classList.remove('show'); else pill.classList.add('show'); }
+  window.addEventListener('online', syncNet);
+  window.addEventListener('offline', syncNet);
+  syncNet();
+})();
 </script>
 </body>
 </html>
