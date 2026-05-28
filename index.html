@@ -799,6 +799,17 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 #p6 .committee-post{
   color:#bcd8f7 !important;background:rgba(96,165,250,0.14) !important;border:1px solid rgba(96,165,250,0.32) !important;}
 
+/* ── Advanced vCard layout — portrait on the RIGHT, details on the left ── */
+#p6 .pa-group .committee-card{flex-direction:row-reverse;align-items:center;gap:16px;}
+/* accent bar moves to the right edge to match the right-side portrait */
+#p6 .pa-group .committee-card::before{left:auto !important;right:0 !important;border-radius:0 var(--r) 0 0;}
+#p6 .committee-info{text-align:left;}
+/* bigger ringed portrait for the vCard feel */
+#p6 .committee-photo{width:76px;height:92px;border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.4), 0 0 0 3px rgba(96,165,250,0.18), 0 0 22px rgba(59,130,246,0.22) !important;}
+/* keep the workers panel flush under the reversed card */
+#p6 .pa-group{padding:0;}
+
 /* Worker / congress-worker / notice / gallery cards — richer + lift on hover */
 #p6 .worker-card,#p6 .cw-card{box-shadow:0 6px 18px rgba(0,0,0,0.28);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
 #p6 .worker-card:hover,#p6 .cw-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.4);}
