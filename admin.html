@@ -761,6 +761,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <button class="btn btn-sm" onclick="testGithubPat()" style="background:rgba(255,255,255,0.06);color:var(--text2);border:1px solid var(--border);">Test</button>
         <button class="btn btn-sm" onclick="disconnectGithubPat()" style="background:rgba(239,68,68,0.08);color:var(--red2);border:1px solid rgba(239,68,68,0.25);">Disconnect</button>
       </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-sm" onclick="pullCmsFromLive(false)" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);color:#fff;font-weight:600;">⟲ Pull latest from live</button>
+        <span style="font-size:11px;color:var(--text3);flex:1;min-width:200px;">Loads the published <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;font-family:DM Mono,monospace;">cms.json</code> into this device so the admin matches the live site (3 polling agents, workers, notices, gallery). Do this once on each new device before editing.</span>
+      </div>
     </div>
 
     <!-- Section: Publish to Site (export → commit JSON to repo) -->
@@ -850,6 +854,42 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <button class="btn btn-primary btn-sm" onclick="addPollingAgent()">+ Add Agent</button>
       </div>
       <div id="adminPollingAgentsList"></div>
+    </div>
+
+    <!-- Section: 54 Ward — All Congress Workers -->
+    <div class="p4-section">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>54 Ward — All Congress Workers</div>
+          <div class="p4-section-sub">Booth-level karyakartas shown on the Polling Agents page</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addCongressWorker()">+ Add Worker</button>
+      </div>
+      <div id="adminCongressWorkersList"></div>
+    </div>
+
+    <!-- Section: Notice Board -->
+    <div class="p4-section">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>Notice Board</div>
+          <div class="p4-section-sub">Meetings, announcements and updates on the Polling Agents page</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addNotice()">+ Add Notice</button>
+      </div>
+      <div id="adminNoticesList"></div>
+    </div>
+
+    <!-- Section: Gallery -->
+    <div class="p4-section">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Gallery</div>
+          <div class="p4-section-sub">Field photos &amp; event pictures on the Polling Agents page</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addGalleryItem()">+ Add Photo</button>
+      </div>
+      <div id="adminGalleryList"></div>
     </div>
 
   </div>
@@ -2457,6 +2497,14 @@ function openAdminPanel(){
   document.getElementById('p4').classList.add('active');
   window.scrollTo(0,0);
   var lbl=document.getElementById('p4-admin-email-label');if(lbl)lbl.textContent=_adminEmail||'Admin';
+  /* First-run on a fresh device: seed localStorage from the live cms.json
+     so the admin opens already in sync with what's published. */
+  try{
+    var _c = cmsRead();
+    if(!_c || !_c.pollingAgents){
+      pullCmsFromLive(true).then(function(ok){ if(ok){ buildAdminPollingAgentsList(); buildAdminCongressWorkersList(); buildAdminNoticesList(); buildAdminGalleryList(); loadMainPageContent(); buildAdminCommitteeList('congress'); buildAdminCommitteeList('youth'); } });
+    }
+  }catch(e){}
   syncLogoAllPages();
   buildStationAdminList();
   buildVoterMgmtGrid();
@@ -2465,6 +2513,9 @@ function openAdminPanel(){
   buildAdminCommitteeList('congress');
   buildAdminCommitteeList('youth');
   buildAdminPollingAgentsList();
+  buildAdminCongressWorkersList();
+  buildAdminNoticesList();
+  buildAdminGalleryList();
   if(typeof updateCloudSyncUI === 'function') updateCloudSyncUI();
 }
 
@@ -2479,6 +2530,23 @@ function cmsPatch(section, value){
   /* Auto-publish to GitHub if a PAT is configured. autoPublish() is a
      no-op when no PAT is set, so safe to always call. */
   if(typeof autoPublish==='function') autoPublish('Update '+section);
+}
+
+/* Pull the published cms.json from the live site into this device's
+   localStorage so the admin matches what's live (prevents a stale device
+   from clobbering newer repo data on its next save). */
+function pullCmsFromLive(silent){
+  return fetch('data/cms/cms.json', { cache:'no-cache' })
+    .then(function(r){ if(!r.ok) throw new Error('not found'); return r.json(); })
+    .then(function(repo){
+      if(!repo) throw new Error('empty');
+      if(!silent && !confirm('Load the live site\'s data into this device?\n\nThis replaces the admin data stored in THIS browser with the published cms.json. Any un-published local edits will be lost.')) return false;
+      delete repo._exportedAt; delete repo._exportedBy; delete repo._schemaVersion; delete repo._note;
+      cmsWrite(repo);
+      if(!silent){ showToast('Pulled live data — refreshing…'); setTimeout(function(){ location.reload(); }, 700); }
+      return true;
+    })
+    .catch(function(){ if(!silent) showToast('Could not reach the live cms.json', 'error'); return false; });
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -2877,7 +2945,9 @@ function deleteCommitteeMember(which, idx){
 /* Simple committee-style schema:
    { part: "Part 1", name: "Md. Shakil", role: "PIC", phone: "+91 …", photo: null } */
 var PA_DEFAULTS = [
-  { part:'Part 1', name:'Polling Agent 1', role:'PIC', phone:'', photo:null }
+  { part:'Parts 1 – 13',  name:'Md. Shakil', role:'PIC', phone:'+91 98365 13741', photo:null, workers:[] },
+  { part:'Parts 14 – 26', name:'',           role:'PIC', phone:'', photo:null, workers:[] },
+  { part:'Parts 27 – 38', name:'',           role:'PIC', phone:'', photo:null, workers:[] }
 ];
 function getPollingAgents(){
   var d = cmsRead();
@@ -3118,6 +3188,123 @@ function savePollingAgents(){
   setPollingAgents(list);
   showToast('All polling agents saved');
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   POLLING-AGENTS PAGE — extra sections (Congress Workers / Notices / Gallery)
+   Each is a top-level cms key; edits auto-publish via cmsPatch().
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ---- 54 Ward — All Congress Workers ---- */
+function getCongressWorkers(){ var d=cmsRead(); return Array.isArray(d.congressWorkers)?d.congressWorkers:[]; }
+function setCongressWorkers(list){ cmsPatch('congressWorkers', list); }
+function buildAdminCongressWorkersList(){
+  var el=document.getElementById('adminCongressWorkersList'); if(!el) return;
+  var list=getCongressWorkers();
+  if(!list.length){ el.innerHTML='<div style="text-align:center;color:var(--text3);font-size:12px;padding:20px;border:1px dashed var(--border);border-radius:var(--r2)">No workers yet. Click "+ Add Worker".</div>'; return; }
+  el.innerHTML=list.map(function(w,i){
+    var photo=w.photo?'<img src="'+w.photo+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:20px;height:20px;color:var(--text3)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #138808;border-radius:var(--r2);padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;gap:11px;flex-wrap:wrap;">'
+      + '<label style="flex:0 0 46px;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(135deg,rgba(19,136,8,0.14),rgba(26,170,12,0.05));border:1.5px dashed rgba(26,170,12,0.4);overflow:hidden;position:relative;">'+photo+'<input type="file" accept="image/*" capture="user" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onCongressWorkerPhotoPick('+i+',this)"></label>'
+      + '<div style="flex:1;min-width:130px;"><input class="form-input" data-cw-field="name" data-cw-idx="'+i+'" value="'+escapeAttr(w.name||'')+'" placeholder="Worker name" style="padding:6px 8px;font-weight:500;"></div>'
+      + '<div style="flex:0 0 140px;"><input class="form-input" data-cw-field="role" data-cw-idx="'+i+'" value="'+escapeAttr(w.role||'')+'" placeholder="Role / area" style="padding:6px 8px;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#5fce63;font-weight:600;"></div>'
+      + '<div style="flex:0 0 150px;"><input class="form-input" data-cw-field="phone" data-cw-idx="'+i+'" value="'+escapeAttr(w.phone||'')+'" placeholder="+91 …" style="padding:6px 8px;font-family:DM Mono,monospace;font-size:12px;"></div>'
+      + '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px 12px;font-size:11px;" onclick="saveCongressWorker('+i+')">Save</button>'
+      + (w.photo?'<button class="btn btn-sm" style="background:transparent;color:var(--text3);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="removeCongressWorkerPhoto('+i+')">Photo ✕</button>':'')
+      + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deleteCongressWorker('+i+')">Delete</button>'
+      + '</div>';
+  }).join('');
+}
+function addCongressWorker(){ var l=getCongressWorkers().slice(); l.push({name:'',role:'',phone:'',photo:null}); setCongressWorkers(l); buildAdminCongressWorkersList();
+  setTimeout(function(){ var n=document.querySelectorAll('[data-cw-field="name"]'); if(n.length){ n[n.length-1].scrollIntoView({behavior:'smooth',block:'center'}); n[n.length-1].focus(); } },80); }
+function saveCongressWorker(i){ var l=getCongressWorkers().slice(); if(!l[i])return;
+  ['name','role','phone'].forEach(function(f){ var e=document.querySelector('[data-cw-field="'+f+'"][data-cw-idx="'+i+'"]'); if(e) l[i][f]=e.value.trim(); });
+  setCongressWorkers(l); showToast('Worker saved'); buildAdminCongressWorkersList(); }
+function deleteCongressWorker(i){ var l=getCongressWorkers().slice(); if(!l[i])return; if(!confirm('Delete "'+(l[i].name||'this worker')+'"?'))return; l.splice(i,1); setCongressWorkers(l); buildAdminCongressWorkersList(); showToast('Worker removed'); }
+function onCongressWorkerPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)return; showToast('Processing photo…');
+  processCommitteePhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getCongressWorkers().slice(); if(!l[i])return;
+    ['name','role','phone'].forEach(function(fl){ var e=document.querySelector('[data-cw-field="'+fl+'"][data-cw-idx="'+i+'"]'); if(e) l[i][fl]=e.value.trim(); });
+    l[i].photo=dataUrl; setCongressWorkers(l); buildAdminCongressWorkersList(); showToast('Photo saved'); }); input.value=''; }
+function removeCongressWorkerPhoto(i){ if(!confirm('Remove this photo?'))return; var l=getCongressWorkers().slice(); if(!l[i])return; l[i].photo=null; setCongressWorkers(l); buildAdminCongressWorkersList(); }
+
+/* ---- Notice Board ---- */
+function getNotices(){ var d=cmsRead(); return Array.isArray(d.notices)?d.notices:[]; }
+function setNotices(list){ cmsPatch('notices', list); }
+function buildAdminNoticesList(){
+  var el=document.getElementById('adminNoticesList'); if(!el) return;
+  var list=getNotices();
+  if(!list.length){ el.innerHTML='<div style="text-align:center;color:var(--text3);font-size:12px;padding:20px;border:1px dashed var(--border);border-radius:var(--r2)">No notices yet. Click "+ Add Notice".</div>'; return; }
+  el.innerHTML=list.map(function(n,i){
+    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #e8821e;border-radius:var(--r2);padding:12px 13px;margin-bottom:7px;">'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px;">'
+      +   '<input class="form-input" data-nt-field="title" data-nt-idx="'+i+'" value="'+escapeAttr(n.title||'')+'" placeholder="Notice title" style="flex:1;min-width:160px;padding:6px 8px;font-weight:600;">'
+      +   '<input class="form-input" data-nt-field="date" data-nt-idx="'+i+'" value="'+escapeAttr(n.date||'')+'" placeholder="e.g. 28 May 2026" style="flex:0 0 150px;padding:6px 8px;font-family:DM Mono,monospace;font-size:11px;color:var(--gold2);">'
+      + '</div>'
+      + '<textarea class="form-input" data-nt-field="body" data-nt-idx="'+i+'" rows="2" placeholder="Notice details…" style="width:100%;padding:6px 8px;font-size:12px;resize:vertical;">'+escapeHtml(n.body||'')+'</textarea>'
+      + '<div style="display:flex;gap:8px;margin-top:8px;">'
+      +   '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px 12px;font-size:11px;" onclick="saveNotice('+i+')">Save</button>'
+      +   '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deleteNotice('+i+')">Delete</button>'
+      + '</div></div>';
+  }).join('');
+}
+function addNotice(){ var l=getNotices().slice(); var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); l.unshift({title:'',body:'',date:today}); setNotices(l); buildAdminNoticesList();
+  setTimeout(function(){ var t=document.querySelector('[data-nt-field="title"][data-nt-idx="0"]'); if(t){ t.scrollIntoView({behavior:'smooth',block:'center'}); t.focus(); } },80); }
+function saveNotice(i){ var l=getNotices().slice(); if(!l[i])return;
+  ['title','date','body'].forEach(function(f){ var e=document.querySelector('[data-nt-field="'+f+'"][data-nt-idx="'+i+'"]'); if(e) l[i][f]=e.value.trim(); });
+  setNotices(l); showToast('Notice saved'); buildAdminNoticesList(); }
+function deleteNotice(i){ var l=getNotices().slice(); if(!l[i])return; if(!confirm('Delete this notice?'))return; l.splice(i,1); setNotices(l); buildAdminNoticesList(); showToast('Notice removed'); }
+
+/* ---- Gallery ---- */
+function getGallery(){ var d=cmsRead(); return Array.isArray(d.gallery)?d.gallery:[]; }
+function setGallery(list){ cmsPatch('gallery', list); }
+function buildAdminGalleryList(){
+  var el=document.getElementById('adminGalleryList'); if(!el) return;
+  var list=getGallery();
+  el.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;">'
+    + list.map(function(g,i){
+      var img=g.photo?'<img src="'+g.photo+'" style="width:100%;height:100%;object-fit:cover;">':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:26px;height:26px;color:var(--text3)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+      return '<div style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;">'
+        + '<label style="display:flex;align-items:center;justify-content:center;height:104px;cursor:pointer;background:var(--navy);overflow:hidden;position:relative;">'+img+'<input type="file" accept="image/*" capture="environment" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onGalleryPhotoPick('+i+',this)"></label>'
+        + '<div style="padding:7px;">'
+        +   '<input class="form-input" data-gl-field="caption" data-gl-idx="'+i+'" value="'+escapeAttr(g.caption||'')+'" placeholder="Caption" style="padding:5px 7px;font-size:11px;width:100%;">'
+        +   '<div style="display:flex;gap:6px;margin-top:6px;">'
+        +     '<button class="btn btn-sm" style="flex:1;background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:4px;font-size:10px;" onclick="saveGalleryItem('+i+')">Save</button>'
+        +     '<button class="btn btn-sm" style="flex:1;background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:4px;font-size:10px;" onclick="deleteGalleryItem('+i+')">Delete</button>'
+        +   '</div>'
+        + '</div></div>';
+    }).join('')
+    + '</div>'
+    + (list.length?'':'<div style="text-align:center;color:var(--text3);font-size:12px;padding:20px;border:1px dashed var(--border);border-radius:var(--r2);margin-top:0;">No photos yet. Click "+ Add Photo".</div>');
+}
+function addGalleryItem(){ var l=getGallery().slice(); l.push({caption:'',photo:null}); setGallery(l); buildAdminGalleryList();
+  setTimeout(function(){ var el=document.getElementById('adminGalleryList'); if(el) el.scrollIntoView({behavior:'smooth',block:'end'}); },80); }
+function saveGalleryItem(i){ var l=getGallery().slice(); if(!l[i])return; var e=document.querySelector('[data-gl-field="caption"][data-gl-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim(); setGallery(l); showToast('Saved'); buildAdminGalleryList(); }
+function deleteGalleryItem(i){ var l=getGallery().slice(); if(!l[i])return; if(!confirm('Delete this photo?'))return; l.splice(i,1); setGallery(l); buildAdminGalleryList(); showToast('Photo removed'); }
+function onGalleryPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)return; showToast('Processing photo…');
+  processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getGallery().slice(); if(!l[i])return; var e=document.querySelector('[data-gl-field="caption"][data-gl-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim(); l[i].photo=dataUrl; setGallery(l); buildAdminGalleryList(); showToast('Photo saved'); }); input.value=''; }
+
+/* Gallery photos keep a 4:3 landscape crop (committee crop is square). */
+function processGalleryPhoto(file, cb){
+  if(!file.type || file.type.indexOf('image/')!==0){ cb(null,'Please choose an image file'); return; }
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    var img=new Image();
+    img.onload=function(){
+      var TW=640, TH=480;
+      var canvas=document.createElement('canvas'); canvas.width=TW; canvas.height=TH;
+      var ctx=canvas.getContext('2d');
+      var scale=Math.max(TW/img.width, TH/img.height);
+      var dw=img.width*scale, dh=img.height*scale;
+      ctx.drawImage(img,(TW-dw)/2,(TH-dh)/2,dw,dh);
+      try{ cb(canvas.toDataURL('image/jpeg',0.82), null); }
+      catch(e){ cb(null,'Could not process image'); }
+    };
+    img.onerror=function(){ cb(null,'Invalid image'); };
+    img.src=ev.target.result;
+  };
+  reader.onerror=function(){ cb(null,'Could not read file'); };
+  reader.readAsDataURL(file);
+}
+
 function doLogout(){
   currentRole='viewer';
   _adminOTP=null;_adminEmail='';

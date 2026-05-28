@@ -57,18 +57,18 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   radial-gradient(ellipse 90% 50% at 50% 0%,rgba(232,130,30,0.05) 0%,transparent 60%),
   radial-gradient(ellipse 60% 80% at 100% 100%,rgba(201,168,76,0.04) 0%,transparent 60%),
   var(--navy);}
-.p1-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.2rem;padding:2rem;max-width:540px;width:100%;animation:fadeUp 0.8s ease both;}
-.inc-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 40px rgba(201,168,76,0.25), 0 0 80px rgba(232,130,30,0.15);}
+.p1-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.7rem;padding:1.4rem 1.5rem;max-width:500px;width:100%;animation:fadeUp 0.8s ease both;}
+.inc-logo{width:94px;height:94px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 40px rgba(201,168,76,0.25), 0 0 80px rgba(232,130,30,0.15);}
 /* Landing logo — static (animations removed per request). incSpin keyframe kept
    so .flag-chakra inside .p1-title still spins. */
 #p1 .inc-logo{position:relative;transform-origin:center;}
 @keyframes incSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.p1-logo-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:170px;height:170px;}
+.p1-logo-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:122px;height:122px;}
 .p1-logo-ring{position:absolute;inset:0;border-radius:50%;pointer-events:none;}
 .p1-logo-ring::before,.p1-logo-ring::after{content:'';position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(201,168,76,0.35);}
 .p1-logo-ring::after{inset:-10px;border:1px solid rgba(232,130,30,0.18);}
 .p1-tagline{font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);font-weight:700;}
-.ward-big{font-family:'Outfit',sans-serif;font-size:clamp(30px,6vw,46px);font-weight:700;letter-spacing:0.03em;color:var(--text);text-align:center;line-height:1;text-shadow:0 0 30px rgba(255,255,255,0.1);}
+.ward-big{font-family:'Outfit',sans-serif;font-size:clamp(28px,5.4vw,40px);font-weight:700;letter-spacing:0.03em;color:var(--text);text-align:center;line-height:1;text-shadow:0 0 30px rgba(255,255,255,0.1);}
 .kmc-line{
   font-family:'DM Serif Display','Outfit',serif;
   font-size:clamp(15px,2.6vw,20px);
@@ -92,20 +92,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 }
 .kmc-line::before{top:0;}
 .kmc-line::after{bottom:0;}
-.p1-title{font-family:'Outfit',sans-serif;font-size:clamp(16px,3.4vw,26px);text-align:center;line-height:1.2;color:var(--text);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:inline-block;transform-style:preserve-3d;animation:incTitleSpin 9s ease-in-out infinite;transform-origin:center center;backface-visibility:visible;}
-/* Hold readable at 0° for ~55% of the cycle, flip to 180°, return to 0° */
-@keyframes incTitleSpin{
-  0%,55%{transform:perspective(900px) rotateY(0deg);}
-  75%{transform:perspective(900px) rotateY(180deg);}
-  100%{transform:perspective(900px) rotateY(0deg);}
-}
+.p1-title{font-family:'Outfit',sans-serif;font-size:clamp(15px,3.2vw,24px);text-align:center;line-height:1.2;color:var(--text);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;display:inline-block;}
 .p1-title .flag-saffron{color:#FF9933;text-shadow:0 0 18px rgba(255,153,51,0.55), 0 0 40px rgba(255,153,51,0.25);font-weight:800;}
 .p1-title .flag-white{color:#FFFFFF;text-shadow:0 0 18px rgba(255,255,255,0.65), 0 0 40px rgba(255,255,255,0.20);font-weight:800;}
 .p1-title .flag-green{color:#138808;text-shadow:0 0 18px rgba(19,136,8,0.65), 0 0 40px rgba(19,136,8,0.30);font-weight:800;background:linear-gradient(135deg,#138808 0%,#1aaa0c 50%,#138808 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;letter-spacing:0.12em;}
 .p1-title .flag-chakra{display:inline-block;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#000080 0%,#000080 28%,transparent 30%),repeating-conic-gradient(from 0deg,#000080 0deg 7.5deg,transparent 7.5deg 15deg);border:1.5px solid #000080;vertical-align:middle;margin:0 6px;animation:incSpin 8s linear infinite;}
 .p1-sub-line{font-size:13px;color:var(--text3);letter-spacing:0.04em;text-align:center;}
 .p1-divider{width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0.2rem 0;}
-.entry-bar-group{display:flex;flex-direction:column;gap:12px;width:100%;max-width:430px;margin-top:0.4rem;}
+.entry-bar-group{display:flex;flex-direction:column;gap:11px;width:100%;max-width:440px;margin-top:0.15rem;}
 .entry-bar{display:flex;align-items:center;gap:14px;background:var(--glass);border:1px solid var(--border2);border-radius:14px;padding:17px 20px;cursor:pointer;transition:all 0.22s ease;position:relative;overflow:hidden;}
 .entry-bar::before{content:'';position:absolute;left:0;top:0;height:100%;width:3px;opacity:0;transition:opacity 0.22s;}
 .entry-bar.view-bar::before{background:var(--inc-saffron);}
@@ -123,7 +117,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .entry-bar-arrow svg{width:18px;height:18px;}
 .entry-bar:hover .entry-bar-arrow{transform:translateX(4px);}
 
-.entry-bar-group{gap:14px;}
+.entry-bar-group{gap:11px;}
 /* Green-tinted secondary hero CTA for "ALL 38 PARTS DATABASE" */
 .hero-cta-secondary{
   background:linear-gradient(135deg, rgba(19,136,8,0.18) 0%, rgba(26,170,12,0.10) 50%, rgba(232,130,30,0.16) 100%) !important;
@@ -173,11 +167,11 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes heroDotBlue{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0.7), 0 0 8px rgba(59,130,246,0.6);}50%{box-shadow:0 0 0 8px rgba(59,130,246,0), 0 0 12px rgba(59,130,246,0.8);}}
 
 /* HERO CTA — single big bold animated bar for "ENTER VOTER DIRECTORY" */
-.hero-cta{position:relative;display:flex;align-items:center;gap:18px;width:100%;max-width:480px;
+.hero-cta{position:relative;display:flex;align-items:center;gap:14px;width:100%;max-width:440px;
   background:linear-gradient(135deg, rgba(232,130,30,0.18) 0%, rgba(255,153,51,0.10) 50%, rgba(19,136,8,0.16) 100%);
   border:2px solid transparent;
-  border-radius:20px;
-  padding:22px 26px;
+  border-radius:18px;
+  padding:15px 20px;
   cursor:pointer;
   overflow:hidden;
   isolation:isolate;
@@ -201,23 +195,23 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   animation:heroShimmer 3.5s ease-in-out infinite;}
 @keyframes heroShimmer{0%{left:-60%;}55%{left:160%;}100%{left:160%;}}
 
-.hero-cta-icon{position:relative;z-index:2;width:62px;height:62px;border-radius:50%;
+.hero-cta-icon{position:relative;z-index:2;width:50px;height:50px;border-radius:50%;
   background:linear-gradient(135deg, rgba(255,153,51,0.85), rgba(232,130,30,0.65));
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
   border:2px solid rgba(255,255,255,0.25);
   box-shadow:0 4px 18px rgba(232,130,30,0.45), inset 0 1px 0 rgba(255,255,255,0.30);
   color:#fff;}
-.hero-cta-icon svg{width:28px;height:28px;}
+.hero-cta-icon svg{width:24px;height:24px;}
 
 .hero-cta-text{position:relative;z-index:2;flex:1;min-width:0;text-align:left;}
-.hero-cta-title{font-size:clamp(18px,4.2vw,22px);font-weight:800;letter-spacing:0.08em;color:#fff;line-height:1.1;
+.hero-cta-title{font-size:clamp(16px,3.8vw,20px);font-weight:800;letter-spacing:0.06em;color:#fff;line-height:1.12;
   text-shadow:0 2px 8px rgba(0,0,0,0.40), 0 0 24px rgba(232,130,30,0.30);}
-.hero-cta-desc{font-size:11px;color:rgba(255,255,255,0.78);margin-top:6px;letter-spacing:0.04em;display:flex;align-items:center;gap:6px;font-weight:500;}
+.hero-cta-desc{font-size:10.5px;color:rgba(255,255,255,0.78);margin-top:4px;letter-spacing:0.04em;display:flex;align-items:center;gap:6px;font-weight:500;}
 .hero-cta-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--inc-saffron);box-shadow:0 0 0 0 rgba(232,130,30,0.7);animation:heroDot 1.6s ease-in-out infinite;flex-shrink:0;}
 @keyframes heroDot{0%,100%{box-shadow:0 0 0 0 rgba(232,130,30,0.7), 0 0 8px rgba(232,130,30,0.6);}50%{box-shadow:0 0 0 8px rgba(232,130,30,0), 0 0 12px rgba(232,130,30,0.8);}}
 
 .hero-cta-arrow{position:relative;z-index:2;color:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  width:42px;height:42px;border-radius:50%;
+  width:36px;height:36px;border-radius:50%;
   background:rgba(255,255,255,0.10);
   border:1px solid rgba(255,255,255,0.18);
   transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
@@ -227,10 +221,20 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes heroArrow{0%,100%{transform:translateX(0);}50%{transform:translateX(4px);}}
 
 @media(max-width:520px){
-  .hero-cta{padding:18px 18px;gap:14px;}
-  .hero-cta-icon{width:54px;height:54px;}
-  .hero-cta-icon svg{width:24px;height:24px;}
-  .hero-cta-title{letter-spacing:0.06em;}
+  .hero-cta{padding:13px 16px;gap:12px;}
+  .hero-cta-icon{width:46px;height:46px;}
+  .hero-cta-icon svg{width:22px;height:22px;}
+  .hero-cta-title{letter-spacing:0.05em;}
+}
+/* Short-viewport safety: tighten everything further so the hero never
+   needs a scroll on smaller phones / landscape. */
+@media(max-height:740px){
+  .p1-content{gap:0.5rem;padding:1rem 1.4rem;}
+  .p1-logo-wrap{width:96px;height:96px;}
+  .inc-logo{width:74px;height:74px;}
+  .hero-cta{padding:12px 16px;}
+  .hero-cta-icon{width:44px;height:44px;}
+  .p1-divider{margin:0;}
 }
 
 /* MODALS */
@@ -604,6 +608,58 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
    ═══════════════════════════════════════════════════════════════════════════ */
 /* Polling agents — one PIC card per agent, plus a workers-allocated panel
    below each. Vertical stack so each PIC group reads as a unit. */
+/* Section headers on the Polling Agents page */
+.pa-sec-head{display:flex;align-items:center;gap:12px;margin:30px 0 14px;}
+.pa-sec-head:first-child{margin-top:4px;}
+.pa-sec-ico{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  color:var(--c,#3b82f6);background:color-mix(in srgb,var(--c,#3b82f6) 16%,transparent);
+  border:1px solid color-mix(in srgb,var(--c,#3b82f6) 38%,transparent);}
+.pa-sec-ico svg{width:19px;height:19px;}
+.pa-sec-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:0.02em;}
+.pa-sec-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+
+/* Congress workers — compact card grid */
+.congress-workers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px;}
+.cw-card{background:var(--glass);border:1px solid var(--border);border-left:3px solid #138808;border-radius:var(--r2);
+  padding:11px 12px;display:flex;gap:10px;align-items:flex-start;transition:border-color .18s,background .18s;}
+.cw-card:hover{border-color:var(--border2);background:var(--glass2);}
+.cw-photo{width:44px;height:44px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:#5fce63;overflow:hidden;
+  background:linear-gradient(135deg,rgba(19,136,8,0.18),rgba(26,170,12,0.08));border:1.5px solid rgba(26,170,12,0.32);}
+.cw-photo img{width:100%;height:100%;object-fit:cover;}
+.cw-info{flex:1;min-width:0;}
+.cw-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.2;}
+.cw-role{font-size:10px;color:#5fce63;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;font-weight:600;}
+.cw-phone{font-family:DM Mono,monospace;font-size:11px;color:var(--text2);margin-top:5px;display:flex;align-items:center;gap:5px;}
+.cw-phone svg{width:10px;height:10px;color:var(--text3);}
+.cw-phone a{color:inherit;text-decoration:none;}
+.cw-wa{display:inline-flex;align-items:center;gap:4px;margin-top:6px;background:linear-gradient(135deg,#25D366,#128C7E);
+  color:#fff;text-decoration:none;font-size:9px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+  padding:3px 8px 3px 6px;border-radius:999px;border:1px solid rgba(255,255,255,0.18);}
+.cw-wa svg{width:10px;height:10px;}
+.cw-wa:hover{filter:brightness(1.08);}
+
+/* Notice board */
+.notice-list{display:flex;flex-direction:column;gap:10px;}
+.notice-card{background:linear-gradient(135deg,rgba(232,130,30,0.08),rgba(255,153,51,0.03));
+  border:1px solid var(--border);border-left:3px solid #e8821e;border-radius:var(--r2);padding:13px 15px;}
+.notice-row1{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:5px;}
+.notice-title{font-size:13.5px;font-weight:700;color:var(--text);line-height:1.3;}
+.notice-date{font-size:10px;color:var(--gold);font-family:DM Mono,monospace;white-space:nowrap;flex-shrink:0;}
+.notice-body{font-size:12px;color:var(--text2);line-height:1.5;white-space:pre-wrap;}
+
+/* Gallery */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+.gal-card{position:relative;border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);
+  background:var(--navy3);aspect-ratio:4/3;}
+.gal-card img{width:100%;height:100%;object-fit:cover;display:block;}
+.gal-cap{position:absolute;left:0;right:0;bottom:0;padding:14px 9px 7px;font-size:10.5px;color:#fff;font-weight:600;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,0.78));}
+
+/* Empty-state shared on this page */
+.pa-empty{grid-column:1/-1;text-align:center;color:var(--text3);font-size:12px;padding:22px;
+  border:1px dashed var(--border);border-radius:var(--r2);}
+
 .agents-name-list{
   display:flex;flex-direction:column;
   gap:24px;margin-top:8px;
@@ -1173,7 +1229,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <h1 class="p1-title"><span class="flag-saffron">INDIAN</span> <span class="flag-white">NATIONAL</span><br><span class="flag-green">CONGRESS</span></h1>
     <div class="p1-divider"></div>
     <div class="entry-bar-group">
-      <div class="hero-cta hero-cta-secondary" onclick="goTo('p5')">
+      <div class="hero-cta" onclick="goTo('p5')">
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/></svg></div>
         <div class="hero-cta-text">
@@ -1182,7 +1238,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
-      <div class="hero-cta hero-cta-youth" onclick="goTo('p7')">
+      <div class="hero-cta" onclick="goTo('p7')">
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
         <div class="hero-cta-text">
@@ -1200,7 +1256,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
-      <div class="hero-cta hero-cta-tertiary" onclick="goTo('p6')">
+      <div class="hero-cta" onclick="goTo('p6')">
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="hero-cta-text">
@@ -1317,7 +1373,29 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="tb-right"><span class="tb-badge">3 agents</span></div>
   </div>
   <div class="p6-body">
+    <div class="pa-sec-head">
+      <span class="pa-sec-ico" style="--c:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <div><div class="pa-sec-title">Polling Agents</div><div class="pa-sec-sub">All 38 parts &middot; 3 booth agents</div></div>
+    </div>
     <div class="agents-name-list" id="agents-name-list"></div>
+
+    <div class="pa-sec-head">
+      <span class="pa-sec-ico" style="--c:#138808"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <div><div class="pa-sec-title">54 Ward — All Congress Workers</div><div class="pa-sec-sub">Booth-level karyakartas across the ward</div></div>
+    </div>
+    <div class="congress-workers-grid" id="congress-workers-grid"></div>
+
+    <div class="pa-sec-head">
+      <span class="pa-sec-ico" style="--c:#e8821e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span>
+      <div><div class="pa-sec-title">Notice Board</div><div class="pa-sec-sub">Meetings &middot; announcements &middot; updates</div></div>
+    </div>
+    <div class="notice-list" id="notice-list"></div>
+
+    <div class="pa-sec-head">
+      <span class="pa-sec-ico" style="--c:#a855f7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+      <div><div class="pa-sec-title">Gallery</div><div class="pa-sec-sub">Field photos &middot; events &middot; campaigns</div></div>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
   </div>
 </div>
 
@@ -2806,7 +2884,7 @@ function goTo(id){
   document.getElementById(id).classList.add('active');window.scrollTo(0,0);
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
   if(id==='p5'){ buildCommittee('congress'); }
-  if(id==='p6'){ buildPollingAgentsList(); }
+  if(id==='p6'){ buildPollingAgentsPage(); }
   if(id==='p7'){ buildCommittee('youth'); }
   syncTopbarLogos();
 }
@@ -3817,17 +3895,25 @@ function buildVolunteersPanel(){
 var pollingAgentsList = [
   {
     id: 'pa1',
-    part: 'Part 1',
+    part: 'Parts 1 – 13',
     name: 'Md. Shakil',
     role: 'PIC',
     phone: '+91 98365 13741',
     photo: null,
+    workers: [],
     /* Backward-compat fields (older complaint tracker may still read these): */
     status: 'active',
     targetArea: '',
     responsibilities: []
-  }
+  },
+  { id:'pa2', part:'Parts 14 – 26', name:'', role:'PIC', phone:'', photo:null, workers:[], status:'active', targetArea:'', responsibilities:[] },
+  { id:'pa3', part:'Parts 27 – 38', name:'', role:'PIC', phone:'', photo:null, workers:[], status:'active', targetArea:'', responsibilities:[] }
 ];
+
+/* New Polling-Agents-page sections (driven by cms.json) */
+var congressWorkersList = [];   /* [{name, role, phone, photo}] */
+var noticesList         = [];   /* [{title, body, date}] */
+var galleryList         = [];   /* [{caption, photo}] */
 
 var STATUS_LABEL = { active:'Active', onduty:'On Duty', offduty:'Off Duty' };
 
@@ -3975,6 +4061,80 @@ function buildPollingAgentsList(){
       + workersHTML
     + '</div>';
   }).join('');
+}
+
+/* ── 54 Ward — All Congress Workers ─────────────────────────────────────── */
+function buildCongressWorkers(){
+  var el = document.getElementById('congress-workers-grid');
+  if(!el) return;
+  var list = Array.isArray(congressWorkersList) ? congressWorkersList : [];
+  if(!list.length){
+    el.innerHTML = '<div class="pa-empty">No congress workers added yet.</div>';
+    return;
+  }
+  el.innerHTML = list.map(function(w){
+    var photo = w.photo
+      ? '<div class="cw-photo"><img src="'+w.photo+'" alt=""></div>'
+      : '<div class="cw-photo">'+committeeInitials(w.name||'')+'</div>';
+    var phoneHTML = '';
+    if(w.phone){
+      var clean = String(w.phone).replace(/\D/g,'');
+      var wa = clean.length >= 12 ? clean : '91' + clean;
+      var txt = encodeURIComponent('Namaste, this is from the Ward 54 INC team.');
+      phoneHTML =
+          '<div class="cw-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:'+clean+'">'+escapeHtml(w.phone)+'</a></div>'
+        + '<a class="cw-wa" href="https://wa.me/'+wa+'?text='+txt+'" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>WhatsApp</a>';
+    }
+    return '<div class="cw-card">'+photo+'<div class="cw-info">'
+      + '<div class="cw-name">'+escapeHtml(w.name||'')+'</div>'
+      + (w.role ? '<div class="cw-role">'+escapeHtml(w.role)+'</div>' : '')
+      + phoneHTML
+      + '</div></div>';
+  }).join('');
+}
+
+/* ── Notice Board ───────────────────────────────────────────────────────── */
+function buildNotices(){
+  var el = document.getElementById('notice-list');
+  if(!el) return;
+  var list = Array.isArray(noticesList) ? noticesList : [];
+  if(!list.length){
+    el.innerHTML = '<div class="pa-empty">No notices posted yet.</div>';
+    return;
+  }
+  el.innerHTML = list.map(function(n){
+    return '<div class="notice-card"><div class="notice-row1">'
+      + '<span class="notice-title">'+escapeHtml(n.title||'')+'</span>'
+      + (n.date ? '<span class="notice-date">'+escapeHtml(n.date)+'</span>' : '')
+      + '</div>'
+      + (n.body ? '<div class="notice-body">'+escapeHtml(n.body)+'</div>' : '')
+      + '</div>';
+  }).join('');
+}
+
+/* ── Gallery ────────────────────────────────────────────────────────────── */
+function buildGallery(){
+  var el = document.getElementById('gallery-grid');
+  if(!el) return;
+  var list = Array.isArray(galleryList) ? galleryList : [];
+  if(!list.length){
+    el.innerHTML = '<div class="pa-empty">No photos in the gallery yet.</div>';
+    return;
+  }
+  el.innerHTML = list.map(function(g){
+    if(!g.photo) return '';
+    return '<div class="gal-card"><img src="'+g.photo+'" alt="'+escapeHtml(g.caption||'')+'">'
+      + (g.caption ? '<div class="gal-cap">'+escapeHtml(g.caption)+'</div>' : '')
+      + '</div>';
+  }).join('');
+}
+
+/* Render the whole Polling Agents page in one call */
+function buildPollingAgentsPage(){
+  buildPollingAgentsList();
+  buildCongressWorkers();
+  buildNotices();
+  buildGallery();
 }
 
 function toggleComplaintForm(agentId){
@@ -4168,6 +4328,11 @@ function _applyCmsObject(cms){
       return Object.assign({ id:'pa'+(i+1) }, a);
     });
   }
+
+  /* New Polling-Agents-page sections */
+  if(Array.isArray(cms.congressWorkers)) congressWorkersList = cms.congressWorkers.slice();
+  if(Array.isArray(cms.notices))         noticesList         = cms.notices.slice();
+  if(Array.isArray(cms.gallery))         galleryList         = cms.gallery.slice();
 }
 
 /* Two-stage CMS load:
@@ -4194,7 +4359,7 @@ function _applyCmsObject(cms){
       if(active){
         if(active.id === 'p5' && typeof buildCommittee === 'function') buildCommittee('congress');
         if(active.id === 'p7' && typeof buildCommittee === 'function') buildCommittee('youth');
-        if(active.id === 'p6' && typeof buildPollingAgentsList === 'function') buildPollingAgentsList();
+        if(active.id === 'p6' && typeof buildPollingAgentsPage === 'function') buildPollingAgentsPage();
       }
     })
     .catch(function(){ /* repo JSON not present yet — localStorage wins */ });

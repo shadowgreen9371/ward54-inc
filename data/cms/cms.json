@@ -2,7 +2,7 @@
   "_exportedAt": "2026-05-27T12:44:14.661Z",
   "_exportedBy": "claude-embed-photos-script",
   "_schemaVersion": 1,
-  "_note": "Committee photos embedded from data/cms/*.png/jpg uploads. Names + phones + posts also set per the mapping in scripts/embed-photos.mjs. To regenerate: drop new photos into data/cms/ and re-run the script.",
+  "_note": "Polling Agents page: 3 agents covering all 38 parts. congressWorkers/notices/gallery drive the new sections. Edit via admin panel.",
   "mainPage": {
     "ward": "WARD NO. 54",
     "kmc": "Kolkata Municipal Corporation",
@@ -88,12 +88,31 @@
   },
   "pollingAgents": [
     {
-      "part": "Part 1",
+      "part": "Parts 1 – 13",
       "name": "Md. Shakil",
       "role": "PIC",
       "phone": "+91 98365 13741",
       "photo": null,
       "workers": []
+    },
+    {
+      "part": "Parts 14 – 26",
+      "name": "",
+      "role": "PIC",
+      "phone": "",
+      "photo": null,
+      "workers": []
+    },
+    {
+      "part": "Parts 27 – 38",
+      "name": "",
+      "role": "PIC",
+      "phone": "",
+      "photo": null,
+      "workers": []
     }
-  ]
+  ],
+  "congressWorkers": [],
+  "notices": [],
+  "gallery": []
 }
