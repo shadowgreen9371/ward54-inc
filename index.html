@@ -45,12 +45,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 @keyframes scaleIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
 
-/* PAGE 1 — cinematic hero */
-#p1{align-items:center;justify-content:center;position:relative;overflow:hidden;
+/* PAGE 1 — cinematic hero (scrollable: hero fold + sections below) */
+#p1{align-items:stretch;justify-content:flex-start;position:relative;overflow-x:hidden;
   background:
     radial-gradient(120% 80% at 50% -10%,#222a54 0%,#121737 32%,#0a0f1e 62%,#05070f 100%);}
-/* Slow-rotating tricolour spotlight sweep behind everything */
-#p1::before{content:'';position:absolute;top:50%;left:50%;width:160vmax;height:160vmax;
+/* Hero fills the first screen; sections flow underneath */
+#p1 .p1-content{min-height:100vh;min-height:100svh;justify-content:center;}
+/* Slow-rotating tricolour spotlight sweep behind everything (fixed backdrop) */
+#p1::before{content:'';position:fixed;top:50%;left:50%;width:160vmax;height:160vmax;
   transform:translate(-50%,-50%);pointer-events:none;z-index:0;opacity:0.5;
   background:conic-gradient(from 0deg at 50% 50%,
     rgba(255,153,51,0.16) 0deg, transparent 55deg,
@@ -61,21 +63,21 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   animation:p1Spin 48s linear infinite;}
 @keyframes p1Spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
 /* Cinematic vignette + top key-light, sits above the spotlight, below content */
-#p1::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+#p1::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;
   background:
     radial-gradient(70% 50% at 50% 0%,rgba(255,170,80,0.10) 0%,transparent 60%),
     radial-gradient(120% 100% at 50% 50%,transparent 52%,rgba(3,5,12,0.55) 100%);}
 /* Aurora gradient curtains — slow drift for classy ambience */
-.p1-bg{position:absolute;inset:0;z-index:0;background:
+.p1-bg{position:fixed;inset:0;z-index:0;background:
   radial-gradient(ellipse 80% 60% at 50% 0%,rgba(232,130,30,0.20) 0%,transparent 60%),
   radial-gradient(ellipse 50% 70% at 12% 90%,rgba(26,138,74,0.16) 0%,transparent 65%),
   radial-gradient(ellipse 55% 65% at 88% 95%,rgba(255,255,255,0.10) 0%,transparent 60%),
   radial-gradient(ellipse 90% 55% at 50% 100%,rgba(201,168,76,0.07) 0%,transparent 70%);
   animation:auroraDrift 22s ease-in-out infinite alternate;}
 @keyframes auroraDrift{0%{filter:hue-rotate(0deg) saturate(1);transform:scale(1);}100%{filter:hue-rotate(8deg) saturate(1.15);transform:scale(1.05);}}
-.p1-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(ellipse at center,black 22%,transparent 78%);-webkit-mask-image:radial-gradient(ellipse at center,black 22%,transparent 78%);}
+.p1-grid{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(ellipse at center,black 22%,transparent 78%);-webkit-mask-image:radial-gradient(ellipse at center,black 22%,transparent 78%);}
 /* Floating tricolour orbs for INC accent */
-.p1-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.55;pointer-events:none;z-index:0;animation:orbDrift 14s ease-in-out infinite;}
+.p1-orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.55;pointer-events:none;z-index:0;animation:orbDrift 14s ease-in-out infinite;}
 .p1-orb.saffron{width:300px;height:300px;background:var(--inc-saffron);top:8%;left:-80px;animation-delay:0s;}
 .p1-orb.green{width:250px;height:250px;background:var(--inc-green);bottom:10%;right:-60px;animation-delay:-4s;}
 .p1-orb.white{width:210px;height:210px;background:#fff;top:55%;left:55%;opacity:0.07;animation-delay:-8s;}
@@ -1396,6 +1398,21 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .committee-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.42);}
 .committee-section.youth .committee-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.42), 0 0 30px rgba(168,85,247,0.16);}
 .committee-section:not(.youth) .committee-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.42), 0 0 30px rgba(26,170,12,0.14);}
+
+/* ── Home page Notice Board + Gallery (below the hero fold) ── */
+.home-sections{position:relative;z-index:2;width:100%;max-width:600px;margin:0 auto;padding:6px 18px 72px;}
+.home-sec{margin-top:30px;animation:fadeUp .6s ease both;}
+.home-sec .pa-sec-head{margin:0 0 14px;}
+/* scroll cue at the bottom of the hero */
+.scroll-cue{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:14px;color:var(--gold2);
+  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;opacity:0.85;animation:cueBob 2s ease-in-out infinite;}
+.scroll-cue svg{width:18px;height:18px;}
+@keyframes cueBob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+#p1 .gal-card:hover{transform:translateY(-3px) scale(1.015);box-shadow:0 16px 38px rgba(0,0,0,0.5), 0 0 0 1px rgba(168,85,247,0.35);}
+#p1 .gal-card img{transition:transform .5s cubic-bezier(.4,0,.2,1);}
+#p1 .gal-card:hover img{transform:scale(1.07);}
+#p1 .notice-card{transition:transform .18s ease,box-shadow .18s ease;}
+#p1 .notice-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.4), 0 0 26px rgba(232,130,30,0.14);}
 </style>
 </head>
 <body>
@@ -1463,6 +1480,25 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
+    </div>
+    <div class="scroll-cue"><span>Notice &amp; Gallery</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+  </div>
+
+  <!-- Below-the-fold home sections: Notice Board + Gallery -->
+  <div class="home-sections">
+    <div class="home-sec">
+      <div class="pa-sec-head">
+        <span class="pa-sec-ico" style="--c:#e8821e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span>
+        <div><div class="pa-sec-title">Notice Board</div><div class="pa-sec-sub">Meetings &middot; announcements &middot; updates</div></div>
+      </div>
+      <div class="notice-list" id="home-notice-board"></div>
+    </div>
+    <div class="home-sec">
+      <div class="pa-sec-head">
+        <span class="pa-sec-ico" style="--c:#a855f7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+        <div><div class="pa-sec-title">Gallery</div><div class="pa-sec-sub">Our leader &middot; events &middot; campaigns</div></div>
+      </div>
+      <div class="gallery-grid" id="home-gallery"></div>
     </div>
   </div>
 </div>
@@ -1598,18 +1634,6 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div><div class="pa-sec-title">54 Ward — All Congress Workers</div><div class="pa-sec-sub">Booth-level karyakartas across the ward</div></div>
     </div>
     <div class="congress-workers-grid" id="congress-workers-grid"></div>
-
-    <div class="pa-sec-head">
-      <span class="pa-sec-ico" style="--c:#e8821e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span>
-      <div><div class="pa-sec-title">Notice Board</div><div class="pa-sec-sub">Meetings &middot; announcements &middot; updates</div></div>
-    </div>
-    <div class="notice-list" id="notice-list"></div>
-
-    <div class="pa-sec-head">
-      <span class="pa-sec-ico" style="--c:#a855f7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
-      <div><div class="pa-sec-title">Gallery</div><div class="pa-sec-sub">Field photos &middot; events &middot; campaigns</div></div>
-    </div>
-    <div class="gallery-grid" id="gallery-grid"></div>
   </div>
 </div>
 
@@ -4339,7 +4363,7 @@ function buildCongressWorkers(){
 
 /* ── Notice Board ───────────────────────────────────────────────────────── */
 function buildNotices(){
-  var el = document.getElementById('notice-list');
+  var el = document.getElementById('home-notice-board') || document.getElementById('notice-list');
   if(!el) return;
   var list = Array.isArray(noticesList) ? noticesList : [];
   if(!list.length){
@@ -4358,7 +4382,7 @@ function buildNotices(){
 
 /* ── Gallery ────────────────────────────────────────────────────────────── */
 function buildGallery(){
-  var el = document.getElementById('gallery-grid');
+  var el = document.getElementById('home-gallery') || document.getElementById('gallery-grid');
   if(!el) return;
   var list = Array.isArray(galleryList) ? galleryList : [];
   if(!list.length){
@@ -4377,8 +4401,6 @@ function buildGallery(){
 function buildPollingAgentsPage(){
   buildPollingAgentsList();
   buildCongressWorkers();
-  buildNotices();
-  buildGallery();
 }
 
 function toggleComplaintForm(agentId){
@@ -4599,6 +4621,9 @@ function _applyCmsObject(cms){
       _applyCmsObject(repo);
       /* Re-render anything that was already painted with stale data. The
          committee + polling-agents builders are idempotent. */
+      /* Home Notice Board + Gallery always re-render (they live on p1) */
+      if(typeof buildNotices === 'function') buildNotices();
+      if(typeof buildGallery === 'function') buildGallery();
       var active = document.querySelector('.page.active');
       if(active){
         if(active.id === 'p5' && typeof buildCommittee === 'function') buildCommittee('congress');
@@ -4611,6 +4636,10 @@ function _applyCmsObject(cms){
 
 buildStations(stations);
 buildWardStats();
+/* Render the home Notice Board + Gallery immediately (localStorage/defaults),
+   then the CMS fetch above refreshes them with the published data. */
+if(typeof buildNotices === 'function') buildNotices();
+if(typeof buildGallery === 'function') buildGallery();
 
 /* ── PWA: register service worker for offline + installability ──────────── */
 if('serviceWorker' in navigator){
