@@ -801,15 +801,19 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 #p6 .committee-post{
   color:#bcd8f7 !important;background:rgba(96,165,250,0.14) !important;border:1px solid rgba(96,165,250,0.32) !important;}
 
-/* ── Advanced vCard layout — portrait on the RIGHT, details on the left ── */
-#p6 .pa-group .committee-card{flex-direction:row-reverse;align-items:center;gap:16px;}
-/* accent bar moves to the right edge to match the right-side portrait */
-#p6 .pa-group .committee-card::before{left:auto !important;right:0 !important;border-radius:0 var(--r) 0 0;}
-#p6 .committee-info{text-align:left;}
-/* bigger ringed portrait for the vCard feel */
-#p6 .committee-photo{width:76px;height:92px;border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.4), 0 0 0 3px rgba(96,165,250,0.18), 0 0 22px rgba(59,130,246,0.22) !important;}
-/* keep the workers panel flush under the reversed card */
+/* ── Centered vCard — portrait on top, everything middle-aligned ── */
+#p6 .pa-group .committee-card{flex-direction:column;align-items:center;text-align:center;gap:10px;padding:20px 16px 18px;}
+/* accent bar becomes a top strip across the card */
+#p6 .pa-group .committee-card::before{left:0 !important;right:auto !important;top:0;width:100% !important;height:4px !important;
+  background:linear-gradient(90deg,#60a5fa,#3b82f6,#8b5cf6) !important;border-radius:var(--r) var(--r) 0 0;}
+#p6 .committee-info{text-align:center;width:100%;}
+/* round ringed portrait at the top */
+#p6 .committee-photo{width:84px;height:84px;border-radius:50%;
+  box-shadow:0 6px 20px rgba(0,0,0,0.4), 0 0 0 3px rgba(96,165,250,0.20), 0 0 22px rgba(59,130,246,0.25) !important;}
+/* center the post pill, phone row and WhatsApp button */
+#p6 .committee-post{margin-left:auto;margin-right:auto;}
+#p6 .committee-phone{justify-content:center;}
+#p6 .committee-wa{margin-left:auto;margin-right:auto;}
 #p6 .pa-group{padding:0;}
 
 /* Worker / congress-worker / notice / gallery cards — richer + lift on hover */
@@ -824,8 +828,8 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 #p6 .gal-card:hover img{transform:scale(1.07);}
 
 .agents-name-list{
-  display:flex;flex-direction:column;
-  gap:24px;margin-top:8px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:12px;margin-top:8px;
 }
 .pa-group{display:flex;flex-direction:column;gap:0;}
 
@@ -1481,7 +1485,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
     </div>
-    <div class="scroll-cue"><span>Notice &amp; Gallery</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div class="scroll-cue"><span>Notice Board</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
   </div>
 
   <!-- Below-the-fold home sections: Notice Board + Gallery -->
@@ -1492,13 +1496,6 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <div><div class="pa-sec-title">Notice Board</div><div class="pa-sec-sub">Meetings &middot; announcements &middot; updates</div></div>
       </div>
       <div class="notice-list" id="home-notice-board"></div>
-    </div>
-    <div class="home-sec">
-      <div class="pa-sec-head">
-        <span class="pa-sec-ico" style="--c:#a855f7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
-        <div><div class="pa-sec-title">Gallery</div><div class="pa-sec-sub">Our leader &middot; events &middot; campaigns</div></div>
-      </div>
-      <div class="gallery-grid" id="home-gallery"></div>
     </div>
   </div>
 </div>
@@ -1616,7 +1613,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   <div class="topbar">
     <button class="back-btn" onclick="goTo('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Home</button>
     <span class="tb-title tb-title-center">Polling Agents</span>
-    <div class="tb-right"><span class="tb-badge">3 agents</span></div>
+    <div class="tb-right"><span class="tb-badge">38 parts</span></div>
   </div>
   <div class="page-fx" aria-hidden="true">
     <span class="pf-glow pf-glow-a"></span><span class="pf-glow pf-glow-b"></span><span class="pf-grid"></span>
@@ -1625,7 +1622,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   <div class="p6-body">
     <div class="pa-sec-head">
       <span class="pa-sec-ico" style="--c:#3b82f6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-      <div><div class="pa-sec-title">Polling Agents</div><div class="pa-sec-sub">All 38 parts &middot; 3 booth agents</div></div>
+      <div><div class="pa-sec-title">Polling Agents</div><div class="pa-sec-sub">One booth agent per part &middot; all 38 parts</div></div>
     </div>
     <div class="agents-name-list" id="agents-name-list"></div>
 
@@ -4160,23 +4157,21 @@ function buildVolunteersPanel(){
    Default fallback used only when no CMS overlay is available; cms.json on
    the repo is the source of truth.
    ═══════════════════════════════════════════════════════════════════════════ */
-var pollingAgentsList = [
-  {
-    id: 'pa1',
-    part: 'Parts 1 – 13',
-    name: 'Md. Shakil',
-    role: 'PIC',
-    phone: '+91 98365 13741',
-    photo: null,
-    workers: [],
-    /* Backward-compat fields (older complaint tracker may still read these): */
-    status: 'active',
-    targetArea: '',
-    responsibilities: []
-  },
-  { id:'pa2', part:'Parts 14 – 26', name:'', role:'PIC', phone:'', photo:null, workers:[], status:'active', targetArea:'', responsibilities:[] },
-  { id:'pa3', part:'Parts 27 – 38', name:'', role:'PIC', phone:'', photo:null, workers:[], status:'active', targetArea:'', responsibilities:[] }
-];
+/* One vCard per Part — all 38 parts. Part 1 seeded with Md. Shakil; the rest
+   are filled in via the admin panel. */
+var pollingAgentsList = (function(){
+  var arr = [];
+  for(var i=1;i<=38;i++){
+    arr.push({
+      id:'pa'+i, part:'Part '+i,
+      name: i===1 ? 'Md. Shakil' : '',
+      role:'Polling Agent',
+      phone: i===1 ? '+91 98365 13741' : '',
+      photo:null, workers:[], status:'active', targetArea:'', responsibilities:[]
+    });
+  }
+  return arr;
+})();
 
 /* New Polling-Agents-page sections (driven by cms.json) */
 var congressWorkersList = [];   /* [{name, role, phone, photo}] */
@@ -4273,60 +4268,21 @@ function buildPollingAgentsList(){
         +   'WhatsApp'
         + '</a>';
     }
-    /* Workers block — list of people allocated to this PIC */
-    var workers = Array.isArray(a.workers) ? a.workers : [];
-    var workersHTML =
-        '<div class="workers-block">'
-      +   '<div class="workers-head">'
-      +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
-      +     'Workers Allocated <span class="count">'+workers.length+'</span>'
-      +   '</div>';
-    if(workers.length === 0){
-      workersHTML += '<div class="workers-empty">No workers assigned yet.</div>';
-    } else {
-      workersHTML += '<div class="workers-grid">' + workers.map(function(w){
-        var wPhoto = w.photo
-          ? '<div class="worker-photo"><img src="'+w.photo+'" alt=""></div>'
-          : '<div class="worker-photo">'+committeeInitials(w.name||'')+'</div>';
-        var wPhoneHTML = '';
-        if(w.phone){
-          var wClean = String(w.phone).replace(/\D/g, '');
-          var wWa    = wClean.length >= 12 ? wClean : '91' + wClean;
-          var wText  = encodeURIComponent('Namaste, this is from the Ward 54 INC team.');
-          wPhoneHTML =
-              '<div class="worker-phone">'
-            +   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>'
-            +   '<a href="tel:'+wClean+'">'+escapeHtml(w.phone)+'</a>'
-            + '</div>'
-            + '<a class="worker-wa" href="https://wa.me/'+wWa+'?text='+wText+'" target="_blank" rel="noopener noreferrer">'
-            +   '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>'
-            +   'WhatsApp'
-            + '</a>';
-        }
-        return '<div class="worker-card">'
-          + wPhoto
-          + '<div class="worker-info">'
-            + '<div class="worker-name">'+escapeHtml(w.name||'')+'</div>'
-            + (w.responsibility ? '<div class="worker-resp">'+escapeHtml(w.responsibility)+'</div>' : '')
-            + wPhoneHTML
-          + '</div>'
-        + '</div>';
-      }).join('') + '</div>';
-    }
-    workersHTML += '</div>';
-
-    /* Wrap PIC card + workers in a .pa-group so they read as one unit */
+    /* One clean vCard per Part (committee style + WhatsApp). Empty parts
+       show a "To be assigned" placeholder so the grid reads intentionally. */
+    var nameHTML = a.name
+      ? '<div class="committee-name">'+escapeHtml(a.name)+'</div>'
+      : '<div class="committee-name" style="color:var(--text3);font-style:italic;font-weight:500;">To be assigned</div>';
     return '<div class="pa-group">'
       + '<div class="committee-card">'
         + photoHTML
         + '<div class="committee-info">'
           + '<span class="committee-post">'+escapeHtml(a.part||'Part')+'</span>'
-          + '<div class="committee-name">'+escapeHtml(a.name||'')+'</div>'
+          + nameHTML
           + (a.role ? '<div style="font-size:11px;font-weight:700;color:#8fb4dd;text-transform:uppercase;letter-spacing:0.12em;margin:4px 0 2px;">'+escapeHtml(a.role)+'</div>' : '')
           + phoneHTML
         + '</div>'
       + '</div>'
-      + workersHTML
     + '</div>';
   }).join('');
 }

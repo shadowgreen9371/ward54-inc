@@ -3029,11 +3029,14 @@ function deleteCommitteeMember(which, idx){
 /* ---- Polling Agents (3 fixed slots) ---- */
 /* Simple committee-style schema:
    { part: "Part 1", name: "Md. Shakil", role: "PIC", phone: "+91 …", photo: null } */
-var PA_DEFAULTS = [
-  { part:'Parts 1 – 13',  name:'Md. Shakil', role:'PIC', phone:'+91 98365 13741', photo:null, workers:[] },
-  { part:'Parts 14 – 26', name:'',           role:'PIC', phone:'', photo:null, workers:[] },
-  { part:'Parts 27 – 38', name:'',           role:'PIC', phone:'', photo:null, workers:[] }
-];
+var PA_DEFAULTS = (function(){
+  var a = [];
+  for(var i=1;i<=38;i++){
+    a.push({ part:'Part '+i, name: i===1?'Md. Shakil':'', role:'Polling Agent',
+      phone: i===1?'+91 98365 13741':'', photo:null, workers:[] });
+  }
+  return a;
+})();
 function getPollingAgents(){
   var d = cmsRead();
   if(!d.pollingAgents) d.pollingAgents = PA_DEFAULTS.slice();
@@ -3080,7 +3083,7 @@ function buildAdminPollingAgentsList(){
 
     /* Workers panel — collapsible. Header shows count + Add button. */
     var workersPanel =
-        '<details open style="background:rgba(96,165,250,0.04);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r2) var(--r2);padding:0;margin-bottom:14px;">'
+        '<details style="background:rgba(96,165,250,0.04);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r2) var(--r2);padding:0;margin-bottom:14px;">'
       +   '<summary style="cursor:pointer;list-style:none;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:#9bc1e4;">'
       +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
       +     'Workers Allocated <span style="background:rgba(96,165,250,0.12);color:#9bc1e4;font-family:DM Mono,monospace;font-size:10px;padding:2px 7px;border-radius:999px;letter-spacing:0;border:1px solid rgba(96,165,250,0.25);">'+workers.length+'</span>'
