@@ -3899,10 +3899,17 @@ buildStations(stations);
 buildBoothGallery();
 buildWardStats();
 
-/* ── PWA: register service worker for offline + installability ──────────── */
+/* ── PWA: register service worker + auto-refresh on new version ─────────── */
 if('serviceWorker' in navigator){
+  var _swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(_swReloaded) return; _swReloaded = true; location.reload();
+  });
   window.addEventListener('load', function(){
-    navigator.serviceWorker.register('sw.js').catch(function(){/* best-effort */});
+    navigator.serviceWorker.register('sw.js').then(function(reg){
+      reg.update();
+      document.addEventListener('visibilitychange', function(){ if(!document.hidden) reg.update(); });
+    }).catch(function(){/* best-effort */});
   });
 }
 </script>

@@ -4599,8 +4599,18 @@ if(typeof buildGallery === 'function') buildGallery();
 
 /* ── PWA: register service worker for offline + installability ──────────── */
 if('serviceWorker' in navigator){
+  /* Auto-refresh once when a new version takes control, so users always
+     see the latest deploy without clearing cache manually. */
+  var _swReloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function(){
+    if(_swReloaded) return; _swReloaded = true; location.reload();
+  });
   window.addEventListener('load', function(){
-    navigator.serviceWorker.register('sw.js').catch(function(){/* offline-first is best-effort */});
+    navigator.serviceWorker.register('sw.js').then(function(reg){
+      /* Check for updates on every load and whenever the tab refocuses */
+      reg.update();
+      document.addEventListener('visibilitychange', function(){ if(!document.hidden) reg.update(); });
+    }).catch(function(){/* offline-first is best-effort */});
   });
 }
 
