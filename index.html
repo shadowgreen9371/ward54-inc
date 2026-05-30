@@ -46,11 +46,11 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes scaleIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
 
 /* PAGE 1 — cinematic hero (scrollable: hero fold + sections below) */
-#p1{align-items:stretch;justify-content:flex-start;position:relative;overflow-x:hidden;
+#p1{align-items:center;justify-content:flex-start;position:relative;overflow-x:hidden;
   background:
     radial-gradient(120% 80% at 50% -10%,#222a54 0%,#121737 32%,#0a0f1e 62%,#05070f 100%);}
 /* Hero fills the first screen; sections flow underneath */
-#p1 .p1-content{min-height:100vh;min-height:100svh;justify-content:center;}
+#p1 .p1-content{min-height:100vh;min-height:100svh;justify-content:center;margin:0 auto;}
 /* Slow-rotating tricolour spotlight sweep behind everything (fixed backdrop) */
 #p1::before{content:'';position:fixed;top:50%;left:50%;width:160vmax;height:160vmax;
   transform:translate(-50%,-50%);pointer-events:none;z-index:0;opacity:0.5;
