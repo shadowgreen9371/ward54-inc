@@ -2,7 +2,7 @@
   "_exportedAt": "2026-05-28T20:10:40.374Z",
   "_exportedBy": "fetch-gallery-script",
   "_schemaVersion": 1,
-  "_note": "Notices show on the home Digital Notice Board. Add/edit via admin -> Notice Board.",
+  "_note": "Polling Agents = 38 part vCards. Congress Workers shown on dedicated page (linked from home). Edit via admin.",
   "mainPage": {
     "ward": "WARD NO. 54",
     "kmc": "Kolkata Municipal Corporation",
@@ -392,7 +392,20 @@
       "workers": []
     }
   ],
-  "congressWorkers": [],
+  "congressWorkers": [
+    {
+      "name": "Imran Khan",
+      "role": "Ward Coordinator",
+      "phone": "+91 90000 22222",
+      "photo": null
+    },
+    {
+      "name": "Sita Devi",
+      "role": "Booth 4 Lead",
+      "phone": "+91 90000 33333",
+      "photo": null
+    }
+  ],
   "notices": [
     {
       "title": "Booth Agents Briefing — Saturday 6:00 PM",

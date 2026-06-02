@@ -106,7 +106,8 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .page-fx .pf-wm svg{width:100%;height:auto;display:block;}
 @keyframes pfFloat{0%,100%{transform:rotate(-7deg) translateY(0);}50%{transform:rotate(-7deg) translateY(-16px);}}
 /* keep body content above the fx layer */
-.p2-body,.p3-body,.p5-body,.p6-body,.p7-body{position:relative;z-index:1;}
+.p2-body,.p3-body,.p5-body,.p6-body,.p7-body,.p8-body{position:relative;z-index:1;}
+.p8-body{padding:20px;flex:1;max-width:980px;width:100%;margin:0 auto;}
 
 /* Bold, highlighted page headers (the centered topbar title) */
 .tb-title-center{font-weight:800 !important;letter-spacing:0.05em;position:relative;padding-bottom:5px;text-transform:uppercase;font-size:15px;
@@ -121,6 +122,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 #p5{--acc:#1aaa0c;--acc2:#e8821e;}
 #p6{--acc:#3b82f6;--acc2:#8b5cf6;}
 #p7{--acc:#a855f7;--acc2:#ec4899;}
+#p8{--acc:#1aaa0c;--acc2:#e8821e;background:
+  radial-gradient(ellipse 100% 55% at 50% 0%,rgba(26,170,12,0.12) 0%,transparent 60%),
+  radial-gradient(ellipse 70% 80% at 100% 100%,rgba(232,130,30,0.06) 0%,transparent 62%),
+  var(--navy);}
 /* p3 header is a plain tb-title — make it bold + accent too */
 #p3 .tb-title{font-weight:800;background:linear-gradient(120deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 #p3{background:
@@ -1484,6 +1489,15 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
+      <div class="hero-cta" onclick="goTo('p8')">
+        <span class="hero-cta-shimmer"></span>
+        <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="hero-cta-text">
+          <div class="hero-cta-title">54 WARD CONGRESS WORKERS</div>
+          <div class="hero-cta-desc"><span class="hero-cta-dot"></span>All booth karyakartas &middot; Contact</div>
+        </div>
+        <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
     </div>
     <div class="scroll-cue"><span>Digital Notice Board</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
   </div>
@@ -1625,12 +1639,6 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div><div class="pa-sec-title">Polling Agents</div><div class="pa-sec-sub">One booth agent per part &middot; all 38 parts</div></div>
     </div>
     <div class="agents-name-list" id="agents-name-list"></div>
-
-    <div class="pa-sec-head">
-      <span class="pa-sec-ico" style="--c:#138808"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-      <div><div class="pa-sec-title">54 Ward — All Congress Workers</div><div class="pa-sec-sub">Booth-level karyakartas across the ward</div></div>
-    </div>
-    <div class="congress-workers-grid" id="congress-workers-grid"></div>
   </div>
 </div>
 
@@ -1677,6 +1685,26 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       </div>
       <div class="committee-grid" id="youthCommitteeGrid"></div>
     </div>
+  </div>
+</div>
+
+<!-- PAGE 8: 54 WARD — ALL CONGRESS WORKERS -->
+<div class="page" id="p8">
+  <div class="topbar">
+    <button class="back-btn" onclick="goTo('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Home</button>
+    <span class="tb-title tb-title-center">54 Ward Congress Workers</span>
+    <div class="tb-right"><span class="tb-badge" id="p8-badge">Karyakarta roster</span></div>
+  </div>
+  <div class="page-fx" aria-hidden="true">
+    <span class="pf-glow pf-glow-a"></span><span class="pf-glow pf-glow-b"></span><span class="pf-grid"></span>
+    <span class="pf-wm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+  </div>
+  <div class="p8-body">
+    <div class="pa-sec-head">
+      <span class="pa-sec-ico" style="--c:#138808"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <div><div class="pa-sec-title">54 Ward — All Congress Workers</div><div class="pa-sec-sub">Booth-level karyakartas across the ward</div></div>
+    </div>
+    <div class="congress-workers-grid" id="congress-workers-grid"></div>
   </div>
 </div>
 
@@ -3124,6 +3152,7 @@ function goTo(id){
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
   if(id==='p5'){ buildCommittee('congress'); }
   if(id==='p6'){ buildPollingAgentsPage(); }
+  if(id==='p8'){ buildCongressWorkers(); }
   if(id==='p7'){ buildCommittee('youth'); }
   syncTopbarLogos();
 }
@@ -4585,6 +4614,7 @@ function _applyCmsObject(cms){
         if(active.id === 'p5' && typeof buildCommittee === 'function') buildCommittee('congress');
         if(active.id === 'p7' && typeof buildCommittee === 'function') buildCommittee('youth');
         if(active.id === 'p6' && typeof buildPollingAgentsPage === 'function') buildPollingAgentsPage();
+        if(active.id === 'p8' && typeof buildCongressWorkers === 'function') buildCongressWorkers();
       }
     })
     .catch(function(){ /* repo JSON not present yet — localStorage wins */ });
