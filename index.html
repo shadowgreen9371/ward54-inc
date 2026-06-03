@@ -12,6 +12,17 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Ward 54 INC">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<!-- Social sharing — Open Graph + Twitter card -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ward 54 INC — Kolkata">
+<meta property="og:description" content="Find your polling booth, contact your booth agent, and stay updated. Ward 54 Indian National Congress, Kolkata Municipal Corporation.">
+<meta property="og:url" content="https://shadowgreen9371.github.io/ward54-inc/">
+<meta property="og:image" content="https://shadowgreen9371.github.io/ward54-inc/icons/icon-512.png">
+<meta property="og:site_name" content="Ward 54 INC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ward 54 INC — Kolkata">
+<meta name="twitter:description" content="Find your polling booth, contact your booth agent, and stay updated.">
+<meta name="twitter:image" content="https://shadowgreen9371.github.io/ward54-inc/icons/icon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1466,6 +1477,41 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   box-shadow:0 6px 18px rgba(37,211,102,0.30);transition:filter .12s ease;}
 .share-btn:hover{filter:brightness(1.06);}
 .share-btn svg{width:15px;height:15px;}
+
+/* ── Social share row — advanced premium look ── */
+.socials{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:2px 0 6px;}
+.soc-btn{position:relative;width:44px;height:44px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:#fff;text-decoration:none;cursor:pointer;
+  border:1px solid rgba(255,255,255,0.18);padding:0;
+  box-shadow:0 8px 22px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.30), 0 0 0 0 currentColor;
+  transition:transform .22s cubic-bezier(.4,0,.2,1), box-shadow .22s ease, filter .12s ease;
+  isolation:isolate;overflow:hidden;}
+.soc-btn::after{content:'';position:absolute;inset:-2px;border-radius:50%;
+  background:conic-gradient(from 0deg,rgba(255,255,255,0.45),transparent 30%,transparent 70%,rgba(255,255,255,0.45));
+  opacity:0;transition:opacity .22s ease;z-index:-1;}
+.soc-btn:hover{transform:translateY(-4px) scale(1.08);filter:brightness(1.08);}
+.soc-btn:hover::after{opacity:0.9;animation:socSpin 2s linear infinite;}
+@keyframes socSpin{to{transform:rotate(360deg);}}
+.soc-btn:active{transform:translateY(-2px) scale(1.02);}
+.soc-btn svg{width:18px;height:18px;display:block;}
+/* per-platform brand gradients + hover glow */
+.soc-btn.wa{background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);}
+.soc-btn.wa:hover{box-shadow:0 14px 32px rgba(37,211,102,0.55), inset 0 1px 0 rgba(255,255,255,0.35);}
+.soc-btn.fb{background:linear-gradient(135deg,#4267B2 0%,#3b5998 100%);}
+.soc-btn.fb:hover{box-shadow:0 14px 32px rgba(66,103,178,0.55), inset 0 1px 0 rgba(255,255,255,0.35);}
+.soc-btn.tw{background:linear-gradient(135deg,#1f1f1f 0%,#000 100%);border-color:rgba(255,255,255,0.30);}
+.soc-btn.tw:hover{box-shadow:0 14px 32px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.35);}
+.soc-btn.tg{background:linear-gradient(135deg,#37BBFE 0%,#1c92d2 100%);}
+.soc-btn.tg:hover{box-shadow:0 14px 32px rgba(55,187,254,0.55), inset 0 1px 0 rgba(255,255,255,0.35);}
+.soc-btn.ml{background:linear-gradient(135deg,#FF9933 0%,#e8821e 100%);}
+.soc-btn.ml:hover{box-shadow:0 14px 32px rgba(232,130,30,0.55), inset 0 1px 0 rgba(255,255,255,0.35);}
+.soc-btn.cp{background:linear-gradient(135deg,#c9a84c 0%,#8d6e2f 100%);}
+.soc-btn.cp:hover{box-shadow:0 14px 32px rgba(201,168,76,0.55), inset 0 1px 0 rgba(255,255,255,0.35);}
+.soc-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold2);font-weight:700;
+  background:linear-gradient(120deg,#c9a84c,#ffe9b6,#c9a84c);background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:wardSheen 6s linear infinite;}
 .footer-title{font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.05em;
   background:linear-gradient(120deg,#FF9933,#FFFFFF,#138808);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .footer-sub{font-size:11px;color:var(--text3);}
@@ -1648,10 +1694,27 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <div class="home-footer">
-      <a class="share-btn" id="shareBtn" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=Ward%2054%20INC%20%E2%80%94%20find%20your%20polling%20booth%20and%20stay%20updated%3A%20https%3A%2F%2Fshadowgreen9371.github.io%2Fward54-inc%2F">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        Share this app
-      </a>
+      <div class="soc-label">Share &amp; Follow</div>
+      <div class="socials">
+        <a class="soc-btn wa" href="https://wa.me/?text=Ward%2054%20INC%20%E2%80%94%20find%20your%20polling%20booth%20and%20stay%20updated%3A%20https%3A%2F%2Fshadowgreen9371.github.io%2Fward54-inc%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        </a>
+        <a class="soc-btn fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fshadowgreen9371.github.io%2Fward54-inc%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.4-3.1h-2.9V8.4c0-.9.3-1.5 1.6-1.5h1.4V4.1c-.3 0-1.2-.1-2.2-.1-2.2 0-3.6 1.3-3.6 3.8v2.6H8.2v3.1h2.5V21h2.8z"/></svg>
+        </a>
+        <a class="soc-btn tw" href="https://twitter.com/intent/tweet?text=Ward%2054%20INC%20%E2%80%94%20find%20your%20polling%20booth%20%26%20stay%20updated&url=https%3A%2F%2Fshadowgreen9371.github.io%2Fward54-inc%2F" target="_blank" rel="noopener noreferrer" aria-label="Share on X">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a class="soc-btn tg" href="https://t.me/share/url?url=https%3A%2F%2Fshadowgreen9371.github.io%2Fward54-inc%2F&text=Ward%2054%20INC%20%E2%80%94%20find%20your%20polling%20booth" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.37c-.2-.2-.5-.27-.78-.18L2.6 11.03c-.32.12-.52.43-.5.78.02.34.27.62.6.7l4.4 1.1 1.7 5.6c.07.24.27.42.51.46.05.01.1.02.16.02.2 0 .38-.08.51-.22l2.7-2.9 4.5 3.3c.13.1.3.15.46.15.07 0 .14-.01.21-.03.22-.07.4-.26.45-.49l3.3-13.7c.07-.28-.02-.57-.22-.74zM9.7 14.36l-.55 3.06-1.32-4.34 9.06-5.66z"/></svg>
+        </a>
+        <a class="soc-btn ml" href="mailto:?subject=Ward%2054%20INC&body=Find%20your%20polling%20booth%20and%20stay%20updated%3A%20https%3A%2F%2Fshadowgreen9371.github.io%2Fward54-inc%2F" aria-label="Share via Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </a>
+        <button type="button" class="soc-btn cp" onclick="copyShareLink(this)" aria-label="Copy link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
       <div class="footer-title">Ward 54 · Indian National Congress</div>
       <div class="footer-sub">Kolkata Municipal Corporation · West Bengal</div>
       <div class="footer-credit">© 2026 Ward 54 INC. All rights reserved.</div>
@@ -4809,6 +4872,21 @@ function _fbLoadAll(){
     return rows;
   });
 }
+function copyShareLink(btn){
+  var url = location.origin + location.pathname.replace(/\/[^/]*$/,'/');
+  var done = function(){
+    var orig = btn.innerHTML;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+    btn.setAttribute('aria-label','Link copied');
+    setTimeout(function(){ btn.innerHTML = orig; btn.setAttribute('aria-label','Copy link'); }, 1500);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done).catch(function(){ window.prompt('Copy this link:', url); });
+  } else {
+    window.prompt('Copy this link:', url);
+  }
+}
+
 function openFindBoothModal(){
   var m=document.getElementById('fbModal'); if(!m) return;
   m.classList.add('open'); m.setAttribute('aria-hidden','false');
