@@ -1810,44 +1810,33 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   text-shadow:none;filter:drop-shadow(0 1px 8px rgba(232,130,30,0.30));
   animation:wardSheen 6s linear infinite;}
-/* ── Committee bar icon: classic Congress hand-on-tricolour emblem ── */
+/* ── Committee bar icon: same INC seal as the hero logo at the top ── */
 .hero-cta-committee .hero-cta-icon{
-  position:relative;overflow:hidden;
-  /* Crisp 3-band Indian flag */
-  background:linear-gradient(180deg,
-    #FF9933 0%, #FF9933 33%,
-    #FFFFFF 33%, #FFFFFF 67%,
-    #138808 67%, #138808 100%) !important;
+  position:relative;overflow:hidden;padding:0 !important;
+  background:
+    radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,0.18) 0%, rgba(20,28,52,0.85) 55%, rgba(10,16,32,0.95) 100%) !important;
   box-shadow:
     0 6px 20px rgba(201,168,76,0.45),
-    0 0 0 2px rgba(201,168,76,0.65),
-    inset 0 1px 0 rgba(255,255,255,0.55) !important;
+    0 0 0 2px rgba(201,168,76,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.20) !important;
   border:1.5px solid rgba(201,168,76,0.95) !important;
-  color:#0a0a0a !important;}
-/* Solid white disc centred over the flag — backdrop for the hand */
-.hero-cta-committee .hero-cta-icon .cmt-disc{
-  position:absolute;left:14%;top:14%;width:72%;height:72%;border-radius:50%;
-  background:#fff;z-index:1;
-  box-shadow:
-    0 0 0 1.5px #c9a84c,                /* gold ring around the disc */
-    inset 0 0 0 0.5px rgba(0,0,0,0.06),
-    0 1px 3px rgba(0,0,0,0.25);}
-/* The hand glyph — palm-forward, fingers up, filled black */
-.hero-cta-committee .hero-cta-icon .cmt-hand{
-  position:absolute;left:22%;top:18%;width:56%;height:64%;z-index:2;
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,0.20));}
-/* Slow flag-breeze sheen drifting across the whole emblem */
+  color:#fff !important;}
+.hero-cta-icon-seal img{
+  position:absolute;inset:2px;width:calc(100% - 4px);height:calc(100% - 4px);
+  border-radius:50%;object-fit:cover;display:block;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,0.40));
+  transition:transform .3s ease;}
+.hero-cta-committee:hover .hero-cta-icon-seal img{transform:scale(1.08) rotate(-3deg);}
+/* Slow sheen drifting across the seal for a premium "coin" feel */
 .hero-cta-committee .hero-cta-icon::after{
   content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;
-  background:linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.22) 50%, transparent 65%);
+  background:linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%);
   background-size:220% 100%;background-position:120% 0;
-  mix-blend-mode:screen;animation:committeeSheen 7s ease-in-out infinite;}
+  mix-blend-mode:screen;animation:committeeSheen 8s ease-in-out infinite;}
 @keyframes committeeSheen{
   0%,100%{background-position:120% 0;}
   50%   {background-position:-120% 0;}
 }
-.hero-cta-committee:hover .cmt-hand{transform:scale(1.08) rotate(-3deg);transition:transform .25s ease;}
-.hero-cta-committee .cmt-hand{transition:transform .25s ease;}
 .hero-cta-committee .hero-cta-dot{background:linear-gradient(135deg,#FF9933,#FFFFFF 50%,#138808) !important;
   animation:heroDotTri 1.6s ease-in-out infinite !important;}
 @keyframes heroDotTri{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.70), 0 0 8px rgba(201,168,76,0.60);}50%{box-shadow:0 0 0 8px rgba(255,255,255,0), 0 0 12px rgba(255,153,51,0.85);}}
@@ -1957,25 +1946,8 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="entry-bar-group">
       <div class="hero-cta hero-cta-committee" onclick="goTo('p5')">
         <span class="hero-cta-shimmer"></span>
-        <div class="hero-cta-icon hero-cta-icon-tri" aria-label="Indian National Congress emblem">
-          <span class="cmt-disc" aria-hidden="true"></span>
-          <svg class="cmt-hand" viewBox="0 0 64 64" aria-hidden="true">
-            <!-- Palm-forward open hand: 4 fingers up + thumb to the side -->
-            <g fill="#0a0a0a" stroke="#0a0a0a" stroke-width="1.4" stroke-linejoin="round">
-              <!-- Palm body + wrist -->
-              <path d="M16 50 L16 30 Q16 26 19 26 L45 26 Q49 26 49 30 L49 46 Q49 56 39 58 Q32 60 24 58 Q16 56 16 50 Z"/>
-              <!-- Index finger -->
-              <rect x="20" y="10" width="5" height="22" rx="2.4"/>
-              <!-- Middle finger (tallest) -->
-              <rect x="27" y="6"  width="5" height="26" rx="2.4"/>
-              <!-- Ring finger -->
-              <rect x="34" y="8"  width="5" height="24" rx="2.4"/>
-              <!-- Pinky -->
-              <rect x="41" y="14" width="5" height="18" rx="2.4"/>
-              <!-- Thumb (angled out from the side of the palm) -->
-              <g transform="rotate(-32 14 40)"><rect x="11" y="32" width="5.5" height="16" rx="2.6"/></g>
-            </g>
-          </svg>
+        <div class="hero-cta-icon hero-cta-icon-seal" aria-label="Indian National Congress — Ward 54">
+          <img src="./icons/icon-192.png" alt="INC Ward 54 seal" loading="eager" decoding="async">
         </div>
         <div class="hero-cta-text">
           <div class="hero-cta-title" style="font-weight:900;">54 WARD CONGRESS COMMITTEE</div>
