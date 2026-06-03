@@ -1483,8 +1483,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .committee-section:not(.youth) .committee-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.42), 0 0 30px rgba(26,170,12,0.14);}
 
 /* ── Home page Notice Board + Gallery (below the hero fold) ── */
-.home-sections{position:relative;z-index:2;width:100%;max-width:600px;margin:0 auto;padding:4px 16px 20px;}
-.home-sec{margin-top:18px;animation:fadeUp .6s ease both;}
+.home-sections{position:relative;z-index:2;width:100%;max-width:600px;margin:0 auto;padding:4px 16px 20px;
+  display:flex;flex-direction:column;gap:0;}
+.home-sections .fb-trigger{order:1;}
+.home-sections .home-footer{order:2;}
+.home-sections .home-sec{order:3;margin-top:28px;}    /* Digital Notice Board moved to the bottom */
+.home-sections .home-sec::before{content:"";display:block;height:1px;width:60%;margin:0 auto 18px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);}
+.home-sec{animation:fadeUp .6s ease both;}
 .home-sec .pa-sec-head{margin:0 0 10px;}
 /* scroll cue at the bottom of the hero (kept for legacy markup; hidden if .live-strip present) */
 .scroll-cue{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:14px;color:var(--gold2);
