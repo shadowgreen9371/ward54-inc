@@ -1,0 +1,35 @@
+<!--
+  This placeholder is only used at first launch if the live site is unreachable.
+  The app's `server.url` in capacitor.config.json points to the live PWA at:
+    https://shadowgreen9371.github.io/ward54-inc/
+  Capacitor needs a `webDir` to exist even when we load remote content, so
+  this minimal page is shipped inside the APK as a fallback.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Ward 54 INC</title>
+  <style>
+    html,body{margin:0;height:100%;background:#0a0f1e;color:#fff;
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;}
+    .card{max-width:400px;}
+    h1{font-weight:800;letter-spacing:0.02em;margin:0 0 8px;
+       background:linear-gradient(100deg,#FF9933,#fff 50%,#138808);
+       -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+    p{color:rgba(255,255,255,0.7);font-size:14px;line-height:1.5;}
+    button{margin-top:16px;padding:12px 22px;border-radius:10px;border:0;
+      background:linear-gradient(135deg,#FF9933,#e8821e);color:#fff;
+      font-weight:800;font-size:14px;cursor:pointer;}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ward 54 INC</h1>
+    <p>Connecting to the live ward dashboard…<br>If this screen stays, please check your internet connection.</p>
+    <button onclick="location.href='https://shadowgreen9371.github.io/ward54-inc/'">Retry</button>
+  </div>
+</body>
+</html>

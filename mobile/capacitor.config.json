@@ -1,0 +1,29 @@
+{
+  "appId": "com.ward54inc.app",
+  "appName": "Ward 54 INC",
+  "webDir": "www",
+  "server": {
+    "url": "https://shadowgreen9371.github.io/ward54-inc/",
+    "cleartext": false,
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "launchAutoHide": true,
+      "backgroundColor": "#0a0f1e",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#0a0f1e"
+    }
+  }
+}
