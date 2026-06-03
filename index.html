@@ -1517,22 +1517,49 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .footer-sub{font-size:11px;color:var(--text3);}
 .footer-credit{font-size:10px;color:var(--text4);letter-spacing:0.05em;margin-top:6px;}
 
-/* ── Find Your Booth: slim trigger button + full modal ── */
-.fb-trigger{display:flex;align-items:center;gap:12px;width:100%;background:linear-gradient(135deg,rgba(232,130,30,0.14),rgba(22,28,52,0.78));
-  border:1px solid rgba(232,130,30,0.35);border-radius:12px;padding:11px 14px;cursor:pointer;
-  color:var(--text);font-family:inherit;text-align:left;margin-top:18px;
-  box-shadow:0 8px 22px rgba(0,0,0,0.32), 0 0 18px rgba(232,130,30,0.10);
-  transition:transform .14s ease,box-shadow .14s ease;}
-.fb-trigger:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.42), 0 0 26px rgba(232,130,30,0.22);}
-.fb-trigger-icon{width:38px;height:38px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  color:#fff;background:linear-gradient(135deg,rgba(255,217,168,0.95),rgba(232,130,30,0.78));
-  box-shadow:0 4px 12px rgba(232,130,30,0.4), inset 0 1px 0 rgba(255,255,255,0.35);}
-.fb-trigger-icon svg{width:18px;height:18px;}
+/* ── Find Your Booth: fancy advanced trigger + full modal ── */
+.fb-trigger{position:relative;display:flex;align-items:center;gap:13px;width:100%;
+  background:linear-gradient(135deg,rgba(232,130,30,0.16) 0%,rgba(22,28,52,0.85) 50%,rgba(19,136,8,0.14) 100%);
+  border:2px solid transparent;border-radius:14px;padding:13px 16px;cursor:pointer;
+  color:var(--text);font-family:inherit;text-align:left;margin-top:18px;overflow:hidden;isolation:isolate;
+  box-shadow:0 10px 26px rgba(0,0,0,0.40), 0 0 22px rgba(232,130,30,0.16);
+  transition:transform .22s cubic-bezier(.4,0,.2,1), box-shadow .22s ease;
+  animation:fbTriggerGlow 3.6s ease-in-out infinite;}
+/* Animated tricolour edge */
+.fb-trigger::before{content:'';position:absolute;inset:0;border-radius:14px;padding:2px;
+  background:linear-gradient(110deg,#FF9933 0%,#FFE9B6 25%,#FFFFFF 50%,#86e08a 75%,#138808 100%);
+  background-size:200% 100%;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;z-index:1;animation:fbEdge 5s ease-in-out infinite;}
+@keyframes fbEdge{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+/* Shimmer sweep */
+.fb-trigger::after{content:'';position:absolute;top:-50%;left:-60%;width:50%;height:200%;z-index:0;
+  background:linear-gradient(115deg,transparent 0%,rgba(255,255,255,0.18) 50%,transparent 100%);
+  transform:skewX(-22deg);animation:fbSweep 4s ease-in-out infinite;pointer-events:none;}
+@keyframes fbSweep{0%{left:-60%;}55%{left:160%;}100%{left:160%;}}
+@keyframes fbTriggerGlow{0%,100%{box-shadow:0 10px 26px rgba(0,0,0,0.40), 0 0 22px rgba(232,130,30,0.14);}50%{box-shadow:0 14px 34px rgba(0,0,0,0.50), 0 0 32px rgba(232,130,30,0.32);}}
+.fb-trigger:hover{transform:translateY(-3px) scale(1.012);box-shadow:0 18px 40px rgba(0,0,0,0.5), 0 0 38px rgba(232,130,30,0.38);}
+.fb-trigger:active{transform:translateY(-1px) scale(1.004);}
+.fb-trigger > *{position:relative;z-index:2;}
+.fb-trigger-icon{width:44px;height:44px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  color:#fff;background:radial-gradient(120% 120% at 30% 20%,#ffd9a8 0%,#FF9933 38%,#e8821e 72%,#be5f0f 100%);
+  border:1.5px solid rgba(255,255,255,0.30);
+  box-shadow:0 6px 18px rgba(232,130,30,0.5), 0 0 0 4px rgba(232,130,30,0.10), inset 0 1px 0 rgba(255,255,255,0.45);
+  animation:fbIconPulse 2.4s ease-in-out infinite;}
+@keyframes fbIconPulse{0%,100%{box-shadow:0 6px 18px rgba(232,130,30,0.45), 0 0 0 4px rgba(232,130,30,0.10), inset 0 1px 0 rgba(255,255,255,0.45);}50%{box-shadow:0 8px 26px rgba(232,130,30,0.7), 0 0 0 8px rgba(232,130,30,0.06), inset 0 1px 0 rgba(255,255,255,0.45);}}
+.fb-trigger-icon svg{width:20px;height:20px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.3));}
 .fb-trigger-text{flex:1;min-width:0;}
-.fb-trigger-title{display:block;font-size:14px;font-weight:700;letter-spacing:0.02em;}
-.fb-trigger-sub{display:block;font-size:11px;color:var(--text3);margin-top:2px;}
-.fb-trigger-arrow{color:var(--inc-saffron);flex-shrink:0;}
-.fb-trigger-arrow svg{width:18px;height:18px;}
+.fb-trigger-title{display:block;font-size:15px;font-weight:800;letter-spacing:0.04em;
+  background:linear-gradient(120deg,#ffffff 0%,#ffe9b6 26%,#FF9933 50%,#ffe9b6 74%,#ffffff 100%);
+  background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 1px 6px rgba(232,130,30,0.30));animation:wardSheen 5s linear infinite;}
+.fb-trigger-sub{display:block;font-size:11px;color:rgba(255,255,255,0.75);margin-top:3px;letter-spacing:0.04em;font-weight:500;}
+.fb-trigger-arrow{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  color:#fff;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.22);
+  animation:heroArrow 1.8s ease-in-out infinite;}
+.fb-trigger-arrow svg{width:16px;height:16px;}
+.fb-trigger:hover .fb-trigger-arrow{background:rgba(255,255,255,0.18);box-shadow:0 0 18px rgba(255,255,255,0.30);}
 
 .fb-modal{position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,0.72);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
@@ -1551,6 +1578,37 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;
   cursor:pointer;font-size:20px;line-height:1;padding:0;}
 .fb-modal-close:hover{background:rgba(255,255,255,0.10);color:var(--text);}
+
+/* ── Per-bar accent colours on the home page ── */
+/* Committee — green */
+.hero-cta-committee .hero-cta-title{
+  background:linear-gradient(120deg,#bdf3c0,#1aaa0c,#86e08a);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:none;filter:drop-shadow(0 1px 8px rgba(26,170,12,0.30));}
+.hero-cta-committee .hero-cta-icon{
+  background:radial-gradient(120% 120% at 30% 20%, rgba(189,243,192,0.95) 0%, rgba(26,170,12,0.92) 40%, rgba(19,136,8,0.78) 70%, rgba(10,93,5,0.70) 100%) !important;
+  box-shadow:0 6px 20px rgba(26,170,12,0.55), 0 0 0 4px rgba(26,170,12,0.10), inset 0 1px 0 rgba(255,255,255,0.45) !important;}
+.hero-cta-committee .hero-cta-dot{background:#1aaa0c !important;}
+
+/* Youth — violet/magenta */
+.hero-cta-youth .hero-cta-title{
+  background:linear-gradient(120deg,#e9d5ff,#a855f7,#ec4899);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:none;filter:drop-shadow(0 1px 8px rgba(168,85,247,0.35));}
+.hero-cta-youth .hero-cta-icon{
+  background:radial-gradient(120% 120% at 30% 20%, rgba(233,213,255,0.95) 0%, rgba(168,85,247,0.92) 40%, rgba(139,92,246,0.78) 70%, rgba(91,33,182,0.70) 100%) !important;
+  box-shadow:0 6px 20px rgba(168,85,247,0.55), 0 0 0 4px rgba(168,85,247,0.10), inset 0 1px 0 rgba(255,255,255,0.45) !important;}
+.hero-cta-youth .hero-cta-dot{background:#a855f7 !important;}
+
+/* Agents — blue */
+.hero-cta-agents .hero-cta-title{
+  background:linear-gradient(120deg,#bcd8f7,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:none;filter:drop-shadow(0 1px 8px rgba(59,130,246,0.35));}
+.hero-cta-agents .hero-cta-icon{
+  background:radial-gradient(120% 120% at 30% 20%, rgba(188,216,247,0.95) 0%, rgba(59,130,246,0.92) 40%, rgba(37,99,235,0.78) 70%, rgba(30,64,175,0.70) 100%) !important;
+  box-shadow:0 6px 20px rgba(59,130,246,0.55), 0 0 0 4px rgba(59,130,246,0.10), inset 0 1px 0 rgba(255,255,255,0.45) !important;}
+.hero-cta-agents .hero-cta-dot{background:#3b82f6 !important;}
 
 /* ── Membership-holder bar — green text + green icon ── */
 .hero-cta-membership .hero-cta-title{
@@ -1625,7 +1683,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <h1 class="p1-title"><span class="flag-saffron">INDIAN</span> <span class="flag-white">NATIONAL</span><br><span class="flag-green">CONGRESS</span></h1>
     <div class="p1-divider"></div>
     <div class="entry-bar-group">
-      <div class="hero-cta" onclick="goTo('p5')">
+      <div class="hero-cta hero-cta-committee" onclick="goTo('p5')">
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="14" x2="15" y2="14"/></svg></div>
         <div class="hero-cta-text">
@@ -1634,7 +1692,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
-      <div class="hero-cta" onclick="goTo('p7')">
+      <div class="hero-cta hero-cta-youth" onclick="goTo('p7')">
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
         <div class="hero-cta-text">
@@ -1652,7 +1710,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
-      <div class="hero-cta" onclick="goTo('p6')">
+      <div class="hero-cta hero-cta-agents" onclick="goTo('p6')">
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="hero-cta-text">
