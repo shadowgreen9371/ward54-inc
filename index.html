@@ -61,7 +61,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   background:
     radial-gradient(120% 80% at 50% -10%,#222a54 0%,#121737 32%,#0a0f1e 62%,#05070f 100%);}
 /* Hero fills the first screen; sections flow underneath */
-#p1 .p1-content{min-height:100vh;min-height:100svh;justify-content:center;margin:0 auto;}
+#p1 .p1-content{justify-content:flex-start;margin:0 auto;padding-top:18px;padding-bottom:14px;}
 /* Slow-rotating tricolour spotlight sweep behind everything (fixed backdrop) */
 #p1::before{content:'';position:fixed;top:50%;left:50%;width:160vmax;height:160vmax;
   transform:translate(-50%,-50%);pointer-events:none;z-index:0;opacity:0.5;
@@ -1512,11 +1512,18 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .home-row .home-sec-notice .notice-list::-webkit-scrollbar{width:5px;}
 .home-row .home-sec-notice .notice-list::-webkit-scrollbar-thumb{background:rgba(76,201,255,0.30);border-radius:3px;}
 
-/* Inspirations card layout */
-.home-row .home-sec-inspirations .inspo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;margin-bottom:12px;}
-.inspo-tile{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;cursor:pointer;
+/* Inspirations card layout — compact, fancy */
+.home-row .home-sec-inspirations{padding:14px 16px 14px;}
+.home-row .home-sec-inspirations .inspo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0 10px;}
+.inspo-quote{position:relative;display:flex;gap:8px;padding:8px 10px;margin-top:2px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(168,85,247,0.10),rgba(236,72,153,0.07));
+  border:1px solid rgba(168,85,247,0.22);}
+.inspo-quote .inspo-quote-mark{width:16px;height:16px;color:#ec4899;flex-shrink:0;margin-top:1px;filter:drop-shadow(0 0 6px rgba(236,72,153,0.5));}
+.inspo-quote p{margin:0;font-size:11.5px;line-height:1.45;color:var(--text2);font-style:italic;letter-spacing:0.01em;}
+.inspo-quote p b{color:#fff;font-style:normal;font-weight:800;letter-spacing:0.02em;background:linear-gradient(110deg,#a855f7,#ec4899 60%,#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.inspo-tile{position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1/1;cursor:pointer;
   background:linear-gradient(135deg,#3b1058,#7c3aed 50%,#ec4899);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 14px rgba(0,0,0,0.35);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.18), 0 3px 10px rgba(0,0,0,0.32);
   transition:transform .25s, box-shadow .25s;}
 .inspo-tile::before{content:"";position:absolute;inset:0;
   background:radial-gradient(120% 120% at 20% 10%, rgba(255,255,255,0.30) 0%, transparent 50%);
@@ -1526,12 +1533,28 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .inspo-tile img{width:100%;height:100%;object-fit:cover;display:block;}
 .inspo-tile:hover{transform:translateY(-2px) scale(1.03);
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.25), 0 8px 22px rgba(168,85,247,0.45);}
-.inspo-tile .inspo-cap{position:absolute;left:8px;right:8px;bottom:6px;font-size:10px;font-weight:700;color:#fff;
-  letter-spacing:0.04em;line-height:1.2;text-shadow:0 1px 4px rgba(0,0,0,0.65);z-index:2;}
+.inspo-tile .inspo-cap{position:absolute;left:5px;right:5px;bottom:4px;font-size:8.5px;font-weight:800;color:#fff;
+  letter-spacing:0.06em;line-height:1.15;text-shadow:0 1px 3px rgba(0,0,0,0.75);z-index:2;text-transform:uppercase;text-align:center;}
 .inspo-tile-1{background:linear-gradient(135deg,#ff9933,#e8821e 50%,#7c2d12);}
-.inspo-tile-2{background:linear-gradient(135deg,#138808,#22c55e 50%,#064e3b);}
+.inspo-tile-2{background:linear-gradient(135deg,#7c3aed,#ec4899 50%,#3b1058);}
 .inspo-tile-3{background:linear-gradient(135deg,#3b82f6,#1d4ed8 50%,#1e3a8a);}
-.inspo-tile-4{background:linear-gradient(135deg,#c9a84c,#ff9933 50%,#138808);}
+.inspo-tile-4{background:linear-gradient(135deg,#138808,#22c55e 50%,#064e3b);}
+/* Video-style tile: play icon overlay + neon outline */
+.inspo-tile-video{box-shadow:inset 0 1px 0 rgba(255,255,255,0.25), 0 3px 12px rgba(236,72,153,0.45), 0 0 0 1px rgba(236,72,153,0.45);}
+.inspo-tile-video .inspo-play{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:2;
+  width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0.55);border:1.5px solid rgba(255,255,255,0.95);
+  box-shadow:0 0 12px rgba(255,255,255,0.55), 0 4px 10px rgba(0,0,0,0.45);
+  animation:inspoPulse 1.8s ease-in-out infinite;}
+.inspo-tile-video .inspo-play svg{width:9px;height:9px;color:#fff;margin-left:1px;}
+@keyframes inspoPulse{0%,100%{box-shadow:0 0 12px rgba(255,255,255,0.55), 0 4px 10px rgba(0,0,0,0.45);}
+  50%{box-shadow:0 0 20px rgba(236,72,153,0.85), 0 0 30px rgba(168,85,247,0.55), 0 4px 14px rgba(0,0,0,0.5);}}
+
+/* Youth-themed word tags */
+.inspo-tags{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 10px;justify-content:center;}
+.inspo-tag{font-size:9.5px;letter-spacing:0.03em;font-weight:700;padding:3px 8px;border-radius:999px;
+  color:#e9d5ff;background:linear-gradient(135deg,rgba(168,85,247,0.14),rgba(236,72,153,0.10));
+  border:1px solid rgba(168,85,247,0.35);text-shadow:0 0 6px rgba(168,85,247,0.45);}
 .inspo-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;
   padding:9px 14px;border-radius:10px;border:1px solid rgba(168,85,247,0.40);cursor:pointer;
   font:800 12px/1 'Outfit',sans-serif;letter-spacing:0.05em;text-transform:uppercase;color:#fff;
@@ -2005,14 +2028,39 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="home-sec home-sec-inspirations">
         <div class="pa-sec-head">
           <span class="pa-sec-ico" style="--c:#a855f7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></span>
-          <div><div class="pa-sec-title">Inspirations</div><div class="pa-sec-sub">Leaders &middot; rallies &middot; moments</div></div>
+          <div><div class="pa-sec-title">Inspirations</div><div class="pa-sec-sub">For the next generation &middot; Ward 54</div></div>
         </div>
-        <div class="inspo-grid" id="home-inspo-grid">
-          <div class="inspo-tile inspo-tile-1" onclick="openInspoModal()"><span class="inspo-cap">Vision</span></div>
-          <div class="inspo-tile inspo-tile-2" onclick="openInspoModal()"><span class="inspo-cap">Service</span></div>
-          <div class="inspo-tile inspo-tile-3" onclick="openInspoModal()"><span class="inspo-cap">Unity</span></div>
-          <div class="inspo-tile inspo-tile-4" onclick="openInspoModal()"><span class="inspo-cap">Progress</span></div>
+
+        <!-- Inspirational youth quote -->
+        <div class="inspo-quote">
+          <svg class="inspo-quote-mark" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2H4v2h1a4 4 0 0 0 4-4V7zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7z"/></svg>
+          <p><b>Service before self.</b> Youth is not a stage of life — it is the spark that lights the Ward.</p>
         </div>
+
+        <!-- 4 small fancy tiles: 1 video + 3 themed -->
+        <div class="inspo-grid inspo-grid-mini" id="home-inspo-grid">
+          <div class="inspo-tile inspo-tile-1" onclick="openInspoModal()" role="button" aria-label="Vision">
+            <span class="inspo-cap">Vision</span>
+          </div>
+          <div class="inspo-tile inspo-tile-video inspo-tile-2" onclick="openInspoModal()" role="button" aria-label="Rally video">
+            <span class="inspo-play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg></span>
+            <span class="inspo-cap">Rally</span>
+          </div>
+          <div class="inspo-tile inspo-tile-3" onclick="openInspoModal()" role="button" aria-label="Unity">
+            <span class="inspo-cap">Unity</span>
+          </div>
+          <div class="inspo-tile inspo-tile-4" onclick="openInspoModal()" role="button" aria-label="Service">
+            <span class="inspo-cap">Service</span>
+          </div>
+        </div>
+
+        <!-- Youth-themed word tags -->
+        <div class="inspo-tags" aria-hidden="true">
+          <span class="inspo-tag">#YouthRising</span>
+          <span class="inspo-tag">#SewaSeShakti</span>
+          <span class="inspo-tag">#OneWardOneVoice</span>
+        </div>
+
         <button class="inspo-cta" type="button" onclick="openInspoModal()">Open Gallery
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
