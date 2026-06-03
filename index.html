@@ -394,6 +394,35 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 
 /* PAGE 2 — background themed above (#p2 accent rule) */
 .p2-body{padding:20px;flex:1;max-width:900px;width:100%;margin:0 auto;}
+
+/* All 38 parts — voter list info cards on p2 */
+.parts-info-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:30px 0 14px;}
+.parts-info-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:0.02em;
+  background:linear-gradient(120deg,#ffe9b6,#FF9933,#ffe9b6);background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:wardSheen 6s linear infinite;}
+.parts-info-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.parts-info-badge{font-size:11px;font-weight:600;color:var(--gold2);
+  background:rgba(201,168,76,0.10);border:1px solid rgba(201,168,76,0.30);
+  padding:5px 12px;border-radius:999px;flex-shrink:0;}
+.parts-info-badge b{font-family:DM Mono,monospace;color:var(--inc-saffron);margin-right:4px;}
+.parts-info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.part-info-card{position:relative;background:linear-gradient(135deg,rgba(232,130,30,0.08),rgba(22,28,52,0.78));
+  border:1px solid rgba(232,130,30,0.22);border-left:3px solid var(--inc-saffron);
+  border-radius:10px;padding:11px 13px;cursor:pointer;color:var(--text);
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+  box-shadow:0 6px 16px rgba(0,0,0,0.25);}
+.part-info-card:hover{transform:translateY(-2px);border-color:rgba(232,130,30,0.55);
+  box-shadow:0 10px 24px rgba(0,0,0,0.40), 0 0 22px rgba(232,130,30,0.18);}
+.pi-row1{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;}
+.pi-num{font-family:DM Mono,monospace;font-size:11px;font-weight:700;color:var(--inc-saffron);
+  background:rgba(232,130,30,0.14);border:1px solid rgba(232,130,30,0.30);
+  padding:2px 8px;border-radius:999px;letter-spacing:0.06em;}
+.pi-voters{font-family:DM Mono,monospace;font-size:11px;color:var(--gold2);font-weight:700;}
+.pi-section{font-size:12.5px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px;}
+.pi-station{font-size:11px;color:var(--text2);line-height:1.35;display:flex;gap:5px;align-items:flex-start;}
+.pi-station svg{width:10px;height:10px;flex-shrink:0;color:var(--inc-saffron);margin-top:2px;}
+.pi-booth{font-family:DM Mono,monospace;font-size:10px;color:var(--text3);margin-top:3px;}
 #stationMap{height:380px;width:100%;border-radius:var(--r);border:1px solid rgba(232,130,30,0.30);margin-bottom:18px;background:var(--navy3);z-index:1;
   box-shadow:0 10px 34px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04) inset, 0 0 40px rgba(232,130,30,0.10);}
 .map-fallback{height:auto;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;text-align:center;}
@@ -1712,8 +1741,8 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <span class="hero-cta-shimmer"></span>
         <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <div class="hero-cta-text">
-          <div class="hero-cta-title">POLLING STATIONS &amp; VOTER LIST</div>
-          <div class="hero-cta-desc"><span class="hero-cta-dot"></span>12 stations &middot; 38 booths &middot; Map &middot; Voters</div>
+          <div class="hero-cta-title">POLLING STATIONS &amp; POLLING BOOTH DETAILS</div>
+          <div class="hero-cta-desc"><span class="hero-cta-dot"></span>12 stations &middot; 38 booths &middot; Map &middot; Voter PDFs</div>
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
@@ -1808,6 +1837,16 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="text" id="searchInput" placeholder="Search polling station, booth or address..." oninput="filterStations()"></div>
     <div class="scount" id="scount">12 polling stations &middot; 38 polling booths</div>
     <div id="stations-list"></div>
+
+    <!-- All 38 part voter lists (info cards) -->
+    <div class="parts-info-head">
+      <div>
+        <div class="parts-info-title">All 38 Voter List Files</div>
+        <div class="parts-info-sub">Section &middot; Station &middot; Booth &middot; Voter count</div>
+      </div>
+      <span class="parts-info-badge"><b>38</b> parts</span>
+    </div>
+    <div class="parts-info-grid" id="parts-info-list"></div>
 
   </div>
 </div>
@@ -3567,6 +3606,53 @@ function buildBoothGallery(){
   }).join('');
 }
 
+/* All 38 voter-list info cards (Part / Section / Station / Booth / Voters) */
+var _partsManifest = null;
+function _findStationForPart(partNo){
+  for(var i=0;i<stations.length;i++){
+    if(stations[i].parts && stations[i].parts.indexOf(partNo) !== -1) return stations[i];
+  }
+  return null;
+}
+function buildPartsInfoList(){
+  var el = document.getElementById('parts-info-list');
+  if(!el) return;
+  var render = function(){
+    var manifest = _partsManifest;
+    var byPart = {};
+    if(manifest && Array.isArray(manifest.parts)){
+      manifest.parts.forEach(function(p){ byPart[p.part] = p; });
+    }
+    var html = '';
+    for(var i=1;i<=38;i++){
+      var m  = byPart[i] || {};
+      var s  = _findStationForPart(i) || {};
+      var voters = (m.voters!=null) ? m.voters : ((typeof partsBase!=='undefined' && partsBase[i]) ? partsBase[i].total : null);
+      var section = (m.section || '').replace(/^[0-9]+\s*-\s*/, '').trim() || '—';
+      var booth = s.no ? ('Booth ' + s.no) : 'Booth —';
+      html += '<div class="part-info-card" onclick="openStation('+(s.no||1)+')">'
+        + '<div class="pi-row1">'
+          + '<span class="pi-num">PART ' + i + '</span>'
+          + (voters!=null ? '<span class="pi-voters">' + Number(voters).toLocaleString() + ' voters</span>' : '')
+        + '</div>'
+        + '<div class="pi-section">' + escapeHtml(section) + '</div>'
+        + '<div class="pi-station"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+          + '<div>' + escapeHtml(s.name || '—')
+          + (s.addr ? '<div class="pi-booth">' + escapeHtml(s.addr) + '</div>' : '')
+          + '</div>'
+        + '</div>'
+        + '<div class="pi-booth">' + booth + '</div>'
+        + '</div>';
+    }
+    el.innerHTML = html;
+  };
+  if(_partsManifest) { render(); return; }
+  fetch('data/voters/manifest.json', { cache:'force-cache' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){ _partsManifest = j || {}; render(); })
+    .catch(function(){ render(); });
+}
+
 /* Ward-wide summary stats bar (12 stations · 38 booths · ~27K voters etc.) */
 function buildWardStats(){
   var el=document.getElementById('wardStatsBar'); if(!el)return;
@@ -4954,6 +5040,7 @@ function findMyBooth(){
 
 buildStations(stations);
 buildWardStats();
+buildPartsInfoList();
 /* Render the home Notice Board + Gallery immediately (localStorage/defaults),
    then the CMS fetch above refreshes them with the published data. */
 if(typeof buildNotices === 'function') buildNotices();
