@@ -423,6 +423,35 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .pi-station{font-size:11px;color:var(--text2);line-height:1.35;display:flex;gap:5px;align-items:flex-start;}
 .pi-station svg{width:10px;height:10px;flex-shrink:0;color:var(--inc-saffron);margin-top:2px;}
 .pi-booth{font-family:DM Mono,monospace;font-size:10px;color:var(--text3);margin-top:3px;}
+
+/* Expandable Part details + inline voter list */
+.part-info-details{grid-column:1/-1;}
+.part-info-details summary{list-style:none;cursor:pointer;display:block;}
+.part-info-details summary::-webkit-details-marker{display:none;}
+.part-info-details summary::marker{display:none;}
+.part-info-details > summary > .part-info-card,
+.part-info-details > summary.part-info-card{cursor:pointer;}
+.pi-toggle{margin-left:auto;font-family:'Outfit',sans-serif;color:var(--inc-saffron);font-size:14px;transition:transform .2s ease;}
+.part-info-details[open] .pi-toggle{transform:rotate(180deg);}
+.part-info-details[open] > summary{border-color:rgba(232,130,30,0.55) !important;
+  box-shadow:0 10px 24px rgba(0,0,0,0.40), 0 0 22px rgba(232,130,30,0.18);}
+.part-voters-wrap{padding:8px 4px 14px;}
+.part-voters-loading{font-size:12px;color:var(--text3);text-align:center;padding:18px;border:1px dashed var(--border);border-radius:8px;margin:6px 4px;}
+.part-voters-toolbar{display:flex;align-items:center;gap:10px;margin:6px 4px 10px;}
+.pv-search{flex:1;min-width:0;background:var(--navy3);border:1px solid var(--border);border-radius:8px;
+  padding:8px 12px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;}
+.pv-search:focus{border-color:rgba(232,130,30,0.60);}
+.pv-count{font-family:DM Mono,monospace;font-size:11px;font-weight:700;color:var(--gold2);
+  background:rgba(201,168,76,0.10);border:1px solid rgba(201,168,76,0.30);
+  padding:5px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0;}
+.part-voters-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;}
+.pv-card{background:var(--navy3);border:1px solid var(--border);border-left:3px solid var(--inc-saffron);
+  border-radius:8px;padding:9px 11px;font-size:12px;line-height:1.4;}
+.pv-row1{display:flex;align-items:baseline;gap:7px;margin-bottom:3px;}
+.pv-sl{font-family:DM Mono,monospace;font-size:10px;color:var(--text3);min-width:24px;}
+.pv-name{font-size:13px;font-weight:600;color:var(--text);flex:1;}
+.pv-id{font-family:DM Mono,monospace;font-size:11px;color:var(--gold2);margin-bottom:2px;}
+.pv-meta{font-size:11px;color:var(--text2);line-height:1.4;}
 #stationMap{height:380px;width:100%;border-radius:var(--r);border:1px solid rgba(232,130,30,0.30);margin-bottom:18px;background:var(--navy3);z-index:1;
   box-shadow:0 10px 34px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04) inset, 0 0 40px rgba(232,130,30,0.10);}
 .map-fallback{height:auto;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;text-align:center;}
@@ -3606,7 +3635,9 @@ function buildBoothGallery(){
   }).join('');
 }
 
-/* All 38 voter-list info cards (Part / Section / Station / Booth / Voters) */
+/* All 38 voter-list expandable sections. Click a Part header to expand
+   inline and see every voter (name, voter ID, age/gender, relation).
+   Voter JSON is lazy-loaded once per part and cached. */
 var _partsManifest = null;
 function _findStationForPart(partNo){
   for(var i=0;i<stations.length;i++){
@@ -3630,19 +3661,23 @@ function buildPartsInfoList(){
       var voters = (m.voters!=null) ? m.voters : ((typeof partsBase!=='undefined' && partsBase[i]) ? partsBase[i].total : null);
       var section = (m.section || '').replace(/^[0-9]+\s*-\s*/, '').trim() || '—';
       var booth = s.no ? ('Booth ' + s.no) : 'Booth —';
-      html += '<div class="part-info-card" onclick="openStation('+(s.no||1)+')">'
-        + '<div class="pi-row1">'
-          + '<span class="pi-num">PART ' + i + '</span>'
-          + (voters!=null ? '<span class="pi-voters">' + Number(voters).toLocaleString() + ' voters</span>' : '')
-        + '</div>'
-        + '<div class="pi-section">' + escapeHtml(section) + '</div>'
-        + '<div class="pi-station"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
-          + '<div>' + escapeHtml(s.name || '—')
-          + (s.addr ? '<div class="pi-booth">' + escapeHtml(s.addr) + '</div>' : '')
+      html += '<details class="part-info-details" data-part="'+i+'" ontoggle="onPartToggle(this)">'
+        + '<summary class="part-info-card">'
+          + '<div class="pi-row1">'
+            + '<span class="pi-num">PART ' + i + '</span>'
+            + (voters!=null ? '<span class="pi-voters">' + Number(voters).toLocaleString() + ' voters</span>' : '')
+            + '<span class="pi-toggle">▾</span>'
           + '</div>'
-        + '</div>'
-        + '<div class="pi-booth">' + booth + '</div>'
-        + '</div>';
+          + '<div class="pi-section">' + escapeHtml(section) + '</div>'
+          + '<div class="pi-station"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
+            + '<div>' + escapeHtml(s.name || '—')
+            + (s.addr ? '<div class="pi-booth">' + escapeHtml(s.addr) + '</div>' : '')
+            + '</div>'
+          + '</div>'
+          + '<div class="pi-booth">' + booth + '</div>'
+        + '</summary>'
+        + '<div class="part-voters-wrap"><div class="part-voters-loading">Loading voters…</div></div>'
+        + '</details>';
     }
     el.innerHTML = html;
   };
@@ -3651,6 +3686,55 @@ function buildPartsInfoList(){
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(j){ _partsManifest = j || {}; render(); })
     .catch(function(){ render(); });
+}
+
+/* When a <details> opens, fetch + render that part's voters once. */
+var _pvLoaded = {};
+function onPartToggle(d){
+  if(!d.open) return;
+  var partNo = parseInt(d.dataset.part, 10);
+  if(_pvLoaded[partNo]) return;
+  var wrap = d.querySelector('.part-voters-wrap');
+  fetch('data/voters/part-' + String(partNo).padStart(2,'0') + '.json', { cache:'force-cache' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(data){
+      if(!data || !Array.isArray(data.voters)){
+        wrap.innerHTML = '<div class="part-voters-loading">Could not load voters for Part '+partNo+'.</div>';
+        return;
+      }
+      _pvLoaded[partNo] = true;
+      var rows = data.voters.map(function(v){
+        var meta = [];
+        if(v.age!=null) meta.push(escapeHtml(String(v.age))+' yrs');
+        if(v.gender)    meta.push(escapeHtml(v.gender));
+        if(v.house)     meta.push('H/No: '+escapeHtml(v.house));
+        var rel = v.relName ? ((v.relType||'F')+': '+escapeHtml(v.relName)) : '';
+        return '<div class="pv-card">'
+          + '<div class="pv-row1"><span class="pv-sl">'+(v.sl||'')+'</span><span class="pv-name">'+escapeHtml(v.name||'')+'</span></div>'
+          + '<div class="pv-id">'+escapeHtml(v.voterId||'')+'</div>'
+          + '<div class="pv-meta">'+meta.join(' &middot; ')+(rel ? ' &middot; '+rel : '')+'</div>'
+          + '</div>';
+      }).join('');
+      wrap.innerHTML = '<div class="part-voters-toolbar">'
+        + '<input type="text" class="pv-search" placeholder="Search by name or voter ID in Part '+partNo+'…" oninput="filterPartVoters(this,'+partNo+')">'
+        + '<span class="pv-count">'+data.voters.length.toLocaleString()+' voters</span>'
+        + '</div>'
+        + '<div class="part-voters-grid" id="pv-grid-'+partNo+'">'+rows+'</div>';
+    })
+    .catch(function(){
+      wrap.innerHTML = '<div class="part-voters-loading">Could not load voters.</div>';
+    });
+}
+
+function filterPartVoters(input, partNo){
+  var q = input.value.trim().toUpperCase();
+  var grid = document.getElementById('pv-grid-'+partNo);
+  if(!grid) return;
+  var cards = grid.children;
+  for(var i=0;i<cards.length;i++){
+    var t = cards[i].textContent.toUpperCase();
+    cards[i].style.display = !q || t.indexOf(q) !== -1 ? '' : 'none';
+  }
 }
 
 /* Ward-wide summary stats bar (12 stations · 38 booths · ~27K voters etc.) */
