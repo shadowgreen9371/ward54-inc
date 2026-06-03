@@ -1470,6 +1470,41 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   background:linear-gradient(120deg,#FF9933,#FFFFFF,#138808);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .footer-sub{font-size:11px;color:var(--text3);}
 .footer-credit{font-size:10px;color:var(--text4);letter-spacing:0.05em;margin-top:6px;}
+
+/* ── Find Your Booth: slim trigger button + full modal ── */
+.fb-trigger{display:flex;align-items:center;gap:12px;width:100%;background:linear-gradient(135deg,rgba(232,130,30,0.14),rgba(22,28,52,0.78));
+  border:1px solid rgba(232,130,30,0.35);border-radius:12px;padding:11px 14px;cursor:pointer;
+  color:var(--text);font-family:inherit;text-align:left;margin-top:18px;
+  box-shadow:0 8px 22px rgba(0,0,0,0.32), 0 0 18px rgba(232,130,30,0.10);
+  transition:transform .14s ease,box-shadow .14s ease;}
+.fb-trigger:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.42), 0 0 26px rgba(232,130,30,0.22);}
+.fb-trigger-icon{width:38px;height:38px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  color:#fff;background:linear-gradient(135deg,rgba(255,217,168,0.95),rgba(232,130,30,0.78));
+  box-shadow:0 4px 12px rgba(232,130,30,0.4), inset 0 1px 0 rgba(255,255,255,0.35);}
+.fb-trigger-icon svg{width:18px;height:18px;}
+.fb-trigger-text{flex:1;min-width:0;}
+.fb-trigger-title{display:block;font-size:14px;font-weight:700;letter-spacing:0.02em;}
+.fb-trigger-sub{display:block;font-size:11px;color:var(--text3);margin-top:2px;}
+.fb-trigger-arrow{color:var(--inc-saffron);flex-shrink:0;}
+.fb-trigger-arrow svg{width:18px;height:18px;}
+
+.fb-modal{position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,0.72);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  display:none;align-items:flex-start;justify-content:center;padding:50px 16px 20px;}
+.fb-modal.open{display:flex;animation:fbModalIn .2s ease both;}
+@keyframes fbModalIn{from{opacity:0;}to{opacity:1;}}
+.fb-modal-card{background:var(--navy2);border:1px solid rgba(232,130,30,0.40);border-radius:16px;
+  width:100%;max-width:560px;padding:16px;display:flex;flex-direction:column;gap:12px;
+  max-height:calc(100vh - 70px);overflow-y:auto;
+  box-shadow:0 24px 60px rgba(0,0,0,0.55), 0 0 40px rgba(232,130,30,0.18);
+  animation:fbCardIn .25s cubic-bezier(.4,0,.2,1) both;}
+@keyframes fbCardIn{from{opacity:0;transform:translateY(-10px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+.fb-modal-head{display:flex;align-items:center;gap:10px;}
+.fb-modal-title{flex:1;font-size:16px;font-weight:800;color:var(--text);}
+.fb-modal-close{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--text2);
+  width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:20px;line-height:1;padding:0;}
+.fb-modal-close:hover{background:rgba(255,255,255,0.10);color:var(--text);}
 </style>
 </head>
 <body>
@@ -1499,12 +1534,6 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="ward-big">WARD NO. 54</div>
     <div class="kmc-line">Kolkata Municipal Corporation</div>
     <h1 class="p1-title"><span class="flag-saffron">INDIAN</span> <span class="flag-white">NATIONAL</span><br><span class="flag-green">CONGRESS</span></h1>
-    <div class="stats-strip">
-      <span><b>26,849</b> Voters</span>
-      <span><b>38</b> Parts</span>
-      <span><b>12</b> Stations</span>
-      <span><b>38</b> Agents</span>
-    </div>
     <div class="p1-divider"></div>
     <div class="entry-bar-group">
       <div class="hero-cta" onclick="goTo('p5')">
@@ -1558,19 +1587,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 
   <!-- Below-the-fold home sections: Find Booth + Notice Board + Footer -->
   <div class="home-sections">
-    <div class="home-sec">
-      <div class="pa-sec-head">
-        <span class="pa-sec-ico" style="--c:#e8821e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
-        <div><div class="pa-sec-title">Find Your Booth</div><div class="pa-sec-sub">Enter your voter ID or name</div></div>
-      </div>
-      <div class="fb-card">
-        <div class="fb-row">
-          <input id="fbInput" class="fb-input" placeholder="Voter ID (e.g. ABC1234567) or name" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')findMyBooth()">
-          <button id="fbBtn" class="fb-btn" onclick="findMyBooth()">Find</button>
-        </div>
-        <div id="fbResults" class="fb-results"><div class="fb-empty">Type your voter ID or name and tap Find.</div></div>
-      </div>
-    </div>
+    <button class="fb-trigger" type="button" onclick="openFindBoothModal()">
+      <span class="fb-trigger-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
+      <span class="fb-trigger-text">
+        <span class="fb-trigger-title">Find Your Booth</span>
+        <span class="fb-trigger-sub">Search across 26,849 voters</span>
+      </span>
+      <span class="fb-trigger-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </button>
 
     <div class="home-sec">
       <div class="pa-sec-head">
@@ -1828,6 +1852,22 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <button class="chat-send" onclick="sendCommitteeMessage()" aria-label="Send">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>
     </button>
+  </div>
+</div>
+
+<!-- Find Your Booth — modal -->
+<div class="fb-modal" id="fbModal" onclick="if(event.target===this)closeFindBoothModal()" aria-hidden="true">
+  <div class="fb-modal-card" role="dialog" aria-label="Find your booth">
+    <div class="fb-modal-head">
+      <span class="pa-sec-ico" style="--c:#e8821e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg></span>
+      <div class="fb-modal-title">Find Your Booth</div>
+      <button class="fb-modal-close" onclick="closeFindBoothModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="fb-row">
+      <input id="fbInput" class="fb-input" placeholder="Voter ID (e.g. ABC1234567) or name" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')findMyBooth()">
+      <button id="fbBtn" class="fb-btn" onclick="findMyBooth()">Find</button>
+    </div>
+    <div id="fbResults" class="fb-results"><div class="fb-empty">Type your voter ID or name and tap Find.</div></div>
   </div>
 </div>
 
@@ -4726,6 +4766,17 @@ function _fbLoadAll(){
     return rows;
   });
 }
+function openFindBoothModal(){
+  var m=document.getElementById('fbModal'); if(!m) return;
+  m.classList.add('open'); m.setAttribute('aria-hidden','false');
+  setTimeout(function(){ var i=document.getElementById('fbInput'); if(i) i.focus(); }, 60);
+}
+function closeFindBoothModal(){
+  var m=document.getElementById('fbModal'); if(!m) return;
+  m.classList.remove('open'); m.setAttribute('aria-hidden','true');
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeFindBoothModal(); });
+
 function findMyBooth(){
   var q = (document.getElementById('fbInput').value || '').trim();
   var res = document.getElementById('fbResults');
