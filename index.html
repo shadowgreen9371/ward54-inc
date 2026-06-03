@@ -1505,6 +1505,49 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;
   cursor:pointer;font-size:20px;line-height:1;padding:0;}
 .fb-modal-close:hover{background:rgba(255,255,255,0.10);color:var(--text);}
+
+/* ── Membership-holder bar — green text + green icon ── */
+.hero-cta-membership .hero-cta-title{
+  background:linear-gradient(120deg,#bdf3c0,#1aaa0c,#86e08a);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:none;filter:drop-shadow(0 1px 8px rgba(26,170,12,0.35));}
+.hero-cta-membership .hero-cta-icon{
+  background:radial-gradient(120% 120% at 30% 20%, rgba(189,243,192,0.95) 0%, rgba(26,170,12,0.92) 40%, rgba(19,136,8,0.78) 70%, rgba(10,93,5,0.70) 100%) !important;
+  box-shadow:0 6px 20px rgba(26,170,12,0.55), 0 0 0 4px rgba(26,170,12,0.10), inset 0 1px 0 rgba(255,255,255,0.45) !important;}
+.hero-cta-membership .hero-cta-dot{background:#1aaa0c !important;
+  animation:heroDotGreenM 1.6s ease-in-out infinite !important;}
+@keyframes heroDotGreenM{0%,100%{box-shadow:0 0 0 0 rgba(26,170,12,0.7), 0 0 8px rgba(26,170,12,0.6);}50%{box-shadow:0 0 0 8px rgba(26,170,12,0), 0 0 12px rgba(26,170,12,0.85);}}
+
+/* ── p8 Membership Holders — fancy advanced vCard ── */
+#p8 .congress-workers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+#p8 .cw-card{
+  background:linear-gradient(160deg,rgba(26,170,12,0.14) 0%,rgba(22,28,52,0.85) 55%,rgba(232,130,30,0.10) 100%) !important;
+  border:1px solid rgba(26,170,12,0.32) !important;border-left:none !important;
+  border-radius:18px !important;padding:20px 16px 18px !important;
+  display:flex !important;flex-direction:column !important;align-items:center !important;
+  text-align:center;gap:8px;position:relative;overflow:hidden;
+  box-shadow:0 14px 36px rgba(0,0,0,0.45), 0 0 22px rgba(26,170,12,0.14);
+  transition:transform .22s ease, box-shadow .22s ease;}
+#p8 .cw-card::before{content:'';position:absolute;left:0;top:0;width:100%;height:4px;
+  background:linear-gradient(90deg,#1aaa0c,#86e08a,#FF9933,#86e08a,#1aaa0c);background-size:200% 100%;
+  box-shadow:0 0 14px rgba(26,170,12,0.6);animation:memEdge 6s ease-in-out infinite;}
+@keyframes memEdge{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+#p8 .cw-card:hover{transform:translateY(-3px);box-shadow:0 22px 50px rgba(0,0,0,0.55), 0 0 40px rgba(26,170,12,0.28);}
+#p8 .cw-photo{width:74px !important;height:74px !important;border-radius:50% !important;font-size:22px !important;
+  background:linear-gradient(135deg,rgba(189,243,192,0.30),rgba(19,136,8,0.10)) !important;
+  border:2px solid rgba(26,170,12,0.50) !important;color:#bdf3c0 !important;
+  box-shadow:0 6px 18px rgba(0,0,0,0.42), 0 0 0 4px rgba(26,170,12,0.10), 0 0 22px rgba(26,170,12,0.30) !important;}
+#p8 .cw-info{width:100%;}
+#p8 .cw-name{font-size:15.5px !important;font-weight:700 !important;color:var(--text) !important;}
+#p8 .cw-role{display:inline-block !important;font-size:10px !important;color:#bdf3c0 !important;
+  background:rgba(26,170,12,0.18) !important;border:1px solid rgba(26,170,12,0.40) !important;
+  padding:3px 10px;border-radius:999px;margin-top:5px !important;
+  text-transform:uppercase;letter-spacing:0.12em;font-weight:700;}
+#p8 .cw-phone{justify-content:center;margin-top:9px !important;font-size:12px !important;}
+#p8 .cw-phone svg{width:11px;height:11px;}
+#p8 .cw-wa{margin:9px auto 0 !important;padding:5px 13px 5px 10px !important;font-size:10px !important;
+  background:linear-gradient(135deg,#25D366,#128C7E) !important;box-shadow:0 4px 12px rgba(37,211,102,0.30);}
+#p8 .cw-wa svg{width:11px;height:11px;}
 </style>
 </head>
 <body>
@@ -1572,12 +1615,12 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
-      <div class="hero-cta" onclick="goTo('p8')">
+      <div class="hero-cta hero-cta-membership" onclick="goTo('p8')">
         <span class="hero-cta-shimmer"></span>
-        <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M16 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14h6"/><path d="M9 18h4"/></svg></div>
         <div class="hero-cta-text">
-          <div class="hero-cta-title">54 WARD CONGRESS WORKERS</div>
-          <div class="hero-cta-desc"><span class="hero-cta-dot"></span>All booth karyakartas &middot; Contact</div>
+          <div class="hero-cta-title">MEMBERSHIP HOLDERS</div>
+          <div class="hero-cta-desc"><span class="hero-cta-dot"></span>Ward 54 INC members &middot; Contact</div>
         </div>
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
@@ -1790,12 +1833,12 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   </div>
 </div>
 
-<!-- PAGE 8: 54 WARD — ALL CONGRESS WORKERS -->
+<!-- PAGE 8: 54 WARD MEMBERSHIP HOLDERS -->
 <div class="page" id="p8">
   <div class="topbar">
     <button class="back-btn" onclick="goTo('p1')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Home</button>
-    <span class="tb-title tb-title-center">54 Ward Congress Workers</span>
-    <div class="tb-right"><span class="tb-badge" id="p8-badge">Karyakarta roster</span></div>
+    <span class="tb-title tb-title-center">Membership Holders</span>
+    <div class="tb-right"><span class="tb-badge" id="p8-badge">Ward 54 INC</span></div>
   </div>
   <div class="page-fx" aria-hidden="true">
     <span class="pf-glow pf-glow-a"></span><span class="pf-glow pf-glow-b"></span><span class="pf-grid"></span>
@@ -1804,7 +1847,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   <div class="p8-body">
     <div class="pa-sec-head">
       <span class="pa-sec-ico" style="--c:#138808"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-      <div><div class="pa-sec-title">54 Ward — All Congress Workers</div><div class="pa-sec-sub">Booth-level karyakartas across the ward</div></div>
+      <div><div class="pa-sec-title">Membership Holders</div><div class="pa-sec-sub">Ward 54 INC members &middot; Contact roster</div></div>
     </div>
     <div class="congress-workers-grid" id="congress-workers-grid"></div>
   </div>
@@ -4440,7 +4483,7 @@ function buildCongressWorkers(){
   if(!el) return;
   var list = Array.isArray(congressWorkersList) ? congressWorkersList : [];
   if(!list.length){
-    el.innerHTML = '<div class="pa-empty">No congress workers added yet.</div>';
+    el.innerHTML = '<div class="pa-empty">No members added yet.</div>';
     return;
   }
   el.innerHTML = list.map(function(w){
