@@ -849,9 +849,9 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <div class="form-group" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:14px;margin-top:4px;"><label class="form-label" style="color:var(--gold);text-transform:uppercase;letter-spacing:0.18em;font-size:11px;">CTA 1 — Green (Congress)</label></div>
         <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta1-t" placeholder="54 WARD CONGRESS COMMITTEE"></div>
         <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta1-d" placeholder="All parts · All voters · Card view"></div>
-        <div class="form-group" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:14px;margin-top:4px;"><label class="form-label" style="color:#c4b5fd;text-transform:uppercase;letter-spacing:0.18em;font-size:11px;">CTA 2 — Violet (Youth Congress)</label></div>
-        <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta2-t" placeholder="54 WARD YOUTH CONGRESS"></div>
-        <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta2-d" placeholder="Youth wing · Ward 54 unit"></div>
+        <div class="form-group" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:14px;margin-top:4px;"><label class="form-label" style="color:#ffb15e;text-transform:uppercase;letter-spacing:0.18em;font-size:11px;">CTA 2 — Saffron (Polling Stations)</label></div>
+        <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta2-t" placeholder="POLLING STATIONS &amp; VOTER LIST"></div>
+        <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta2-d" placeholder="12 stations · 38 booths · Map · Voters"></div>
         <div class="form-group" style="grid-column:1/-1;border-top:1px dashed var(--border);padding-top:14px;margin-top:4px;"><label class="form-label" style="color:var(--inc-saffron);text-transform:uppercase;letter-spacing:0.18em;font-size:11px;">CTA 3 — Saffron (Polling Stations)</label></div>
         <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta3-t" placeholder="POLLING STATIONS &amp; VOTER LIST"></div>
         <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta3-d" placeholder="12 stations · 38 booths · Map · Voters"></div>
@@ -871,18 +871,6 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <button class="btn btn-primary btn-sm" onclick="addCommitteeMember('congress')">+ Add Member</button>
       </div>
       <div id="adminCongressList"></div>
-    </div>
-
-    <!-- Section: Youth Congress Office Bearers -->
-    <div class="p4-section">
-      <div class="p4-section-head">
-        <div>
-          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Youth Congress — Office Bearers</div>
-          <div class="p4-section-sub">Add, edit or remove members of the 54 Ward Youth Congress</div>
-        </div>
-        <button class="btn btn-primary btn-sm" onclick="addCommitteeMember('youth')">+ Add Member</button>
-      </div>
-      <div id="adminYouthList"></div>
     </div>
 
     <!-- Section: Polling Agents (the 3-agent ops roster) -->
@@ -2543,7 +2531,7 @@ function openAdminPanel(){
   try{
     var _c = cmsRead();
     if(!_c || !_c.pollingAgents){
-      pullCmsFromLive(true).then(function(ok){ if(ok){ buildAdminPollingAgentsList(); buildAdminCongressWorkersList(); buildAdminNoticesList(); buildAdminGalleryList(); loadMainPageContent(); buildAdminCommitteeList('congress'); buildAdminCommitteeList('youth'); } });
+      pullCmsFromLive(true).then(function(ok){ if(ok){ buildAdminPollingAgentsList(); buildAdminCongressWorkersList(); buildAdminNoticesList(); buildAdminGalleryList(); loadMainPageContent(); buildAdminCommitteeList('congress'); } });
     }
   }catch(e){}
   syncLogoAllPages();
@@ -2552,7 +2540,6 @@ function openAdminPanel(){
   refreshP4Stats();
   loadMainPageContent();
   buildAdminCommitteeList('congress');
-  buildAdminCommitteeList('youth');
   buildAdminPollingAgentsList();
   buildAdminCongressWorkersList();
   buildAdminNoticesList();
