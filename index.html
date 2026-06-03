@@ -152,13 +152,13 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   radial-gradient(ellipse 100% 55% at 50% 0%,rgba(168,85,247,0.12) 0%,transparent 60%),
   radial-gradient(ellipse 70% 80% at 100% 100%,rgba(236,72,153,0.08) 0%,transparent 62%),
   var(--navy);}
-.p1-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.55rem;padding:1.2rem 1.5rem;max-width:500px;width:100%;animation:fadeUp 0.8s ease both;}
-.inc-logo{width:94px;height:94px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);position:relative;z-index:2;box-shadow:0 0 0 1px rgba(255,255,255,0.10), 0 0 38px rgba(201,168,76,0.40), 0 0 90px rgba(232,130,30,0.25), 0 10px 30px rgba(0,0,0,0.5);}
+.p1-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:0.4rem;padding:0.9rem 1.4rem;max-width:500px;width:100%;animation:fadeUp 0.8s ease both;}
+.inc-logo{width:78px;height:78px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);position:relative;z-index:2;box-shadow:0 0 0 1px rgba(255,255,255,0.10), 0 0 32px rgba(201,168,76,0.40), 0 0 80px rgba(232,130,30,0.25), 0 8px 24px rgba(0,0,0,0.5);}
 /* Landing logo — static (animations removed per request). incSpin keyframe kept
    so .flag-chakra inside .p1-title still spins. */
 #p1 .inc-logo{position:relative;transform-origin:center;}
 @keyframes incSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.p1-logo-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:128px;height:128px;}
+.p1-logo-wrap{position:relative;display:flex;align-items:center;justify-content:center;width:106px;height:106px;}
 /* Rotating tricolour glow halo behind the logo */
 .p1-logo-wrap::before{content:'';position:absolute;inset:-12px;border-radius:50%;z-index:0;
   background:conic-gradient(from 0deg,#FF9933,#ffd9a8,#ffffff,#86e08a,#138808,#ffd9a8,#FF9933);
@@ -168,7 +168,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p1-logo-ring::after{inset:-13px;border:1px solid rgba(232,130,30,0.22);animation-duration:40s;animation-direction:reverse;}
 .p1-tagline{font-size:11px;letter-spacing:0.42em;text-transform:uppercase;font-weight:700;text-indent:0.42em;
   background:linear-gradient(90deg,#c9a84c,#ffe9b0,#c9a84c);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.ward-big{font-family:'Outfit',sans-serif;font-size:clamp(30px,5.8vw,44px);font-weight:800;letter-spacing:0.02em;text-align:center;line-height:1;
+.ward-big{font-family:'Outfit',sans-serif;font-size:clamp(26px,5vw,36px);font-weight:800;letter-spacing:0.02em;text-align:center;line-height:1;
   background:linear-gradient(100deg,#ffffff 0%,#ffe9b6 24%,#f4c869 42%,#ffffff 52%,#f4c869 62%,#ffe9b6 80%,#ffffff 100%);
   background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
   filter:drop-shadow(0 2px 18px rgba(244,200,105,0.35)) drop-shadow(0 0 2px rgba(255,255,255,0.25));
@@ -204,7 +204,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p1-title .flag-chakra{display:inline-block;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#000080 0%,#000080 28%,transparent 30%),repeating-conic-gradient(from 0deg,#000080 0deg 7.5deg,transparent 7.5deg 15deg);border:1.5px solid #000080;vertical-align:middle;margin:0 6px;animation:incSpin 8s linear infinite;}
 .p1-sub-line{font-size:13px;color:var(--text3);letter-spacing:0.04em;text-align:center;}
 .p1-divider{width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0.2rem 0;}
-.entry-bar-group{display:flex;flex-direction:column;gap:8px;width:100%;max-width:440px;margin-top:0.1rem;}
+.entry-bar-group{display:flex;flex-direction:column;gap:6px;width:100%;max-width:440px;margin-top:0.05rem;}
 .entry-bar{display:flex;align-items:center;gap:14px;background:var(--glass);border:1px solid var(--border2);border-radius:14px;padding:17px 20px;cursor:pointer;transition:all 0.22s ease;position:relative;overflow:hidden;}
 .entry-bar::before{content:'';position:absolute;left:0;top:0;height:100%;width:3px;opacity:0;transition:opacity 0.22s;}
 .entry-bar.view-bar::before{background:var(--inc-saffron);}
@@ -272,14 +272,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes heroDotBlue{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0.7), 0 0 8px rgba(59,130,246,0.6);}50%{box-shadow:0 0 0 8px rgba(59,130,246,0), 0 0 12px rgba(59,130,246,0.8);}}
 
 /* HERO CTA — single big bold animated bar for "ENTER VOTER DIRECTORY" */
-.hero-cta{position:relative;display:flex;align-items:center;gap:12px;width:100%;max-width:440px;
+.hero-cta{position:relative;display:flex;align-items:center;gap:11px;width:100%;max-width:440px;
   background:
     linear-gradient(135deg, rgba(232,130,30,0.10) 0%, rgba(255,255,255,0.03) 48%, rgba(19,136,8,0.10) 100%),
-    linear-gradient(180deg, rgba(22,28,52,0.78), rgba(11,15,30,0.72));
+    linear-gradient(180deg, rgba(22,28,52,0.80), rgba(11,15,30,0.74));
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   border:1.5px solid transparent;
-  border-radius:16px;
-  padding:11px 16px;
+  border-radius:14px;
+  padding:8px 14px;
   cursor:pointer;
   overflow:hidden;
   isolation:isolate;
@@ -308,7 +308,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   animation:heroShimmer 3.5s ease-in-out infinite;}
 @keyframes heroShimmer{0%{left:-60%;}55%{left:160%;}100%{left:160%;}}
 
-.hero-cta-icon{position:relative;z-index:2;width:44px;height:44px;border-radius:12px;
+.hero-cta-icon{position:relative;z-index:2;width:38px;height:38px;border-radius:11px;
   background:
     radial-gradient(120% 120% at 30% 20%, rgba(255,221,160,0.95) 0%, rgba(255,153,51,0.9) 38%, rgba(232,130,30,0.78) 70%, rgba(190,95,15,0.7) 100%);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
@@ -326,7 +326,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes heroDot{0%,100%{box-shadow:0 0 0 0 rgba(232,130,30,0.7), 0 0 8px rgba(232,130,30,0.6);}50%{box-shadow:0 0 0 8px rgba(232,130,30,0), 0 0 12px rgba(232,130,30,0.8);}}
 
 .hero-cta-arrow{position:relative;z-index:2;color:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  width:36px;height:36px;border-radius:50%;
+  width:30px;height:30px;border-radius:50%;
   background:rgba(255,255,255,0.10);
   border:1px solid rgba(255,255,255,0.18);
   transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
@@ -336,20 +336,25 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 @keyframes heroArrow{0%,100%{transform:translateX(0);}50%{transform:translateX(4px);}}
 
 @media(max-width:520px){
-  .hero-cta{padding:13px 16px;gap:12px;}
-  .hero-cta-icon{width:46px;height:46px;}
-  .hero-cta-icon svg{width:22px;height:22px;}
-  .hero-cta-title{letter-spacing:0.05em;}
+  .hero-cta{padding:9px 14px;gap:10px;}
+  .hero-cta-icon{width:38px;height:38px;}
+  .hero-cta-icon svg{width:20px;height:20px;}
+  .hero-cta-title{letter-spacing:0.04em;font-size:clamp(13px,3.4vw,15px);}
+  .hero-cta-desc{font-size:10px;}
+  .hero-cta-arrow{width:28px;height:28px;}
 }
 /* Short-viewport safety: tighten everything further so the hero never
    needs a scroll on smaller phones / landscape. */
-@media(max-height:740px){
-  .p1-content{gap:0.5rem;padding:1rem 1.4rem;}
-  .p1-logo-wrap{width:96px;height:96px;}
-  .inc-logo{width:74px;height:74px;}
-  .hero-cta{padding:12px 16px;}
-  .hero-cta-icon{width:44px;height:44px;}
+@media(max-height:820px){
+  .p1-content{gap:0.35rem;padding:0.7rem 1.2rem;}
+  .p1-logo-wrap{width:92px;height:92px;}
+  .inc-logo{width:68px;height:68px;}
+  .ward-big{font-size:clamp(22px,4.5vw,30px);}
+  .hero-cta{padding:7px 12px;}
+  .hero-cta-icon{width:34px;height:34px;}
+  .hero-cta-arrow{width:26px;height:26px;}
   .p1-divider{margin:0;}
+  .entry-bar-group{gap:5px;}
 }
 
 /* MODALS */
