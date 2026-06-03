@@ -1486,11 +1486,70 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .home-sections{position:relative;z-index:2;width:100%;max-width:600px;margin:0 auto;padding:4px 16px 20px;}
 .home-sec{margin-top:18px;animation:fadeUp .6s ease both;}
 .home-sec .pa-sec-head{margin:0 0 10px;}
-/* scroll cue at the bottom of the hero */
+/* scroll cue at the bottom of the hero (kept for legacy markup; hidden if .live-strip present) */
 .scroll-cue{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:14px;color:var(--gold2);
   font-size:10px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;opacity:0.85;animation:cueBob 2s ease-in-out infinite;}
 .scroll-cue svg{width:18px;height:18px;}
 @keyframes cueBob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+/* ── Premium LIVE stat strip ─────────────────────────────────────────
+   Replaces the old "Digital Notice Board ⌄" scroll-down arrow with a
+   horizontal stat ribbon. Glassmorphism + tricolour underline + LIVE pulse.
+   ──────────────────────────────────────────────────────────────────── */
+.live-strip{position:relative;z-index:2;margin-top:10px;display:inline-flex;align-self:center;
+  align-items:center;gap:10px;padding:7px 14px;border-radius:999px;
+  background:linear-gradient(180deg,rgba(20,28,52,0.72),rgba(10,16,32,0.78));
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 6px 22px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07),
+             0 0 24px rgba(232,130,30,0.10);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  animation:liveStripIn .7s ease both;overflow:hidden;}
+.live-strip::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;
+  background:linear-gradient(90deg,#FF9933 0%,#ffffff 50%,#138808 100%);
+  opacity:0.55;background-size:200% 100%;animation:liveStripFlow 4.5s linear infinite;}
+@keyframes liveStripFlow{0%{background-position:0% 0;}100%{background-position:-200% 0;}}
+@keyframes liveStripIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.live-strip .live-pill{display:inline-flex;align-items:center;gap:6px;
+  padding:3px 9px;border-radius:999px;font-size:9.5px;letter-spacing:0.18em;font-weight:900;
+  color:#7fffaa;background:rgba(34,255,136,0.10);border:1px solid rgba(34,255,136,0.40);
+  text-shadow:0 0 8px rgba(34,255,136,0.50);}
+.live-strip .live-dot{width:6px;height:6px;border-radius:50%;background:#22ff88;
+  box-shadow:0 0 8px #22ff88, 0 0 18px rgba(34,255,136,0.55);
+  animation:liveDotBlink 1.4s ease-in-out infinite;}
+@keyframes liveDotBlink{0%,100%{opacity:1;}50%{opacity:0.35;}}
+.live-strip .live-stat{display:inline-flex;align-items:baseline;gap:5px;font-family:'Outfit',sans-serif;line-height:1;}
+.live-strip .live-stat b{font-size:13px;font-weight:900;color:#fff;letter-spacing:0.01em;
+  background:linear-gradient(180deg,#fff,#ffd089);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.live-strip .live-stat i{font-style:normal;font-size:9.5px;font-weight:600;color:var(--text2);
+  text-transform:uppercase;letter-spacing:0.10em;}
+.live-strip .live-sep{width:1px;height:14px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.18),transparent);}
+@media(max-width:520px){
+  .live-strip{gap:7px;padding:6px 11px;}
+  .live-strip .live-stat b{font-size:12px;}
+  .live-strip .live-stat i{font-size:8.5px;letter-spacing:0.08em;}
+  .live-strip .live-sep{height:12px;}
+}
+
+/* ── Premium shimmer sweep across the entry bars ─────────────────────
+   Subtle diagonal light passing over each bar in sequence.
+   ──────────────────────────────────────────────────────────────────── */
+.entry-bar-group .hero-cta{position:relative;}
+.entry-bar-group .hero-cta::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(105deg,transparent 30%, rgba(255,255,255,0.10) 48%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0.10) 52%, transparent 70%);
+  background-size:220% 100%;background-position:120% 0;
+  mix-blend-mode:screen;opacity:0;transition:opacity .3s;animation:barSweep 7s linear infinite;}
+.entry-bar-group .hero-cta:nth-child(1)::before{animation-delay:0s;}
+.entry-bar-group .hero-cta:nth-child(2)::before{animation-delay:1.6s;}
+.entry-bar-group .hero-cta:nth-child(3)::before{animation-delay:3.2s;}
+.entry-bar-group .hero-cta:nth-child(4)::before{animation-delay:4.8s;}
+@keyframes barSweep{
+  0%   {background-position:120% 0;opacity:0;}
+  6%   {opacity:1;}
+  18%  {background-position:-120% 0;opacity:1;}
+  22%  {opacity:0;}
+  100% {background-position:-120% 0;opacity:0;}
+}
+.entry-bar-group .hero-cta:hover::before{opacity:0;animation-play-state:paused;}
 #p1 .gal-card:hover{transform:translateY(-3px) scale(1.015);box-shadow:0 16px 38px rgba(0,0,0,0.5), 0 0 0 1px rgba(168,85,247,0.35);}
 #p1 .gal-card img{transition:transform .5s cubic-bezier(.4,0,.2,1);}
 #p1 .gal-card:hover img{transform:scale(1.07);}
@@ -1799,7 +1858,17 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <div class="hero-cta-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
     </div>
-    <div class="scroll-cue"><span>Digital Notice Board</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+    <!-- Premium LIVE stat strip — replaces the old scroll arrow -->
+    <div class="live-strip" role="status" aria-label="Ward 54 live stats">
+      <span class="live-pill"><span class="live-dot"></span>LIVE</span>
+      <span class="live-stat"><b>26,849</b><i>Voters</i></span>
+      <span class="live-sep"></span>
+      <span class="live-stat"><b>12</b><i>Stations</i></span>
+      <span class="live-sep"></span>
+      <span class="live-stat"><b>38</b><i>Booths</i></span>
+      <span class="live-sep"></span>
+      <span class="live-stat"><b>54</b><i>Ward · KMC</i></span>
+    </div>
   </div>
 
   <!-- Below-the-fold home sections: Find Booth + Notice Board + Footer -->
