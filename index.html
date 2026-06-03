@@ -1787,16 +1787,42 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   text-shadow:none;filter:drop-shadow(0 1px 8px rgba(232,130,30,0.30));
   animation:wardSheen 6s linear infinite;}
+/* Tricolor icon with the Congress hand spotlight-lit in the centre */
 .hero-cta-committee .hero-cta-icon{
-  background:radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,0.18) 0%, rgba(20,28,52,0.85) 60%, rgba(10,16,32,0.95) 100%) !important;
-  box-shadow:0 6px 20px rgba(201,168,76,0.45), 0 0 0 2px rgba(201,168,76,0.55), inset 0 1px 0 rgba(255,255,255,0.18) !important;
-  border:1.5px solid rgba(201,168,76,0.85) !important;color:#fff !important;padding:0 !important;overflow:hidden;}
-.hero-cta-committee .hero-cta-icon svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,0.45));}
-/* When the bar uses the real INC seal image */
-.hero-cta-icon-img{padding:0;overflow:hidden;}
-.hero-cta-icon-img img{width:100%;height:100%;object-fit:cover;border-radius:inherit;
-  filter:drop-shadow(0 1px 2px rgba(0,0,0,0.35));transition:transform .3s ease;}
-.hero-cta:hover .hero-cta-icon-img img{transform:scale(1.08) rotate(-3deg);}
+  position:relative;overflow:hidden;
+  /* Crisp Indian-flag horizontal stripes (saffron / white / green) */
+  background:linear-gradient(180deg,
+    #FF9933 0%, #FF9933 33%,
+    #FFFFFF 33%, #FFFFFF 67%,
+    #138808 67%, #138808 100%) !important;
+  box-shadow:
+    0 6px 20px rgba(201,168,76,0.45),
+    0 0 0 2px rgba(201,168,76,0.65),
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 0 16px rgba(255,255,255,0.18) !important;
+  border:1.5px solid rgba(201,168,76,0.95) !important;
+  color:#0a0a0a !important;}
+/* Spotlight: bright radial halo on top of the stripes, behind the hand */
+.hero-cta-committee .hero-cta-icon::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:radial-gradient(50% 50% at 50% 50%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.30) 45%, rgba(255,255,255,0) 75%);}
+/* The hand glyph itself — dark silhouette with shadow + bright rim */
+.hero-cta-committee .hero-cta-icon svg{
+  position:relative;z-index:2;width:22px;height:22px;color:#0a0a0a;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,0.55)) drop-shadow(0 0 6px rgba(255,255,255,0.70));}
+/* Subtle slow flag breeze: a soft sheen drifts left↔right */
+.hero-cta-committee .hero-cta-icon::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.22) 50%, transparent 65%);
+  background-size:220% 100%;background-position:120% 0;
+  mix-blend-mode:screen;animation:committeeSheen 7s ease-in-out infinite;}
+@keyframes committeeSheen{
+  0%,100%{background-position:120% 0;}
+  50%   {background-position:-120% 0;}
+}
+.hero-cta:hover .hero-cta-committee .hero-cta-icon svg,
+.hero-cta-committee:hover .hero-cta-icon svg{
+  transform:scale(1.10) rotate(-4deg);transition:transform .25s ease;}
 .hero-cta-committee .hero-cta-dot{background:linear-gradient(135deg,#FF9933,#FFFFFF 50%,#138808) !important;
   animation:heroDotTri 1.6s ease-in-out infinite !important;}
 @keyframes heroDotTri{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.70), 0 0 8px rgba(201,168,76,0.60);}50%{box-shadow:0 0 0 8px rgba(255,255,255,0), 0 0 12px rgba(255,153,51,0.85);}}
@@ -1906,7 +1932,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="entry-bar-group">
       <div class="hero-cta hero-cta-committee" onclick="goTo('p5')">
         <span class="hero-cta-shimmer"></span>
-        <div class="hero-cta-icon hero-cta-icon-img"><img src="./icons/icon-192.png" alt="INC Ward 54 seal" loading="eager" decoding="async"></div>
+        <div class="hero-cta-icon hero-cta-icon-tri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 1 0-4 0v2"/><path d="M10 10.5V6a2 2 0 1 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div>
         <div class="hero-cta-text">
           <div class="hero-cta-title" style="font-weight:900;">54 WARD CONGRESS COMMITTEE</div>
           <div class="hero-cta-desc"><span class="hero-cta-dot"></span>Office Bearers &middot; 54 WARD INC</div>
