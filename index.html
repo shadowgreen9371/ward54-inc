@@ -1483,15 +1483,87 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .committee-section:not(.youth) .committee-card:hover{box-shadow:0 16px 40px rgba(0,0,0,0.42), 0 0 30px rgba(26,170,12,0.14);}
 
 /* ── Home page Notice Board + Gallery (below the hero fold) ── */
-.home-sections{position:relative;z-index:2;width:100%;max-width:600px;margin:0 auto;padding:4px 16px 20px;
+.home-sections{position:relative;z-index:2;width:100%;max-width:840px;margin:0 auto;padding:4px 16px 20px;
   display:flex;flex-direction:column;gap:0;}
 .home-sections .fb-trigger{order:1;}
-.home-sections .home-footer{order:2;}
-.home-sections .home-sec{order:3;margin-top:28px;}    /* Digital Notice Board moved to the bottom */
-.home-sections .home-sec::before{content:"";display:block;height:1px;width:60%;margin:0 auto 18px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);}
+.home-sections .home-row{order:2;margin-top:22px;}
+.home-sections .home-footer{order:3;margin-top:22px;}
 .home-sec{animation:fadeUp .6s ease both;}
 .home-sec .pa-sec-head{margin:0 0 10px;}
+
+/* ── Side-by-side row: Digital Notice Board + Inspirations Gallery ── */
+.home-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch;}
+.home-row .home-sec{margin-top:0;display:flex;flex-direction:column;
+  padding:14px 16px 16px;border-radius:18px;
+  background:linear-gradient(180deg,rgba(20,28,52,0.55),rgba(10,16,32,0.72));
+  border:1px solid rgba(255,255,255,0.07);
+  box-shadow:0 10px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all .25s;}
+.home-row .home-sec:hover{border-color:rgba(255,255,255,0.12);
+  box-shadow:0 16px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08);}
+.home-row .home-sec-notice{border-color:rgba(76,201,255,0.20);box-shadow:0 10px 30px rgba(0,0,0,0.45), 0 0 26px rgba(76,201,255,0.06), inset 0 1px 0 rgba(255,255,255,0.05);}
+.home-row .home-sec-notice:hover{border-color:rgba(76,201,255,0.40);box-shadow:0 16px 40px rgba(0,0,0,0.55), 0 0 30px rgba(76,201,255,0.18), inset 0 1px 0 rgba(255,255,255,0.08);}
+.home-row .home-sec-inspirations{border-color:rgba(168,85,247,0.22);box-shadow:0 10px 30px rgba(0,0,0,0.45), 0 0 26px rgba(168,85,247,0.08), inset 0 1px 0 rgba(255,255,255,0.05);}
+.home-row .home-sec-inspirations:hover{border-color:rgba(168,85,247,0.45);box-shadow:0 16px 40px rgba(0,0,0,0.55), 0 0 30px rgba(168,85,247,0.22), inset 0 1px 0 rgba(255,255,255,0.08);}
+
+/* Notice section inside the row keeps the existing list look but caps height */
+.home-row .home-sec-notice .notice-list{flex:1;max-height:280px;overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:rgba(76,201,255,0.30) transparent;display:flex;flex-direction:column;gap:8px;}
+.home-row .home-sec-notice .notice-list::-webkit-scrollbar{width:5px;}
+.home-row .home-sec-notice .notice-list::-webkit-scrollbar-thumb{background:rgba(76,201,255,0.30);border-radius:3px;}
+
+/* Inspirations card layout */
+.home-row .home-sec-inspirations .inspo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;margin-bottom:12px;}
+.inspo-tile{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;cursor:pointer;
+  background:linear-gradient(135deg,#3b1058,#7c3aed 50%,#ec4899);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.18), 0 4px 14px rgba(0,0,0,0.35);
+  transition:transform .25s, box-shadow .25s;}
+.inspo-tile::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 120% at 20% 10%, rgba(255,255,255,0.30) 0%, transparent 50%);
+  mix-blend-mode:overlay;pointer-events:none;}
+.inspo-tile::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.55) 100%);pointer-events:none;}
+.inspo-tile img{width:100%;height:100%;object-fit:cover;display:block;}
+.inspo-tile:hover{transform:translateY(-2px) scale(1.03);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.25), 0 8px 22px rgba(168,85,247,0.45);}
+.inspo-tile .inspo-cap{position:absolute;left:8px;right:8px;bottom:6px;font-size:10px;font-weight:700;color:#fff;
+  letter-spacing:0.04em;line-height:1.2;text-shadow:0 1px 4px rgba(0,0,0,0.65);z-index:2;}
+.inspo-tile-1{background:linear-gradient(135deg,#ff9933,#e8821e 50%,#7c2d12);}
+.inspo-tile-2{background:linear-gradient(135deg,#138808,#22c55e 50%,#064e3b);}
+.inspo-tile-3{background:linear-gradient(135deg,#3b82f6,#1d4ed8 50%,#1e3a8a);}
+.inspo-tile-4{background:linear-gradient(135deg,#c9a84c,#ff9933 50%,#138808);}
+.inspo-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:9px 14px;border-radius:10px;border:1px solid rgba(168,85,247,0.40);cursor:pointer;
+  font:800 12px/1 'Outfit',sans-serif;letter-spacing:0.05em;text-transform:uppercase;color:#fff;
+  background:linear-gradient(135deg,rgba(168,85,247,0.18),rgba(236,72,153,0.18));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.10);transition:all .22s;}
+.inspo-cta:hover{background:linear-gradient(135deg,rgba(168,85,247,0.32),rgba(236,72,153,0.32));
+  border-color:rgba(168,85,247,0.65);transform:translateY(-1px);
+  box-shadow:0 6px 18px rgba(168,85,247,0.35), inset 0 1px 0 rgba(255,255,255,0.18);}
+.inspo-cta svg{width:14px;height:14px;}
+
+/* Stack on phones */
+@media(max-width:640px){
+  .home-row{grid-template-columns:1fr;}
+  .home-row .home-sec-notice .notice-list{max-height:none;}
+}
+
+/* Inspirations modal — simple, classy */
+.inspo-modal{position:fixed;inset:0;z-index:1600;background:rgba(0,0,0,0.78);
+  backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;}
+.inspo-modal.open{display:flex;animation:fbModalIn .22s ease both;}
+.inspo-modal-card{background:var(--navy2);border:1px solid rgba(168,85,247,0.45);border-radius:18px;
+  padding:18px 18px 16px;width:100%;max-width:780px;max-height:88vh;display:flex;flex-direction:column;gap:12px;
+  box-shadow:0 30px 70px rgba(0,0,0,0.7), 0 0 50px rgba(168,85,247,0.18);}
+.inspo-modal-head{display:flex;align-items:center;gap:10px;}
+.inspo-modal-title{flex:1;font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;letter-spacing:0.04em;color:#fff;}
+.inspo-modal-title b{background:linear-gradient(120deg,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.inspo-modal-close{background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--text2);
+  width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;line-height:1;padding:0;
+  display:flex;align-items:center;justify-content:center;}
+.inspo-modal-close:hover{background:rgba(168,85,247,0.18);color:#fff;}
+.inspo-modal-grid{overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding-right:4px;}
+.inspo-modal-empty{padding:30px;text-align:center;color:var(--text3);font-size:13px;line-height:1.5;}
 /* scroll cue at the bottom of the hero (kept for legacy markup; hidden if .live-strip present) */
 .scroll-cue{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:14px;color:var(--gold2);
   font-size:10px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;opacity:0.85;animation:cueBob 2s ease-in-out infinite;}
@@ -1888,12 +1960,44 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <span class="fb-trigger-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </button>
 
-    <div class="home-sec">
-      <div class="pa-sec-head">
-        <span class="pa-sec-ico" style="--c:#e8821e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span>
-        <div><div class="pa-sec-title">Digital Notice Board</div><div class="pa-sec-sub">Meetings &middot; announcements &middot; updates</div></div>
+    <!-- Side-by-side row: Digital Notice Board ❘ Inspirations Gallery -->
+    <div class="home-row">
+
+      <div class="home-sec home-sec-notice">
+        <div class="pa-sec-head">
+          <span class="pa-sec-ico" style="--c:#4cc9ff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span>
+          <div><div class="pa-sec-title">Digital Notice Board</div><div class="pa-sec-sub">Meetings &middot; announcements &middot; updates</div></div>
+        </div>
+        <div class="notice-list" id="home-notice-board"></div>
       </div>
-      <div class="notice-list" id="home-notice-board"></div>
+
+      <div class="home-sec home-sec-inspirations">
+        <div class="pa-sec-head">
+          <span class="pa-sec-ico" style="--c:#a855f7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></span>
+          <div><div class="pa-sec-title">Inspirations</div><div class="pa-sec-sub">Leaders &middot; rallies &middot; moments</div></div>
+        </div>
+        <div class="inspo-grid" id="home-inspo-grid">
+          <div class="inspo-tile inspo-tile-1" onclick="openInspoModal()"><span class="inspo-cap">Vision</span></div>
+          <div class="inspo-tile inspo-tile-2" onclick="openInspoModal()"><span class="inspo-cap">Service</span></div>
+          <div class="inspo-tile inspo-tile-3" onclick="openInspoModal()"><span class="inspo-cap">Unity</span></div>
+          <div class="inspo-tile inspo-tile-4" onclick="openInspoModal()"><span class="inspo-cap">Progress</span></div>
+        </div>
+        <button class="inspo-cta" type="button" onclick="openInspoModal()">Open Gallery
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Inspirations modal -->
+    <div class="inspo-modal" id="inspoModal" onclick="if(event.target===this)closeInspoModal()" aria-hidden="true">
+      <div class="inspo-modal-card" role="dialog" aria-label="Inspirations gallery">
+        <div class="inspo-modal-head">
+          <div class="inspo-modal-title"><b>Inspirations</b> &middot; Photo Gallery</div>
+          <button class="inspo-modal-close" type="button" onclick="closeInspoModal()" aria-label="Close">&times;</button>
+        </div>
+        <div class="inspo-modal-grid gallery-grid" id="home-gallery"></div>
+      </div>
     </div>
 
     <div class="home-footer">
@@ -5166,7 +5270,26 @@ function closeFindBoothModal(){
   var m=document.getElementById('fbModal'); if(!m) return;
   m.classList.remove('open'); m.setAttribute('aria-hidden','true');
 }
-document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeFindBoothModal(); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeFindBoothModal(); closeInspoModal(); } });
+
+/* ── Inspirations gallery modal ─────────────────────────────────────────── */
+function openInspoModal(){
+  var m=document.getElementById('inspoModal'); if(!m) return;
+  /* Lazy build of gallery contents on first open */
+  var el=document.getElementById('home-gallery');
+  if(el && !el.dataset.built){
+    try{ buildGallery(); }catch(e){}
+    if(!el.innerHTML || /pa-empty/.test(el.innerHTML)){
+      el.innerHTML = '<div class="inspo-modal-empty">Gallery is curated and managed from the admin panel.<br>Photos of leaders, rallies and ward moments will appear here.</div>';
+    }
+    el.dataset.built = '1';
+  }
+  m.classList.add('open'); m.setAttribute('aria-hidden','false');
+}
+function closeInspoModal(){
+  var m=document.getElementById('inspoModal'); if(!m) return;
+  m.classList.remove('open'); m.setAttribute('aria-hidden','true');
+}
 
 function findMyBooth(){
   var q = (document.getElementById('fbInput').value || '').trim();
