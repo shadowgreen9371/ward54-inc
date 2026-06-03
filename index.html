@@ -1580,15 +1580,21 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .fb-modal-close:hover{background:rgba(255,255,255,0.10);color:var(--text);}
 
 /* ── Per-bar accent colours on the home page ── */
-/* Committee — green */
+/* Committee — Indian tricolour (parent committee = official party identity) */
 .hero-cta-committee .hero-cta-title{
-  background:linear-gradient(120deg,#bdf3c0,#1aaa0c,#86e08a);
+  background:linear-gradient(120deg,#FF9933 0%,#ffe9b6 26%,#FFFFFF 50%,#86e08a 74%,#138808 100%);
+  background-size:220% auto;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  text-shadow:none;filter:drop-shadow(0 1px 8px rgba(26,170,12,0.30));}
+  text-shadow:none;filter:drop-shadow(0 1px 8px rgba(232,130,30,0.30));
+  animation:wardSheen 6s linear infinite;}
 .hero-cta-committee .hero-cta-icon{
-  background:radial-gradient(120% 120% at 30% 20%, rgba(189,243,192,0.95) 0%, rgba(26,170,12,0.92) 40%, rgba(19,136,8,0.78) 70%, rgba(10,93,5,0.70) 100%) !important;
-  box-shadow:0 6px 20px rgba(26,170,12,0.55), 0 0 0 4px rgba(26,170,12,0.10), inset 0 1px 0 rgba(255,255,255,0.45) !important;}
-.hero-cta-committee .hero-cta-dot{background:#1aaa0c !important;}
+  background:conic-gradient(from 210deg at 50% 55%, #FF9933 0deg, #FF9933 110deg, #FFFFFF 115deg, #FFFFFF 245deg, #138808 250deg, #138808 360deg) !important;
+  box-shadow:0 6px 20px rgba(201,168,76,0.45), 0 0 0 4px rgba(255,255,255,0.10), inset 0 1px 0 rgba(255,255,255,0.45) !important;
+  color:#0a0f1e !important;border:1.5px solid rgba(255,255,255,0.45) !important;}
+.hero-cta-committee .hero-cta-icon svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,0.45));}
+.hero-cta-committee .hero-cta-dot{background:linear-gradient(135deg,#FF9933,#FFFFFF 50%,#138808) !important;
+  animation:heroDotTri 1.6s ease-in-out infinite !important;}
+@keyframes heroDotTri{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.70), 0 0 8px rgba(201,168,76,0.60);}50%{box-shadow:0 0 0 8px rgba(255,255,255,0), 0 0 12px rgba(255,153,51,0.85);}}
 
 /* Youth — violet/magenta */
 .hero-cta-youth .hero-cta-title{
