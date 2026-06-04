@@ -428,6 +428,52 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .pi-station{font-size:11px;color:var(--text2);line-height:1.35;display:flex;gap:5px;align-items:flex-start;}
 .pi-station svg{width:10px;height:10px;flex-shrink:0;color:var(--inc-saffron);margin-top:2px;}
 .pi-booth{font-family:DM Mono,monospace;font-size:10px;color:var(--text3);margin-top:3px;}
+.pi-booth-pill{font-family:DM Mono,monospace;font-size:10px;color:#7fbcff;background:rgba(59,130,246,0.10);
+  border:1px solid rgba(59,130,246,0.30);padding:2px 8px;border-radius:999px;letter-spacing:0.03em;}
+
+/* ── 12 station groups containing their parts (advanced look) ────────── */
+.parts-info-grid{display:flex;flex-direction:column;gap:18px;}
+.pst-group{position:relative;background:linear-gradient(180deg,rgba(15,22,40,0.72),rgba(10,16,32,0.86));
+  border:1px solid rgba(76,201,255,0.18);border-radius:18px;overflow:hidden;
+  box-shadow:0 12px 32px rgba(0,0,0,0.45), 0 0 26px rgba(76,201,255,0.06), inset 0 1px 0 rgba(255,255,255,0.05);
+  animation:fadeUp .5s ease both;}
+.pst-group::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,#4cc9ff 0%,#1d4ed8 50%,#7c3aed 100%);
+  box-shadow:0 0 16px rgba(76,201,255,0.45);}
+.pst-group:hover{border-color:rgba(76,201,255,0.40);
+  box-shadow:0 16px 38px rgba(0,0,0,0.55), 0 0 30px rgba(76,201,255,0.15), inset 0 1px 0 rgba(255,255,255,0.08);}
+.pst-group-head{display:flex;gap:14px;padding:14px 16px 14px 18px;align-items:center;
+  background:linear-gradient(135deg,rgba(76,201,255,0.06),rgba(124,58,237,0.04));border-bottom:1px solid rgba(76,201,255,0.12);}
+.pst-group-photo{position:relative;width:78px;height:78px;border-radius:12px;overflow:hidden;flex-shrink:0;
+  box-shadow:0 6px 16px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.05);}
+.pst-group-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.pst-group-num{position:absolute;top:-6px;left:-6px;width:26px;height:26px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#4cc9ff,#1d4ed8);color:#fff;font-family:'Outfit',sans-serif;
+  font-weight:900;font-size:13px;letter-spacing:0.02em;border:2px solid #0a0f1e;
+  box-shadow:0 4px 12px rgba(76,201,255,0.55);z-index:2;}
+.pst-group-num-solo{position:relative;top:auto;left:auto;width:48px;height:48px;border-radius:14px;font-size:18px;flex-shrink:0;}
+.pst-group-meta{flex:1;min-width:0;}
+.pst-group-name{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;line-height:1.2;
+  color:#fff;letter-spacing:0.01em;margin-bottom:4px;}
+.pst-group-addr{display:flex;align-items:flex-start;gap:5px;font-size:12px;color:var(--text2);line-height:1.4;}
+.pst-group-addr svg{width:11px;height:11px;flex-shrink:0;color:#4cc9ff;margin-top:2px;}
+.pst-group-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.pst-pill{font-family:DM Mono,monospace;font-size:10px;font-weight:700;
+  padding:3px 10px;border-radius:999px;letter-spacing:0.04em;text-transform:uppercase;}
+.pst-pill-station{color:#bfeaff;background:rgba(76,201,255,0.12);border:1px solid rgba(76,201,255,0.32);}
+.pst-pill-booths {color:#7fbcff;background:rgba(59,130,246,0.10);border:1px solid rgba(59,130,246,0.30);}
+.pst-pill-parts  {color:#ffd089;background:rgba(232,130,30,0.10);border:1px solid rgba(232,130,30,0.30);}
+.pst-pill-voters {color:#86e08a;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.30);}
+.pst-group-parts{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;padding:14px 16px 16px;}
+
+@media(max-width:560px){
+  .pst-group-head{padding:12px 12px 12px 14px;gap:10px;}
+  .pst-group-photo{width:64px;height:64px;}
+  .pst-group-num-solo{width:42px;height:42px;font-size:16px;}
+  .pst-group-name{font-size:14.5px;}
+  .pst-group-parts{grid-template-columns:1fr;padding:10px 12px 12px;}
+}
 
 /* Expandable Part details + inline voter list */
 .part-info-details{grid-column:1/-1;}
@@ -3910,31 +3956,63 @@ function buildPartsInfoList(){
     if(manifest && Array.isArray(manifest.parts)){
       manifest.parts.forEach(function(p){ byPart[p.part] = p; });
     }
+    /* Group all parts under their parent polling station (12 groups).
+       Each group has a header card with station info + analytics,
+       then the parts inside it are expandable <details> rows. */
+    var groups = (typeof stations !== 'undefined') ? groupedStationsFrom(stations) : [];
+    var votersFor = function(i){
+      var m = byPart[i];
+      if(m && m.voters != null) return m.voters;
+      if(typeof partsBase !== 'undefined' && partsBase[i]) return partsBase[i].total;
+      return null;
+    };
+    var sectionFor = function(i){
+      var m = byPart[i] || {};
+      return (m.section || '').replace(/^[0-9]+\s*-\s*/, '').trim() || '—';
+    };
     var html = '';
-    for(var i=1;i<=38;i++){
-      var m  = byPart[i] || {};
-      var s  = _findStationForPart(i) || {};
-      var voters = (m.voters!=null) ? m.voters : ((typeof partsBase!=='undefined' && partsBase[i]) ? partsBase[i].total : null);
-      var section = (m.section || '').replace(/^[0-9]+\s*-\s*/, '').trim() || '—';
-      var booth = s.no ? ('Booth ' + s.no) : 'Booth —';
-      html += '<details class="part-info-details" data-part="'+i+'" ontoggle="onPartToggle(this)">'
-        + '<summary class="part-info-card">'
-          + '<div class="pi-row1">'
-            + '<span class="pi-num">PART ' + i + '</span>'
-            + (voters!=null ? '<span class="pi-voters">' + Number(voters).toLocaleString() + ' voters</span>' : '')
-            + '<span class="pi-toggle">▾</span>'
-          + '</div>'
-          + '<div class="pi-section">' + escapeHtml(section) + '</div>'
-          + '<div class="pi-station"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'
-            + '<div>' + escapeHtml(s.name || '—')
-            + (s.addr ? '<div class="pi-booth">' + escapeHtml(s.addr) + '</div>' : '')
+    groups.forEach(function(g, gi){
+      /* Collect all parts under this station (sorted) and compute totals */
+      var partsList = [];
+      g.booths.forEach(function(b){ b.parts.forEach(function(p){ partsList.push({part:p, boothNo:b.no, room:b.room}); }); });
+      partsList.sort(function(a,b){ return a.part - b.part; });
+      var groupTotal = 0;
+      partsList.forEach(function(p){ var v = votersFor(p.part); if(v != null) groupTotal += Number(v); });
+      var photoSrc = (typeof buildingPhotos !== 'undefined') ? (buildingPhotos[g.name] || '') : '';
+      var partRows = partsList.map(function(p){
+        var voters = votersFor(p.part);
+        var section = sectionFor(p.part);
+        return '<details class="part-info-details" data-part="'+p.part+'" ontoggle="onPartToggle(this)">'
+          + '<summary class="part-info-card">'
+            + '<div class="pi-row1">'
+              + '<span class="pi-num">PART ' + p.part + '</span>'
+              + (voters!=null ? '<span class="pi-voters">' + Number(voters).toLocaleString() + ' voters</span>' : '')
+              + '<span class="pi-booth-pill">Booth ' + p.boothNo + (p.room ? ' &middot; ' + escapeHtml(p.room) : '') + '</span>'
+              + '<span class="pi-toggle">▾</span>'
+            + '</div>'
+            + '<div class="pi-section">' + escapeHtml(section) + '</div>'
+          + '</summary>'
+          + '<div class="part-voters-wrap"><div class="part-voters-loading">Loading voters…</div></div>'
+          + '</details>';
+      }).join('');
+      html += '<div class="pst-group" style="animation-delay:'+(gi*0.04)+'s">'
+        + '<div class="pst-group-head">'
+          + (photoSrc ? '<div class="pst-group-photo"><img src="'+photoSrc+'" alt="'+escapeHtml(g.name)+'" loading="lazy"><div class="pst-group-num">'+(gi+1)+'</div></div>'
+                      : '<div class="pst-group-num pst-group-num-solo">'+(gi+1)+'</div>')
+          + '<div class="pst-group-meta">'
+            + '<div class="pst-group-name">'+escapeHtml(g.name)+'</div>'
+            + '<div class="pst-group-addr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>'+escapeHtml(g.addr)+'</div>'
+            + '<div class="pst-group-pills">'
+              + '<span class="pst-pill pst-pill-station">Station '+(gi+1)+'</span>'
+              + '<span class="pst-pill pst-pill-booths">'+g.booths.length+' booth'+(g.booths.length>1?'s':'')+'</span>'
+              + '<span class="pst-pill pst-pill-parts">'+partsList.length+' part'+(partsList.length>1?'s':'')+'</span>'
+              + (groupTotal ? '<span class="pst-pill pst-pill-voters">'+groupTotal.toLocaleString()+' voters</span>' : '')
             + '</div>'
           + '</div>'
-          + '<div class="pi-booth">' + booth + '</div>'
-        + '</summary>'
-        + '<div class="part-voters-wrap"><div class="part-voters-loading">Loading voters…</div></div>'
-        + '</details>';
-    }
+        + '</div>'
+        + '<div class="pst-group-parts">' + partRows + '</div>'
+      + '</div>';
+    });
     el.innerHTML = html;
   };
   if(_partsManifest) { render(); return; }
