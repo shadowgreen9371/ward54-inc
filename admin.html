@@ -2845,17 +2845,64 @@ function disconnectGithubPat(){
 
 function testGithubPat(){
   var pat = getGhPat();
-  if(!pat){ showToast('No token configured','error'); return; }
-  showToast('Testing…');
-  fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO,
-    { headers: { 'Authorization': 'Bearer '+pat, 'Accept': 'application/vnd.github+json' }})
+  if(!pat){ alert('No token configured. Paste a github_pat_… or ghp_… token first, then click Save.'); return; }
+  /* Trim accidental whitespace from copy-paste */
+  var trimmed = pat.trim();
+  if(trimmed !== pat){
+    try{ localStorage.setItem(GH_PAT_KEY, trimmed); }catch(e){}
+    pat = trimmed;
+  }
+  var diag = ['─── GitHub PAT Diagnostic ───'];
+  var H = { 'Authorization':'Bearer '+pat, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' };
+  diag.push('Token prefix: ' + pat.substring(0, 14) + '… (length ' + pat.length + ')');
+  diag.push('Target repo:  ' + GH_OWNER + '/' + GH_REPO);
+  diag.push('');
+
+  fetch('https://api.github.com/user', { headers: H })
     .then(function(r){
-      if(r.ok) showToast('✓ Token works — has access to the repo');
-      else if(r.status === 401) showToast('✗ Token invalid or expired','error');
-      else if(r.status === 404) showToast('✗ Repo not visible to this token','error');
-      else showToast('✗ Unexpected status '+r.status,'error');
+      if(r.status === 401){ diag.push('✗ /user → 401 — token is INVALID or EXPIRED. Generate a new one.'); throw new Error('401'); }
+      return r.json().then(function(u){
+        diag.push('✓ Authenticated as: @' + (u.login || '?') + ' (' + (u.type || '?') + ')');
+        if(u.login && u.login.toLowerCase() !== GH_OWNER.toLowerCase()){
+          diag.push('⚠ Token belongs to @' + u.login + ' but the repo is owned by @' + GH_OWNER + '.');
+          diag.push('  If you are not a collaborator on the repo with WRITE access, this will fail.');
+        }
+        return fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO, { headers: H });
+      });
     })
-    .catch(function(e){ showToast('✗ Network error: '+e.message,'error'); });
+    .then(function(r){
+      if(r.status === 404){ diag.push('✗ /repos → 404 — repo NOT VISIBLE to this token.'); diag.push('  Likely fix: fine-grained PAT → set "Repository access" to include ' + GH_REPO); throw new Error('404'); }
+      if(!r.ok){ diag.push('✗ /repos → ' + r.status); throw new Error(r.status); }
+      return r.json();
+    })
+    .then(function(repo){
+      var p = repo.permissions || {};
+      diag.push('');
+      diag.push('Repo permissions on the token:');
+      diag.push('  read:  ' + (p.pull  ? '✓' : '✗'));
+      diag.push('  write: ' + (p.push  ? '✓ (this is what you need!)' : '✗ MISSING — this is why uploads 403'));
+      diag.push('  admin: ' + (p.admin ? '✓' : '✗'));
+      diag.push('');
+      if(!p.push){
+        diag.push('FIX: regenerate the token with:');
+        diag.push('  • Fine-grained PAT (recommended):');
+        diag.push('    https://github.com/settings/personal-access-tokens/new');
+        diag.push('    – Resource owner: ' + GH_OWNER);
+        diag.push('    – Repository access: Only select repositories → ' + GH_REPO);
+        diag.push('    – Repository permissions → Contents: Read and write');
+        diag.push('    – Metadata: Read-only (auto-required)');
+        diag.push('  • OR Classic PAT: https://github.com/settings/tokens');
+        diag.push('    – Scope: repo (full)');
+      } else {
+        diag.push('✅ Everything looks good — the upload should succeed now.');
+        diag.push('   Try the photo upload again. If it still fails, paste this');
+        diag.push('   diagnostic in the chat and I will check further.');
+      }
+      alert(diag.join('\n'));
+    })
+    .catch(function(e){
+      alert(diag.join('\n'));
+    });
 }
 
 /* Reusable base64 encoder for the UTF-8 cms.json string (browsers' btoa
