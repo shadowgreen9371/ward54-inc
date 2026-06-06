@@ -10,12 +10,15 @@ on:
     paths:
       - 'index.html'
       - 'admin.html'
+      - 'privacy.html'
       - 'CNAME'
       - '.nojekyll'
       - 'data/**'                 # voter JSON + cms.json must trigger a deploy
       - 'manifest.webmanifest'    # PWA manifest
       - 'sw.js'                   # PWA service worker
       - 'icons/**'                # PWA app icons
+      - '*.apk'                   # mobile app installers
+      - '*.aab'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -40,6 +43,7 @@ jobs:
           mkdir -p _site
           cp index.html _site/
           cp admin.html _site/
+          [ -f privacy.html ] && cp privacy.html _site/ || true
           touch _site/.nojekyll
           [ -f CNAME ] && cp CNAME _site/ || true
           [ -f README.md ] && cp README.md _site/ || true
@@ -47,6 +51,12 @@ jobs:
           [ -f manifest.webmanifest ] && cp manifest.webmanifest _site/ || true
           [ -f sw.js ] && cp sw.js _site/ || true
           [ -d icons ] && cp -R icons _site/ || true
+          # Mobile app installers (debug APK is publicly downloadable from
+          # the website; signed release builds live in mobile/release/ and
+          # are NOT exposed here)
+          for f in *.apk *.aab; do
+            [ -f "$f" ] && cp "$f" _site/ || true
+          done
           # Copy the data/ tree EXCEPT the source PDFs (those are gitignored
           # but defensive copy in case anyone unpins them). Includes:
           #   data/cms/cms.json        — committee + main-page CMS data
