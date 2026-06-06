@@ -1100,6 +1100,48 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Firebase Realtime DB — for instant admin → public live sync (replaces PAT) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script>
+/* Firebase config — public identifier, not a secret. Real access is
+   controlled by Realtime DB security rules (locked down in Firebase Console). */
+var FIREBASE_CONFIG = {
+  apiKey: "AIzaSyAhbtPN_gQqcdu6D1TcL4UDvCtIHWdeNc4",
+  authDomain: "ward54-inc.firebaseapp.com",
+  databaseURL: "https://ward54-inc-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ward54-inc",
+  storageBucket: "ward54-inc.firebasestorage.app",
+  messagingSenderId: "611176707750",
+  appId: "1:611176707750:web:8c0af33d8ec46fc7662667",
+  measurementId: "G-4JPERFSTF8"
+};
+var _fbCmsDb = null;
+function _initCmsFirebase(){
+  if(_fbCmsDb !== null) return _fbCmsDb;
+  if(typeof firebase === 'undefined' || !firebase.database){ _fbCmsDb = false; return false; }
+  try{
+    if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    _fbCmsDb = firebase.database();
+    return _fbCmsDb;
+  }catch(e){ console.error('Firebase init:', e); _fbCmsDb = false; return false; }
+}
+/* Push the full cms object to Firebase. Returns a Promise.
+   Called every time the admin saves anything that lives in cms.json. */
+function publishCmsToFirebase(){
+  var db = _initCmsFirebase();
+  if(!db) return Promise.resolve({ skipped:true, reason:'firebase-not-ready' });
+  try{
+    var cms = JSON.parse(localStorage.getItem('ward54.cms') || '{}');
+    cms._exportedAt = new Date().toISOString();
+    cms._exportedBy = (window._adminEmail || 'admin');
+    cms._via = 'firebase';
+    return db.ref('cms').set(cms)
+      .then(function(){ return { ok:true, ms: Date.now() }; })
+      .catch(function(e){ return { ok:false, error: e.message }; });
+  }catch(e){ return Promise.resolve({ ok:false, error: e.message }); }
+}
+</script>
 <script>
 /* ============================================================
  * EMAILJS CONFIG — to actually deliver OTPs to admin Gmail inboxes
@@ -3010,18 +3052,29 @@ function publishCmsToGithub(commitMessage){
     });
 }
 
-/* Convenience helper called from every Save handler. Shows a toast and
-   updates the Cloud Sync UI as it goes. */
+/* Convenience helper called from every Save handler.
+   Now uses TWO publish lanes in parallel:
+     A) Firebase Realtime DB  — INSTANT push (every open phone sees it
+        within ~500 ms). Always tries first.
+     B) GitHub PAT            — kept as offline backup. Silently no-ops
+        if no PAT is set. Survives Firebase free-tier outage etc. */
 function autoPublish(actionLabel){
+  /* Lane A — Firebase instant sync (the new path) */
+  publishCmsToFirebase()
+    .then(function(res){
+      if(res && res.ok) showToast('⚡ Live on every device');
+      else if(res && res.error) console.warn('Firebase publish:', res.error);
+    });
+  /* Lane B — GitHub PAT (legacy backup; silently skipped if no PAT) */
   publishCmsToGithub(actionLabel || 'Admin save')
     .then(function(res){
-      if(res.skipped) return;       // no PAT — silently skip
-      if(res.busy)    return;       // overlapping save — skip
-      showToast('☁️ Published to GitHub — live in ~30s');
+      if(res.skipped) return;
+      if(res.busy)    return;
+      showToast('☁ Versioned to GitHub');
     })
     .catch(function(e){
-      console.error('Cloud Sync error:', e);
-      showToast('Cloud Sync failed: '+e.message,'error');
+      /* PAT path is now optional — only log, don't toast errors at the user */
+      console.warn('GitHub backup skipped:', e.message);
     });
 }
 

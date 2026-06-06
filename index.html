@@ -5122,13 +5122,14 @@ var _activeChatRoom = null;
    localStorage so the UI keeps working.
    ------------------------------------------------------------------------- */
 var FIREBASE_CONFIG = {
-  // apiKey: "AIzaSy...",
-  // authDomain: "ward54-inc.firebaseapp.com",
-  // databaseURL: "https://ward54-inc-default-rtdb.asia-southeast1.firebasedatabase.app",
-  // projectId: "ward54-inc",
-  // storageBucket: "ward54-inc.appspot.com",
-  // messagingSenderId: "1234567890",
-  // appId: "1:1234567890:web:abcdef123456"
+  apiKey: "AIzaSyAhbtPN_gQqcdu6D1TcL4UDvCtIHWdeNc4",
+  authDomain: "ward54-inc.firebaseapp.com",
+  databaseURL: "https://ward54-inc-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "ward54-inc",
+  storageBucket: "ward54-inc.firebasestorage.app",
+  messagingSenderId: "611176707750",
+  appId: "1:611176707750:web:8c0af33d8ec46fc7662667",
+  measurementId: "G-4JPERFSTF8"
 };
 
 var _fbDb = null;      // false = tried + failed/not-configured, object = ready
@@ -5976,6 +5977,42 @@ function _applyCmsObject(cms){
       }
     })
     .catch(function(){ /* repo JSON not present yet — localStorage wins */ });
+
+  /* Stage 3: Firebase Realtime DB live subscription — INSTANT updates from
+     admin edits across all open phones. When admin saves a photo or text,
+     every open public page receives the new value within ~500 ms and
+     re-renders. No PAT, no GitHub commit, no waiting. */
+  function _wireFirebaseCmsListener(){
+    var db = _firebaseReady();
+    if(!db || db === false) return;  // silently skip if config blank
+    db.ref('cms').on('value', function(snap){
+      var cms = snap && snap.val();
+      if(!cms) return;
+      try{ localStorage.setItem('ward54.cms', JSON.stringify(cms)); }catch(e){}
+      _applyCmsObject(cms);
+      if(typeof buildNotices === 'function') buildNotices();
+      if(typeof buildGallery === 'function') buildGallery();
+      var active = document.querySelector('.page.active');
+      if(active){
+        if(active.id === 'p5' && typeof buildCommittee === 'function') buildCommittee('congress');
+        if(active.id === 'p7' && typeof buildCommittee === 'function') buildCommittee('youth');
+        if(active.id === 'p6' && typeof buildPollingAgentsPage === 'function') buildPollingAgentsPage();
+        if(active.id === 'p8' && typeof buildCongressWorkers === 'function'){ buildCongressWorkers(); if(typeof buildMembershipStats==='function') buildMembershipStats(); }
+      }
+      /* Subtle UI hint that something just landed from the cloud */
+      try{
+        if(window._cmsLiveDot){
+          window._cmsLiveDot.style.boxShadow = '0 0 12px #22ff88, 0 0 28px rgba(34,255,136,0.6)';
+          setTimeout(function(){ window._cmsLiveDot.style.boxShadow = '0 0 8px #22ff88, 0 0 18px rgba(34,255,136,0.55)'; }, 450);
+        }
+      }catch(e){}
+    }, function(err){
+      console.warn('Firebase CMS listener error:', err && err.message);
+    });
+  }
+  /* Wait a tick so Firebase SDK script tags have a chance to run first */
+  if(typeof firebase !== 'undefined') _wireFirebaseCmsListener();
+  else setTimeout(_wireFirebaseCmsListener, 400);
 })();
 
 /* ── Find Your Booth — lazy load all 38 part JSONs on first search ──────── */
