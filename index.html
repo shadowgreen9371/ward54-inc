@@ -5981,13 +5981,37 @@ function _applyCmsObject(cms){
   /* Stage 3: Firebase Realtime DB live subscription — INSTANT updates from
      admin edits across all open phones. When admin saves a photo or text,
      every open public page receives the new value within ~500 ms and
-     re-renders. No PAT, no GitHub commit, no waiting. */
+     re-renders. No PAT, no GitHub commit, no waiting.
+
+     IMPORTANT — dedupe.  Firebase fires value() at least once on initial
+     subscription (right after Stage 2 already applied repo JSON) and
+     then on every write. Without dedupe, you'd see fadeUp animations
+     re-trigger constantly = visible "blinking". We compute a stable
+     content hash and skip re-renders when nothing material changed. */
+  var _lastAppliedCmsHash = '';
+  function _stableCmsHash(cms){
+    if(!cms) return '';
+    /* Ignore the bookkeeping fields the admin writes — they change on
+       every save but don't affect what users see. */
+    var copy = {};
+    for(var k in cms){ if(k.charAt(0) !== '_') copy[k] = cms[k]; }
+    try{ return JSON.stringify(copy); }catch(e){ return Math.random()+''; }
+  }
   function _wireFirebaseCmsListener(){
     var db = _firebaseReady();
     if(!db || db === false) return;  // silently skip if config blank
+    /* Seed the hash from whatever's already in localStorage so Firebase's
+       initial value (which is usually identical) skips re-rendering. */
+    try{
+      var seed = JSON.parse(localStorage.getItem('ward54.cms') || 'null');
+      if(seed) _lastAppliedCmsHash = _stableCmsHash(seed);
+    }catch(e){}
     db.ref('cms').on('value', function(snap){
       var cms = snap && snap.val();
       if(!cms) return;
+      var h = _stableCmsHash(cms);
+      if(h === _lastAppliedCmsHash) return;   // ← no real change, skip everything
+      _lastAppliedCmsHash = h;
       try{ localStorage.setItem('ward54.cms', JSON.stringify(cms)); }catch(e){}
       _applyCmsObject(cms);
       if(typeof buildNotices === 'function') buildNotices();
@@ -5999,7 +6023,7 @@ function _applyCmsObject(cms){
         if(active.id === 'p6' && typeof buildPollingAgentsPage === 'function') buildPollingAgentsPage();
         if(active.id === 'p8' && typeof buildCongressWorkers === 'function'){ buildCongressWorkers(); if(typeof buildMembershipStats==='function') buildMembershipStats(); }
       }
-      /* Subtle UI hint that something just landed from the cloud */
+      /* Subtle live-dot pulse (only fires when content really changed) */
       try{
         if(window._cmsLiveDot){
           window._cmsLiveDot.style.boxShadow = '0 0 12px #22ff88, 0 0 28px rgba(34,255,136,0.6)';
