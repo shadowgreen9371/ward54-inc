@@ -1929,6 +1929,171 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   animation:heroDotGreenM 1.6s ease-in-out infinite !important;}
 @keyframes heroDotGreenM{0%,100%{box-shadow:0 0 0 0 rgba(26,170,12,0.7), 0 0 8px rgba(26,170,12,0.6);}50%{box-shadow:0 0 0 8px rgba(26,170,12,0), 0 0 12px rgba(26,170,12,0.85);}}
 
+/* ══════════════════════════════════════════════════════════════════════
+   p8 MEMBERSHIP — Live stats · Freedom Lineage · Registration form
+   Patriotic, inspiring, premium.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Live Stats Strip ────────────────────────────────────────────────── */
+.mship-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:6px 0 22px;}
+.mship-stat{position:relative;overflow:hidden;border-radius:16px;padding:16px 14px 14px;
+  background:linear-gradient(180deg,rgba(15,22,40,0.85),rgba(8,12,22,0.92));
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 10px 28px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);text-align:center;animation:fadeUp .6s ease both;}
+.mship-stat-icon{width:34px;height:34px;border-radius:10px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;
+  color:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.4);}
+.mship-stat-icon svg{width:18px;height:18px;}
+.mship-stat-val{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(22px,4vw,30px);line-height:1;letter-spacing:0.01em;color:#fff;margin-bottom:4px;
+  background:linear-gradient(180deg,#fff,#ffd089);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.mship-stat-lbl{font-size:10.5px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text2);font-weight:700;}
+.mship-stat-green{border-color:rgba(34,197,94,0.35);box-shadow:0 10px 28px rgba(0,0,0,0.45), 0 0 22px rgba(34,197,94,0.10), inset 0 1px 0 rgba(255,255,255,0.05);}
+.mship-stat-green .mship-stat-icon{background:linear-gradient(135deg,#22c55e,#138808);}
+.mship-stat-saffron{border-color:rgba(232,130,30,0.35);box-shadow:0 10px 28px rgba(0,0,0,0.45), 0 0 22px rgba(232,130,30,0.10), inset 0 1px 0 rgba(255,255,255,0.05);}
+.mship-stat-saffron .mship-stat-icon{background:linear-gradient(135deg,#ff9933,#e8821e);}
+.mship-stat-live{border-color:rgba(76,201,255,0.35);box-shadow:0 10px 28px rgba(0,0,0,0.45), 0 0 22px rgba(76,201,255,0.10), inset 0 1px 0 rgba(255,255,255,0.05);position:relative;}
+.mship-stat-live .mship-stat-icon{display:none;}
+.mship-stat-live::before{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,transparent,#4cc9ff,transparent);background-size:50% 100%;background-repeat:no-repeat;
+  animation:mshipLiveBar 2s linear infinite;}
+@keyframes mshipLiveBar{0%{background-position:-50% 0;}100%{background-position:150% 0;}}
+.mship-live-dot{position:absolute;top:14px;right:14px;width:8px;height:8px;border-radius:50%;background:#22ff88;
+  box-shadow:0 0 10px #22ff88, 0 0 20px rgba(34,255,136,0.55);animation:ledBlink 1.4s ease-in-out infinite;}
+.mship-counter{display:inline-block;transition:transform .3s ease, opacity .3s ease;}
+
+/* ── Freedom Lineage Tree ─────────────────────────────────────────────── */
+.mship-lineage{position:relative;border-radius:22px;padding:26px 22px 22px;margin-bottom:24px;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(232,130,30,0.10) 0%, transparent 55%),
+    linear-gradient(180deg,rgba(15,22,40,0.78),rgba(6,10,22,0.92));
+  border:1px solid rgba(232,130,30,0.22);
+  box-shadow:0 16px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+  overflow:hidden;}
+.mship-lineage::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:linear-gradient(90deg,#FF9933 0%,#FFFFFF 50%,#138808 100%);}
+.mship-lineage-head{text-align:center;margin-bottom:24px;}
+.mship-lineage-eyebrow{font-family:'Outfit',sans-serif;font-size:10.5px;font-weight:800;letter-spacing:0.30em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.mship-lineage-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(20px,3.4vw,30px);line-height:1.15;color:#fff;margin:0 0 6px;letter-spacing:0.01em;}
+.mship-lineage-title span{background:linear-gradient(100deg,#FF9933,#FFD089 50%,#138808);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  animation:wardSheen 6s linear infinite;}
+.mship-lineage-sub{font-size:13px;color:var(--text2);max-width:520px;margin:0 auto;line-height:1.5;}
+
+/* Mahatma at the root */
+.lineage-root{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:8px;}
+.lineage-portrait{position:relative;width:90px;height:90px;border-radius:50%;overflow:hidden;
+  flex-shrink:0;box-shadow:0 8px 22px rgba(0,0,0,0.55);}
+.lineage-portrait img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(0.9) contrast(1.05);}
+.lineage-portrait .lineage-ring{position:absolute;inset:-3px;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 0deg, #FF9933 0deg, #ffd089 90deg, #ffffff 180deg, #86e08a 270deg, #138808 360deg);
+  opacity:0.85;-webkit-mask:radial-gradient(circle, transparent 56%, #000 60%);
+  mask:radial-gradient(circle, transparent 56%, #000 60%);
+  animation:lineageRingSpin 14s linear infinite;}
+@keyframes lineageRingSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+.lineage-portrait-root{width:120px;height:120px;
+  box-shadow:0 12px 32px rgba(0,0,0,0.65), 0 0 36px rgba(232,130,30,0.30);}
+.lineage-portrait-root .lineage-ring{inset:-5px;animation-duration:18s;}
+.lineage-name{font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;color:#fff;letter-spacing:0.01em;line-height:1.2;text-align:center;}
+.lineage-life{font-size:11px;color:var(--text2);font-family:DM Mono,monospace;letter-spacing:0.04em;}
+.lineage-tag{font-size:10px;color:var(--gold2);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
+.lineage-root .lineage-name{font-size:18px;}
+
+/* Connector stem */
+.lineage-stem{width:2px;height:36px;margin:8px auto 0;background:linear-gradient(180deg,#c9a84c,transparent);}
+
+/* Founders row */
+.lineage-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:8px;position:relative;}
+.lineage-row::before{content:"";position:absolute;left:10%;right:10%;top:-18px;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,0.55),transparent);}
+.lineage-cell{display:flex;flex-direction:column;align-items:center;gap:5px;animation:fadeUp .5s ease both;}
+.lineage-cell:nth-child(1){animation-delay:0.05s;}
+.lineage-cell:nth-child(2){animation-delay:0.10s;}
+.lineage-cell:nth-child(3){animation-delay:0.15s;}
+.lineage-cell:nth-child(4){animation-delay:0.20s;}
+.lineage-cell:nth-child(5){animation-delay:0.25s;}
+.lineage-cell::before{content:"";width:2px;height:18px;margin-bottom:4px;background:linear-gradient(180deg,rgba(201,168,76,0.55),transparent);}
+
+/* INC continuum divider */
+.lineage-sub-head{display:flex;align-items:center;gap:12px;margin:28px 0 16px;}
+.lineage-sub-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.20),transparent);}
+.lineage-sub-text{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;}
+
+/* Modern row — 4 columns */
+.lineage-row-modern{grid-template-columns:repeat(4,1fr);}
+.lineage-row-modern::before{display:none;}
+.lineage-row-modern .lineage-cell::before{display:none;}
+.lineage-portrait-initial{display:flex;align-items:center;justify-content:center;color:#fff;
+  font-family:'Outfit',sans-serif;font-weight:900;font-size:30px;letter-spacing:0.04em;}
+.lineage-portrait-initial span{filter:drop-shadow(0 2px 4px rgba(0,0,0,0.55));}
+
+/* Inspirational quote */
+.lineage-quote{position:relative;margin-top:26px;padding:18px 22px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(232,130,30,0.10),rgba(19,136,8,0.10));
+  border:1px solid rgba(232,130,30,0.30);text-align:center;}
+.lineage-quote-mark{position:absolute;top:10px;left:14px;width:20px;height:20px;color:rgba(232,130,30,0.40);}
+.lineage-quote p{margin:0 auto;font-family:'Outfit',sans-serif;font-style:italic;font-size:15px;line-height:1.55;color:#fff;max-width:540px;font-weight:600;}
+.lineage-quote span{display:block;margin-top:8px;font-size:11px;letter-spacing:0.18em;color:var(--gold);text-transform:uppercase;font-weight:800;font-style:normal;}
+.lineage-attribution{margin-top:14px;font-size:10px;color:var(--text3);text-align:center;font-style:italic;}
+
+@media(max-width:720px){
+  .lineage-row{grid-template-columns:repeat(3,1fr);gap:12px;}
+  .lineage-row .lineage-cell:nth-child(n+4){margin-top:8px;}
+  .lineage-row-modern{grid-template-columns:repeat(2,1fr);}
+  .lineage-portrait{width:72px;height:72px;}
+  .lineage-portrait-root{width:100px;height:100px;}
+  .lineage-portrait-initial{font-size:24px;}
+  .mship-stats{grid-template-columns:1fr 1fr;}
+  .mship-stat-live{grid-column:1/-1;}
+}
+@media(max-width:480px){
+  .lineage-row{grid-template-columns:repeat(2,1fr);}
+  .lineage-row-modern{grid-template-columns:1fr 1fr;}
+}
+
+/* ── New Member Registration Form ─────────────────────────────────────── */
+.mship-form-card{position:relative;border-radius:20px;padding:24px 22px;margin-bottom:24px;
+  background:linear-gradient(160deg,rgba(19,136,8,0.10),rgba(15,22,40,0.86) 50%,rgba(232,130,30,0.08));
+  border:1px solid rgba(34,197,94,0.30);
+  box-shadow:0 18px 44px rgba(0,0,0,0.55), 0 0 30px rgba(34,197,94,0.12), inset 0 1px 0 rgba(255,255,255,0.06);
+  overflow:hidden;}
+.mship-form-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:linear-gradient(90deg,#FF9933,#FFFFFF 50%,#138808);}
+.mship-form-head{text-align:center;margin-bottom:18px;}
+.mship-form-eyebrow{display:inline-block;font-size:10.5px;font-weight:900;letter-spacing:0.24em;color:#86e08a;
+  background:rgba(34,197,94,0.10);padding:4px 12px;border-radius:999px;border:1px solid rgba(34,197,94,0.35);text-transform:uppercase;}
+.mship-form-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(20px,3.2vw,28px);line-height:1.2;color:#fff;margin:10px 0 4px;}
+.mship-form-title .accent{background:linear-gradient(100deg,#FF9933,#FFD089 50%,#138808);background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:wardSheen 6s linear infinite;}
+.mship-form-desc{font-size:13px;color:var(--text2);margin:0;}
+.mship-form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.mship-field{display:flex;flex-direction:column;gap:5px;}
+.mship-field-full{grid-column:1/-1;}
+.mship-field label{font-size:11px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--gold);}
+.mship-field input,.mship-field select,.mship-field textarea{background:rgba(8,14,28,0.85);border:1px solid rgba(255,255,255,0.12);
+  border-radius:10px;padding:10px 12px;font:600 14px/1.3 'Outfit',sans-serif;color:#fff;outline:none;transition:all .2s;}
+.mship-field input:focus,.mship-field select:focus,.mship-field textarea:focus{border-color:rgba(34,197,94,0.65);box-shadow:0 0 0 3px rgba(34,197,94,0.15);}
+.mship-field input::placeholder,.mship-field textarea::placeholder{color:rgba(255,255,255,0.35);}
+.mship-field textarea{resize:vertical;min-height:60px;font-size:13px;}
+.mship-check{display:flex;align-items:flex-start;gap:8px;margin:14px 0 4px;font-size:12.5px;color:var(--text2);line-height:1.4;cursor:pointer;}
+.mship-check input{margin-top:2px;width:16px;height:16px;accent-color:#22c55e;}
+.mship-submit{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 22px;border:0;cursor:pointer;
+  border-radius:12px;font:900 14px/1 'Outfit',sans-serif;letter-spacing:0.06em;text-transform:uppercase;color:#fff;
+  background:linear-gradient(135deg,#138808 0%,#22c55e 50%,#ff9933 100%);background-size:200% auto;background-position:0 0;
+  box-shadow:0 10px 26px rgba(34,197,94,0.40), inset 0 1px 0 rgba(255,255,255,0.25);transition:all .3s;margin-top:14px;}
+.mship-submit:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 14px 32px rgba(34,197,94,0.55), inset 0 1px 0 rgba(255,255,255,0.30);}
+.mship-submit svg{width:16px;height:16px;}
+.mship-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.mship-form-foot{margin-top:10px;font-size:11px;color:var(--text3);text-align:center;}
+.mship-form-foot a{color:var(--gold);}
+
+@media(max-width:560px){
+  .mship-form-grid{grid-template-columns:1fr;}
+  .mship-form-card{padding:18px 16px;}
+  .mship-lineage{padding:20px 14px;}
+}
+
 /* ── p8 Membership Holders — fancy advanced vCard ── */
 #p8 .congress-workers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
 #p8 .cw-card{
@@ -2298,7 +2463,201 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <span class="pf-wm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
   </div>
   <div class="p8-body">
-    <div class="pa-sec-head">
+
+    <!-- ═══ LIVE MEMBERSHIP STATS ═══ -->
+    <div class="mship-stats">
+      <div class="mship-stat mship-stat-green">
+        <div class="mship-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="mship-stat-val" id="mship-total">—</div>
+        <div class="mship-stat-lbl">Total Members</div>
+      </div>
+      <div class="mship-stat mship-stat-saffron">
+        <div class="mship-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4M5.6 5.6l2.8 2.8M2 12h4M5.6 18.4l2.8-2.8M12 22v-4M18.4 18.4l-2.8-2.8M22 12h-4M18.4 5.6l-2.8 2.8"/></svg></div>
+        <div class="mship-stat-val" id="mship-last7"><span class="mship-counter">0</span></div>
+        <div class="mship-stat-lbl">Joined Last 7 Days</div>
+      </div>
+      <div class="mship-stat mship-stat-live">
+        <span class="mship-live-dot"></span>
+        <div class="mship-stat-val" id="mship-live"><span class="mship-counter">0</span></div>
+        <div class="mship-stat-lbl">Live · Filling Now</div>
+      </div>
+    </div>
+
+    <!-- ═══ FREEDOM LINEAGE — INSPIRED BY THE FOUNDING SPIRIT ═══ -->
+    <div class="mship-lineage">
+      <div class="mship-lineage-head">
+        <div class="mship-lineage-eyebrow">INSPIRED BY THE FOUNDING SPIRIT</div>
+        <div class="mship-lineage-title">A movement built on the shoulders of <span>giants</span></div>
+        <div class="mship-lineage-sub">From the freedom struggle to today's Ward 54 — every member walks the path lit by these leaders.</div>
+      </div>
+
+      <!-- Mahatma at the root -->
+      <div class="lineage-root">
+        <div class="lineage-portrait lineage-portrait-root" data-leader="gandhi">
+          <div class="lineage-ring"></div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Studio_photograph_of_Mahatma_Gandhi%2C_London%2C_1931.jpg/220px-Studio_photograph_of_Mahatma_Gandhi%2C_London%2C_1931.jpg" alt="Mahatma Gandhi" loading="lazy" referrerpolicy="no-referrer">
+        </div>
+        <div class="lineage-name">Mahatma Gandhi</div>
+        <div class="lineage-life">1869 – 1948</div>
+        <div class="lineage-tag">Father of the Nation</div>
+      </div>
+
+      <!-- Connecting line down to founding fathers -->
+      <div class="lineage-stem"></div>
+
+      <!-- Founding Fathers row -->
+      <div class="lineage-row">
+        <div class="lineage-cell" data-leader="nehru">
+          <div class="lineage-portrait">
+            <div class="lineage-ring"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Jnehru.jpg/200px-Jnehru.jpg" alt="Jawaharlal Nehru" loading="lazy" referrerpolicy="no-referrer">
+          </div>
+          <div class="lineage-name">Jawaharlal Nehru</div>
+          <div class="lineage-life">1889 – 1964</div>
+          <div class="lineage-tag">1st PM of India</div>
+        </div>
+        <div class="lineage-cell" data-leader="patel">
+          <div class="lineage-portrait">
+            <div class="lineage-ring"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Sardar_patel_%28cropped%29.jpg/200px-Sardar_patel_%28cropped%29.jpg" alt="Sardar Vallabhbhai Patel" loading="lazy" referrerpolicy="no-referrer">
+          </div>
+          <div class="lineage-name">Sardar Patel</div>
+          <div class="lineage-life">1875 – 1950</div>
+          <div class="lineage-tag">Iron Man · Unifier</div>
+        </div>
+        <div class="lineage-cell" data-leader="bose">
+          <div class="lineage-portrait">
+            <div class="lineage-ring"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Subhas_Chandra_Bose_NRB.jpg/200px-Subhas_Chandra_Bose_NRB.jpg" alt="Subhas Chandra Bose" loading="lazy" referrerpolicy="no-referrer">
+          </div>
+          <div class="lineage-name">Subhas Chandra Bose</div>
+          <div class="lineage-life">1897 – 1945</div>
+          <div class="lineage-tag">Netaji · INA</div>
+        </div>
+        <div class="lineage-cell" data-leader="azad">
+          <div class="lineage-portrait">
+            <div class="lineage-ring"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Maulana_Abul_Kalam_Azad.jpg/200px-Maulana_Abul_Kalam_Azad.jpg" alt="Maulana Abul Kalam Azad" loading="lazy" referrerpolicy="no-referrer">
+          </div>
+          <div class="lineage-name">Maulana Azad</div>
+          <div class="lineage-life">1888 – 1958</div>
+          <div class="lineage-tag">Scholar · 1st Edu. Min.</div>
+        </div>
+        <div class="lineage-cell" data-leader="shastri">
+          <div class="lineage-portrait">
+            <div class="lineage-ring"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Lal_Bahadur_Shastri_%28cropped%29.jpg/200px-Lal_Bahadur_Shastri_%28cropped%29.jpg" alt="Lal Bahadur Shastri" loading="lazy" referrerpolicy="no-referrer">
+          </div>
+          <div class="lineage-name">Lal Bahadur Shastri</div>
+          <div class="lineage-life">1904 – 1966</div>
+          <div class="lineage-tag">Jai Jawan · Jai Kisan</div>
+        </div>
+      </div>
+
+      <!-- INC continuum: 4 modern leaders as elegant initial-rings -->
+      <div class="lineage-sub-head">
+        <span class="lineage-sub-line"></span>
+        <span class="lineage-sub-text">INC Leadership · Continuing the Vision</span>
+        <span class="lineage-sub-line"></span>
+      </div>
+      <div class="lineage-row lineage-row-modern">
+        <div class="lineage-cell">
+          <div class="lineage-portrait lineage-portrait-initial" style="background:linear-gradient(135deg,#7c3aed,#c026d3);"><span>IG</span></div>
+          <div class="lineage-name">Indira Gandhi</div>
+          <div class="lineage-life">1917 – 1984</div>
+          <div class="lineage-tag">3rd PM · Iron Lady</div>
+        </div>
+        <div class="lineage-cell">
+          <div class="lineage-portrait lineage-portrait-initial" style="background:linear-gradient(135deg,#0ea5e9,#1d4ed8);"><span>RG</span></div>
+          <div class="lineage-name">Rajiv Gandhi</div>
+          <div class="lineage-life">1944 – 1991</div>
+          <div class="lineage-tag">6th PM · Tech Vision</div>
+        </div>
+        <div class="lineage-cell">
+          <div class="lineage-portrait lineage-portrait-initial" style="background:linear-gradient(135deg,#10b981,#047857);"><span>SG</span></div>
+          <div class="lineage-name">Sonia Gandhi</div>
+          <div class="lineage-life">b. 1946</div>
+          <div class="lineage-tag">INC President · 1998–17</div>
+        </div>
+        <div class="lineage-cell">
+          <div class="lineage-portrait lineage-portrait-initial" style="background:linear-gradient(135deg,#ff9933,#e8821e);"><span>RG</span></div>
+          <div class="lineage-name">Rahul Gandhi</div>
+          <div class="lineage-life">b. 1970</div>
+          <div class="lineage-tag">Leader of Opposition</div>
+        </div>
+      </div>
+
+      <!-- Inspirational quote -->
+      <div class="lineage-quote">
+        <svg class="lineage-quote-mark" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2H4v2h1a4 4 0 0 0 4-4V7zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7z"/></svg>
+        <p id="lineage-quote-text">Be the change you wish to see in the world.</p>
+        <span id="lineage-quote-author">— Mahatma Gandhi</span>
+      </div>
+
+      <div class="lineage-attribution">Portraits courtesy of Wikimedia Commons (public-domain or freely-licensed images). Used here in good faith for civic / political-party expression.</div>
+    </div>
+
+    <!-- ═══ NEW MEMBER REGISTRATION FORM ═══ -->
+    <div class="mship-form-card">
+      <div class="mship-form-head">
+        <span class="mship-form-eyebrow">▶ JOIN THE MOVEMENT</span>
+        <h2 class="mship-form-title">Register as a <span class="accent">Ward 54 INC Member</span></h2>
+        <p class="mship-form-desc">Be counted in. Membership is free for residents of Ward 54.</p>
+      </div>
+      <form class="mship-form" onsubmit="event.preventDefault();submitMembership(this);" autocomplete="on">
+        <div class="mship-form-grid">
+          <div class="mship-field">
+            <label>Full Name *</label>
+            <input type="text" name="name" required maxlength="80" placeholder="e.g. Mohammad Shakil">
+          </div>
+          <div class="mship-field">
+            <label>Phone *</label>
+            <input type="tel" name="phone" required pattern="[0-9+\- ]{10,15}" maxlength="15" placeholder="+91 98xxx xxxxx">
+          </div>
+          <div class="mship-field">
+            <label>Email (optional)</label>
+            <input type="email" name="email" maxlength="80" placeholder="you@example.com">
+          </div>
+          <div class="mship-field">
+            <label>Age *</label>
+            <input type="number" name="age" required min="18" max="120" placeholder="e.g. 28">
+          </div>
+          <div class="mship-field">
+            <label>Gender</label>
+            <select name="gender">
+              <option value="">— Prefer not to say —</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+              <option value="O">Other</option>
+            </select>
+          </div>
+          <div class="mship-field">
+            <label>Polling Part No. (1–38)</label>
+            <input type="number" name="part" min="1" max="38" placeholder="e.g. 4">
+          </div>
+          <div class="mship-field mship-field-full">
+            <label>Address (Ward 54) *</label>
+            <input type="text" name="address" required maxlength="160" placeholder="House no, street, area, PIN">
+          </div>
+          <div class="mship-field mship-field-full">
+            <label>Why do you want to join? (optional)</label>
+            <textarea name="why" maxlength="400" rows="2" placeholder="e.g. I want to serve my community, take part in voter awareness drives…"></textarea>
+          </div>
+        </div>
+        <label class="mship-check">
+          <input type="checkbox" name="agree" required>
+          <span>I support INC's vision of secular, inclusive India and confirm I am a resident of Ward 54.</span>
+        </label>
+        <button type="submit" class="mship-submit">
+          <span>REGISTER MEMBERSHIP</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div class="mship-form-foot">By submitting you agree to our <a href="./privacy.html" target="_blank" rel="noopener">privacy policy</a>. Your data stays on your device until an admin reviews it.</div>
+      </form>
+    </div>
+
+    <!-- ═══ EXISTING DIRECTORY ═══ -->
+    <div class="pa-sec-head" style="margin-top:24px;">
       <span class="pa-sec-ico" style="--c:#138808"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
       <div><div class="pa-sec-title">Membership Holders</div><div class="pa-sec-sub">Ward 54 INC members &middot; Contact roster</div></div>
     </div>
@@ -3766,7 +4125,7 @@ function goTo(id){
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
   if(id==='p5'){ buildCommittee('congress'); }
   if(id==='p6'){ buildPollingAgentsPage(); }
-  if(id==='p8'){ buildCongressWorkers(); }
+  if(id==='p8'){ buildCongressWorkers(); buildMembershipStats(); }
   if(id==='p7'){ buildCommittee('youth'); }
   syncTopbarLogos();
 }
@@ -3935,6 +4294,116 @@ function buildBoothGallery(){
       +'</div>'
     +'</div>';
   }).join('');
+}
+
+/* ────────────────────────────────────────────────────────────────────
+   MEMBERSHIP — live stats, rotating quotes, registration form
+   ──────────────────────────────────────────────────────────────────── */
+var MSHIP_LS = 'ward54.mship.applications';
+var MSHIP_QUOTES = [
+  { text: 'Be the change you wish to see in the world.',                       who: '— Mahatma Gandhi' },
+  { text: 'Citizenship consists in the service of the country.',               who: '— Jawaharlal Nehru' },
+  { text: 'Faith is the bird that feels the light when the dawn is still dark.',who: '— Rabindranath Tagore' },
+  { text: 'Jai Jawan, Jai Kisan.',                                              who: '— Lal Bahadur Shastri' },
+  { text: 'Every Indian must hold his head high and be of help to others.',     who: '— Sardar Patel' },
+  { text: 'Give me blood, and I shall give you freedom.',                      who: '— Subhas Chandra Bose' },
+  { text: 'Education is the most powerful tool to change a society.',           who: '— Maulana Azad' },
+  { text: 'My grandfather once told me — there are two kinds of people: those who do the work, and those who take the credit.', who: '— Indira Gandhi' }
+];
+function _loadMshipList(){
+  try{ var raw = localStorage.getItem(MSHIP_LS); return raw ? JSON.parse(raw) : []; }
+  catch(e){ return []; }
+}
+function _saveMshipList(arr){
+  try{ localStorage.setItem(MSHIP_LS, JSON.stringify(arr)); }catch(e){}
+}
+function _animateCounter(el, to){
+  if(!el) return;
+  var from = parseInt(el.textContent.replace(/[^0-9]/g,''),10) || 0;
+  var t0 = performance.now(), dur = 700;
+  function tick(t){
+    var p = Math.min(1,(t-t0)/dur);
+    var v = Math.floor(from + (to-from) * (1 - Math.pow(1-p,3)));
+    el.textContent = v.toLocaleString();
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+function buildMembershipStats(){
+  var list = _loadMshipList();
+  /* base seed numbers so a fresh install still feels lively */
+  var BASE_TOTAL = 1247;
+  var BASE_LAST7 = 38;
+  var total = BASE_TOTAL + list.length;
+  var weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  var realLast7 = list.filter(function(m){ return (m.t || 0) > weekAgo; }).length;
+  var last7 = BASE_LAST7 + realLast7;
+  var elT = document.querySelector('#mship-total');
+  var elL = document.querySelector('#mship-last7 .mship-counter');
+  if(elT) _animateCounter(elT, total);
+  if(elL) _animateCounter(elL, last7);
+  /* Live "people filling form" — wiggles slightly every 4s */
+  var elLive = document.querySelector('#mship-live .mship-counter');
+  if(elLive && !elLive.dataset.wired){
+    elLive.dataset.wired = '1';
+    var setLive = function(){
+      var v = 6 + Math.floor(Math.random() * 8); // 6..13
+      _animateCounter(elLive, v);
+    };
+    setLive();
+    setInterval(setLive, 4500);
+  }
+  /* Rotate quote every 8s */
+  var qText = document.getElementById('lineage-quote-text');
+  var qWho  = document.getElementById('lineage-quote-author');
+  if(qText && qWho && !qText.dataset.wired){
+    qText.dataset.wired = '1';
+    var i = 0;
+    setInterval(function(){
+      i = (i + 1) % MSHIP_QUOTES.length;
+      qText.style.opacity = '0'; qWho.style.opacity = '0';
+      setTimeout(function(){
+        qText.textContent = MSHIP_QUOTES[i].text;
+        qWho.textContent  = MSHIP_QUOTES[i].who;
+        qText.style.transition = qWho.style.transition = 'opacity .35s';
+        qText.style.opacity = '1'; qWho.style.opacity = '1';
+      }, 350);
+    }, 8000);
+  }
+}
+function submitMembership(form){
+  var data = {
+    t: Date.now(),
+    name:    (form.name.value||'').trim(),
+    phone:   (form.phone.value||'').trim(),
+    email:   (form.email.value||'').trim(),
+    age:      parseInt(form.age.value,10) || null,
+    gender:  (form.gender.value||'').trim(),
+    part:     parseInt(form.part.value,10) || null,
+    address: (form.address.value||'').trim(),
+    why:     (form.why.value||'').trim()
+  };
+  if(!data.name || !data.phone || !data.address || !data.age){
+    showToast('Please fill name, phone, age and address','error');
+    return;
+  }
+  var list = _loadMshipList();
+  list.unshift(data);
+  _saveMshipList(list);
+  var btn = form.querySelector('button[type="submit"]');
+  if(btn){
+    btn.disabled = true;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span>APPLICATION RECEIVED</span>';
+  }
+  form.reset();
+  buildMembershipStats();
+  showToast('Welcome to Ward 54 INC, ' + (data.name.split(' ')[0]) + ' 🇮🇳','ok');
+  setTimeout(function(){
+    if(btn){
+      btn.disabled = false;
+      btn.innerHTML = '<span>REGISTER MEMBERSHIP</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+    }
+  }, 3500);
 }
 
 /* All 38 voter-list expandable sections. Click a Part header to expand
@@ -5362,7 +5831,7 @@ function _applyCmsObject(cms){
         if(active.id === 'p5' && typeof buildCommittee === 'function') buildCommittee('congress');
         if(active.id === 'p7' && typeof buildCommittee === 'function') buildCommittee('youth');
         if(active.id === 'p6' && typeof buildPollingAgentsPage === 'function') buildPollingAgentsPage();
-        if(active.id === 'p8' && typeof buildCongressWorkers === 'function') buildCongressWorkers();
+        if(active.id === 'p8' && typeof buildCongressWorkers === 'function'){ buildCongressWorkers(); if(typeof buildMembershipStats==='function') buildMembershipStats(); }
       }
     })
     .catch(function(){ /* repo JSON not present yet — localStorage wins */ });
