@@ -487,6 +487,60 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .logo-upload-info p{font-size:13px;color:var(--text2);margin-bottom:8px;}
 .logo-upload-info small{font-size:11px;color:var(--text4);}
 .station-admin-list{display:flex;flex-direction:column;gap:8px;}
+
+/* ── Admin inline search + voter management ── */
+.admin-search-wrap{position:relative;display:flex;align-items:center;gap:8px;
+  background:var(--navy3);border:1px solid var(--border);border-radius:10px;padding:6px 10px;}
+.admin-search-wrap svg{width:15px;height:15px;color:var(--text3);flex-shrink:0;}
+.admin-search-wrap input{flex:1;background:transparent;border:0;outline:0;color:var(--text);
+  font:600 13px/1.3 'Outfit',sans-serif;padding:6px 4px;}
+.admin-search-wrap input::placeholder{color:var(--text3);font-weight:500;}
+.admin-search-wrap:focus-within{border-color:rgba(232,130,30,0.55);
+  box-shadow:0 0 0 3px rgba(232,130,30,0.10);}
+
+/* Bulk-station chips */
+.voter-bulk-chip{flex-shrink:0;font-size:11px;font-weight:700;letter-spacing:0.02em;
+  padding:5px 10px;border-radius:8px;cursor:pointer;
+  color:#86e08a;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.30);
+  transition:all .15s;}
+.voter-bulk-chip:hover{background:rgba(34,197,94,0.20);border-color:rgba(34,197,94,0.50);transform:translateY(-1px);}
+
+/* Part chips (1..38) */
+.voter-part-chip{flex-shrink:0;font-family:DM Mono,monospace;font-size:11px;font-weight:700;
+  width:36px;height:32px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--text2);background:rgba(255,255,255,0.04);border:1px solid var(--border);transition:all .15s;}
+.voter-part-chip:hover{color:#fff;background:rgba(96,165,250,0.15);border-color:rgba(96,165,250,0.40);}
+.voter-part-chip.loaded{color:#9bc1e4;background:rgba(96,165,250,0.10);border-color:rgba(96,165,250,0.35);}
+.voter-part-chip.active{color:#fff;background:linear-gradient(135deg,rgba(232,130,30,0.30),rgba(255,153,51,0.20));
+  border-color:rgba(232,130,30,0.65);box-shadow:0 0 0 2px rgba(232,130,30,0.10);}
+.voter-part-chip.dirty::after{content:"•";position:absolute;color:#22ff88;font-size:14px;margin-left:1px;}
+
+/* Voter editor card */
+.voter-edit-card{background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;
+  border-radius:var(--r2);padding:10px 12px;margin-bottom:6px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;}
+.voter-edit-card .v-meta{font-family:DM Mono,monospace;font-size:11px;color:#9bc1e4;letter-spacing:0.02em;}
+.voter-edit-card .v-name{font-weight:700;color:#fff;font-size:14px;margin-bottom:3px;}
+.voter-edit-card .v-rel{font-size:11.5px;color:var(--text2);}
+.voter-edit-card .v-form{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+  margin-top:6px;padding-top:8px;border-top:1px dashed var(--border);display:none;}
+.voter-edit-card.editing .v-form{display:grid;}
+.voter-edit-card .v-form input,.voter-edit-card .v-form select{padding:5px 8px;font-size:11.5px;}
+.voter-edit-card .v-form label{font-size:9.5px;font-weight:700;letter-spacing:0.10em;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:2px;}
+.v-act{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
+.v-act button{font-size:10.5px;padding:4px 9px;border-radius:6px;cursor:pointer;border:1px solid;}
+
+/* Active part panel header */
+.active-part-panel{background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);
+  padding:14px;margin-top:8px;}
+.active-part-panel .app-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.active-part-panel .app-title{font-family:Outfit,sans-serif;font-weight:900;font-size:15px;color:#fff;letter-spacing:0.02em;}
+.active-part-panel .app-count{font-family:DM Mono,monospace;font-size:11px;color:#86e08a;padding:3px 9px;border-radius:999px;
+  background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.30);}
+.active-part-panel .app-list{max-height:520px;overflow-y:auto;padding-right:4px;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.18) transparent;}
+.active-part-panel .app-list::-webkit-scrollbar{width:6px;}
+.active-part-panel .app-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.18);border-radius:3px;}
 .station-admin-item{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:12px 14px;}
 .station-admin-item.editing{border-color:var(--gold);background:rgba(201,168,76,0.05);}
 .sa-info{flex:1;min-width:0;}
@@ -780,20 +834,54 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Polling Stations</div>
           <div class="p4-section-sub">Edit station name, address, parts and coordinates</div>
         </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span id="stationAdminCount" style="font-size:11px;color:var(--text3);font-family:DM Mono,monospace;"></span>
+          <button class="btn btn-ghost btn-sm" onclick="toggleAllStationsEdit()">Expand all</button>
+        </div>
+      </div>
+      <!-- Filter box -->
+      <div class="admin-search-wrap" style="margin-bottom:12px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="stationFilter" placeholder="Filter stations by name, address, or part number…" oninput="filterStationAdminList(this.value)">
       </div>
       <div class="station-admin-list" id="stationAdminList"></div>
     </div>
 
-    <!-- Section 4: Voter Management -->
+    <!-- Section 4: Voter Management — full inline editor -->
     <div class="p4-section" id="voters">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Voter Management</div>
-          <div class="p4-section-sub">Browse parts, add voters or bulk-edit by station</div>
+          <div class="p4-section-sub">Browse parts, add voters, edit or modify any entry — works across all 38 parts</div>
         </div>
-        <button class="btn btn-primary btn-sm" onclick="goTo('p2')">Open Voter List →</button>
+        <button class="btn btn-ghost btn-sm" onclick="goTo('p2')">Open Public Voter List →</button>
       </div>
-      <div class="voter-mgmt-grid" id="voterMgmtGrid"></div>
+
+      <!-- Search panel — searches across loaded parts (auto-loads on demand) -->
+      <div class="admin-search-wrap" style="margin-bottom:10px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="voterAdminSearch" placeholder="Search by voter name, EPIC, voter ID, house number…" oninput="onVoterAdminSearch(this.value)">
+        <button class="btn btn-ghost btn-sm" onclick="loadAllPartsForSearch()" id="voterLoadAllBtn">Load All Parts</button>
+      </div>
+      <div id="voterAdminSearchHint" style="font-size:11px;color:var(--text3);margin-bottom:10px;">Type 2+ characters to search. Tip: click <b>Load All Parts</b> first to search across all 26,849 voters.</div>
+
+      <!-- Bulk-by-station shortcuts -->
+      <div style="margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Bulk Edit by Station</div>
+        <div id="voterBulkStations" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+      </div>
+
+      <!-- Part chips -->
+      <div style="margin-bottom:14px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;color:#9bc1e4;text-transform:uppercase;margin-bottom:6px;">Browse by Part — click to open</div>
+        <div id="voterPartChips" style="display:flex;flex-wrap:wrap;gap:5px;"></div>
+      </div>
+
+      <!-- Search results -->
+      <div id="voterSearchResults"></div>
+
+      <!-- Active part editor -->
+      <div id="voterActivePartPanel"></div>
     </div>
 
     <!-- Section: Cloud Sync (GitHub PAT auto-publish) -->
@@ -3659,15 +3747,310 @@ function saveStationEdit(no){
   showToast('Station '+no+' updated');
 }
 
-/* ===== Voter management grid (p4) ===== */
-function buildVoterMgmtGrid(){
-  var el=document.getElementById('voterMgmtGrid');if(!el)return;
-  var html='<div class="voter-mgmt-card" onclick="goTo(\'p2\')" style="border-color:var(--inc-saffron);"><div class="vmc-label">All Stations</div><div class="vmc-val">'+stations.length+'</div><div class="vmc-sub">polling stations</div></div>';
-  stations.forEach(function(s){
-    var cnt=0;s.parts.forEach(function(p){cnt+=(voterDB[p]||[]).length;});
-    html+='<div class="voter-mgmt-card" onclick="openStation('+s.no+')"><div class="vmc-label">Station '+s.no+'</div><div class="vmc-val">'+cnt+'</div><div class="vmc-sub">'+s.name.substring(0,28)+(s.name.length>28?'…':'')+'</div></div>';
+/* ===== Polling-station filter (admin) ===== */
+function filterStationAdminList(q){
+  q = (q||'').toLowerCase().trim();
+  var el = document.getElementById('stationAdminList');
+  if(!el) return;
+  var rows = el.querySelectorAll('.station-admin-item');
+  var shown = 0;
+  rows.forEach(function(r){
+    var t = r.textContent.toLowerCase();
+    var match = !q || t.indexOf(q) !== -1;
+    r.style.display = match ? '' : 'none';
+    if(match) shown++;
   });
-  el.innerHTML=html;
+  var c = document.getElementById('stationAdminCount');
+  if(c) c.textContent = q ? (shown + ' of ' + rows.length + ' match') : (rows.length + ' stations');
+}
+function toggleAllStationsEdit(){
+  /* Toggle every station's edit form open or closed depending on majority state */
+  var anyClosed = false;
+  stations.forEach(function(s){
+    var form = document.getElementById('sa-form-'+s.no);
+    if(form && (form.style.display === 'none' || form.style.display === '')) anyClosed = true;
+  });
+  stations.forEach(function(s){
+    var form = document.getElementById('sa-form-'+s.no);
+    var item = document.getElementById('sa-item-'+s.no);
+    if(form){ form.style.display = anyClosed ? 'grid' : 'none'; }
+    if(item){ if(anyClosed) item.classList.add('editing'); else item.classList.remove('editing'); }
+  });
+}
+
+/* =================================================================
+   VOTER MANAGEMENT EDITOR
+   - Browse all 38 parts by clicking a chip → loads the part JSON
+   - Edit / Add / Delete voters inline, written to localStorage
+     overrides (ward54.voters.overrides.{partN})
+   - Search across all loaded parts; "Load All" button loads every
+     part in parallel for full-database search
+   - Bulk-by-station: loads every part for the picked station and
+     opens the first one
+   ================================================================= */
+var _vmLoaded = {};                       // {partN: [voters]}
+var _vmActivePart = null;
+var VM_OVR_LS = 'ward54.voters.overrides';
+function _vmReadOverrides(){ try{ return JSON.parse(localStorage.getItem(VM_OVR_LS) || '{}'); }catch(e){ return {}; } }
+function _vmWriteOverrides(o){ try{ localStorage.setItem(VM_OVR_LS, JSON.stringify(o)); }catch(e){} }
+function _vmPartIsDirty(n){ var ov=_vmReadOverrides(); return !!(ov[n] && (ov[n].edits || ov[n].adds || ov[n].deletes)); }
+function _vmGetMergedVoters(n){
+  /* Merge the original JSON voters with the localStorage override.
+     Override shape per part: { edits:{sl:{...patch}}, adds:[voters], deletes:[sl,...] } */
+  var base = (_vmLoaded[n] || []).slice();
+  var ov = _vmReadOverrides()[n] || {};
+  if(ov.deletes && ov.deletes.length){
+    var del = new Set(ov.deletes);
+    base = base.filter(function(v){ return !del.has(v.sl); });
+  }
+  if(ov.edits){
+    base = base.map(function(v){
+      var patch = ov.edits[v.sl];
+      return patch ? Object.assign({}, v, patch) : v;
+    });
+  }
+  if(ov.adds && ov.adds.length){
+    base = base.concat(ov.adds);
+  }
+  return base;
+}
+
+function buildVoterMgmtGrid(){
+  /* Build the part chips + bulk-station chips on first render.
+     The active-part panel + search-results live in their own containers. */
+  var partsEl = document.getElementById('voterPartChips');
+  if(partsEl){
+    var html='';
+    for(var i=1;i<=38;i++){
+      var loaded = _vmLoaded[i] ? ' loaded' : '';
+      var dirty  = _vmPartIsDirty(i) ? ' dirty' : '';
+      html += '<button class="voter-part-chip'+loaded+dirty+'" id="vm-chip-'+i+'" onclick="vmOpenPart('+i+')" title="Part '+i+'">'+i+'</button>';
+    }
+    partsEl.innerHTML = html;
+  }
+  var bulkEl = document.getElementById('voterBulkStations');
+  if(bulkEl){
+    bulkEl.innerHTML = (groupedStationsFrom(stations)||[]).map(function(g, idx){
+      var partList = [];
+      g.booths.forEach(function(b){ b.parts.forEach(function(p){ partList.push(p); }); });
+      partList.sort(function(a,b){return a-b;});
+      return '<button class="voter-bulk-chip" onclick="vmBulkLoadStation('+JSON.stringify(partList).replace(/"/g,'&quot;')+', \''+(g.name||'').replace(/'/g,"\\'")+'\')" title="'+(g.name||'')+' — parts '+partList.join(', ')+'">'
+        +'Station '+(idx+1)+' · '+(g.name||'').substring(0,22)+' ('+partList.length+'p)'
+      +'</button>';
+    }).join('');
+  }
+}
+
+function vmRepaintChips(){
+  for(var i=1;i<=38;i++){
+    var chip = document.getElementById('vm-chip-'+i);
+    if(!chip) continue;
+    chip.classList.toggle('loaded', !!_vmLoaded[i]);
+    chip.classList.toggle('active', _vmActivePart === i);
+    chip.classList.toggle('dirty',  _vmPartIsDirty(i));
+  }
+}
+
+function _vmFetchPart(n){
+  if(_vmLoaded[n]) return Promise.resolve(_vmLoaded[n]);
+  var url = 'data/voters/part-' + String(n).padStart(2,'0') + '.json';
+  return fetch(url, { cache:'force-cache' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      _vmLoaded[n] = (j && Array.isArray(j.voters)) ? j.voters : [];
+      return _vmLoaded[n];
+    })
+    .catch(function(){ _vmLoaded[n] = []; return _vmLoaded[n]; });
+}
+
+function vmOpenPart(n){
+  _vmActivePart = n;
+  vmRepaintChips();
+  var panel = document.getElementById('voterActivePartPanel');
+  if(!panel) return;
+  panel.innerHTML = '<div class="active-part-panel"><div style="padding:14px;color:var(--text3);font-size:12.5px;">Loading Part '+n+'…</div></div>';
+  _vmFetchPart(n).then(function(){ vmRenderActivePart(); });
+}
+
+function vmRenderActivePart(){
+  var n = _vmActivePart;
+  if(!n) return;
+  var panel = document.getElementById('voterActivePartPanel');
+  if(!panel) return;
+  var voters = _vmGetMergedVoters(n);
+  var html = '<div class="active-part-panel">'
+    + '<div class="app-head">'
+      + '<div><span class="app-title">PART '+n+'</span> <span class="app-count">'+voters.length+' voters</span></div>'
+      + '<div style="display:flex;gap:6px;">'
+        + '<button class="btn btn-saffron btn-sm" onclick="vmAddVoter('+n+')">+ Add Voter</button>'
+        + '<button class="btn btn-ghost btn-sm" onclick="vmCloseActivePart()">Close</button>'
+      + '</div>'
+    + '</div>'
+    + '<div class="app-list">';
+  voters.forEach(function(v, idx){
+    html += _vmRenderVoterCard(n, v, idx);
+  });
+  html += '</div></div>';
+  panel.innerHTML = html;
+}
+function vmCloseActivePart(){
+  _vmActivePart = null;
+  vmRepaintChips();
+  var panel = document.getElementById('voterActivePartPanel');
+  if(panel) panel.innerHTML = '';
+}
+
+function _vmRenderVoterCard(partNo, v, idx){
+  var slKey = 'vm-card-'+partNo+'-'+(v.sl||idx);
+  var meta = [];
+  if(v.age != null) meta.push(v.age + 'y');
+  if(v.gender) meta.push(v.gender);
+  if(v.house) meta.push('H/N: ' + v.house);
+  var rel = v.relName ? ((v.relType||'F')+': '+v.relName) : '';
+  return '<div class="voter-edit-card" id="'+slKey+'">'
+    + '<div>'
+      + '<div class="v-name">#'+(v.sl||idx+1)+' &nbsp;'+escapeHtml(v.name||'(no name)')+'</div>'
+      + '<div class="v-meta">ID: '+escapeHtml(v.voterId||'—')+' · '+meta.join(' · ')+'</div>'
+      + (rel ? '<div class="v-rel">'+escapeHtml(rel)+'</div>' : '')
+      + '<div class="v-form">'
+        + '<div><label>Voter ID / EPIC</label><input data-vf="voterId" value="'+escapeAttr(v.voterId||'')+'"></div>'
+        + '<div><label>Name</label><input data-vf="name" value="'+escapeAttr(v.name||'')+'"></div>'
+        + '<div><label>Age</label><input data-vf="age" type="number" min="18" max="120" value="'+(v.age||'')+'"></div>'
+        + '<div><label>Gender</label><select data-vf="gender"><option value="">—</option><option'+(v.gender==='M'?' selected':'')+'>M</option><option'+(v.gender==='F'?' selected':'')+'>F</option><option'+(v.gender==='O'?' selected':'')+'>O</option></select></div>'
+        + '<div><label>House No</label><input data-vf="house" value="'+escapeAttr(v.house||'')+'"></div>'
+        + '<div><label>Relation Type</label><select data-vf="relType"><option value="">—</option><option'+(v.relType==='F'?' selected':'')+'>F (Father)</option><option'+(v.relType==='H'?' selected':'')+'>H (Husband)</option><option'+(v.relType==='M'?' selected':'')+'>M (Mother)</option></select></div>'
+        + '<div style="grid-column:span 2;"><label>Relation Name</label><input data-vf="relName" value="'+escapeAttr(v.relName||'')+'"></div>'
+      + '</div>'
+    + '</div>'
+    + '<div class="v-act">'
+      + '<button onclick="vmToggleEditVoter(\''+slKey+'\')" style="background:rgba(96,165,250,0.10);color:#9bc1e4;border-color:rgba(96,165,250,0.30);">Edit</button>'
+      + '<button onclick="vmSaveVoter('+partNo+','+(v.sl||idx)+',\''+slKey+'\')" style="background:rgba(16,185,129,0.10);color:var(--green2);border-color:rgba(16,185,129,0.30);display:none;" data-save>Save</button>'
+      + '<button onclick="vmDeleteVoter('+partNo+','+(v.sl||idx)+')" style="background:rgba(239,68,68,0.10);color:var(--red2);border-color:rgba(239,68,68,0.30);">Delete</button>'
+    + '</div>'
+  + '</div>';
+}
+function vmToggleEditVoter(slKey){
+  var c = document.getElementById(slKey);
+  if(!c) return;
+  c.classList.toggle('editing');
+  var save = c.querySelector('[data-save]');
+  if(save) save.style.display = c.classList.contains('editing') ? '' : 'none';
+}
+function vmSaveVoter(partNo, sl, slKey){
+  var c = document.getElementById(slKey);
+  if(!c) return;
+  var patch = {};
+  c.querySelectorAll('.v-form [data-vf]').forEach(function(input){
+    var f = input.getAttribute('data-vf');
+    var val = input.value;
+    if(f === 'age') val = parseInt(val,10) || null;
+    if(val !== null && val !== '') patch[f] = val;
+    else if(f === 'age') patch[f] = null;
+    else patch[f] = '';
+  });
+  var ov = _vmReadOverrides();
+  if(!ov[partNo]) ov[partNo] = {};
+  if(!ov[partNo].edits) ov[partNo].edits = {};
+  ov[partNo].edits[sl] = patch;
+  _vmWriteOverrides(ov);
+  if(typeof logChange === 'function') logChange('Edited voter #'+sl+' in Part '+partNo);
+  vmRenderActivePart();
+  vmRepaintChips();
+  showToast('Voter saved — push Cloud Sync to publish');
+}
+function vmDeleteVoter(partNo, sl){
+  if(!confirm('Delete voter #'+sl+' from Part '+partNo+'?')) return;
+  var ov = _vmReadOverrides();
+  if(!ov[partNo]) ov[partNo] = {};
+  if(!ov[partNo].deletes) ov[partNo].deletes = [];
+  if(ov[partNo].deletes.indexOf(sl) === -1) ov[partNo].deletes.push(sl);
+  _vmWriteOverrides(ov);
+  if(typeof logChange === 'function') logChange('Deleted voter #'+sl+' in Part '+partNo);
+  vmRenderActivePart();
+  vmRepaintChips();
+  showToast('Voter removed');
+}
+function vmAddVoter(partNo){
+  var ov = _vmReadOverrides();
+  if(!ov[partNo]) ov[partNo] = {};
+  if(!ov[partNo].adds) ov[partNo].adds = [];
+  var nextSl = 'NEW' + (ov[partNo].adds.length + 1);
+  ov[partNo].adds.unshift({ sl:nextSl, voterId:'', name:'(new voter)', age:null, gender:'', house:'', relType:'', relName:'' });
+  _vmWriteOverrides(ov);
+  vmRenderActivePart();
+  vmRepaintChips();
+  showToast('New voter added — click Edit to fill details');
+}
+
+function vmBulkLoadStation(partList, stationName){
+  if(!partList || !partList.length) return;
+  showToast('Loading '+partList.length+' parts for '+stationName+'…');
+  Promise.all(partList.map(_vmFetchPart)).then(function(){
+    vmRepaintChips();
+    vmOpenPart(partList[0]);
+    showToast('Loaded '+partList.length+' parts. Edit each via the part chips.');
+  });
+}
+
+function loadAllPartsForSearch(){
+  var btn = document.getElementById('voterLoadAllBtn');
+  if(btn){ btn.disabled = true; btn.textContent = 'Loading 1/38…'; }
+  var loaded = 0;
+  var promises = [];
+  for(var i=1;i<=38;i++){
+    (function(n){
+      promises.push(_vmFetchPart(n).then(function(){
+        loaded++;
+        if(btn) btn.textContent = 'Loading '+loaded+'/38…';
+      }));
+    })(i);
+  }
+  Promise.all(promises).then(function(){
+    if(btn){ btn.disabled = false; btn.textContent = '✓ All 38 loaded'; setTimeout(function(){btn.textContent='Load All Parts';}, 2000); }
+    vmRepaintChips();
+    var hint = document.getElementById('voterAdminSearchHint');
+    if(hint) hint.textContent = 'All 38 parts loaded. Type 2+ characters to search.';
+    onVoterAdminSearch(document.getElementById('voterAdminSearch').value);
+  });
+}
+
+var _vmSearchT;
+function onVoterAdminSearch(q){
+  clearTimeout(_vmSearchT);
+  _vmSearchT = setTimeout(function(){ _vmDoSearch(q); }, 220);
+}
+function _vmDoSearch(q){
+  q = (q||'').trim().toUpperCase();
+  var el = document.getElementById('voterSearchResults');
+  if(!el) return;
+  if(q.length < 2){ el.innerHTML = ''; return; }
+  var hits = [];
+  for(var n=1;n<=38;n++){
+    if(!_vmLoaded[n]) continue;
+    var voters = _vmGetMergedVoters(n);
+    for(var i=0;i<voters.length && hits.length<60;i++){
+      var v = voters[i];
+      var hay = ((v.name||'')+' '+(v.voterId||'')+' '+(v.house||'')+' '+(v.relName||'')).toUpperCase();
+      if(hay.indexOf(q) !== -1) hits.push({part:n, voter:v});
+    }
+    if(hits.length >= 60) break;
+  }
+  if(!hits.length){
+    el.innerHTML = '<div style="padding:12px;color:var(--text3);font-size:12.5px;border:1px dashed var(--border);border-radius:8px;text-align:center;margin-bottom:10px;">No voters match &ldquo;'+escapeHtml(q)+'&rdquo; in loaded parts. <a href="#" onclick="event.preventDefault();loadAllPartsForSearch()" style="color:var(--gold);">Load all 38 parts</a> to widen the search.</div>';
+    return;
+  }
+  var html = '<div style="padding:8px 12px;margin-bottom:8px;background:rgba(232,130,30,0.10);border:1px solid rgba(232,130,30,0.30);border-radius:8px;font-size:12px;color:#ffd089;">Showing '+hits.length+' match'+(hits.length===1?'':'es')+' for &ldquo;<b>'+escapeHtml(q)+'</b>&rdquo;</div>';
+  html += hits.map(function(h){
+    var v = h.voter;
+    return '<div class="voter-edit-card" style="border-left-color:#ffd089;">'
+      + '<div>'
+        + '<div class="v-name"><span style="font-size:10px;color:#ffd089;font-weight:800;letter-spacing:0.10em;text-transform:uppercase;background:rgba(232,130,30,0.15);padding:2px 8px;border-radius:999px;border:1px solid rgba(232,130,30,0.30);margin-right:8px;">PART '+h.part+'</span>'+escapeHtml(v.name||'')+'</div>'
+        + '<div class="v-meta">ID: '+escapeHtml(v.voterId||'—')+' · '+(v.age?v.age+'y':'')+' '+(v.gender||'')+(v.house?' · H/N: '+escapeHtml(v.house):'')+'</div>'
+      + '</div>'
+      + '<div class="v-act"><button onclick="vmOpenPart('+h.part+')" style="background:rgba(96,165,250,0.10);color:#9bc1e4;border-color:rgba(96,165,250,0.30);">Open Part</button></div>'
+    + '</div>';
+  }).join('');
+  el.innerHTML = html;
 }
 function refreshP4Stats(){
   var totalV=0;
