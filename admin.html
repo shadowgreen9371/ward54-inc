@@ -454,8 +454,30 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 
 /* PAGE 4 — ADMIN CONTROL PANEL (background themed above) */
 .p4-body{padding:20px;flex:1;max-width:920px;width:100%;margin:0 auto;}
-.p4-section{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:18px;}
+.p4-section{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:18px;
+  scroll-margin-top:84px;}  /* leaves room for sticky TOC when jumping */
+#applications{scroll-margin-top:84px;}
 .p4-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px;flex-wrap:wrap;}
+
+/* ── Sticky section navigator ── */
+.admin-toc{position:sticky;top:0;z-index:50;display:flex;gap:6px;overflow-x:auto;
+  padding:10px 8px;margin:-4px 0 18px;
+  background:linear-gradient(180deg,rgba(10,15,30,0.95),rgba(10,15,30,0.85));
+  border:1px solid var(--border);border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.15) transparent;}
+.admin-toc::-webkit-scrollbar{height:5px;}
+.admin-toc::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:3px;}
+.admin-toc a{flex-shrink:0;display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:700;letter-spacing:0.02em;
+  padding:7px 12px;border-radius:8px;text-decoration:none;
+  color:var(--text2);background:rgba(255,255,255,0.04);
+  border:1px solid transparent;white-space:nowrap;transition:all .18s;}
+.admin-toc a:hover{color:#fff;background:rgba(96,165,250,0.10);border-color:rgba(96,165,250,0.30);}
+.admin-toc a.active{color:#fff;background:linear-gradient(135deg,rgba(96,165,250,0.20),rgba(139,92,246,0.16));
+  border-color:rgba(96,165,250,0.55);box-shadow:0 0 0 2px rgba(96,165,250,0.10), 0 4px 14px rgba(96,165,250,0.20);
+  text-shadow:0 0 8px rgba(96,165,250,0.45);}
 .p4-section-title{font-size:15px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;}
 .p4-section-title svg{width:18px;height:18px;color:var(--gold);}
 .p4-section-sub{font-size:12px;color:var(--text3);margin-top:3px;}
@@ -694,8 +716,26 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="p4-stat"><div class="p4-stat-val" id="p4-s-voters" style="color:var(--inc-saffron)">—</div><div class="p4-stat-lbl">Loaded Voters</div></div>
     </div>
 
+    <!-- ─── Sticky section navigator (TOC) ─── -->
+    <nav class="admin-toc" id="adminToc" aria-label="Admin sections">
+      <a href="#branding"        data-toc>🎨 Branding</a>
+      <a href="#ward-info"        data-toc>🏷 Ward Info</a>
+      <a href="#polling-stations" data-toc>📍 Stations</a>
+      <a href="#voters"           data-toc>👥 Voters</a>
+      <a href="#cloud-sync"       data-toc>☁ Cloud Sync</a>
+      <a href="#publish"          data-toc>🚀 Publish</a>
+      <a href="#changelog"        data-toc>🕒 Changes</a>
+      <a href="#main-page"        data-toc>🏠 Main Page</a>
+      <a href="#office-bearers"   data-toc>🇮🇳 Office Bearers</a>
+      <a href="#polling-agents"   data-toc>🗳 Polling Agents</a>
+      <a href="#membership"       data-toc>📇 Membership</a>
+      <a href="#notices"          data-toc>📋 Notices</a>
+      <a href="#gallery"          data-toc>🖼 Gallery</a>
+      <a href="#applications"     data-toc>📝 Applications</a>
+    </nav>
+
     <!-- Section 1: Site Logo -->
-    <div class="p4-section">
+    <div class="p4-section" id="branding">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>Site Logo &amp; Branding</div>
@@ -717,7 +757,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section 2: Site / Ward Name -->
-    <div class="p4-section">
+    <div class="p4-section" id="ward-info">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Ward &amp; Constituency Info</div>
@@ -734,7 +774,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section 3: Polling Stations -->
-    <div class="p4-section">
+    <div class="p4-section" id="polling-stations">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Polling Stations</div>
@@ -745,7 +785,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section 4: Voter Management -->
-    <div class="p4-section">
+    <div class="p4-section" id="voters">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Voter Management</div>
@@ -757,7 +797,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Cloud Sync (GitHub PAT auto-publish) -->
-    <div class="p4-section" id="cloudSyncSection" style="border:1px solid rgba(16,185,129,0.40);background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(16,185,129,0.02));">
+    <div class="p4-section" id="cloud-sync" style="border:1px solid rgba(16,185,129,0.40);background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(16,185,129,0.02));">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title">
@@ -797,7 +837,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Publish to Site (export → commit JSON to repo) -->
-    <div class="p4-section" style="border:1px solid rgba(232,130,30,0.40);background:linear-gradient(135deg,rgba(232,130,30,0.08),rgba(232,130,30,0.02));">
+    <div class="p4-section" id="publish" style="border:1px solid rgba(232,130,30,0.40);background:linear-gradient(135deg,rgba(232,130,30,0.08),rgba(232,130,30,0.02));">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Publish to Live Site</div>
@@ -823,7 +863,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Recent Changes (local audit trail) -->
-    <div class="p4-section">
+    <div class="p4-section" id="changelog">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Recent Changes</div>
@@ -835,7 +875,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Main Page (Homepage) Content -->
-    <div class="p4-section">
+    <div class="p4-section" id="main-page">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Main Page Content</div>
@@ -862,7 +902,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Congress Committee Office Bearers -->
-    <div class="p4-section">
+    <div class="p4-section" id="office-bearers">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L4 6v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V6l-8-4z"/><circle cx="12" cy="11" r="2.5"/></svg>Congress Committee — Office Bearers</div>
@@ -874,7 +914,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Polling Agents (the 3-agent ops roster) -->
-    <div class="p4-section">
+    <div class="p4-section" id="polling-agents">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Polling Agents</div>
@@ -886,7 +926,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Membership Holders (Ward 54 INC roster) -->
-    <div class="p4-section">
+    <div class="p4-section" id="membership">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14h6"/><path d="M9 18h4"/></svg>Membership Holders</div>
@@ -898,7 +938,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Notice Board -->
-    <div class="p4-section">
+    <div class="p4-section" id="notices">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>Notice Board</div>
@@ -910,7 +950,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- Section: Gallery -->
-    <div class="p4-section">
+    <div class="p4-section" id="gallery">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Gallery</div>
@@ -922,7 +962,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     </div>
 
     <!-- ── Membership Applications (from the public registration form) ── -->
-    <div class="card" style="margin-top:18px;">
+    <div class="card" id="applications" style="margin-top:18px;">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Membership Applications</div>
@@ -4037,6 +4077,74 @@ if('serviceWorker' in navigator){
     }).catch(function(){/* best-effort */});
   });
 }
+</script>
+
+<script>
+/* ──────────────────────────────────────────────────────────────────────
+   ADMIN SECTION ROUTER — hash-based navigation
+   • Refreshing keeps you on the same section
+   • Direct links like /admin.html#polling-agents jump straight there
+   • Scrolling updates the TOC chip + the URL hash (no history spam)
+   ────────────────────────────────────────────────────────────────────── */
+(function(){
+  function $$(sel){ return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+  function go(hash, behavior){
+    if(!hash) return;
+    var id = hash.replace(/^#/, '');
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.scrollIntoView({ behavior: behavior || 'smooth', block: 'start' });
+    setActive(id);
+  }
+  function setActive(id){
+    $$('.admin-toc a[data-toc]').forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#'+id);
+    });
+  }
+  /* On chip click — keep default anchor jump but update URL cleanly */
+  $$('.admin-toc a[data-toc]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href').replace('#','');
+      var el = document.getElementById(id);
+      if(!el) return;
+      e.preventDefault();
+      history.replaceState(null, '', '#'+id);
+      go('#'+id);
+    });
+  });
+  /* Observe sections to update the active chip + URL as user scrolls */
+  var ids = ['branding','ward-info','polling-stations','voters','cloud-sync','publish','changelog',
+             'main-page','office-bearers','polling-agents','membership','notices','gallery','applications'];
+  function nodes(){ return ids.map(function(i){return document.getElementById(i);}).filter(Boolean); }
+  var observer = null;
+  function setupObserver(){
+    if(observer) observer.disconnect();
+    if(!('IntersectionObserver' in window)) return;
+    observer = new IntersectionObserver(function(entries){
+      var best = null;
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          if(!best || e.boundingClientRect.top < best.boundingClientRect.top) best = e;
+        }
+      });
+      if(best){
+        var id = best.target.id;
+        setActive(id);
+        if(location.hash !== '#'+id){
+          history.replaceState(null, '', '#'+id);
+        }
+      }
+    }, { rootMargin: '-90px 0px -55% 0px', threshold: 0 });
+    nodes().forEach(function(n){ observer.observe(n); });
+  }
+  function init(){
+    setupObserver();
+    if(location.hash){ setTimeout(function(){ go(location.hash, 'auto'); }, 60); }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  window.addEventListener('hashchange', function(){ if(location.hash) go(location.hash); });
+})();
 </script>
 </body>
 </html>
