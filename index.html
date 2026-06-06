@@ -908,40 +908,105 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 #p6 .pa-empty::before,#p6 .workers-empty::before{content:'';width:7px;height:7px;border-radius:50%;
   background:#60a5fa;box-shadow:0 0 8px #60a5fa;flex-shrink:0;}
 
-/* ── Polling Agents: 38 Part containers with 2 vCards each (P1 + P2) ── */
-#agents-name-list{display:flex;flex-direction:column;gap:18px;}
-.pa-part-group{position:relative;border-radius:18px;overflow:hidden;
-  background:linear-gradient(180deg,rgba(15,22,40,0.78),rgba(8,12,22,0.92));
-  border:1px solid rgba(96,165,250,0.22);
-  box-shadow:0 14px 36px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);
-  animation:fadeUp .5s ease both;}
-.pa-part-group::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,#60a5fa,#3b82f6,#8b5cf6);
-  box-shadow:0 0 14px rgba(96,165,250,0.55);}
-.pa-part-head{display:flex;align-items:center;gap:10px;padding:12px 16px 10px 18px;
-  background:linear-gradient(135deg,rgba(59,130,246,0.10),rgba(139,92,246,0.06));
-  border-bottom:1px solid rgba(96,165,250,0.18);}
-.pa-part-num{font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;letter-spacing:0.10em;color:#bcd8f7;
-  background:rgba(59,130,246,0.15);border:1px solid rgba(96,165,250,0.40);padding:4px 12px;border-radius:999px;
-  text-shadow:0 0 8px rgba(96,165,250,0.45);}
-.pa-part-sub{font-size:11px;color:var(--text2);letter-spacing:0.10em;text-transform:uppercase;font-weight:700;}
-.pa-part-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px;}
+/* ══════════════════════════════════════════════════════════════════════
+   POLLING AGENTS — 38 Part Containers · 2 Cinematic Mini-vCards Each
+   Center-bold PART headers · compact glass cards · tenure pill
+   ══════════════════════════════════════════════════════════════════════ */
+#agents-name-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px;}
+
+.pa-part-group{position:relative;border-radius:16px;overflow:hidden;
+  background:
+    radial-gradient(140% 100% at 0% 0%, rgba(76,201,255,0.10) 0%, transparent 50%),
+    radial-gradient(140% 100% at 100% 100%, rgba(139,92,246,0.08) 0%, transparent 50%),
+    linear-gradient(180deg,rgba(12,18,34,0.85),rgba(6,10,22,0.95));
+  border:1px solid rgba(96,165,250,0.25);
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.50),
+    0 0 22px rgba(96,165,250,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  animation:fadeUp .5s ease both;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;}
+.pa-part-group:hover{transform:translateY(-2px);border-color:rgba(96,165,250,0.50);
+  box-shadow:0 18px 40px rgba(0,0,0,0.60), 0 0 28px rgba(96,165,250,0.22), inset 0 1px 0 rgba(255,255,255,0.10);}
+
+/* Centered bold PART header — cinematic ribbon */
+.pa-part-head-centered{display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:12px 16px 10px;border-bottom:1px solid rgba(96,165,250,0.18);
+  background:linear-gradient(180deg,rgba(59,130,246,0.10),transparent);position:relative;}
+.pa-part-head-centered::after{content:"";position:absolute;left:50%;bottom:-1px;width:64px;height:1.5px;
+  transform:translateX(-50%);background:linear-gradient(90deg,transparent,#4cc9ff,transparent);
+  box-shadow:0 0 8px rgba(76,201,255,0.65);}
+.pa-part-deco-l,.pa-part-deco-r{flex:1;max-width:80px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(96,165,250,0.55),transparent);}
+.pa-part-num-big{font-family:'Outfit',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:0.32em;
+  color:#bcd8f7;text-transform:uppercase;}
+.pa-part-num-big b{font-weight:900;font-size:18px;letter-spacing:0.04em;
+  background:linear-gradient(180deg,#fff,#86dcff 60%,#4cc9ff);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 0 14px rgba(76,201,255,0.40);margin-left:4px;}
+
+/* Card grid inside */
+.pa-part-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px;}
 @media(max-width:560px){
+  #agents-name-list{grid-template-columns:1fr;}
+  .pa-part-cards{grid-template-columns:1fr 1fr;gap:8px;padding:10px;}
+}
+@media(max-width:380px){
   .pa-part-cards{grid-template-columns:1fr;}
-  .pa-part-head{padding:10px 12px 8px 14px;}
 }
 
-/* The actual vCard inside a part group */
-.pa-slot-card{position:relative;}
-.pa-slot-card .committee-photo{}
-.pa-slot-badge{position:absolute;top:8px;right:8px;z-index:3;
-  font-family:'Outfit',sans-serif;font-weight:900;font-size:11px;letter-spacing:0.10em;
-  padding:3px 9px;border-radius:999px;border:1px solid;text-transform:uppercase;}
-.pa-slot-p1{color:#86e08a;background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.40);
-  text-shadow:0 0 6px rgba(34,197,94,0.45);}
-.pa-slot-p2{color:#ffd089;background:rgba(232,130,30,0.12);border-color:rgba(232,130,30,0.40);
-  text-shadow:0 0 6px rgba(232,130,30,0.45);}
-.pa-role-line{font-size:11px;font-weight:700;color:#8fb4dd;text-transform:uppercase;letter-spacing:0.12em;margin:4px 0 2px;}
+/* ── Compact cinematic vCard ─────────────────────────────────────────── */
+.pa-slot-card{position:relative;border-radius:12px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(20,28,52,0.85),rgba(10,16,32,0.92)) !important;
+  border:1px solid rgba(96,165,250,0.22) !important;
+  padding:10px 10px 10px !important;
+  box-shadow:0 6px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  display:flex !important;flex-direction:column !important;gap:8px !important;
+  align-items:center !important;text-align:center !important;}
+.pa-slot-card::before{display:none !important;}
+.pa-slot-card:hover{transform:translateY(-2px);
+  border-color:rgba(96,165,250,0.55) !important;
+  box-shadow:0 10px 24px rgba(0,0,0,0.55), 0 0 18px rgba(96,165,250,0.20), inset 0 1px 0 rgba(255,255,255,0.10) !important;}
+.pa-slot-card .committee-photo{width:54px !important;height:54px !important;font-size:18px !important;
+  border:1.5px solid rgba(96,165,250,0.45) !important;
+  background:radial-gradient(120% 120% at 30% 20%, rgba(96,165,250,0.30) 0%, rgba(30,58,138,0.40) 100%) !important;
+  color:#fff !important;box-shadow:0 0 0 3px rgba(96,165,250,0.08), 0 6px 14px rgba(0,0,0,0.35) !important;
+  margin:2px auto 0 !important;}
+.pa-slot-card .committee-photo img{width:100%;height:100%;object-fit:cover;}
+.pa-slot-card .committee-info{display:flex !important;flex-direction:column !important;gap:4px !important;
+  align-items:center !important;width:100%;}
+.pa-slot-card .committee-name{font-family:'Outfit',sans-serif;font-weight:800 !important;font-size:13.5px !important;
+  letter-spacing:0.01em;color:#fff !important;line-height:1.2 !important;}
+.pa-role-line{font-size:9.5px;font-weight:800;color:#8fb4dd;text-transform:uppercase;letter-spacing:0.14em;}
+
+/* Floating slot badge */
+.pa-slot-badge{position:absolute;top:7px;right:7px;z-index:3;
+  font-family:'Outfit',sans-serif;font-weight:900;font-size:9.5px;letter-spacing:0.10em;
+  padding:2px 8px;border-radius:999px;border:1px solid;text-transform:uppercase;line-height:1.4;}
+.pa-slot-p1{color:#86e08a;background:rgba(34,197,94,0.14);border-color:rgba(34,197,94,0.55);
+  text-shadow:0 0 6px rgba(34,197,94,0.55);box-shadow:0 0 10px rgba(34,197,94,0.20);}
+.pa-slot-p2{color:#ffd089;background:rgba(232,130,30,0.14);border-color:rgba(232,130,30,0.55);
+  text-shadow:0 0 6px rgba(232,130,30,0.55);box-shadow:0 0 10px rgba(232,130,30,0.20);}
+
+/* Tenure pill */
+.pa-tenure{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:700;
+  padding:2px 8px;border-radius:999px;
+  color:#ffd089;background:rgba(201,168,76,0.10);border:1px solid rgba(201,168,76,0.30);
+  letter-spacing:0.04em;}
+.pa-tenure svg{width:10px;height:10px;}
+.pa-tenure-empty{color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);}
+
+/* Compact phone + WA inside the cinematic card */
+.pa-slot-card .committee-phone{font-size:11.5px !important;color:var(--text2) !important;margin-top:2px;
+  display:inline-flex !important;align-items:center !important;gap:5px;}
+.pa-slot-card .committee-phone svg{width:11px !important;height:11px !important;color:#4cc9ff !important;}
+.pa-slot-card .committee-phone a{color:#bcd8f7 !important;text-decoration:none;font-weight:700;font-family:DM Mono,monospace;font-size:11px;}
+.pa-slot-card .committee-wa{display:inline-flex !important;align-items:center !important;gap:5px !important;
+  font-size:10.5px !important;padding:5px 10px !important;border-radius:6px !important;
+  background:linear-gradient(135deg,#25d366,#128c7e) !important;color:#fff !important;
+  text-decoration:none !important;font-weight:800 !important;letter-spacing:0.04em;
+  box-shadow:0 4px 10px rgba(37,211,102,0.40) !important;margin-top:4px;}
+.pa-slot-card .committee-wa svg{width:11px !important;height:11px !important;}
 
 /* Fancy polling-agent card — frosted blue glass, glowing edge, depth */
 #p6 .pa-group{border-radius:18px;overflow:hidden;
@@ -5450,6 +5515,7 @@ var pollingAgentsList = (function(){
       name: i===1 ? 'Md. Shakil' : '',
       role:'Polling Agent',
       phone: i===1 ? '+91 98365 13741' : '',
+      tenure: i===1 ? 'Since 2021 · 4 yrs' : '',
       photo:null, workers:[], status:'active', targetArea:'', responsibilities:[]
     });
     arr.push({
@@ -5457,6 +5523,7 @@ var pollingAgentsList = (function(){
       name: '',
       role:'Polling Agent',
       phone: '',
+      tenure: '',
       photo:null, workers:[], status:'active', targetArea:'', responsibilities:[]
     });
   }
@@ -5571,12 +5638,16 @@ function buildPollingAgentsList(){
       ? '<div class="committee-name">'+escapeHtml(a.name)+'</div>'
       : '<div class="committee-name" style="color:var(--text3);font-style:italic;font-weight:500;">To be assigned</div>';
     var slotBadge = '<span class="pa-slot-badge pa-slot-'+slotLabel.toLowerCase()+'">'+slotLabel+'</span>';
+    var tenureHTML = a.tenure
+      ? '<div class="pa-tenure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>'+escapeHtml(a.tenure)+'</span></div>'
+      : '<div class="pa-tenure pa-tenure-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Tenure —</span></div>';
     return '<div class="committee-card pa-slot-card">'
         + slotBadge
         + photoHTML
         + '<div class="committee-info">'
           + nameHTML
           + (a.role ? '<div class="pa-role-line">'+escapeHtml(a.role)+'</div>' : '')
+          + tenureHTML
           + phoneHTML
         + '</div>'
       + '</div>';
@@ -5586,13 +5657,13 @@ function buildPollingAgentsList(){
   var html = '';
   for(var p = 1; p <= 38; p++){
     var pair = byPart[p] || [];
-    /* If CMS only supplied 1 agent for a part, render a "To be assigned" P2 */
-    var p1 = pair[0] || { part:'Part '+p, slot:'P1', name:'', phone:'', role:'Polling Agent' };
-    var p2 = pair[1] || { part:'Part '+p, slot:'P2', name:'', phone:'', role:'Polling Agent' };
+    var p1 = pair[0] || { part:'Part '+p, slot:'P1', name:'', phone:'', role:'Polling Agent', tenure:'' };
+    var p2 = pair[1] || { part:'Part '+p, slot:'P2', name:'', phone:'', role:'Polling Agent', tenure:'' };
     html += '<div class="pa-part-group" data-part="'+p+'">'
-      + '<div class="pa-part-head">'
-        + '<span class="pa-part-num">PART ' + p + '</span>'
-        + '<span class="pa-part-sub">2 Polling Agents</span>'
+      + '<div class="pa-part-head pa-part-head-centered">'
+        + '<span class="pa-part-deco-l"></span>'
+        + '<span class="pa-part-num-big">PART <b>'+p+'</b></span>'
+        + '<span class="pa-part-deco-r"></span>'
       + '</div>'
       + '<div class="pa-part-cards">'
         + renderCard(p1, 'P1')
