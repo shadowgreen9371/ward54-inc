@@ -921,6 +921,21 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div id="adminGalleryList"></div>
     </div>
 
+    <!-- ── Membership Applications (from the public registration form) ── -->
+    <div class="card" style="margin-top:18px;">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Membership Applications</div>
+          <div class="p4-section-sub">New members who submitted the Ward 54 INC registration form on the public site</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-sm" style="background:rgba(96,165,250,0.10);color:#9bc1e4;border:1px solid rgba(96,165,250,0.30);" onclick="exportMembershipCSV()">Export CSV</button>
+          <button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);" onclick="clearAllMembershipApps()">Clear All</button>
+        </div>
+      </div>
+      <div id="adminMembershipList"></div>
+    </div>
+
   </div>
 </div>
 
@@ -2531,7 +2546,7 @@ function openAdminPanel(){
   try{
     var _c = cmsRead();
     if(!_c || !_c.pollingAgents){
-      pullCmsFromLive(true).then(function(ok){ if(ok){ buildAdminPollingAgentsList(); buildAdminCongressWorkersList(); buildAdminNoticesList(); buildAdminGalleryList(); loadMainPageContent(); buildAdminCommitteeList('congress'); } });
+      pullCmsFromLive(true).then(function(ok){ if(ok){ buildAdminPollingAgentsList(); buildAdminCongressWorkersList(); buildAdminNoticesList(); buildAdminGalleryList(); buildAdminMembershipList(); loadMainPageContent(); buildAdminCommitteeList('congress'); } });
     }
   }catch(e){}
   syncLogoAllPages();
@@ -2544,6 +2559,7 @@ function openAdminPanel(){
   buildAdminCongressWorkersList();
   buildAdminNoticesList();
   buildAdminGalleryList();
+  buildAdminMembershipList();
   buildChangeLog();
   if(typeof updateCloudSyncUI === 'function') updateCloudSyncUI();
 }
@@ -3013,20 +3029,41 @@ function deleteCommitteeMember(which, idx){
   showToast('Member removed');
 }
 
-/* ---- Polling Agents (3 fixed slots) ---- */
+/* ---- Polling Agents (76 entries: P1 + P2 for every Part 1..38) ---- */
 /* Simple committee-style schema:
    { part: "Part 1", name: "Md. Shakil", role: "PIC", phone: "+91 …", photo: null } */
 var PA_DEFAULTS = (function(){
   var a = [];
   for(var i=1;i<=38;i++){
-    a.push({ part:'Part '+i, name: i===1?'Md. Shakil':'', role:'Polling Agent',
-      phone: i===1?'+91 98365 13741':'', photo:null, workers:[] });
+    a.push({ part:'Part '+i, slot:'P1', name: i===1?'Md. Shakil':'', role:'Polling Agent',
+      phone: i===1?'+91 98365 13741':'', tenure: i===1?'Since 2021 · 4 yrs':'', photo:null, workers:[] });
+    a.push({ part:'Part '+i, slot:'P2', name:'', role:'Polling Agent',
+      phone:'', tenure:'', photo:null, workers:[] });
   }
   return a;
 })();
+/* If legacy 38-entry data is present, lazily expand it to 76 entries
+   (each Part 1..38 gains a P2 slot with "To be assigned" placeholder).
+   Existing single agent is treated as P1 to preserve all admin work.   */
+function migratePollingAgents(list){
+  if(!Array.isArray(list)) return PA_DEFAULTS.slice();
+  if(list.length === 76) return list;            // already migrated
+  if(list.length === 38){
+    var out = [];
+    list.forEach(function(a, idx){
+      var partNo = idx + 1;
+      out.push(Object.assign({ slot:'P1', tenure:'' }, a, { part: a.part || ('Part '+partNo) }));
+      out.push({ part:'Part '+partNo, slot:'P2', name:'', role:'Polling Agent',
+        phone:'', tenure:'', photo:null, workers:[] });
+    });
+    return out;
+  }
+  return list; // some other custom shape — leave alone
+}
 function getPollingAgents(){
   var d = cmsRead();
-  if(!d.pollingAgents) d.pollingAgents = PA_DEFAULTS.slice();
+  if(!d.pollingAgents){ d.pollingAgents = PA_DEFAULTS.slice(); }
+  else { d.pollingAgents = migratePollingAgents(d.pollingAgents); }
   return d.pollingAgents;
 }
 function setPollingAgents(list){
@@ -3053,16 +3090,25 @@ function buildAdminPollingAgentsList(){
       ? '<img src="'+a.photo+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">'
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:22px;height:22px;color:var(--text3)"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
 
+    var slotLbl = (a.slot||'').toUpperCase();
+    var slotCol = slotLbl === 'P2' ? '#ffd089' : '#86e08a';
+    var slotBg  = slotLbl === 'P2' ? 'rgba(232,130,30,0.14)' : 'rgba(34,197,94,0.14)';
+    var slotBd  = slotLbl === 'P2' ? 'rgba(232,130,30,0.55)' : 'rgba(34,197,94,0.55)';
+    var slotChip = slotLbl
+      ? '<span style="display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:22px;font-family:Outfit,sans-serif;font-weight:900;font-size:10.5px;letter-spacing:0.10em;padding:0 9px;border-radius:999px;color:'+slotCol+';background:'+slotBg+';border:1px solid '+slotBd+';margin-right:4px;">'+slotLbl+'</span>'
+      : '';
     var paRow =
-        '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;border-radius:var(--r2) var(--r2) 0 0;padding:12px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+        '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #60a5fa;border-radius:var(--r2) var(--r2) 0 0;padding:12px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
       + '<label style="flex:0 0 56px;width:56px;height:64px;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(135deg,rgba(96,165,250,0.12),rgba(59,130,246,0.06));border:1.5px dashed rgba(96,165,250,0.40);overflow:hidden;position:relative;" title="Click to upload photo">'
         + photoBlock
         + '<input type="file" accept="image/*" capture="user" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onPollingAgentPhotoPick('+i+',this)">'
       + '</label>'
-      + '<div style="flex:0 0 100px;"><input class="form-input" data-pa-field="part" data-pa-idx="'+i+'" value="'+escapeAttr(a.part||'')+'" placeholder="Part 1" style="font-size:11px;padding:6px 8px;text-transform:uppercase;letter-spacing:0.1em;color:#9bc1e4;font-weight:600;"></div>'
+      + '<div style="flex:0 0 86px;"><input class="form-input" data-pa-field="part" data-pa-idx="'+i+'" value="'+escapeAttr(a.part||'')+'" placeholder="Part 1" style="font-size:11px;padding:6px 8px;text-transform:uppercase;letter-spacing:0.1em;color:#9bc1e4;font-weight:600;"></div>'
+      + slotChip
       + '<div style="flex:1;min-width:140px;"><input class="form-input" data-pa-field="name" data-pa-idx="'+i+'" value="'+escapeAttr(a.name||'')+'" placeholder="Name" style="padding:6px 8px;font-weight:500;"></div>'
-      + '<div style="flex:0 0 90px;"><input class="form-input" data-pa-field="role" data-pa-idx="'+i+'" value="'+escapeAttr(a.role||'')+'" placeholder="PIC" style="padding:6px 8px;text-transform:uppercase;letter-spacing:0.1em;font-size:11px;color:var(--gold2);font-weight:600;"></div>'
-      + '<div style="flex:0 0 160px;"><input class="form-input" data-pa-field="phone" data-pa-idx="'+i+'" value="'+escapeAttr(a.phone||'')+'" placeholder="+91 98365 13741" style="padding:6px 8px;font-family:DM Mono,monospace;font-size:12px;"></div>'
+      + '<div style="flex:0 0 86px;"><input class="form-input" data-pa-field="role" data-pa-idx="'+i+'" value="'+escapeAttr(a.role||'')+'" placeholder="PIC" style="padding:6px 8px;text-transform:uppercase;letter-spacing:0.1em;font-size:11px;color:var(--gold2);font-weight:600;"></div>'
+      + '<div style="flex:0 0 150px;"><input class="form-input" data-pa-field="tenure" data-pa-idx="'+i+'" value="'+escapeAttr(a.tenure||'')+'" placeholder="Tenure (e.g. Since 2021)" style="padding:6px 8px;font-size:11px;color:#ffd089;"></div>'
+      + '<div style="flex:0 0 150px;"><input class="form-input" data-pa-field="phone" data-pa-idx="'+i+'" value="'+escapeAttr(a.phone||'')+'" placeholder="+91 98365 13741" style="padding:6px 8px;font-family:DM Mono,monospace;font-size:12px;"></div>'
       + '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px 12px;font-size:11px;" onclick="savePollingAgentRow('+i+')">Save</button>'
       + (a.photo ? '<button class="btn btn-sm" style="background:transparent;color:var(--text3);border:1px solid var(--border);padding:5px 10px;font-size:11px;" onclick="removePollingAgentPhoto('+i+')" title="Remove photo">Photo ✕</button>' : '')
       + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deletePollingAgent('+i+')">Delete</button>'
@@ -3180,7 +3226,7 @@ function removeWorkerPhoto(paIdx, wIdx){
 function savePollingAgentRow(idx){
   var list = getPollingAgents().slice();
   if(!list[idx]) return;
-  ['part','name','role','phone'].forEach(function(f){
+  ['part','name','role','phone','tenure'].forEach(function(f){
     var el = document.querySelector('[data-pa-field="'+f+'"][data-pa-idx="'+idx+'"]');
     if(el) list[idx][f] = el.value.trim();
   });
@@ -3357,6 +3403,98 @@ function saveGalleryItem(i){ var l=getGallery().slice(); if(!l[i])return; var e=
 function deleteGalleryItem(i){ var l=getGallery().slice(); if(!l[i])return; if(!confirm('Delete this photo?'))return; l.splice(i,1); setGallery(l); buildAdminGalleryList(); showToast('Photo removed'); }
 function onGalleryPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)return; showToast('Processing photo…');
   processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getGallery().slice(); if(!l[i])return; var e=document.querySelector('[data-gl-field="caption"][data-gl-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim(); l[i].photo=dataUrl; setGallery(l); buildAdminGalleryList(); showToast('Photo saved'); }); input.value=''; }
+
+/* ---- Membership Applications viewer (from public registration form) ---- */
+var MSHIP_LS = 'ward54.mship.applications';
+function _readMshipApps(){
+  try{ var raw = localStorage.getItem(MSHIP_LS); return raw ? JSON.parse(raw) : []; }
+  catch(e){ return []; }
+}
+function _writeMshipApps(arr){
+  try{ localStorage.setItem(MSHIP_LS, JSON.stringify(arr)); }catch(e){}
+}
+function buildAdminMembershipList(){
+  var el = document.getElementById('adminMembershipList');
+  if(!el) return;
+  var list = _readMshipApps();
+  if(!list.length){
+    el.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:24px;border:1px dashed var(--border);border-radius:var(--r2);">No applications yet. They appear here when a visitor submits the &ldquo;Register Membership&rdquo; form on the Membership page of the public site.</div>';
+    return;
+  }
+  var stats = '<div style="display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px;">'
+    + '<span style="font-family:DM Mono,monospace;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;color:#86e08a;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.30);">'+list.length+' TOTAL</span>'
+    + '<span style="font-family:DM Mono,monospace;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;color:#ffd089;background:rgba(232,130,30,0.10);border:1px solid rgba(232,130,30,0.30);">'
+    + list.filter(function(m){return (m.t||0) > Date.now() - 7*24*60*60*1000;}).length + ' IN LAST 7 DAYS</span>'
+    + '</div>';
+  el.innerHTML = stats + list.map(function(m, i){
+    var when = m.t ? new Date(m.t).toLocaleString() : '—';
+    var meta = [];
+    if(m.age != null && m.age !== '') meta.push(m.age + ' yrs');
+    if(m.gender) meta.push(m.gender === 'M' ? 'Male' : m.gender === 'F' ? 'Female' : 'Other');
+    if(m.part) meta.push('Part ' + m.part);
+    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #22c55e;border-radius:var(--r2);padding:14px 16px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:10px;">'
+      + '<div style="min-width:0;">'
+        + '<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px;">'
+          + '<span style="font-weight:800;font-size:14px;color:#fff;">'+escapeHtml(m.name || '(no name)')+'</span>'
+          + (meta.length ? '<span style="font-size:11px;color:#9bc1e4;letter-spacing:0.05em;">'+meta.join(' · ')+'</span>' : '')
+        + '</div>'
+        + '<div style="font-family:DM Mono,monospace;font-size:11px;color:var(--text2);margin-bottom:3px;">'
+          + (m.phone ? '📞 '+escapeHtml(m.phone)+'   ' : '')
+          + (m.email ? '✉ '+escapeHtml(m.email) : '')
+        + '</div>'
+        + (m.address ? '<div style="font-size:11.5px;color:var(--text2);">'+escapeHtml(m.address)+'</div>' : '')
+        + (m.why ? '<div style="font-size:11px;color:var(--text3);font-style:italic;margin-top:6px;line-height:1.4;">&ldquo;'+escapeHtml(m.why)+'&rdquo;</div>' : '')
+        + '<div style="font-size:10px;color:var(--text3);margin-top:6px;letter-spacing:0.04em;">Submitted '+when+'</div>'
+      + '</div>'
+      + '<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;">'
+        + (m.phone ? '<a class="btn btn-sm" style="background:rgba(37,211,102,0.10);color:#25d366;border:1px solid rgba(37,211,102,0.35);padding:5px 10px;font-size:11px;text-decoration:none;" href="https://wa.me/'+(String(m.phone).replace(/\D/g,'').length>=12?String(m.phone).replace(/\D/g,''):'91'+String(m.phone).replace(/\D/g,''))+'" target="_blank" rel="noopener">WhatsApp</a>' : '')
+        + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 10px;font-size:11px;" onclick="deleteMembershipApp('+i+')">Delete</button>'
+      + '</div>'
+    + '</div>';
+  }).join('');
+}
+function deleteMembershipApp(i){
+  var list = _readMshipApps();
+  if(!list[i]) return;
+  if(!confirm('Delete application from '+(list[i].name||'this applicant')+'?')) return;
+  list.splice(i,1);
+  _writeMshipApps(list);
+  buildAdminMembershipList();
+  showToast('Application removed');
+}
+function clearAllMembershipApps(){
+  var list = _readMshipApps();
+  if(!list.length){ showToast('Nothing to clear'); return; }
+  if(!confirm('Delete ALL '+list.length+' applications? This cannot be undone.')) return;
+  _writeMshipApps([]);
+  buildAdminMembershipList();
+  showToast('All applications cleared');
+}
+function exportMembershipCSV(){
+  var list = _readMshipApps();
+  if(!list.length){ showToast('Nothing to export'); return; }
+  var head = ['Submitted','Name','Phone','Email','Age','Gender','Part','Address','Why'];
+  var rows = list.map(function(m){
+    return [
+      m.t ? new Date(m.t).toISOString() : '',
+      m.name||'', m.phone||'', m.email||'', m.age||'', m.gender||'', m.part||'',
+      m.address||'', m.why||''
+    ];
+  });
+  var csv = [head].concat(rows).map(function(r){
+    return r.map(function(c){
+      var s = String(c==null?'':c);
+      if(s.indexOf(',')>=0 || s.indexOf('"')>=0 || s.indexOf('\n')>=0) s = '"' + s.replace(/"/g,'""') + '"';
+      return s;
+    }).join(',');
+  }).join('\n');
+  var blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ward54-membership-applications-' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  showToast(list.length + ' applications exported');
+}
 
 /* Gallery photos keep a 4:3 landscape crop (committee crop is square). */
 function processGalleryPhoto(file, cb){
