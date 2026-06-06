@@ -456,6 +456,22 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p4-body{padding:20px;flex:1;max-width:920px;width:100%;margin:0 auto;}
 .p4-section{background:var(--glass);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:18px;
   scroll-margin-top:84px;}  /* leaves room for sticky TOC when jumping */
+
+/* ── Collapsible <details> sections (Polling Stations + Voter Management) ── */
+.p4-collapsible{padding:0;overflow:hidden;}
+.p4-collapsible > summary{list-style:none;cursor:pointer;padding:16px 20px;margin:0;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  background:linear-gradient(135deg,rgba(232,130,30,0.04),transparent);
+  border-bottom:1px solid transparent;transition:background .15s, border-color .15s;}
+.p4-collapsible > summary::-webkit-details-marker{display:none;}
+.p4-collapsible > summary::marker{display:none;}
+.p4-collapsible[open] > summary{border-bottom-color:var(--border);
+  background:linear-gradient(135deg,rgba(232,130,30,0.08),transparent);}
+.p4-collapsible:not([open]) > summary:hover{background:linear-gradient(135deg,rgba(232,130,30,0.10),transparent);}
+.p4-caret{display:inline-block;color:var(--gold);font-size:14px;margin-left:6px;transition:transform .2s ease;}
+.p4-collapsible[open] .p4-caret{transform:rotate(180deg);}
+.p4-collapsible-body{padding:16px 20px 18px;animation:fadeUp .3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
 #applications{scroll-margin-top:84px;}
 .p4-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px;flex-wrap:wrap;}
 
@@ -827,62 +843,65 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       </div>
     </div>
 
-    <!-- Section 3: Polling Stations -->
-    <div class="p4-section" id="polling-stations">
-      <div class="p4-section-head">
+    <!-- Section 3: Polling Stations (collapsible) -->
+    <details class="p4-section p4-collapsible" id="polling-stations">
+      <summary class="p4-section-head">
         <div>
-          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Polling Stations</div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Polling Stations <span class="p4-caret" aria-hidden="true">▾</span></div>
           <div class="p4-section-sub">Edit station name, address, parts and coordinates</div>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
+        <div style="display:flex;gap:8px;align-items:center;" onclick="event.stopPropagation()">
           <span id="stationAdminCount" style="font-size:11px;color:var(--text3);font-family:DM Mono,monospace;"></span>
-          <button class="btn btn-ghost btn-sm" onclick="toggleAllStationsEdit()">Expand all</button>
+          <button class="btn btn-ghost btn-sm" onclick="event.preventDefault();event.stopPropagation();toggleAllStationsEdit();">Expand all</button>
         </div>
+      </summary>
+      <div class="p4-collapsible-body">
+        <!-- Filter box -->
+        <div class="admin-search-wrap" style="margin-bottom:12px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="stationFilter" placeholder="Filter stations by name, address, or part number…" oninput="filterStationAdminList(this.value)">
+        </div>
+        <div class="station-admin-list" id="stationAdminList"></div>
       </div>
-      <!-- Filter box -->
-      <div class="admin-search-wrap" style="margin-bottom:12px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="stationFilter" placeholder="Filter stations by name, address, or part number…" oninput="filterStationAdminList(this.value)">
-      </div>
-      <div class="station-admin-list" id="stationAdminList"></div>
-    </div>
+    </details>
 
-    <!-- Section 4: Voter Management — full inline editor -->
-    <div class="p4-section" id="voters">
-      <div class="p4-section-head">
+    <!-- Section 4: Voter Management — full inline editor (collapsible) -->
+    <details class="p4-section p4-collapsible" id="voters">
+      <summary class="p4-section-head">
         <div>
-          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Voter Management</div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Voter Management <span class="p4-caret" aria-hidden="true">▾</span></div>
           <div class="p4-section-sub">Browse parts, add voters, edit or modify any entry — works across all 38 parts</div>
         </div>
-        <button class="btn btn-ghost btn-sm" onclick="goTo('p2')">Open Public Voter List →</button>
+        <button class="btn btn-ghost btn-sm" onclick="event.preventDefault();event.stopPropagation();goTo('p2');">Open Public Voter List →</button>
+      </summary>
+      <div class="p4-collapsible-body">
+        <!-- Search panel — searches across loaded parts (auto-loads on demand) -->
+        <div class="admin-search-wrap" style="margin-bottom:10px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="voterAdminSearch" placeholder="Search by voter name, EPIC, voter ID, house number…" oninput="onVoterAdminSearch(this.value)">
+          <button class="btn btn-ghost btn-sm" onclick="loadAllPartsForSearch()" id="voterLoadAllBtn">Load All Parts</button>
+        </div>
+        <div id="voterAdminSearchHint" style="font-size:11px;color:var(--text3);margin-bottom:10px;">Type 2+ characters to search. Tip: click <b>Load All Parts</b> first to search across all 26,849 voters.</div>
+
+        <!-- Bulk-by-station shortcuts -->
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Bulk Edit by Station</div>
+          <div id="voterBulkStations" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+        </div>
+
+        <!-- Part chips -->
+        <div style="margin-bottom:14px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;color:#9bc1e4;text-transform:uppercase;margin-bottom:6px;">Browse by Part — click to open</div>
+          <div id="voterPartChips" style="display:flex;flex-wrap:wrap;gap:5px;"></div>
+        </div>
+
+        <!-- Search results -->
+        <div id="voterSearchResults"></div>
+
+        <!-- Active part editor -->
+        <div id="voterActivePartPanel"></div>
       </div>
-
-      <!-- Search panel — searches across loaded parts (auto-loads on demand) -->
-      <div class="admin-search-wrap" style="margin-bottom:10px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="voterAdminSearch" placeholder="Search by voter name, EPIC, voter ID, house number…" oninput="onVoterAdminSearch(this.value)">
-        <button class="btn btn-ghost btn-sm" onclick="loadAllPartsForSearch()" id="voterLoadAllBtn">Load All Parts</button>
-      </div>
-      <div id="voterAdminSearchHint" style="font-size:11px;color:var(--text3);margin-bottom:10px;">Type 2+ characters to search. Tip: click <b>Load All Parts</b> first to search across all 26,849 voters.</div>
-
-      <!-- Bulk-by-station shortcuts -->
-      <div style="margin-bottom:14px;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Bulk Edit by Station</div>
-        <div id="voterBulkStations" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-      </div>
-
-      <!-- Part chips -->
-      <div style="margin-bottom:14px;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;color:#9bc1e4;text-transform:uppercase;margin-bottom:6px;">Browse by Part — click to open</div>
-        <div id="voterPartChips" style="display:flex;flex-wrap:wrap;gap:5px;"></div>
-      </div>
-
-      <!-- Search results -->
-      <div id="voterSearchResults"></div>
-
-      <!-- Active part editor -->
-      <div id="voterActivePartPanel"></div>
-    </div>
+    </details>
 
     <!-- Section: Cloud Sync (GitHub PAT auto-publish) -->
     <div class="p4-section" id="cloud-sync" style="border:1px solid rgba(16,185,129,0.40);background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(16,185,129,0.02));">
@@ -4476,6 +4495,10 @@ if('serviceWorker' in navigator){
     var id = hash.replace(/^#/, '');
     var el = document.getElementById(id);
     if(!el) return;
+    /* Auto-open the collapsible if the navigated section is one */
+    if(el.tagName === 'DETAILS' && !el.open){
+      el.open = true;
+    }
     el.scrollIntoView({ behavior: behavior || 'smooth', block: 'start' });
     setActive(id);
   }
