@@ -3,9 +3,10 @@
   "appName": "Ward 54 INC — Kolkata",
   "webDir": "www",
   "server": {
-    "url": "https://shadowgreen9371.github.io/ward54-inc/",
+    "url": "https://ward54inc.in/",
     "cleartext": false,
-    "androidScheme": "https"
+    "androidScheme": "https",
+    "hostname": "ward54inc.in"
   },
   "android": {
     "allowMixedContent": false,
