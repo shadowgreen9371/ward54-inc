@@ -65,7 +65,7 @@ Built for residents, voters, and party workers of the Ballygunge / Beniapukur / 
 Ward No. 54 of the Kolkata Municipal Corporation falls under the Beniapukur assembly constituency in West Bengal. The Ward 54 INC unit serves residents through ground-level political work, voter assistance, and community service.
 
 ⚙️ PRIVACY-FIRST
-This app collects ZERO personal data. No analytics. No tracking. No ads. The voter list shown is the publicly-published electoral roll from the Election Commission of India. Read our full privacy policy at https://ward54inc.in/privacy.html
+This app collects ZERO personal data. No analytics. No tracking. No ads. The voter list shown is the publicly-published electoral roll from the Election Commission of India. Read our full privacy policy at https://kolkata54ward.in/privacy.html
 
 📱 LIGHTWEIGHT
 Just 3 MB. Works on any Android 5.1+ phone. Auto-updates content from the official ward website whenever you open it.
@@ -94,8 +94,8 @@ Indian National Congress — for the next generation.
 |---|---|
 | **Email** | `mdshakil43@gmail.com` |
 | **Phone** *(optional but recommended)* | *(your contact number)* |
-| **Website** | `https://ward54inc.in/` |
-| **Privacy policy URL** | `https://ward54inc.in/privacy.html` |
+| **Website** | `https://kolkata54ward.in/` |
+| **Privacy policy URL** | `https://kolkata54ward.in/privacy.html` |
 
 ---
 
