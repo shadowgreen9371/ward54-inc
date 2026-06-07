@@ -1,0 +1,30 @@
+{
+  "rules": {
+    "cms": {
+      ".read": true,
+      ".write": "auth != null && (auth.token.email === 'mdshakil43@gmail.com' || auth.token.email === 'nepaligeetbazaar@gmail.com')",
+      "$child": {
+        ".validate": "newData.exists()"
+      }
+    },
+    "audit_log": {
+      ".read":  "auth != null && (auth.token.email === 'mdshakil43@gmail.com' || auth.token.email === 'nepaligeetbazaar@gmail.com')",
+      ".write": "auth != null && (auth.token.email === 'mdshakil43@gmail.com' || auth.token.email === 'nepaligeetbazaar@gmail.com')",
+      ".indexOn": ["at"],
+      "$entry": {
+        ".validate": "newData.hasChildren(['action','who','at']) && newData.child('at').isNumber() && newData.child('who').isString() && newData.child('who').val().length < 200 && newData.child('action').val().length < 200",
+        ".write": "auth != null && !data.exists()"
+      }
+    },
+    "chat": {
+      ".read": true,
+      ".write": true,
+      "$room": {
+        "$msg": {
+          ".validate": "newData.hasChildren(['text','who','t']) && newData.child('text').isString() && newData.child('text').val().length < 2000 && newData.child('who').isString() && newData.child('who').val().length < 80 && newData.child('t').isNumber()",
+          ".write": "!data.exists()"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+name: Nightly Firebase backup
+
+# LAYER 7 — Recoverability.
+# Every night at 03:00 IST, pull a snapshot of the public /cms branch
+# of the Realtime Database and commit it as data/cms/cms-backup.json.
+# If a malicious actor (or a buggy admin) ever wipes the database,
+# the most recent backup is one git revert away.
+
+on:
+  schedule:
+    - cron: '30 21 * * *'   # 21:30 UTC = 03:00 IST (next day)
+  workflow_dispatch:        # let user trigger manually if needed
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Fetch public /cms snapshot from Firebase RTDB
+        run: |
+          mkdir -p data/cms
+          # The /cms node has .read:true so this requires no auth.
+          # If you later lock /cms to admins only, switch to a service-account
+          # token stored as a GitHub secret.
+          curl -fsSL \
+            "https://ward54-inc-default-rtdb.asia-southeast1.firebasedatabase.app/cms.json" \
+            -o data/cms/cms-backup.json
+          # Sanity check — file must be at least 100 bytes (empty DB returns "null\n")
+          if [ ! -s data/cms/cms-backup.json ] || [ "$(wc -c < data/cms/cms-backup.json)" -lt 100 ]; then
+            echo "Backup looks empty or null — aborting commit so we don't blow away yesterday's good backup"
+            exit 1
+          fi
+          # Add a top-level _backupAt for forensic context
+          python3 -c "
+          import json, datetime, sys
+          with open('data/cms/cms-backup.json') as f:
+              d = json.load(f)
+          if isinstance(d, dict):
+              d['_backupAt'] = datetime.datetime.utcnow().isoformat() + 'Z'
+              d['_backupBy'] = 'github-actions-nightly'
+          with open('data/cms/cms-backup.json','w') as f:
+              json.dump(d, f, indent=2, sort_keys=True)
+          " || true
+          echo "Backup file size: $(wc -c < data/cms/cms-backup.json) bytes"
+
+      - name: Commit backup if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/cms/cms-backup.json; then
+            echo "No changes — skipping commit."
+            exit 0
+          fi
+          git add data/cms/cms-backup.json
+          git commit -m "🌙 Nightly Firebase /cms backup ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          git push

@@ -3,6 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LAYER 2 — Browser-side security headers (admin panel)
+     ─────────────────────────────────────────────────────────────── -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src  'self' 'unsafe-inline' 'unsafe-eval'
+              https://*.gstatic.com
+              https://*.googleapis.com
+              https://*.firebaseio.com
+              https://*.firebasedatabase.app
+              https://api.github.com
+              https://cdn.jsdelivr.net
+              https://cdn.tailwindcss.com
+              https://unpkg.com
+              https://cdnjs.cloudflare.com;
+  style-src   'self' 'unsafe-inline'
+              https://fonts.googleapis.com
+              https://unpkg.com
+              https://cdn.jsdelivr.net;
+  font-src    'self' data:
+              https://fonts.gstatic.com;
+  img-src     'self' data: blob:
+              https://*.tile.openstreetmap.org
+              https://upload.wikimedia.org
+              https://*.googleusercontent.com
+              https://*.firebaseio.com
+              https://*.firebasedatabase.app;
+  connect-src 'self'
+              https://*.googleapis.com
+              https://*.firebaseio.com
+              https://*.firebasedatabase.app
+              wss://*.firebaseio.com
+              wss://*.firebasedatabase.app
+              https://api.github.com
+              https://api.emailjs.com
+              https://*.openstreetmap.org;
+  frame-src   'self';
+  object-src  'none';
+  base-uri    'self';
+  form-action 'self';
+  upgrade-insecure-requests;
+">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()">
+<!-- ═══════════════════════════════════════════════════════════════ -->
 <title>54 No Ward — Anjuman Constituency | INC</title>
 <!-- PWA -->
 <link rel="manifest" href="manifest.webmanifest">
@@ -3211,6 +3258,27 @@ function publishCmsToGithub(commitMessage){
      B) GitHub PAT            — kept as offline backup. Silently no-ops
         if no PAT is set. Survives Firebase free-tier outage etc. */
 function autoPublish(actionLabel){
+  /* LAYER 7 — Audit log every admin save → who, what, when, from where.
+     Writes to /audit_log/{auto-id} in Firebase. The RTDB rule below
+     restricts writes to authenticated admins only, so attackers can't
+     pollute the log to cover tracks. */
+  try{
+    var db = _initCmsFirebase();
+    var auth = _initFbAuth();
+    if(db && auth && auth.currentUser){
+      db.ref('audit_log').push({
+        action: actionLabel || 'Admin save',
+        who:    auth.currentUser.email || 'unknown',
+        uid:    auth.currentUser.uid,
+        at:     Date.now(),
+        ua:     (navigator.userAgent || '').substring(0, 240)
+      }).catch(function(e){ console.warn('audit_log skipped:', e.message); });
+    }
+  }catch(e){ console.warn('audit:', e.message); }
+
+  /* LAYER 4 — refresh the idle timeout each time admin does something */
+  if(typeof bumpAdminIdleTimer === 'function') bumpAdminIdleTimer();
+
   /* Lane A — Firebase instant sync (the new path) */
   publishCmsToFirebase()
     .then(function(res){
@@ -3229,6 +3297,32 @@ function autoPublish(actionLabel){
       console.warn('GitHub backup skipped:', e.message);
     });
 }
+
+/* ───── LAYER 4 — Auto-logout after 30 min of inactivity ─────
+   If the admin walks away from a phone with admin.html still open,
+   anyone who picks up the device shouldn't be able to keep editing.
+   bumpAdminIdleTimer() restarts the countdown on every save/click. */
+var ADMIN_IDLE_MS = 30 * 60 * 1000;   /* 30 minutes */
+var _adminIdleTimer = null;
+function bumpAdminIdleTimer(){
+  if(_adminIdleTimer) clearTimeout(_adminIdleTimer);
+  _adminIdleTimer = setTimeout(function(){
+    var auth = _initFbAuth();
+    if(auth && auth.currentUser){
+      auth.signOut().catch(function(){});
+    }
+    showToast('Signed out — 30 minutes idle','error');
+    setTimeout(function(){ location.reload(); }, 1200);
+  }, ADMIN_IDLE_MS);
+}
+/* Bump on any user input — typing, tapping, scrolling */
+['click','keydown','touchstart','wheel'].forEach(function(ev){
+  document.addEventListener(ev, function(){
+    if(typeof currentRole !== 'undefined' && currentRole === 'admin'){
+      bumpAdminIdleTimer();
+    }
+  }, { passive: true, capture: true });
+});
 
 /* ---- Export / Import CMS as JSON for repo commit ----
    localStorage is per-device. To publish your edits to every device

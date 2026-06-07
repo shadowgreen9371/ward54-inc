@@ -3,6 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     LAYER 2 — Browser-side security headers
+     ─────────────────────────────────────────────────────────────── -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src  'self' 'unsafe-inline' 'unsafe-eval'
+              https://*.gstatic.com
+              https://*.googleapis.com
+              https://*.firebaseio.com
+              https://*.firebasedatabase.app
+              https://meet.jit.si
+              https://cdn.jsdelivr.net
+              https://cdn.tailwindcss.com
+              https://unpkg.com
+              https://cdnjs.cloudflare.com;
+  style-src   'self' 'unsafe-inline'
+              https://fonts.googleapis.com
+              https://unpkg.com
+              https://cdn.jsdelivr.net;
+  font-src    'self' data:
+              https://fonts.gstatic.com;
+  img-src     'self' data: blob:
+              https://*.tile.openstreetmap.org
+              https://upload.wikimedia.org
+              https://*.googleusercontent.com
+              https://*.firebaseio.com
+              https://*.firebasedatabase.app;
+  connect-src 'self'
+              https://*.googleapis.com
+              https://*.firebaseio.com
+              https://*.firebasedatabase.app
+              wss://*.firebaseio.com
+              wss://*.firebasedatabase.app
+              https://api.emailjs.com
+              https://meet.jit.si
+              https://*.openstreetmap.org;
+  frame-src   'self' https://meet.jit.si;
+  object-src  'none';
+  base-uri    'self';
+  form-action 'self';
+  upgrade-insecure-requests;
+">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(self https://meet.jit.si), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=()">
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
 <title>54 No Ward — Anjuman Constituency | INC</title>
 <!-- PWA -->
 <link rel="manifest" href="manifest.webmanifest">
