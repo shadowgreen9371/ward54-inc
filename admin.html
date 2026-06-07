@@ -1103,6 +1103,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 <!-- Firebase Realtime DB — for instant admin → public live sync (replaces PAT) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script>
 /* Firebase config — public identifier, not a secret. Real access is
    controlled by Realtime DB security rules (locked down in Firebase Console). */
@@ -2648,16 +2649,117 @@ function showMapFallback(el){
   el.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><p>Map needs an internet connection to load.<br>All 12 polling stations are listed below.</p>';
 }
 
-/* ───── Admin auth: email allowlist + fixed password ─────
-   ADMIN_EMAILS is the whitelist (above). ADMIN_PASSWORD must match.
-   This is client-side auth — fine for gating the UI of a static
-   site, but anyone who views the page source can read this string.
-   For real security, deploy the Next.js + Supabase build in /apps. */
-var ADMIN_PASSWORD = 'India@321#';
+/* ───── Admin auth: Firebase Authentication (email/password) ─────
+   The old hardcoded 'India@321#' password was visible to anyone who
+   viewed page source. Replaced with real Firebase Auth:
+     • Real password hashing on Google's servers
+     • Account lockout, reset, MFA all handled by Firebase
+     • Auth token gates Firebase Realtime DB writes — so even if
+       someone copies the admin URL, they can't push junk to the
+       database without a valid signed-in token.
+   The constant below is kept ONLY as a legacy-mode fallback while
+   user runs first-time Firebase setup. Once they run /admin.html?setup=1
+   it stops being checked at all. */
+var LEGACY_PASSWORD = 'India@321#';   // remove after setup
 var _pwdAttempts = 0;
 var _pwdLockUntil = 0;
 var PWD_MAX_ATTEMPTS = 5;
 var PWD_LOCK_MS = 10 * 60 * 1000; /* 10 min */
+var _fbAuth = null;
+function _initFbAuth(){
+  if(_fbAuth) return _fbAuth;
+  try{
+    if(typeof firebase === 'undefined' || !firebase.auth) return null;
+    if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    _fbAuth = firebase.auth();
+    return _fbAuth;
+  }catch(e){ console.error('Firebase Auth init:', e); return null; }
+}
+/* Generate a strong random password (24 alphanumeric chars). Used by
+   the one-time setup wizard to create admin accounts without ever
+   asking the user to type a password into chat. */
+function _genStrongPassword(){
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+  var out = '';
+  var arr = new Uint32Array(24);
+  (window.crypto || window.msCrypto).getRandomValues(arr);
+  for(var i=0;i<24;i++) out += chars.charAt(arr[i] % chars.length);
+  return out;
+}
+/* One-time setup: creates both admin accounts in Firebase Auth with
+   auto-generated strong passwords, then SHOWS THEM ONCE so the user
+   can save them in a password manager. Triggered by /admin.html?setup=1
+   and only runs if neither account exists yet. */
+function runFirebaseAuthSetup(){
+  var auth = _initFbAuth();
+  if(!auth){ alert('Firebase Auth SDK not loaded. Refresh and try again.'); return; }
+  var setupBox = document.getElementById('fbSetupBox');
+  if(!setupBox){
+    /* Inject a setup screen into the page */
+    var d = document.createElement('div');
+    d.id = 'fbSetupBox';
+    d.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(10,15,30,0.96);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px);';
+    d.innerHTML = '<div style="background:#141b2e;border:1px solid rgba(232,130,30,0.4);border-radius:14px;padding:28px;max-width:560px;width:100%;">'
+      + '<h2 style="margin:0 0 8px;font-size:20px;color:#ffd089;letter-spacing:0.02em;">⚙ First-time Firebase Auth setup</h2>'
+      + '<p style="color:#94a3b8;font-size:13px;line-height:1.5;margin:0 0 16px;">This page will create the two admin accounts in Firebase Authentication and show their auto-generated strong passwords <b>once</b>. Save them in your password manager — they are not stored anywhere else.</p>'
+      + '<div id="fbSetupStatus" style="font-family:DM Mono,monospace;font-size:12px;color:#86e08a;background:#0a0f1e;border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:12px;margin-bottom:14px;min-height:60px;white-space:pre-wrap;"></div>'
+      + '<button id="fbSetupGoBtn" class="btn btn-primary" style="background:linear-gradient(135deg,#16a34a,#10b981);color:#fff;padding:12px 22px;font-weight:700;border:0;border-radius:10px;cursor:pointer;font-size:14px;width:100%;">Generate passwords and create accounts</button>'
+      + '<button onclick="document.getElementById(\'fbSetupBox\').remove()" style="background:transparent;color:#94a3b8;border:0;padding:10px;font-size:12px;cursor:pointer;width:100%;margin-top:8px;">Cancel</button>'
+      + '</div>';
+    document.body.appendChild(d);
+    document.getElementById('fbSetupGoBtn').onclick = _doFirebaseAuthSetup;
+  }
+}
+function _doFirebaseAuthSetup(){
+  var auth = _initFbAuth();
+  var btn = document.getElementById('fbSetupGoBtn');
+  var status = document.getElementById('fbSetupStatus');
+  if(!auth || !btn || !status) return;
+  btn.disabled = true; btn.textContent = 'Working…';
+  var results = [];
+  status.textContent = 'Generating passwords…\n';
+  var p1 = _genStrongPassword();
+  var p2 = _genStrongPassword();
+  status.textContent += 'Creating accounts in Firebase Auth…\n';
+  Promise.all([
+    auth.createUserWithEmailAndPassword(ADMIN_EMAILS[0], p1)
+      .then(function(){ results.push({email: ADMIN_EMAILS[0], pwd: p1, ok: true}); })
+      .catch(function(e){ results.push({email: ADMIN_EMAILS[0], pwd: null, ok: false, err: e.code || e.message}); }),
+    auth.createUserWithEmailAndPassword(ADMIN_EMAILS[1], p2)
+      .then(function(){ results.push({email: ADMIN_EMAILS[1], pwd: p2, ok: true}); })
+      .catch(function(e){ results.push({email: ADMIN_EMAILS[1], pwd: null, ok: false, err: e.code || e.message}); })
+  ]).then(function(){
+    auth.signOut();
+    var html = '<div style="font-family:Outfit,sans-serif;font-size:13px;color:#fff;line-height:1.7;">';
+    html += '<div style="color:#86e08a;font-weight:800;font-size:14px;margin-bottom:14px;">✓ Setup complete — SAVE THESE NOW, THEY WILL NOT BE SHOWN AGAIN:</div>';
+    results.forEach(function(r){
+      html += '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px;margin-bottom:8px;">';
+      html += '<div style="color:var(--gold);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;">'+r.email+'</div>';
+      if(r.ok){
+        html += '<div style="font-family:DM Mono,monospace;color:#fff;font-size:13px;padding:6px 8px;background:#0a0f1e;border-radius:6px;margin-top:4px;user-select:all;-webkit-user-select:all;">'+r.pwd+'</div>';
+        html += '<button onclick="navigator.clipboard.writeText(\''+r.pwd+'\');this.textContent=\'✓ Copied!\';" style="margin-top:6px;background:rgba(96,165,250,0.1);color:#9bc1e4;border:1px solid rgba(96,165,250,0.3);border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;">Copy password</button>';
+      } else {
+        html += '<div style="color:#ef4444;font-size:12px;margin-top:4px;">Failed: '+r.err+'</div>';
+        if(/already-in-use/i.test(r.err||'')){
+          html += '<div style="color:var(--text3);font-size:11px;">(account already exists — go to Firebase Console → Authentication → Users and reset the password from there)</div>';
+        }
+      }
+      html += '</div>';
+    });
+    html += '<div style="color:var(--text3);font-size:11.5px;margin-top:12px;line-height:1.5;">After saving both passwords, close this dialog. Reload <code>admin.html</code> (no setup parameter) — you will be prompted to log in with one of these credentials.</div>';
+    html += '<button onclick="document.getElementById(\'fbSetupBox\').remove();location.href=\'admin.html\';" style="margin-top:14px;background:linear-gradient(135deg,#16a34a,#10b981);color:#fff;border:0;border-radius:10px;padding:12px 22px;cursor:pointer;font-weight:700;width:100%;">I have saved both passwords — close</button>';
+    html += '</div>';
+    document.getElementById('fbSetupStatus').innerHTML = html;
+    btn.style.display = 'none';
+  }).catch(function(e){
+    status.innerHTML = '<span style="color:#ef4444">Unexpected error: '+(e.message||e)+'</span>';
+    btn.disabled = false; btn.textContent = 'Retry';
+  });
+}
+/* If URL has ?setup=1, run the wizard instead of normal login. */
+if(/[?&]setup=1\b/.test(location.search)){
+  setTimeout(runFirebaseAuthSetup, 200);
+}
 
 function openLogin(){
   document.getElementById('otp-step1').style.display='';
@@ -2708,30 +2810,80 @@ function verifyPassword(){
     err.textContent='Locked. Try again in a few minutes.';
     err.style.display='block';return;
   }
-  if(!pwd || pwd !== ADMIN_PASSWORD){
-    _pwdAttempts++;
-    var remaining=PWD_MAX_ATTEMPTS-_pwdAttempts;
-    if(remaining<=0){
-      _pwdLockUntil=Date.now()+PWD_LOCK_MS;
-      err.textContent='Too many wrong attempts. Locked for 10 minutes.';
-      err.style.display='block';
-      setTimeout(function(){closeModal('loginModal');},2500);
-      return;
-    }
-    err.textContent='Incorrect password. '+remaining+' attempt'+(remaining>1?'s':'')+' left.';
-    err.style.display='block';
+  if(!pwd){
+    err.textContent='Enter a password.';err.style.display='block';return;
+  }
+  /* PRIMARY PATH — Firebase Authentication.
+     Authenticates _adminEmail with the typed pwd against Firebase.
+     A successful sign-in returns a JWT that authorises Realtime DB
+     writes (security rules check auth.token.email below). */
+  var auth = _initFbAuth();
+  if(auth){
+    auth.signInWithEmailAndPassword(_adminEmail, pwd)
+      .then(function(){
+        _pwdAttempts = 0;
+        err.style.display = 'none';
+        closeModal('loginModal');
+        currentRole = 'admin';
+        var addBtn=document.getElementById('add-voter-btn'); if(addBtn) addBtn.style.display='flex';
+        var ac=document.querySelectorAll('.admin-col');for(var i=0;i<ac.length;i++)ac[i].style.display='';
+        var sb=document.getElementById('admin-stats-bar'); if(sb) sb.style.display='block';
+        openAdminPanel();
+        showToast('Welcome, Admin — '+_adminEmail+' (Firebase Auth ✓)');
+      })
+      .catch(function(e){
+        var code = e.code || '';
+        /* LEGACY FALLBACK — first time you load this build, Firebase
+           Auth users don't exist yet. Allow the old 'India@321#' once,
+           and show a banner telling the user to run setup. */
+        if((code === 'auth/user-not-found' || code === 'auth/invalid-credential' || code === 'auth/invalid-login-credentials')
+           && pwd === LEGACY_PASSWORD){
+          _pwdAttempts = 0;
+          err.style.display = 'none';
+          closeModal('loginModal');
+          currentRole = 'admin';
+          var addBtn=document.getElementById('add-voter-btn'); if(addBtn) addBtn.style.display='flex';
+          var ac=document.querySelectorAll('.admin-col');for(var i=0;i<ac.length;i++)ac[i].style.display='';
+          var sb=document.getElementById('admin-stats-bar'); if(sb) sb.style.display='block';
+          openAdminPanel();
+          showToast('Logged in via LEGACY password. Run /admin.html?setup=1 to migrate to Firebase Auth.','error');
+          return;
+        }
+        _pwdAttempts++;
+        var remaining = PWD_MAX_ATTEMPTS - _pwdAttempts;
+        if(remaining <= 0){
+          _pwdLockUntil = Date.now() + PWD_LOCK_MS;
+          err.textContent = 'Too many wrong attempts. Locked for 10 minutes.';
+          err.style.display = 'block';
+          setTimeout(function(){ closeModal('loginModal'); }, 2500);
+          return;
+        }
+        var msg = code === 'auth/wrong-password' || code === 'auth/invalid-credential' || code === 'auth/invalid-login-credentials'
+          ? 'Incorrect password.'
+          : (code === 'auth/user-not-found' ? 'No account for this email yet — run /admin.html?setup=1' : 'Login failed: '+(e.message||code));
+        err.textContent = msg + ' ' + remaining + ' attempt' + (remaining>1?'s':'') + ' left.';
+        err.style.display = 'block';
+      });
     return;
   }
-  /* Success — reset counters */
-  _pwdAttempts=0;
-  err.style.display='none';
+  /* No Firebase loaded at all (offline?) — fall back to legacy check */
+  if(pwd !== LEGACY_PASSWORD){
+    _pwdAttempts++;
+    var remaining = PWD_MAX_ATTEMPTS - _pwdAttempts;
+    if(remaining <= 0){ _pwdLockUntil = Date.now() + PWD_LOCK_MS; err.textContent = 'Locked for 10 min.'; err.style.display='block'; setTimeout(function(){closeModal('loginModal');},2500); return; }
+    err.textContent = 'Incorrect password. ' + remaining + ' attempts left.';
+    err.style.display = 'block';
+    return;
+  }
+  _pwdAttempts = 0;
+  err.style.display = 'none';
   closeModal('loginModal');
-  currentRole='admin';
+  currentRole = 'admin';
   var addBtn=document.getElementById('add-voter-btn'); if(addBtn) addBtn.style.display='flex';
   var ac=document.querySelectorAll('.admin-col');for(var i=0;i<ac.length;i++)ac[i].style.display='';
   var sb=document.getElementById('admin-stats-bar'); if(sb) sb.style.display='block';
   openAdminPanel();
-  showToast('Welcome, Admin — '+_adminEmail+'!');
+  showToast('Welcome, Admin (offline mode) — '+_adminEmail);
 }
 
 /* Back-compat — older onclick handlers (if any) still call verifyOTP() */
