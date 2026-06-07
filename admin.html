@@ -35,12 +35,15 @@
               https://*.googleapis.com
               https://*.firebaseio.com
               https://*.firebasedatabase.app
+              https://*.firebaseapp.com
               wss://*.firebaseio.com
               wss://*.firebasedatabase.app
+              https://identitytoolkit.googleapis.com
+              https://securetoken.googleapis.com
               https://api.github.com
               https://api.emailjs.com
               https://*.openstreetmap.org;
-  frame-src   'self';
+  frame-src   'self' https://*.firebaseapp.com https://accounts.google.com;
   object-src  'none';
   base-uri    'self';
   form-action 'self';
