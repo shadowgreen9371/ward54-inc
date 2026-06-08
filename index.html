@@ -1743,6 +1743,36 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .inspo-quote .inspo-quote-mark{width:16px;height:16px;color:#ec4899;flex-shrink:0;margin-top:1px;filter:drop-shadow(0 0 6px rgba(236,72,153,0.5));}
 .inspo-quote p{margin:0;font-size:11.5px;line-height:1.45;color:var(--text2);font-style:italic;letter-spacing:0.01em;}
 .inspo-quote p b{color:#fff;font-style:normal;font-weight:800;letter-spacing:0.02em;background:linear-gradient(110deg,#a855f7,#ec4899 60%,#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+/* ── Animated "Join the movement" social row ── */
+.join-row{display:flex;flex-direction:column;align-items:center;gap:9px;margin:14px 0 12px;}
+.join-label{font-size:11px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;
+  background:linear-gradient(110deg,#a855f7,#ec4899 55%,#f5d98b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.join-socials{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;}
+.join-soc{position:relative;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:#fff;text-decoration:none;overflow:hidden;isolation:isolate;
+  box-shadow:0 4px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+  transition:transform .25s cubic-bezier(0.34,1.56,0.64,1), box-shadow .25s;
+  animation:joinFloat 3s ease-in-out infinite;}
+.join-soc svg{width:18px;height:18px;position:relative;z-index:2;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.4));}
+/* ring pulse to inspire a tap */
+.join-soc::after{content:"";position:absolute;inset:0;border-radius:50%;z-index:1;
+  box-shadow:0 0 0 0 currentColor;animation:joinPulse 2.6s ease-out infinite;opacity:0.55;}
+.join-soc:hover{transform:translateY(-4px) scale(1.12);box-shadow:0 10px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.4);}
+/* brand gradients */
+.join-soc.js-x  {background:linear-gradient(135deg,#2b2b2b,#000);}
+.join-soc.js-fb {background:linear-gradient(135deg,#2a8bf2,#1877f2);}
+.join-soc.js-ig {background:linear-gradient(135deg,#feda75,#fa7e1e 35%,#d62976 60%,#962fbf 80%,#4f5bd5);}
+.join-soc.js-yt {background:linear-gradient(135deg,#ff4e45,#ff0000);}
+.join-soc.js-wa {background:linear-gradient(135deg,#42d860,#25d366 55%,#128c7e);}
+/* stagger the float so they ripple */
+.join-soc.js-x{animation-delay:0s;}
+.join-soc.js-fb{animation-delay:.3s;}
+.join-soc.js-ig{animation-delay:.6s;}
+.join-soc.js-yt{animation-delay:.9s;}
+.join-soc.js-wa{animation-delay:1.2s;}
+@keyframes joinFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+@keyframes joinPulse{0%{box-shadow:0 0 0 0 currentColor;opacity:.5;}70%{box-shadow:0 0 0 10px transparent;opacity:0;}100%{box-shadow:0 0 0 0 transparent;opacity:0;}}
+@media(prefers-reduced-motion:reduce){.join-soc,.join-soc::after{animation:none;}}
 .inspo-tile{position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1/1;cursor:pointer;
   background:linear-gradient(135deg,#3b1058,#7c3aed 50%,#ec4899);
   box-shadow:inset 0 1px 0 rgba(255,255,255,0.18), 0 3px 10px rgba(0,0,0,0.32);
@@ -2444,37 +2474,45 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="home-sec home-sec-inspirations">
         <div class="pa-sec-head">
           <span class="pa-sec-ico" style="--c:#a855f7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></span>
-          <div><div class="pa-sec-title">Inspirations</div><div class="pa-sec-sub">Freedom fighters &middot; Members &middot; Ward 54</div></div>
+          <div><div class="pa-sec-title">Kolkata Ward 54 Galleries</div><div class="pa-sec-sub">Images &middot; Videos &middot; Community</div></div>
         </div>
 
-        <!-- Inspirational youth quote -->
-        <div class="inspo-quote">
-          <svg class="inspo-quote-mark" viewBox="0 0 24 24" fill="currentColor"><path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2H4v2h1a4 4 0 0 0 4-4V7zm10 0h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2h-1v2h1a4 4 0 0 0 4-4V7z"/></svg>
-          <p><b>Service before self.</b> Youth is not a stage of life — it is the spark that lights the Ward.</p>
-        </div>
-
-        <!-- 4 admin-uploadable tiles: freedom fighters + members' moments.
-             Backgrounds are filled by buildInspirations() from cms.inspirations. -->
+        <!-- 4 admin-uploadable tiles. Backgrounds filled by buildInspirations(). -->
         <div class="inspo-grid inspo-grid-mini" id="home-inspo-grid">
-          <div class="inspo-tile inspo-tile-1" id="inspo-tile-0" onclick="openInspoModal()" role="button" aria-label="Vision">
-            <span class="inspo-cap">Vision</span>
+          <div class="inspo-tile inspo-tile-1" id="inspo-tile-0" onclick="openInspoModal()" role="button" aria-label="Images">
+            <span class="inspo-cap">Images</span>
           </div>
-          <div class="inspo-tile inspo-tile-2" id="inspo-tile-1" onclick="openInspoModal()" role="button" aria-label="Rally">
-            <span class="inspo-cap">Rally</span>
+          <div class="inspo-tile inspo-tile-2" id="inspo-tile-1" onclick="openInspoModal()" role="button" aria-label="Video Panel">
+            <span class="inspo-cap">Video Panel</span>
           </div>
           <div class="inspo-tile inspo-tile-3" id="inspo-tile-2" onclick="openInspoModal()" role="button" aria-label="Members Moments">
             <span class="inspo-cap">Members Moments</span>
           </div>
-          <div class="inspo-tile inspo-tile-4" id="inspo-tile-3" onclick="openInspoModal()" role="button" aria-label="Service">
-            <span class="inspo-cap">Service</span>
+          <div class="inspo-tile inspo-tile-4" id="inspo-tile-3" onclick="openInspoModal()" role="button" aria-label="In Community">
+            <span class="inspo-cap">In Community</span>
           </div>
         </div>
 
-        <!-- Youth-themed word tags -->
-        <div class="inspo-tags" aria-hidden="true">
-          <span class="inspo-tag">#YouthRising</span>
-          <span class="inspo-tag">#SewaSeShakti</span>
-          <span class="inspo-tag">#OneWardOneVoice</span>
+        <!-- Animated social "Join the movement" row -->
+        <div class="join-row">
+          <span class="join-label">Join the movement</span>
+          <div class="join-socials">
+            <a class="join-soc js-x"  href="#" target="_blank" rel="noopener noreferrer" aria-label="Follow on X" data-soc="x">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a class="join-soc js-fb" href="#" target="_blank" rel="noopener noreferrer" aria-label="Follow on Facebook" data-soc="fb">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a class="join-soc js-ig" href="#" target="_blank" rel="noopener noreferrer" aria-label="Follow on Instagram" data-soc="ig">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a class="join-soc js-yt" href="#" target="_blank" rel="noopener noreferrer" aria-label="Subscribe on YouTube" data-soc="yt">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a class="join-soc js-wa" href="#" target="_blank" rel="noopener noreferrer" aria-label="Join WhatsApp Channel" data-soc="wa">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            </a>
+          </div>
         </div>
 
         <button class="inspo-cta" type="button" onclick="openInspoModal()">Open Gallery
@@ -5974,7 +6012,7 @@ function buildGallery(){
    inspirationsList = [{img, caption}, ...up to 4]. Slot order:
    0 Vision · 1 Rally · 2 Members Moments · 3 Service. Each tile fills its
    background with the uploaded image; caption text is preserved/overridden. */
-var INSPO_DEFAULT_CAPS = ['Vision','Rally','Members Moments','Service'];
+var INSPO_DEFAULT_CAPS = ['Images','Video Panel','Members Moments','In Community'];
 function buildInspirations(){
   for(var i=0;i<4;i++){
     var tile = document.getElementById('inspo-tile-'+i);

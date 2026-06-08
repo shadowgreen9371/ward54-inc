@@ -4018,7 +4018,7 @@ function onGalleryPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)r
 
 /* ---- Inspirations (homepage 4 tiles) ----
    Fixed 4 slots. cms.inspirations = [{img, caption}, x4]. */
-var INSPO_CAPS = ['Vision','Rally','Members Moments','Service'];
+var INSPO_CAPS = ['Images','Video Panel','Members Moments','In Community'];
 function getInspirations(){ var d=cmsRead(); var l=Array.isArray(d.inspirations)?d.inspirations.slice():[]; while(l.length<4) l.push({img:null,caption:INSPO_CAPS[l.length]}); return l.slice(0,4); }
 function setInspirations(list){ cmsPatch('inspirations', list); }
 function buildAdminInspoList(){
