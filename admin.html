@@ -3074,9 +3074,12 @@ function updateLiveSyncBadge(){
 }
 
 function updateCloudSyncUI(){
-  /* Legacy PAT UI removed — keep this as a safe no-op that also refreshes
-     the new live-sync badge so old call sites stay valid. */
+  /* Legacy PAT UI removed — this now ONLY refreshes the new live-sync
+     badge, then returns. The old PAT-element code below is unreachable
+     (return here) so it can never null-deref the removed status/input. */
   if(typeof updateLiveSyncBadge === 'function') updateLiveSyncBadge();
+  return;
+  /* eslint-disable no-unreachable — retained for reference only */
   var badge  = document.getElementById('cloudSyncBadge');
   var status = document.getElementById('cloudSyncStatus');
   var input  = document.getElementById('ghPatInput');
@@ -3321,17 +3324,13 @@ function autoPublish(actionLabel){
         console.error('Firebase publish FAILED:', res);
       }
     });
-  /* Lane B — GitHub PAT (legacy backup; silently skipped if no PAT) */
-  publishCmsToGithub(actionLabel || 'Admin save')
-    .then(function(res){
-      if(res.skipped) return;
-      if(res.busy)    return;
-      showToast('☁ Versioned to GitHub');
-    })
-    .catch(function(e){
-      /* PAT path is now optional — only log, don't toast errors at the user */
-      console.warn('GitHub backup skipped:', e.message);
-    });
+  /* Lane B — GitHub PAT — FULLY RETIRED.
+     Firebase (Lane A) is now the single source of truth. The PAT publish
+     path is gone from the UI; we also proactively purge any stale token
+     left in localStorage from the old flow so it can't keep silently
+     re-committing multi-MB photo payloads to GitHub on every save and
+     racing the Firebase-authoritative model. */
+  try{ localStorage.removeItem('ward54.ghpat'); }catch(e){}
 }
 
 /* ───── LAYER 4 — Auto-logout after 30 min of inactivity ─────

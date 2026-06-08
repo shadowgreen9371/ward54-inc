@@ -6103,50 +6103,35 @@ function _applyCmsObject(cms){
     }
   }
 
-  /* Committee rosters.
-     Merge order: existing in-memory record (from localStorage Stage 1 or
-     hardcoded defaults) gives us a photo fallback. Repo JSON wins for
-     names/phones/posts but only overrides the photo if it actually has one.
-     This way, an admin who uploaded photos locally + committed a no-photo
-     cms.json from a different device still sees their own photos. */
+  /* Committee rosters — INCOMING DATA IS AUTHORITATIVE.
+     ---------------------------------------------------------------
+     Firebase always carries the full record including the base64 photo,
+     so there is no need (and it is actively harmful) to fall back to a
+     previously-cached photo. The old prev-fallback caused two bugs:
+       (a) Firebase strips `photo:null` on write, so a REMOVED photo
+           arrived with no photo key and the stale prev photo came back
+           ("I deleted it but it reappeared").
+       (b) prev was paired BY INDEX, so deleting a middle member made
+           every later member inherit a neighbour's photo.
+     Taking the incoming object verbatim fixes both: whatever the admin
+     last saved is exactly what every device shows. */
   if(cms.committee){
-    /* PHOTO-MERGE FIX
-       Old code did `photo: m.photo || prev.photo || null`, which meant
-       admin-removed photos came back from the in-memory copy. Now we
-       honour the incoming CMS as authoritative: if the admin explicitly
-       set photo (including null/empty), the user sees that. We only
-       fall back to prev.photo when the incoming object has NO photo key
-       at all (legacy data missing the field). */
-    function _photoFromIncoming(m, prev){
-      if(m.hasOwnProperty('photo')) return m.photo || null;   /* admin's value wins, including null */
-      return prev && prev.photo ? prev.photo : null;          /* only fallback when key truly absent */
-    }
     if(Array.isArray(cms.committee.congress)) {
-      var existingC = Array.isArray(congressCommittee) ? congressCommittee : [];
-      congressCommittee = cms.committee.congress.map(function(m, i){
-        var prev = existingC[i] || {};
-        return Object.assign(
-          { empty: !m.name },
-          m,
-          { photo: _photoFromIncoming(m, prev) }
-        );
+      congressCommittee = cms.committee.congress.map(function(m){
+        return Object.assign({ empty: !m.name }, m, { photo: m.photo || null });
       });
     }
     if(Array.isArray(cms.committee.youth)) {
-      var existingY = Array.isArray(youthCommittee) ? youthCommittee : [];
-      youthCommittee = cms.committee.youth.map(function(m, i){
-        var prev = existingY[i] || {};
-        return Object.assign(
-          { empty: !m.name },
-          m,
-          { photo: _photoFromIncoming(m, prev) }
-        );
+      youthCommittee = cms.committee.youth.map(function(m){
+        return Object.assign({ empty: !m.name }, m, { photo: m.photo || null });
       });
     }
   }
 
-  /* Polling agents */
-  if(Array.isArray(cms.pollingAgents) && cms.pollingAgents.length){
+  /* Polling agents — incoming authoritative. No `.length` guard: if the
+     admin deletes every agent the empty array must propagate too. Only
+     skip when the key is absent entirely (legacy data → keep defaults). */
+  if(Array.isArray(cms.pollingAgents)){
     pollingAgentsList = cms.pollingAgents.map(function(a, i){
       return Object.assign({ id:'pa'+(i+1) }, a);
     });
@@ -6188,6 +6173,19 @@ function _applyCmsObject(cms){
   var _fbDeliveredOnce = false;
   window.__ward54FbDelivered = function(){ return _fbDeliveredOnce; };
   window.__ward54MarkFbDelivered = function(){ _fbDeliveredOnce = true; };
+
+  /* HARDEN — if this device has ever received a Firebase-authored value
+     (localStorage carries _via:'firebase' or an _updateId), then the
+     committed repo cms.json is known-stale and must NEVER be applied,
+     even before the first live value arrives this session. This closes
+     the cold-start window where a slow repo fetch could repaint old data
+     in the half-second before Firebase reconnects. */
+  try{
+    var _seedAuth = JSON.parse(localStorage.getItem('ward54.cms') || 'null');
+    if(_seedAuth && (_seedAuth._via === 'firebase' || _seedAuth._updateId)){
+      _fbDeliveredOnce = true;
+    }
+  }catch(e){}
 
   /* Stage 1: localStorage — instant */
   try{
@@ -6242,6 +6240,12 @@ function _applyCmsObject(cms){
      currently viewing, so when they navigate there they see fresh data.
      ------------------------------------------------------------------ */
   var _lastAppliedUpdateId = null;
+  /* djb2 string hash → stable 32-bit fingerprint for legacy dedup. */
+  function _djb2(str){
+    var h = 5381;
+    for(var i=0;i<str.length;i++){ h = ((h<<5)+h+str.charCodeAt(i))|0; }
+    return (h>>>0).toString(36);
+  }
   /* Subtle, non-intrusive toast — slides up from the bottom of the
      viewport so user knows admin pushed something new. Auto-hides 3s. */
   function _showLiveUpdateToast(cms){
@@ -6284,10 +6288,15 @@ function _applyCmsObject(cms){
       /* Mark Firebase authoritative the moment it delivers ANY value, so
          the slower repo-cms.json fetch can never overwrite it afterwards. */
       if(typeof window.__ward54MarkFbDelivered === 'function') window.__ward54MarkFbDelivered();
-      /* Dedup — skip only when _updateId matches what we already rendered.
-         If admin didn't write an _updateId (legacy data), fall back to
-         JSON-string compare on the photo-bearing branches only. */
-      var thisId = cms._updateId || ('legacy-'+JSON.stringify({c:cms.committee, a:cms.pollingAgents, n:cms.notices, g:cms.gallery}).length);
+      /* Dedup — skip only when the id matches what we already rendered.
+         Prefer the admin-stamped _updateId. For legacy data without one,
+         hash the actual content (djb2) instead of its string LENGTH —
+         length collides constantly (any equal-length edit was silently
+         dropped, e.g. "5pm"→"6pm"), so a real hash is required. */
+      var thisId = cms._updateId || ('legacy-' + _djb2(JSON.stringify({
+        c:cms.committee, a:cms.pollingAgents, w:cms.congressWorkers,
+        n:cms.notices, g:cms.gallery, m:cms.mainPage
+      })));
       if(thisId === _lastAppliedUpdateId) return;
       var isFirstHydrate = _lastAppliedUpdateId === null;
       _lastAppliedUpdateId = thisId;
