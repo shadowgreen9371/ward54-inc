@@ -1187,9 +1187,25 @@ function publishCmsToFirebase(){
     cms._exportedAt = new Date().toISOString();
     cms._exportedBy = (window._adminEmail || 'admin');
     cms._via = 'firebase';
+    /* MASTER-LEVEL REALTIME — _updateId stamps every save with a unique
+       monotonic ID. The user side listens for changes to this single field
+       and force-rebuilds the whole UI when it bumps. That way photos,
+       text, removed entries — anything — propagates within ~500 ms even
+       across browser caches and complex object diffs. */
+    cms._updateId  = Date.now() + '-' + Math.random().toString(36).slice(2,8);
+    cms._modifiedBy = (window._adminEmail || 'admin');
+    cms._modifiedAt = Date.now();
+    /* Use set() (full overwrite) so deleted properties also disappear
+       on the user side — Firebase update() would leave stale keys. */
     return db.ref('cms').set(cms)
-      .then(function(){ return { ok:true, ms: Date.now() }; })
-      .catch(function(e){ return { ok:false, error: e.message }; });
+      .then(function(){
+        console.log('[publish] cms.set OK · updateId=' + cms._updateId);
+        return { ok:true, ms: Date.now(), updateId: cms._updateId };
+      })
+      .catch(function(e){
+        console.warn('[publish] cms.set FAIL:', e.code || e.message);
+        return { ok:false, error: e.message, code: e.code };
+      });
   }catch(e){ return Promise.resolve({ ok:false, error: e.message }); }
 }
 </script>

@@ -6110,6 +6110,17 @@ function _applyCmsObject(cms){
      This way, an admin who uploaded photos locally + committed a no-photo
      cms.json from a different device still sees their own photos. */
   if(cms.committee){
+    /* PHOTO-MERGE FIX
+       Old code did `photo: m.photo || prev.photo || null`, which meant
+       admin-removed photos came back from the in-memory copy. Now we
+       honour the incoming CMS as authoritative: if the admin explicitly
+       set photo (including null/empty), the user sees that. We only
+       fall back to prev.photo when the incoming object has NO photo key
+       at all (legacy data missing the field). */
+    function _photoFromIncoming(m, prev){
+      if(m.hasOwnProperty('photo')) return m.photo || null;   /* admin's value wins, including null */
+      return prev && prev.photo ? prev.photo : null;          /* only fallback when key truly absent */
+    }
     if(Array.isArray(cms.committee.congress)) {
       var existingC = Array.isArray(congressCommittee) ? congressCommittee : [];
       congressCommittee = cms.committee.congress.map(function(m, i){
@@ -6117,7 +6128,7 @@ function _applyCmsObject(cms){
         return Object.assign(
           { empty: !m.name },
           m,
-          { photo: m.photo || prev.photo || null }
+          { photo: _photoFromIncoming(m, prev) }
         );
       });
     }
@@ -6128,7 +6139,7 @@ function _applyCmsObject(cms){
         return Object.assign(
           { empty: !m.name },
           m,
-          { photo: m.photo || prev.photo || null }
+          { photo: _photoFromIncoming(m, prev) }
         );
       });
     }
@@ -6190,40 +6201,75 @@ function _applyCmsObject(cms){
      then on every write. Without dedupe, you'd see fadeUp animations
      re-trigger constantly = visible "blinking". We compute a stable
      content hash and skip re-renders when nothing material changed. */
-  var _lastAppliedCmsHash = '';
-  function _stableCmsHash(cms){
-    if(!cms) return '';
-    /* Ignore the bookkeeping fields the admin writes — they change on
-       every save but don't affect what users see. */
-    var copy = {};
-    for(var k in cms){ if(k.charAt(0) !== '_') copy[k] = cms[k]; }
-    try{ return JSON.stringify(copy); }catch(e){ return Math.random()+''; }
+  /* (legacy hash variable kept for backward compat; new code uses _lastAppliedUpdateId) */
+  /* MASTER-LEVEL REALTIME SYNC
+     ------------------------------------------------------------------
+     Dedup by _updateId only — admin stamps it on every save, so two
+     consecutive listener fires with the same _updateId mean "no real
+     change" (initial value vs. cached). Different _updateId → rebuild
+     EVERY photo-containing surface, even the ones the user isn't
+     currently viewing, so when they navigate there they see fresh data.
+     ------------------------------------------------------------------ */
+  var _lastAppliedUpdateId = null;
+  /* Subtle, non-intrusive toast — slides up from the bottom of the
+     viewport so user knows admin pushed something new. Auto-hides 3s. */
+  function _showLiveUpdateToast(cms){
+    var who = (cms && cms._modifiedBy) ? String(cms._modifiedBy).split('@')[0] : 'admin';
+    var bar = document.getElementById('_liveUpdateBar');
+    if(!bar){
+      bar = document.createElement('div');
+      bar.id = '_liveUpdateBar';
+      bar.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120%);background:linear-gradient(135deg,rgba(16,185,129,0.96),rgba(5,150,105,0.96));color:#fff;padding:10px 18px;border-radius:30px;font-size:13px;font-weight:600;letter-spacing:0.2px;box-shadow:0 8px 24px rgba(16,185,129,0.45),0 0 0 1px rgba(255,255,255,0.18) inset;z-index:99999;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);pointer-events:none;font-family:-apple-system,system-ui,sans-serif;';
+      document.body.appendChild(bar);
+    }
+    bar.innerHTML = '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:7px;animation:pulse 1s ease-in-out infinite;"></span>✨ New update from <b>'+who+'</b>';
+    requestAnimationFrame(function(){ bar.style.transform = 'translateX(-50%) translateY(0)'; });
+    clearTimeout(window._liveUpdateBarTO);
+    window._liveUpdateBarTO = setTimeout(function(){
+      bar.style.transform = 'translateX(-50%) translateY(120%)';
+    }, 3000);
+  }
+  function _rebuildEveryVisibleSurface(){
+    /* Order matters — homepage CTAs first (always visible), then drill-down. */
+    try{ if(typeof buildNotices         === 'function') buildNotices(); }catch(e){ console.warn('rebuild notices', e); }
+    try{ if(typeof buildGallery         === 'function') buildGallery(); }catch(e){ console.warn('rebuild gallery', e); }
+    try{ if(typeof buildCommittee       === 'function'){ buildCommittee('congress'); buildCommittee('youth'); } }catch(e){ console.warn('rebuild committee', e); }
+    try{ if(typeof buildPollingAgentsPage === 'function') buildPollingAgentsPage(); }catch(e){ console.warn('rebuild agents', e); }
+    try{ if(typeof buildCongressWorkers === 'function') buildCongressWorkers(); }catch(e){ console.warn('rebuild workers', e); }
+    try{ if(typeof buildMembershipStats === 'function') buildMembershipStats(); }catch(e){ console.warn('rebuild mship', e); }
   }
   function _wireFirebaseCmsListener(){
     var db = _firebaseReady();
-    if(!db || db === false) return;  // silently skip if config blank
-    /* Seed the hash from whatever's already in localStorage so Firebase's
-       initial value (which is usually identical) skips re-rendering. */
+    if(!db || db === false) return;
+    /* Seed with last-seen updateId so the FIRST listener fire (initial
+       value, which usually matches localStorage) doesn't blink the UI. */
     try{
       var seed = JSON.parse(localStorage.getItem('ward54.cms') || 'null');
-      if(seed) _lastAppliedCmsHash = _stableCmsHash(seed);
+      if(seed && seed._updateId) _lastAppliedUpdateId = seed._updateId;
     }catch(e){}
     db.ref('cms').on('value', function(snap){
       var cms = snap && snap.val();
       if(!cms) return;
-      var h = _stableCmsHash(cms);
-      if(h === _lastAppliedCmsHash) return;   // ← no real change, skip everything
-      _lastAppliedCmsHash = h;
+      /* Dedup — skip only when _updateId matches what we already rendered.
+         If admin didn't write an _updateId (legacy data), fall back to
+         JSON-string compare on the photo-bearing branches only. */
+      var thisId = cms._updateId || ('legacy-'+JSON.stringify({c:cms.committee, a:cms.pollingAgents, n:cms.notices, g:cms.gallery}).length);
+      if(thisId === _lastAppliedUpdateId) return;
+      var isFirstHydrate = _lastAppliedUpdateId === null;
+      _lastAppliedUpdateId = thisId;
       try{ localStorage.setItem('ward54.cms', JSON.stringify(cms)); }catch(e){}
       _applyCmsObject(cms);
-      if(typeof buildNotices === 'function') buildNotices();
-      if(typeof buildGallery === 'function') buildGallery();
-      var active = document.querySelector('.page.active');
-      if(active){
-        if(active.id === 'p5' && typeof buildCommittee === 'function') buildCommittee('congress');
-        if(active.id === 'p7' && typeof buildCommittee === 'function') buildCommittee('youth');
-        if(active.id === 'p6' && typeof buildPollingAgentsPage === 'function') buildPollingAgentsPage();
-        if(active.id === 'p8' && typeof buildCongressWorkers === 'function'){ buildCongressWorkers(); if(typeof buildMembershipStats==='function') buildMembershipStats(); }
+      /* ALWAYS rebuild every photo-containing component, regardless of
+         which page the user is currently looking at. Reason: if user is
+         on home (p1) when admin updates a committee photo, the bound
+         state must be ready so navigating to p5 shows the new photo
+         immediately — no second listener fire needed. */
+      _rebuildEveryVisibleSurface();
+      /* Show a subtle "Live update" toast to the user — but skip on the
+         very first hydrate (page load) so they don't get a toast just
+         for opening the site. */
+      if(!isFirstHydrate){
+        try{ _showLiveUpdateToast(cms); }catch(e){}
       }
       /* Subtle live-dot pulse (only fires when content really changed) */
       try{
