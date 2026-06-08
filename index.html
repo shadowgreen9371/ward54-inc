@@ -254,8 +254,18 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p1-title .flag-green{color:#138808;text-shadow:0 0 18px rgba(19,136,8,0.65), 0 0 40px rgba(19,136,8,0.30);font-weight:800;background:linear-gradient(135deg,#138808 0%,#1aaa0c 50%,#138808 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;letter-spacing:0.12em;}
 .p1-title .flag-chakra{display:inline-block;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#000080 0%,#000080 28%,transparent 30%),repeating-conic-gradient(from 0deg,#000080 0deg 7.5deg,transparent 7.5deg 15deg);border:1.5px solid #000080;vertical-align:middle;margin:0 6px;animation:incSpin 8s linear infinite;}
 .p1-sub-line{font-size:13px;color:var(--text3);letter-spacing:0.04em;text-align:center;}
+/* ── Arched "INDIAN NATIONAL CONGRESS" — single curved line ── */
+.p1-title-arch{display:block;width:100%;max-width:430px;margin:0.55rem auto 0.15rem;line-height:1;overflow:visible;}
+.inc-arch{display:block;width:100%;height:auto;overflow:visible;}
+.inc-arch-text{font-family:'Outfit',sans-serif;font-weight:800;font-size:30px;letter-spacing:0.04em;text-transform:uppercase;}
+.inc-arch-text .arch-saffron{fill:#FF9933;}
+.inc-arch-text .arch-white{fill:#FFFFFF;}
+.inc-arch-text .arch-green{fill:#1aaa0c;}
+/* soft flag-coloured glow under the arch text */
+.inc-arch{filter:drop-shadow(0 1px 10px rgba(255,153,51,0.25)) drop-shadow(0 1px 14px rgba(26,170,12,0.22));}
+@media(max-width:430px){ .inc-arch-text{font-size:31px;letter-spacing:0.02em;} .p1-title-arch{max-width:360px;margin-top:0.7rem;} }
 .p1-divider{width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0.2rem 0;}
-.entry-bar-group{display:flex;flex-direction:column;gap:6px;width:100%;max-width:440px;margin-top:0.05rem;}
+.entry-bar-group{display:flex;flex-direction:column;align-items:stretch;gap:6px;width:100%;max-width:440px;margin:0.3rem auto 0;}
 .entry-bar{display:flex;align-items:center;gap:14px;background:var(--glass);border:1px solid var(--border2);border-radius:14px;padding:17px 20px;cursor:pointer;transition:all 0.22s ease;position:relative;overflow:hidden;}
 .entry-bar::before{content:'';position:absolute;left:0;top:0;height:100%;width:3px;opacity:0;transition:opacity 0.22s;}
 .entry-bar.view-bar::before{background:var(--inc-saffron);}
@@ -2337,7 +2347,16 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <p class="p1-tagline">WEST BENGAL &middot; KOLKATA</p>
     <div class="ward-big">WARD NO. 54</div>
     <div class="kmc-line">Kolkata Municipal Corporation</div>
-    <h1 class="p1-title"><span class="flag-saffron">INDIAN</span> <span class="flag-white">NATIONAL</span><br><span class="flag-green">CONGRESS</span></h1>
+    <h1 class="p1-title p1-title-arch" aria-label="Indian National Congress">
+      <svg class="inc-arch" viewBox="0 0 460 104" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Indian National Congress">
+        <defs><path id="incArchPath" d="M16,90 Q230,6 444,90"/></defs>
+        <text class="inc-arch-text" text-anchor="middle">
+          <textPath href="#incArchPath" startOffset="50%">
+            <tspan class="arch-saffron">INDIAN </tspan><tspan class="arch-white">NATIONAL </tspan><tspan class="arch-green">CONGRESS</tspan>
+          </textPath>
+        </text>
+      </svg>
+    </h1>
     <div class="p1-divider"></div>
     <div class="entry-bar-group">
       <div class="hero-cta hero-cta-committee" onclick="goTo('p5')">
