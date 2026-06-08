@@ -1743,6 +1743,16 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .inspo-quote .inspo-quote-mark{width:16px;height:16px;color:#ec4899;flex-shrink:0;margin-top:1px;filter:drop-shadow(0 0 6px rgba(236,72,153,0.5));}
 .inspo-quote p{margin:0;font-size:11.5px;line-height:1.45;color:var(--text2);font-style:italic;letter-spacing:0.01em;}
 .inspo-quote p b{color:#fff;font-style:normal;font-weight:800;letter-spacing:0.02em;background:linear-gradient(110deg,#a855f7,#ec4899 60%,#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+/* Gallery header icon is now a Google-Maps link */
+.gal-map-link{position:relative;text-decoration:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .2s, box-shadow .2s;}
+.gal-map-link:hover{transform:translateY(-2px) scale(1.05);}
+.gal-map-link::after{content:"";position:absolute;inset:0;border-radius:inherit;z-index:0;
+  box-shadow:0 0 0 0 rgba(168,85,247,0.55);animation:joinPulse 2.6s ease-out infinite;}
+.gal-map-link svg{position:relative;z-index:1;}
+.gal-map-tag{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);z-index:2;
+  font-size:8px;font-weight:900;letter-spacing:0.1em;color:#fff;background:#a855f7;
+  padding:1px 6px;border-radius:8px;box-shadow:0 2px 6px rgba(168,85,247,0.5);}
 /* Galleries sub-title — bold, matches the section's violet accent */
 .gal-subtitle{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;margin-top:2px;
   background:linear-gradient(110deg,#c4a3ff,#a855f7 55%,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
@@ -2477,7 +2487,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 
       <div class="home-sec home-sec-inspirations">
         <div class="pa-sec-head">
-          <span class="pa-sec-ico" style="--c:#a855f7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></span>
+          <a class="pa-sec-ico gal-map-link" style="--c:#a855f7" href="https://www.google.com/maps/place/54+ward,+8,+Girish+Chandra+Bose+Rd,+opposite+Community+hall,+Entally,+Kolkata,+West+Bengal+700014/@22.5562384,88.3617714,17z/data=!3m1!4b1!4m10!1m2!2m1!1scommunity+hall+54+ward+kolkata!3m6!1s0x3a0276fc6bdaa86d:0x6071ee931f3a5a46!8m2!3d22.5562385!4d88.3666423!16s%2Fg%2F11xp1666nc?entry=ttu" target="_blank" rel="noopener noreferrer" aria-label="Open Ward No. 54 location in Google Maps" title="Open in Google Maps">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span class="gal-map-tag">MAP</span>
+          </a>
           <div><div class="pa-sec-title">Ward No. 54</div><div class="gal-subtitle">Galleries</div></div>
         </div>
 
@@ -2519,9 +2532,6 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
           </div>
         </div>
 
-        <button class="inspo-cta" type="button" onclick="openInspoModal()">Open Gallery
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
       </div>
 
     </div>
