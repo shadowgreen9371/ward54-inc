@@ -842,8 +842,8 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <a href="#ward-info"        data-toc>🏷 Ward Info</a>
       <a href="#polling-stations" data-toc>📍 Stations</a>
       <a href="#voters"           data-toc>👥 Voters</a>
-      <a href="#cloud-sync"       data-toc>☁ Cloud Sync</a>
-      <a href="#publish"          data-toc>🚀 Publish</a>
+      <a href="#cloud-sync"       data-toc>⚡ Live Sync</a>
+      <a href="#publish"          data-toc>💾 Backup</a>
       <a href="#changelog"        data-toc>🕒 Changes</a>
       <a href="#main-page"        data-toc>🏠 Main Page</a>
       <a href="#office-bearers"   data-toc>🇮🇳 Office Bearers</a>
@@ -953,80 +953,50 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       </div>
     </details>
 
-    <!-- Section: Cloud Sync (GitHub PAT auto-publish) -->
-    <div class="p4-section" id="cloud-sync" style="border:1px solid rgba(16,185,129,0.40);background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(16,185,129,0.02));">
+    <!-- Section: Live Sync status (Firebase — instant, automatic) -->
+    <div class="p4-section" id="cloud-sync" style="border:1px solid rgba(16,185,129,0.45);background:linear-gradient(135deg,rgba(16,185,129,0.10),rgba(16,185,129,0.02));">
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-            Cloud Sync &middot; Auto-publish to GitHub
+            Live Sync &middot; Automatic
           </div>
-          <div class="p4-section-sub" id="cloudSyncStatus">Paste a GitHub Personal Access Token below to auto-publish every save (no more manual upload).</div>
+          <div class="p4-section-sub">Every change you save publishes itself to every device — phones, the app, the website — in about half a second. Nothing to upload.</div>
         </div>
-        <span id="cloudSyncBadge" style="font-size:11px;padding:5px 12px;border-radius:999px;background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.25);font-weight:600;letter-spacing:0.04em;">NOT CONFIGURED</span>
+        <span id="liveSyncBadge" style="font-size:11px;padding:5px 12px;border-radius:999px;background:rgba(16,185,129,0.12);color:var(--green2);border:1px solid rgba(16,185,129,0.35);font-weight:600;letter-spacing:0.04em;display:inline-flex;align-items:center;gap:6px;"><span style="width:7px;height:7px;border-radius:50%;background:#22ff88;box-shadow:0 0 8px #22ff88;animation:pulse 1.4s ease-in-out infinite;"></span>CHECKING…</span>
       </div>
 
-      <details id="cloudSyncSetup" style="background:rgba(0,0,0,0.20);border:1px dashed var(--border);border-radius:var(--r2);padding:14px 16px;font-size:12.5px;line-height:1.65;color:var(--text2);margin-bottom:12px;">
-        <summary style="cursor:pointer;color:var(--gold2);font-weight:600;letter-spacing:0.04em;">How to get a GitHub Personal Access Token (2 minutes)</summary>
-        <ol style="margin:10px 0 0;padding-left:18px;">
-          <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;">github.com/settings/personal-access-tokens/new</a> in a new tab</li>
-          <li>Sign in if needed (use the same account that owns this repo)</li>
-          <li><strong>Token name:</strong> <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;">ward54-admin-publish</code></li>
-          <li><strong>Expiration:</strong> 1 year (or whatever feels right)</li>
-          <li><strong>Repository access:</strong> "Only select repositories" &rarr; pick <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;">shadowgreen9371/ward54-inc</code></li>
-          <li>Expand <strong>Repository permissions</strong> and set <strong>Contents</strong> to <strong>Read and write</strong> (leave everything else as Default / No access)</li>
-          <li>Click <strong>Generate token</strong> &mdash; copy the value (starts with <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;">github_pat_</code>)</li>
-          <li>Paste it in the field below and click <strong>Connect</strong></li>
-        </ol>
-        <p style="margin:10px 0 0;font-size:11px;color:var(--text3);">The token is stored only in this browser's localStorage. It never leaves your device except in HTTPS calls to GitHub's API. To revoke later: same GitHub Settings page, click the token, Delete.</p>
-      </details>
-
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-        <input type="password" class="form-input" id="ghPatInput" placeholder="github_pat_…" autocomplete="off" spellcheck="false" style="flex:1;min-width:220px;font-family:DM Mono,monospace;font-size:12px;">
-        <button class="btn btn-primary btn-sm" onclick="connectGithubPat()" style="background:linear-gradient(135deg,#16a34a,#10b981);color:#fff;font-weight:600;">Connect</button>
-        <button class="btn btn-sm" onclick="testGithubPat()" style="background:rgba(255,255,255,0.06);color:var(--text2);border:1px solid var(--border);">Test</button>
-        <button class="btn btn-sm" onclick="disconnectGithubPat()" style="background:rgba(239,68,68,0.08);color:var(--red2);border:1px solid rgba(239,68,68,0.25);">Disconnect</button>
-      </div>
-      <!-- Diagnostic output (rendered by testGithubPat) -->
-      <div id="ghPatDiag" style="display:none;margin-top:10px;background:#0a0f1e;border:1px solid rgba(16,185,129,0.40);border-radius:8px;padding:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <span style="font-size:11px;color:var(--gold);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">PAT Diagnostic</span>
-          <div style="display:flex;gap:6px;">
-            <button class="btn btn-sm" onclick="copyPatDiag()" style="background:rgba(96,165,250,0.10);color:#9bc1e4;border:1px solid rgba(96,165,250,0.30);font-size:11px;padding:4px 10px;">Copy</button>
-            <button class="btn btn-sm" onclick="document.getElementById('ghPatDiag').style.display='none'" style="background:rgba(255,255,255,0.04);color:var(--text3);border:1px solid var(--border);font-size:11px;padding:4px 8px;">×</button>
-          </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:rgba(0,0,0,0.20);border:1px solid rgba(16,185,129,0.20);border-radius:var(--r2);padding:14px 16px;font-size:12.5px;line-height:1.6;color:var(--text2);">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#22ff88" stroke-width="2" style="flex:0 0 auto;margin-top:1px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div>
+          <strong style="color:var(--green2);">You're all set — just edit and Save.</strong><br>
+          When you press <strong>Save</strong> on any card, photo, or notice, it goes live instantly through Firebase. Other open phones refresh themselves automatically. There is <strong>no token to paste and no file to upload</strong> any more.
         </div>
-        <pre id="ghPatDiagText" style="margin:0;color:var(--text);font-family:DM Mono,monospace;font-size:11.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word;user-select:text;-webkit-user-select:text;"></pre>
       </div>
+
       <div style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-        <button class="btn btn-sm" onclick="pullCmsFromLive(false)" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);color:#fff;font-weight:600;">⟲ Pull latest from live</button>
-        <span style="font-size:11px;color:var(--text3);flex:1;min-width:200px;">Loads the published <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;font-family:DM Mono,monospace;">cms.json</code> into this device so the admin matches the live site (3 polling agents, workers, notices, gallery). Do this once on each new device before editing.</span>
+        <button class="btn btn-sm" onclick="pullCmsFromLive(false)" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);color:#fff;font-weight:600;">⟲ Reset this device to live data</button>
+        <span style="font-size:11px;color:var(--text3);flex:1;min-width:200px;">Only needed if this device's editor looks out of date — pulls the current published content back into this browser. Your normal saves do <em>not</em> require this.</span>
       </div>
     </div>
 
-    <!-- Section: Publish to Site (export → commit JSON to repo) -->
-    <div class="p4-section" id="publish" style="border:1px solid rgba(232,130,30,0.40);background:linear-gradient(135deg,rgba(232,130,30,0.08),rgba(232,130,30,0.02));">
+    <!-- Section: Backup & Restore (optional — export/import a snapshot) -->
+    <div class="p4-section" id="publish" style="border:1px solid rgba(148,163,184,0.30);">
       <div class="p4-section-head">
         <div>
-          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Publish to Live Site</div>
-          <div class="p4-section-sub">Edits are saved on this device only. To make them appear on every device (including mobile), export → upload to GitHub.</div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Backup &amp; Restore <span style="font-size:10px;font-weight:600;color:var(--text3);border:1px solid var(--border);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle;">OPTIONAL</span></div>
+          <div class="p4-section-sub">Saving already publishes live — this is just for keeping a personal copy of all content, or restoring one.</div>
         </div>
         <div style="display:flex;gap:8px;">
           <button class="btn btn-sm" style="background:rgba(255,255,255,0.06);color:var(--text2);border:1px solid var(--border);padding:8px 14px;font-size:12px;" onclick="document.getElementById('cmsImportFile').click()">Import .json</button>
           <input type="file" id="cmsImportFile" accept=".json,application/json" style="display:none" onchange="importCmsJson(this)">
-          <button class="btn btn-primary btn-sm" onclick="exportCmsJson()" style="background:linear-gradient(135deg,#e8821e,#c9a84c);color:#1a1410;font-weight:700;padding:8px 18px;">
-            Export &amp; Download
+          <button class="btn btn-sm" onclick="exportCmsJson()" style="background:rgba(255,255,255,0.06);color:var(--text2);border:1px solid var(--border);padding:8px 16px;font-weight:600;">
+            Download backup
           </button>
         </div>
       </div>
-      <div style="background:rgba(0,0,0,0.20);border:1px dashed var(--border);border-radius:var(--r2);padding:14px 16px;font-size:12.5px;line-height:1.65;color:var(--text2);">
-        <div style="color:var(--gold2);font-weight:700;margin-bottom:6px;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;">How to publish your changes</div>
-        <ol style="margin:0;padding-left:18px;">
-          <li>Click <strong style="color:var(--gold)">Export &amp; Download</strong> — saves a <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-family:DM Mono,monospace;">cms.json</code> file</li>
-          <li>Go to <a href="https://github.com/shadowgreen9371/ward54-inc/upload/main/data/cms" target="_blank" rel="noopener" style="color:#60a5fa;text-decoration:underline;">github.com/.../data/cms (upload)</a></li>
-          <li>Drag the downloaded <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-family:DM Mono,monospace;">cms.json</code> into the drop zone &middot; commit</li>
-          <li>~1 minute later the public site picks it up on <strong>every device</strong></li>
-        </ol>
+      <div style="background:rgba(0,0,0,0.20);border:1px dashed var(--border);border-radius:var(--r2);padding:12px 16px;font-size:12px;line-height:1.6;color:var(--text3);">
+        <strong style="color:var(--text2);">Download backup</strong> saves a <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;font-family:DM Mono,monospace;">cms.json</code> snapshot of all current content to this device — handy before a big edit. <strong style="color:var(--text2);">Import .json</strong> loads such a file back in and re-publishes it live. You do <em>not</em> need either of these for normal day-to-day editing.
       </div>
     </div>
 
@@ -2980,6 +2950,13 @@ function openAdminPanel(){
   buildAdminMembershipList();
   buildChangeLog();
   if(typeof updateCloudSyncUI === 'function') updateCloudSyncUI();
+  /* Keep the Live Sync badge honest — re-check the Firebase connection a
+     moment after login (auth settles async) and then every 10s. */
+  if(typeof updateLiveSyncBadge === 'function'){
+    setTimeout(updateLiveSyncBadge, 800);
+    setTimeout(updateLiveSyncBadge, 2500);
+    if(!window._liveSyncBadgeTimer) window._liveSyncBadgeTimer = setInterval(updateLiveSyncBadge, 10000);
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -3071,7 +3048,35 @@ function getGhPat(){ try{ return localStorage.getItem(GH_PAT_KEY) || ''; }catch(
 function setGhPat(t){ try{ localStorage.setItem(GH_PAT_KEY, t); }catch(e){} }
 function clearGhPat(){ try{ localStorage.removeItem(GH_PAT_KEY); }catch(e){} }
 
+/* NEW — reflects the real Firebase live-sync connection in the green badge.
+   ACTIVE = Firebase initialised + admin authenticated → saves go live.
+   OFFLINE = Firebase unreachable → saves stay local until reconnected. */
+function updateLiveSyncBadge(){
+  var b = document.getElementById('liveSyncBadge');
+  if(!b) return;
+  var ok = false;
+  try{
+    var db = (typeof _initCmsFirebase==='function') ? _initCmsFirebase() : null;
+    var auth = (typeof _initFbAuth==='function') ? _initFbAuth() : null;
+    ok = !!(db && auth && auth.currentUser);
+  }catch(e){ ok = false; }
+  if(ok){
+    b.innerHTML = '<span style="width:7px;height:7px;border-radius:50%;background:#22ff88;box-shadow:0 0 8px #22ff88;animation:pulse 1.4s ease-in-out infinite;"></span>ACTIVE';
+    b.style.background = 'rgba(16,185,129,0.12)';
+    b.style.color = 'var(--green2)';
+    b.style.borderColor = 'rgba(16,185,129,0.35)';
+  } else {
+    b.innerHTML = '<span style="width:7px;height:7px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px #f59e0b;"></span>CONNECTING…';
+    b.style.background = 'rgba(245,158,11,0.10)';
+    b.style.color = '#fbbf24';
+    b.style.borderColor = 'rgba(245,158,11,0.30)';
+  }
+}
+
 function updateCloudSyncUI(){
+  /* Legacy PAT UI removed — keep this as a safe no-op that also refreshes
+     the new live-sync badge so old call sites stay valid. */
+  if(typeof updateLiveSyncBadge === 'function') updateLiveSyncBadge();
   var badge  = document.getElementById('cloudSyncBadge');
   var status = document.getElementById('cloudSyncStatus');
   var input  = document.getElementById('ghPatInput');
