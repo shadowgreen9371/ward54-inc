@@ -4916,14 +4916,35 @@ buildWardStats();
 
 /* ── PWA: register service worker + auto-refresh on new version ─────────── */
 if('serviceWorker' in navigator){
+  /* AUTO-UPDATE MACHINE (admin) — same as the public page, but the reload
+     is GUARDED so it never wipes an admin's half-typed field. If they're
+     actively editing an input/textarea when a new version lands, we wait
+     until they click away or the tab is backgrounded, then refresh. */
   var _swReloaded = false;
-  navigator.serviceWorker.addEventListener('controllerchange', function(){
-    if(_swReloaded) return; _swReloaded = true; location.reload();
-  });
+  function _isEditing(){
+    var a = document.activeElement;
+    if(!a) return false;
+    var t = (a.tagName||'').toUpperCase();
+    return t === 'INPUT' || t === 'TEXTAREA' || t === 'SELECT' || a.isContentEditable;
+  }
+  function _doGuardedReload(){
+    if(_swReloaded) return;
+    if(_isEditing()){
+      /* defer until they stop editing */
+      document.addEventListener('focusout', _doGuardedReload, { once:true });
+      document.addEventListener('visibilitychange', function(){ if(document.hidden) _doGuardedReload(); }, { once:true });
+      return;
+    }
+    _swReloaded = true;
+    try{ showToast('⬆ Updating admin to latest version…'); }catch(e){}
+    setTimeout(function(){ location.reload(); }, 500);
+  }
+  navigator.serviceWorker.addEventListener('controllerchange', _doGuardedReload);
   window.addEventListener('load', function(){
-    navigator.serviceWorker.register('sw.js').then(function(reg){
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(function(reg){
       reg.update();
       document.addEventListener('visibilitychange', function(){ if(!document.hidden) reg.update(); });
+      setInterval(function(){ if(!document.hidden) reg.update(); }, 30000);
     }).catch(function(){/* best-effort */});
   });
 }

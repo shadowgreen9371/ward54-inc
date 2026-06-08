@@ -5,7 +5,7 @@
  *     so the app still opens offline with the last-seen data.
  * Bump CACHE_VERSION on every meaningful release to invalidate old caches.
  */
-const CACHE_VERSION = 'ward54-v59';
+const CACHE_VERSION = 'ward54-v60';
 const SHELL_CACHE = CACHE_VERSION + '-shell';
 const DATA_CACHE  = CACHE_VERSION + '-data';
 
@@ -37,6 +37,12 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+/* Allow a freshly-installed worker to take over immediately when the page
+   asks it to (belt-and-suspenders alongside skipWaiting() in install). */
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
+});
+
 function isDataRequest(url) {
   return url.pathname.includes('/data/') && url.pathname.endsWith('.json');
 }
@@ -62,10 +68,17 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  /* Navigations: serve cached index.html when offline (SPA-style) */
+  /* Navigations (the HTML itself): NETWORK-FIRST so every page load gets
+     the freshest code when online. We also refresh the cached copy so an
+     offline open still serves the last-known-good HTML. This guarantees
+     a reload always lands on the latest deploy — never stale JS. */
   if (req.mode === 'navigate') {
     event.respondWith(
-      fetch(req).catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
+      fetch(req).then((res) => {
+        const copy = res.clone();
+        caches.open(SHELL_CACHE).then((c) => c.put(req, copy));
+        return res;
+      }).catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
     );
     return;
   }

@@ -6438,17 +6438,54 @@ if(typeof buildGallery === 'function') buildGallery();
 
 /* ── PWA: register service worker for offline + installability ──────────── */
 if('serviceWorker' in navigator){
-  /* Auto-refresh once when a new version takes control, so users always
-     see the latest deploy without clearing cache manually. */
+  /* ════════════════════════════════════════════════════════════════
+     AUTO-UPDATE MACHINE — zero-touch fresh code on every device
+     ────────────────────────────────────────────────────────────────
+     Goal: the moment a new version is deployed, every open phone /
+     tab / installed app silently fetches it and refreshes itself —
+     no hard reload, no cache clearing, nothing for the user to do.
+
+     How it works:
+       1. updateViaCache:'none' — the browser must re-fetch sw.js from
+          the network every check, never the HTTP cache. Without this
+          flag updates can sit undetected for 24h. THIS was the missing
+          piece that made old updates "stick" until a manual reload.
+       2. reg.update() runs on load, on tab refocus, AND every 30s on a
+          timer — so even a screen left open all day stays current.
+       3. When a new worker is found + installed, sw.js calls
+          skipWaiting() so it activates instantly → clients.claim() →
+          'controllerchange' fires → we show a 1-second "Updating…"
+          flash and reload once into the fresh code.
+     ════════════════════════════════════════════════════════════════ */
   var _swReloaded = false;
   navigator.serviceWorker.addEventListener('controllerchange', function(){
-    if(_swReloaded) return; _swReloaded = true; location.reload();
+    if(_swReloaded) return; _swReloaded = true;
+    try{
+      var f = document.createElement('div');
+      f.style.cssText = 'position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:rgba(10,15,30,0.86);backdrop-filter:blur(6px);color:#fff;font:600 15px -apple-system,system-ui,sans-serif;letter-spacing:0.3px;';
+      f.innerHTML = '<div style="text-align:center;"><div style="width:34px;height:34px;border:3px solid rgba(255,255,255,0.25);border-top-color:#22ff88;border-radius:50%;margin:0 auto 12px;animation:spin .7s linear infinite;"></div>Updating to latest version…</div><style>@keyframes spin{to{transform:rotate(360deg)}}</style>';
+      document.body.appendChild(f);
+    }catch(e){}
+    setTimeout(function(){ location.reload(); }, 600);
   });
   window.addEventListener('load', function(){
-    navigator.serviceWorker.register('sw.js').then(function(reg){
-      /* Check for updates on every load and whenever the tab refocuses */
+    navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(function(reg){
       reg.update();
+      /* Refocus → check immediately */
       document.addEventListener('visibilitychange', function(){ if(!document.hidden) reg.update(); });
+      /* Heartbeat — check for a new deploy every 30s while page is open */
+      setInterval(function(){ if(!document.hidden) reg.update(); }, 30000);
+      /* When an update is found, the new SW self-activates (skipWaiting);
+         controllerchange above then reloads. Nudge it just in case. */
+      reg.addEventListener('updatefound', function(){
+        var nw = reg.installing;
+        if(!nw) return;
+        nw.addEventListener('statechange', function(){
+          if(nw.state === 'installed' && navigator.serviceWorker.controller){
+            try{ nw.postMessage({ type:'SKIP_WAITING' }); }catch(e){}
+          }
+        });
+      });
     }).catch(function(){/* offline-first is best-effort */});
   });
 }
