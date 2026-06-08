@@ -3301,8 +3301,20 @@ function autoPublish(actionLabel){
   /* Lane A — Firebase instant sync (the new path) */
   publishCmsToFirebase()
     .then(function(res){
-      if(res && res.ok) showToast('⚡ Live on every device');
-      else if(res && res.error) console.warn('Firebase publish:', res.error);
+      if(res && res.ok){
+        showToast('⚡ Live on every device');
+      } else if(res && res.skipped){
+        showToast('⚠ Firebase not ready — change saved locally only', 'error');
+        console.warn('Firebase publish skipped:', res.reason);
+      } else if(res && res.error){
+        /* LOUD failure — the admin must know the change did NOT reach users.
+           Most common cause: auth token expired → permission denied. */
+        var msg = (res.code === 'PERMISSION_DENIED' || /permission/i.test(res.error||''))
+          ? '❌ Not saved to users — please sign out & back in'
+          : '❌ Sync failed: ' + (res.error || 'unknown');
+        showToast(msg, 'error');
+        console.error('Firebase publish FAILED:', res);
+      }
     });
   /* Lane B — GitHub PAT (legacy backup; silently skipped if no PAT) */
   publishCmsToGithub(actionLabel || 'Admin save')

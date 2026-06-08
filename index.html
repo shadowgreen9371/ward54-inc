@@ -6164,21 +6164,52 @@ function _applyCmsObject(cms){
       every device (mobile, desktop, others) sees the same data the admin
       uploaded to GitHub. Re-renders any active page that's listening. */
 (function applyCmsOverrides(){
+  /* ════════════════════════════════════════════════════════════════
+     SOURCE-OF-TRUTH AUTHORITY (fixes the "reverts after 15s" bug)
+     ────────────────────────────────────────────────────────────────
+     Three data sources race on load:
+       1. localStorage  — instant, may be stale
+       2. repo cms.json — fetched from GitHub Pages; LAGS 30-60s behind
+                          because admin's photo save only hits Firebase,
+                          not the committed file. On a slow connection
+                          this fetch can resolve 15+ seconds late.
+       3. Firebase RTDB — instant, always the freshest.
+
+     The bug: the slow repo fetch (#2) would resolve LAST and blindly
+     overwrite the fresh Firebase data (#3) with the stale committed
+     file — so the user's screen reverted to the old photo ~15s after
+     it correctly updated.
+
+     The rule now: once Firebase has delivered ANY value, it is
+     authoritative and the repo fetch is IGNORED. The repo file is
+     only used as a cold-start fallback when Firebase is blocked or
+     offline.
+     ════════════════════════════════════════════════════════════════ */
+  var _fbDeliveredOnce = false;
+  window.__ward54FbDelivered = function(){ return _fbDeliveredOnce; };
+  window.__ward54MarkFbDelivered = function(){ _fbDeliveredOnce = true; };
+
   /* Stage 1: localStorage — instant */
   try{
     var local = JSON.parse(localStorage.getItem('ward54.cms') || 'null');
     if(local) _applyCmsObject(local);
   }catch(e){}
 
-  /* Stage 2: repo JSON — fetched, ~50-200 ms on a warm cache */
+  /* Stage 2: repo JSON — fetched. ONLY applied if Firebase hasn't
+     already delivered fresher data by the time this resolves. */
   fetch('data/cms/cms.json', { cache: 'no-cache' })
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(repo){
       if(!repo) return;
+      /* ⛔ GUARD — if Firebase already gave us a value, the repo file is
+         stale by definition. Do NOT overwrite. This is the actual fix. */
+      if(_fbDeliveredOnce){
+        console.log('[cms] repo fetch ignored — Firebase already authoritative');
+        return;
+      }
       _applyCmsObject(repo);
       /* Re-render anything that was already painted with stale data. The
          committee + polling-agents builders are idempotent. */
-      /* Home Notice Board + Gallery always re-render (they live on p1) */
       if(typeof buildNotices === 'function') buildNotices();
       if(typeof buildGallery === 'function') buildGallery();
       var active = document.querySelector('.page.active');
@@ -6250,6 +6281,9 @@ function _applyCmsObject(cms){
     db.ref('cms').on('value', function(snap){
       var cms = snap && snap.val();
       if(!cms) return;
+      /* Mark Firebase authoritative the moment it delivers ANY value, so
+         the slower repo-cms.json fetch can never overwrite it afterwards. */
+      if(typeof window.__ward54MarkFbDelivered === 'function') window.__ward54MarkFbDelivered();
       /* Dedup — skip only when _updateId matches what we already rendered.
          If admin didn't write an _updateId (legacy data), fall back to
          JSON-string compare on the photo-bearing branches only. */
