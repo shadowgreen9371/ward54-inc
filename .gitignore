@@ -46,3 +46,9 @@ eng.traineddata
 *.bak
 *.bak2
 *.bak3
+
+# iOS — managed by CocoaPods + Capacitor (don't commit)
+mobile/ios/App/Pods/
+mobile/ios/App/Podfile.lock
+mobile/ios/DerivedData/
+mobile/ios/.DS_Store
