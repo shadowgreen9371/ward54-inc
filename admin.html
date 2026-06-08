@@ -851,6 +851,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <a href="#membership"       data-toc>📇 Membership</a>
       <a href="#notices"          data-toc>📋 Notices</a>
       <a href="#gallery"          data-toc>🖼 Gallery</a>
+      <a href="#inspirations"     data-toc>✨ Inspirations</a>
       <a href="#applications"     data-toc>📝 Applications</a>
     </nav>
 
@@ -1097,6 +1098,17 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <button class="btn btn-primary btn-sm" onclick="addGalleryItem()">+ Add Photo</button>
       </div>
       <div id="adminGalleryList"></div>
+    </div>
+
+    <!-- ── Inspirations tiles (homepage 4 image slots) ── -->
+    <div class="p4-section" id="inspirations">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Inspirations (Homepage)</div>
+          <div class="p4-section-sub">4 tiles under &ldquo;Inspirations&rdquo; on the homepage — freedom fighters, members&rsquo; moments, ward work. Tap a tile to upload.</div>
+        </div>
+      </div>
+      <div id="adminInspoList"></div>
     </div>
 
     <!-- ── Membership Applications (from the public registration form) ── -->
@@ -2947,6 +2959,7 @@ function openAdminPanel(){
   buildAdminCongressWorkersList();
   buildAdminNoticesList();
   buildAdminGalleryList();
+  buildAdminInspoList();
   buildAdminMembershipList();
   buildChangeLog();
   if(typeof updateCloudSyncUI === 'function') updateCloudSyncUI();
@@ -4002,6 +4015,34 @@ function saveGalleryItem(i){ var l=getGallery().slice(); if(!l[i])return; var e=
 function deleteGalleryItem(i){ var l=getGallery().slice(); if(!l[i])return; if(!confirm('Delete this photo?'))return; l.splice(i,1); setGallery(l); buildAdminGalleryList(); showToast('Photo removed'); }
 function onGalleryPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)return; showToast('Processing photo…');
   processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getGallery().slice(); if(!l[i])return; var e=document.querySelector('[data-gl-field="caption"][data-gl-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim(); l[i].photo=dataUrl; setGallery(l); buildAdminGalleryList(); showToast('Photo saved'); }); input.value=''; }
+
+/* ---- Inspirations (homepage 4 tiles) ----
+   Fixed 4 slots. cms.inspirations = [{img, caption}, x4]. */
+var INSPO_CAPS = ['Vision','Rally','Members Moments','Service'];
+function getInspirations(){ var d=cmsRead(); var l=Array.isArray(d.inspirations)?d.inspirations.slice():[]; while(l.length<4) l.push({img:null,caption:INSPO_CAPS[l.length]}); return l.slice(0,4); }
+function setInspirations(list){ cmsPatch('inspirations', list); }
+function buildAdminInspoList(){
+  var el=document.getElementById('adminInspoList'); if(!el) return;
+  var list=getInspirations();
+  el.innerHTML='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">'
+    + list.map(function(g,i){
+      var img=g.img?'<img src="'+g.img+'" style="width:100%;height:100%;object-fit:cover;">':'<div style="display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--text3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:24px;height:24px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span style="font-size:10px;">Tap to upload</span></div>';
+      return '<div style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;">'
+        + '<label style="display:flex;align-items:center;justify-content:center;height:128px;cursor:pointer;background:var(--navy);overflow:hidden;position:relative;">'+img+'<input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onInspoPhotoPick('+i+',this)"></label>'
+        + '<div style="padding:7px;">'
+        +   '<input class="form-input" data-insp-field="caption" data-insp-idx="'+i+'" value="'+escapeAttr(g.caption||INSPO_CAPS[i])+'" placeholder="Caption" style="padding:5px 7px;font-size:11px;width:100%;">'
+        +   '<div style="display:flex;gap:6px;margin-top:6px;">'
+        +     '<button class="btn btn-sm" style="flex:1;background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:4px;font-size:10px;" onclick="saveInspoSlot('+i+')">Save</button>'
+        +     (g.img?'<button class="btn btn-sm" style="flex:1;background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:4px;font-size:10px;" onclick="clearInspoSlot('+i+')">Remove img</button>':'')
+        +   '</div>'
+        + '</div></div>';
+    }).join('')
+    + '</div>';
+}
+function onInspoPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)return; showToast('Processing photo…');
+  processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getInspirations(); var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; l[i].img=dataUrl; setInspirations(l); buildAdminInspoList(); showToast('Inspiration image saved'); }); input.value=''; }
+function saveInspoSlot(i){ var l=getInspirations(); var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; setInspirations(l); showToast('Saved'); buildAdminInspoList(); }
+function clearInspoSlot(i){ if(!confirm('Remove this image?'))return; var l=getInspirations(); l[i].img=null; setInspirations(l); buildAdminInspoList(); showToast('Image removed'); }
 
 /* ---- Membership Applications viewer (from public registration form) ---- */
 var MSHIP_LS = 'ward54.mship.applications';
