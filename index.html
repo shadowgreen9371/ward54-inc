@@ -1666,8 +1666,9 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .install-fab{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120%);
   z-index:900;display:none;align-items:center;gap:9px;cursor:pointer;
   padding:11px 20px;border-radius:999px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.03em;color:#1a1410;
-  background:linear-gradient(135deg,#ffd9a8,#e8821e);border:1.5px solid rgba(255,255,255,0.35);
-  box-shadow:0 10px 30px rgba(232,130,30,0.45), inset 0 1px 0 rgba(255,255,255,0.4);
+  background:linear-gradient(135deg,rgba(255,217,168,0.88),rgba(232,130,30,0.88));border:1.5px solid rgba(255,255,255,0.30);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  box-shadow:0 10px 30px rgba(232,130,30,0.40), inset 0 1px 0 rgba(255,255,255,0.4);
   transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .25s ease;animation:fabGlow 2.6s ease-in-out infinite;}
 .install-fab.show{display:inline-flex;transform:translateX(-50%) translateY(0);}
 .install-fab:hover{box-shadow:0 14px 38px rgba(232,130,30,0.6);}
