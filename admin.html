@@ -3888,31 +3888,58 @@ function onCongressWorkerPhotoPick(i,input){ var f=input.files&&input.files[0]; 
     l[i].photo=dataUrl; setCongressWorkers(l); buildAdminCongressWorkersList(); showToast('Photo saved'); }); input.value=''; }
 function removeCongressWorkerPhoto(i){ if(!confirm('Remove this photo?'))return; var l=getCongressWorkers().slice(); if(!l[i])return; l[i].photo=null; setCongressWorkers(l); buildAdminCongressWorkersList(); }
 
-/* ---- Notice Board ---- */
+/* ---- Notice Board ----
+   Each notice: { title, body, date, author, pinned (bool), _ts (epoch ms) }
+   _ts auto-stamped on add so reverse-chronological sort is exact even without 'date'. */
 function getNotices(){ var d=cmsRead(); return Array.isArray(d.notices)?d.notices:[]; }
 function setNotices(list){ cmsPatch('notices', list); }
+function _adminCurrentAuthor(){
+  try{ var auth = _initFbAuth(); if(auth && auth.currentUser) return auth.currentUser.email||''; }catch(e){}
+  return '';
+}
 function buildAdminNoticesList(){
   var el=document.getElementById('adminNoticesList'); if(!el) return;
   var list=getNotices();
   if(!list.length){ el.innerHTML='<div style="text-align:center;color:var(--text3);font-size:12px;padding:20px;border:1px dashed var(--border);border-radius:var(--r2)">No notices yet. Click "+ Add Notice".</div>'; return; }
   el.innerHTML=list.map(function(n,i){
-    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid #e8821e;border-radius:var(--r2);padding:12px 13px;margin-bottom:7px;">'
+    var pinned = !!n.pinned;
+    return '<div style="background:var(--navy3);border:1px solid var(--border);border-left:3px solid '+(pinned?'#ef4444':'#e8821e')+';border-radius:var(--r2);padding:12px 13px;margin-bottom:7px;">'
       + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:7px;">'
       +   '<input class="form-input" data-nt-field="title" data-nt-idx="'+i+'" value="'+escapeAttr(n.title||'')+'" placeholder="Notice title" style="flex:1;min-width:160px;padding:6px 8px;font-weight:600;">'
       +   '<input class="form-input" data-nt-field="date" data-nt-idx="'+i+'" value="'+escapeAttr(n.date||'')+'" placeholder="e.g. 28 May 2026" style="flex:0 0 150px;padding:6px 8px;font-family:DM Mono,monospace;font-size:11px;color:var(--gold2);">'
       + '</div>'
       + '<textarea class="form-input" data-nt-field="body" data-nt-idx="'+i+'" rows="2" placeholder="Notice details…" style="width:100%;padding:6px 8px;font-size:12px;resize:vertical;">'+escapeHtml(n.body||'')+'</textarea>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:7px;align-items:center;">'
+      +   '<input class="form-input" data-nt-field="author" data-nt-idx="'+i+'" value="'+escapeAttr(n.author||'')+'" placeholder="Posted by (email or name)" style="flex:1;min-width:170px;padding:6px 8px;font-size:11px;">'
+      +   '<label style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);cursor:pointer;padding:5px 9px;border:1px solid '+(pinned?'rgba(239,68,68,0.5)':'var(--border)')+';border-radius:6px;background:'+(pinned?'rgba(239,68,68,0.08)':'transparent')+';">'
+      +     '<input type="checkbox" data-nt-field="pinned" data-nt-idx="'+i+'" '+(pinned?'checked':'')+' style="margin:0;">'
+      +     '<span>📌 Pin to top</span>'
+      +   '</label>'
+      + '</div>'
       + '<div style="display:flex;gap:8px;margin-top:8px;">'
       +   '<button class="btn btn-sm" style="background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px 12px;font-size:11px;" onclick="saveNotice('+i+')">Save</button>'
       +   '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 12px;font-size:11px;" onclick="deleteNotice('+i+')">Delete</button>'
       + '</div></div>';
   }).join('');
 }
-function addNotice(){ var l=getNotices().slice(); var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); l.unshift({title:'',body:'',date:today}); setNotices(l); buildAdminNoticesList();
-  setTimeout(function(){ var t=document.querySelector('[data-nt-field="title"][data-nt-idx="0"]'); if(t){ t.scrollIntoView({behavior:'smooth',block:'center'}); t.focus(); } },80); }
-function saveNotice(i){ var l=getNotices().slice(); if(!l[i])return;
-  ['title','date','body'].forEach(function(f){ var e=document.querySelector('[data-nt-field="'+f+'"][data-nt-idx="'+i+'"]'); if(e) l[i][f]=e.value.trim(); });
-  setNotices(l); showToast('Notice saved'); buildAdminNoticesList(); }
+function addNotice(){
+  var l=getNotices().slice();
+  var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  l.unshift({title:'',body:'',date:today,author:_adminCurrentAuthor(),pinned:false,_ts:Date.now()});
+  setNotices(l); buildAdminNoticesList();
+  setTimeout(function(){ var t=document.querySelector('[data-nt-field="title"][data-nt-idx="0"]'); if(t){ t.scrollIntoView({behavior:'smooth',block:'center'}); t.focus(); } },80);
+}
+function saveNotice(i){
+  var l=getNotices().slice(); if(!l[i])return;
+  ['title','date','body','author'].forEach(function(f){
+    var e=document.querySelector('[data-nt-field="'+f+'"][data-nt-idx="'+i+'"]');
+    if(e) l[i][f]=e.value.trim();
+  });
+  var pinEl=document.querySelector('[data-nt-field="pinned"][data-nt-idx="'+i+'"]');
+  l[i].pinned = pinEl ? !!pinEl.checked : false;
+  if(!l[i]._ts) l[i]._ts = Date.now();
+  setNotices(l); showToast('Notice saved'); buildAdminNoticesList();
+}
 function deleteNotice(i){ var l=getNotices().slice(); if(!l[i])return; if(!confirm('Delete this notice?'))return; l.splice(i,1); setNotices(l); buildAdminNoticesList(); showToast('Notice removed'); }
 
 /* ---- Gallery ---- */
