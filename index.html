@@ -254,16 +254,17 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .p1-title .flag-green{color:#138808;text-shadow:0 0 18px rgba(19,136,8,0.65), 0 0 40px rgba(19,136,8,0.30);font-weight:800;background:linear-gradient(135deg,#138808 0%,#1aaa0c 50%,#138808 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;letter-spacing:0.12em;}
 .p1-title .flag-chakra{display:inline-block;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle,#000080 0%,#000080 28%,transparent 30%),repeating-conic-gradient(from 0deg,#000080 0deg 7.5deg,transparent 7.5deg 15deg);border:1.5px solid #000080;vertical-align:middle;margin:0 6px;animation:incSpin 8s linear infinite;}
 .p1-sub-line{font-size:13px;color:var(--text3);letter-spacing:0.04em;text-align:center;}
-/* ── Arched "INDIAN NATIONAL CONGRESS" — single curved line ── */
-.p1-title-arch{display:block;width:100%;max-width:430px;margin:0.55rem auto 0.15rem;line-height:1;overflow:visible;}
-.inc-arch{display:block;width:100%;height:auto;overflow:visible;}
-.inc-arch-text{font-family:'Outfit',sans-serif;font-weight:800;font-size:30px;letter-spacing:0.04em;text-transform:uppercase;}
+/* ── Arched "INDIAN NATIONAL CONGRESS" — single curved line, dome up ──
+   textLength forces the words to fit the arc exactly (set precisely by JS
+   to the path length), so nothing overflows, droops, or gets clipped. */
+.p1-title-arch{display:block;width:100%;max-width:440px;margin:0.7rem auto 0.15rem;line-height:1;overflow:visible;}
+.inc-arch{display:block;width:100%;height:auto;overflow:visible;
+  filter:drop-shadow(0 2px 10px rgba(255,153,51,0.28)) drop-shadow(0 2px 14px rgba(26,170,12,0.22));}
+.inc-arch-text{font-family:'Outfit',sans-serif;font-weight:800;font-size:30px;letter-spacing:0.01em;text-transform:uppercase;}
 .inc-arch-text .arch-saffron{fill:#FF9933;}
 .inc-arch-text .arch-white{fill:#FFFFFF;}
 .inc-arch-text .arch-green{fill:#1aaa0c;}
-/* soft flag-coloured glow under the arch text */
-.inc-arch{filter:drop-shadow(0 1px 10px rgba(255,153,51,0.25)) drop-shadow(0 1px 14px rgba(26,170,12,0.22));}
-@media(max-width:430px){ .inc-arch-text{font-size:31px;letter-spacing:0.02em;} .p1-title-arch{max-width:360px;margin-top:0.7rem;} }
+@media(max-width:430px){ .p1-title-arch{max-width:340px;margin-top:0.85rem;} }
 .p1-divider{width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0.2rem 0;}
 .entry-bar-group{display:flex;flex-direction:column;align-items:stretch;gap:6px;width:100%;max-width:440px;margin:0.3rem auto 0;}
 .entry-bar{display:flex;align-items:center;gap:14px;background:var(--glass);border:1px solid var(--border2);border-radius:14px;padding:17px 20px;cursor:pointer;transition:all 0.22s ease;position:relative;overflow:hidden;}
@@ -2348,10 +2349,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="ward-big">WARD NO. 54</div>
     <div class="kmc-line">Kolkata Municipal Corporation</div>
     <h1 class="p1-title p1-title-arch" aria-label="Indian National Congress">
-      <svg class="inc-arch" viewBox="0 0 460 104" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Indian National Congress">
-        <defs><path id="incArchPath" d="M16,90 Q230,6 444,90"/></defs>
-        <text class="inc-arch-text" text-anchor="middle">
-          <textPath href="#incArchPath" startOffset="50%">
+      <svg class="inc-arch" viewBox="0 0 480 128" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Indian National Congress">
+        <defs><path id="incArchPath" d="M26,120 Q240,-40 454,120"/></defs>
+        <text class="inc-arch-text">
+          <textPath id="incArchTextPath" href="#incArchPath" startOffset="0" textLength="470" lengthAdjust="spacingAndGlyphs">
             <tspan class="arch-saffron">INDIAN </tspan><tspan class="arch-white">NATIONAL </tspan><tspan class="arch-green">CONGRESS</tspan>
           </textPath>
         </text>
@@ -6500,6 +6501,24 @@ buildPartsInfoList();
 if(typeof buildNotices === 'function') buildNotices();
 if(typeof buildGallery === 'function') buildGallery();
 if(typeof buildInspirations === 'function') buildInspirations();
+
+/* Fit the arched title text exactly to its curve so it never overflows,
+   droops at the ends, or clips a letter. We measure the real path length
+   and set textLength to it (minus a hair of padding). */
+(function fitArchTitle(){
+  function go(){
+    var p  = document.getElementById('incArchPath');
+    var tp = document.getElementById('incArchTextPath');
+    if(!p || !tp) return;
+    try{
+      var L = p.getTotalLength();
+      tp.setAttribute('textLength', Math.max(120, L - 14).toFixed(1));
+    }catch(e){}
+  }
+  if(document.readyState !== 'loading') go();
+  else document.addEventListener('DOMContentLoaded', go);
+  window.addEventListener('resize', go, { passive:true });
+})();
 
 /* ── PWA: register service worker for offline + installability ──────────── */
 if('serviceWorker' in navigator){
