@@ -4421,6 +4421,7 @@ function goTo(id, opts){
   if(id==='p7'){ buildCommittee('youth'); }
   if(id==='p9' && typeof buildNoticesPage === 'function'){ buildNoticesPage(); }
   syncTopbarLogos();
+  if(typeof logSectionView === 'function') logSectionView(PAGE_HASH_MAP[id] || id);
   /* History — push only when user clicked a link, not when popstate replays */
   if(!opts.skipHistory){
     var hash = PAGE_HASH_MAP[id] || 'home';
@@ -5361,6 +5362,58 @@ function _firebaseReady(){
     console.error('Firebase init failed:', e);
     _fbDb = false; return false;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANONYMOUS AGGREGATE ANALYTICS  (privacy-by-design)
+   ───────────────────────────────────────────────────────────────────
+   We log COUNTS only — never personal data. Each record stores:
+     t   epoch ms       d  date YYYY-MM-DD
+     dev 'mobile'|'desktop'   src  coarse traffic source
+     p   section key (only for section-view records)
+   No IP, no name, no precise location, no cookies, no cross-site IDs.
+   Records are create-only + admin-read-only (enforced by RTDB rules),
+   so visitors can't read or tamper, and admins see only aggregates.
+   ─────────────────────────────────────────────────────────────────── */
+function _analyticsSource(){
+  try{
+    var r = (document.referrer || '').toLowerCase();
+    if(!r) return 'direct';
+    if(r.indexOf('whatsapp')!==-1 || r.indexOf('wa.me')!==-1) return 'whatsapp';
+    if(r.indexOf('facebook')!==-1 || r.indexOf('fb.')!==-1)   return 'facebook';
+    if(r.indexOf('instagram')!==-1)  return 'instagram';
+    if(r.indexOf('t.co')!==-1 || r.indexOf('twitter')!==-1 || r.indexOf('x.com')!==-1) return 'x';
+    if(r.indexOf('youtube')!==-1)    return 'youtube';
+    if(r.indexOf('google')!==-1 || r.indexOf('bing')!==-1)    return 'search';
+    if(r.indexOf('kolkata54ward')!==-1) return 'direct';
+    return 'other';
+  }catch(e){ return 'direct'; }
+}
+function _analyticsDevice(){
+  return (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) ? 'mobile' : 'desktop';
+}
+function _todayStr(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function _analyticsPush(rec){
+  try{
+    var db = _firebaseReady();
+    if(!db || db === false) return;
+    rec.t = Date.now(); rec.d = _todayStr();
+    db.ref('analytics').push(rec).catch(function(){ /* denied/offline — ignore silently */ });
+  }catch(e){}
+}
+var _seenSections = {};
+function logVisit(){
+  /* one visit record per browser session */
+  try{
+    if(sessionStorage.getItem('ward54.visited')) return;
+    sessionStorage.setItem('ward54.visited','1');
+  }catch(e){}
+  _analyticsPush({ type:'visit', dev:_analyticsDevice(), src:_analyticsSource() });
+}
+function logSectionView(section){
+  if(!section || _seenSections[section]) return;   /* once per section per session */
+  _seenSections[section] = 1;
+  _analyticsPush({ type:'view', p:section, dev:_analyticsDevice() });
 }
 
 var _jitsiApi = null;
@@ -6547,6 +6600,12 @@ buildPartsInfoList();
 if(typeof buildNotices === 'function') buildNotices();
 if(typeof buildGallery === 'function') buildGallery();
 if(typeof buildInspirations === 'function') buildInspirations();
+
+/* Anonymous aggregate analytics — one visit per session + landing section */
+if(typeof logVisit === 'function'){
+  if(typeof firebase !== 'undefined') { logVisit(); logSectionView('home'); }
+  else setTimeout(function(){ logVisit(); logSectionView('home'); }, 600);
+}
 
 /* ── PWA: register service worker for offline + installability ──────────── */
 if('serviceWorker' in navigator){

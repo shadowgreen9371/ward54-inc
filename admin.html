@@ -852,6 +852,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <a href="#notices"          data-toc>📋 Notices</a>
       <a href="#gallery"          data-toc>🖼 Gallery</a>
       <a href="#inspirations"     data-toc>✨ Inspirations</a>
+      <a href="#analytics"        data-toc>📊 Analytics</a>
       <a href="#applications"     data-toc>📝 Applications</a>
     </nav>
 
@@ -1109,6 +1110,18 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
       </div>
       <div id="adminInspoList"></div>
+    </div>
+
+    <!-- ── Website Analytics (anonymous, aggregate, admin-only) ── -->
+    <div class="p4-section" id="analytics" style="border:1px solid rgba(96,165,250,0.35);background:linear-gradient(135deg,rgba(96,165,250,0.07),rgba(96,165,250,0.01));">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>Website Analytics</div>
+          <div class="p4-section-sub">Anonymous, aggregate visit stats — no personal data, no individual tracking. Admin-only.</div>
+        </div>
+        <button class="btn btn-sm" onclick="loadAnalytics()" style="background:rgba(96,165,250,0.12);color:#9bc1e4;border:1px solid rgba(96,165,250,0.35);font-weight:600;">⟳ Refresh</button>
+      </div>
+      <div id="analyticsBody"><div style="text-align:center;color:var(--text3);font-size:12px;padding:24px;">Click <b>Refresh</b> to load the latest stats.</div></div>
     </div>
 
     <!-- ── Membership Applications (from the public registration form) ── -->
@@ -2962,6 +2975,7 @@ function openAdminPanel(){
   buildAdminInspoList();
   buildAdminMembershipList();
   buildChangeLog();
+  if(typeof loadAnalytics === 'function') setTimeout(loadAnalytics, 1200);
   if(typeof updateCloudSyncUI === 'function') updateCloudSyncUI();
   /* Keep the Live Sync badge honest — re-check the Firebase connection a
      moment after login (auth settles async) and then every 10s. */
@@ -4043,6 +4057,73 @@ function onInspoPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)ret
   processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getInspirations(); var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; l[i].img=dataUrl; setInspirations(l); buildAdminInspoList(); showToast('Inspiration image saved'); }); input.value=''; }
 function saveInspoSlot(i){ var l=getInspirations(); var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; setInspirations(l); showToast('Saved'); buildAdminInspoList(); }
 function clearInspoSlot(i){ if(!confirm('Remove this image?'))return; var l=getInspirations(); l[i].img=null; setInspirations(l); buildAdminInspoList(); showToast('Image removed'); }
+
+/* ---- Website Analytics (anonymous aggregate, admin-only read) ---- */
+var SECTION_LABELS = {home:'Home',voter:'Voter List','polling-stations':'Polling Stations',committee:'Congress Committee','youth-congress':'Youth Congress','polling-agents':'Polling Agents',membership:'Membership',notices:'Notice Board'};
+var SRC_LABELS = {whatsapp:'WhatsApp',facebook:'Facebook',instagram:'Instagram',x:'X / Twitter',youtube:'YouTube',search:'Google / Search',direct:'Direct',other:'Other'};
+function _aDateStr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function loadAnalytics(){
+  var body=document.getElementById('analyticsBody'); if(!body) return;
+  var db=(typeof _initCmsFirebase==='function')?_initCmsFirebase():null;
+  if(!db){ body.innerHTML='<div style="color:var(--red2);font-size:12px;padding:18px;text-align:center;">Firebase not ready.</div>'; return; }
+  body.innerHTML='<div style="text-align:center;color:var(--text3);font-size:12px;padding:24px;">Loading…</div>';
+  db.ref('analytics').orderByChild('t').limitToLast(5000).once('value').then(function(snap){
+    var rows=[]; snap.forEach(function(c){ var v=c.val(); if(v&&v.t) rows.push(v); });
+    renderAnalytics(rows);
+  }).catch(function(e){
+    var perm=/permission/i.test(e.message||'');
+    body.innerHTML='<div style="color:var(--red2);font-size:12px;padding:18px;text-align:center;">'
+      + (perm?'Analytics rules not applied yet. Paste the updated firebase-rules-v2.json in Firebase Console → Rules → Publish.':('Could not load: '+e.message))+'</div>';
+  });
+}
+function renderAnalytics(rows){
+  var body=document.getElementById('analyticsBody'); if(!body) return;
+  if(!rows.length){ body.innerHTML='<div style="text-align:center;color:var(--text3);font-size:12px;padding:24px;">No visits recorded yet. Stats appear as people open the site.</div>'; return; }
+  var today=_aDateStr(new Date());
+  var visits=rows.filter(function(r){return r.type==='visit';});
+  var views=rows.filter(function(r){return r.type==='view';});
+  var totalVisits=visits.length;
+  var todayVisits=visits.filter(function(r){return r.d===today;}).length;
+  /* last 7 days */
+  var days=[]; for(var i=6;i>=0;i--){ var dt=new Date(); dt.setDate(dt.getDate()-i); days.push(_aDateStr(dt)); }
+  var perDay=days.map(function(d){ return visits.filter(function(r){return r.d===d;}).length; });
+  var maxDay=Math.max(1,Math.max.apply(null,perDay));
+  /* device split */
+  var dev={mobile:0,desktop:0}; visits.forEach(function(r){ if(r.dev==='desktop')dev.desktop++; else dev.mobile++; });
+  /* source split */
+  var src={}; visits.forEach(function(r){ var s=r.src||'direct'; src[s]=(src[s]||0)+1; });
+  /* top sections (by unique-session views) */
+  var sec={}; views.forEach(function(r){ var p=r.p||'home'; sec[p]=(sec[p]||0)+1; });
+  var topSec=Object.keys(sec).map(function(k){return [k,sec[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,8);
+  function bar(label,val,max,color){ var pct=Math.round(val/Math.max(1,max)*100);
+    return '<div style="margin-bottom:7px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:3px;"><span>'+label+'</span><b style="color:var(--text);">'+val+'</b></div>'
+      +'<div style="height:7px;border-radius:4px;background:rgba(255,255,255,0.06);overflow:hidden;"><div style="height:100%;width:'+pct+'%;background:'+color+';border-radius:4px;"></div></div></div>'; }
+  var srcMax=Math.max(1,Math.max.apply(null,Object.keys(src).map(function(k){return src[k];})));
+  var dayBars=days.map(function(d,i){ var h=Math.round(perDay[i]/maxDay*46)+2; var lbl=d.slice(5);
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;"><div style="font-size:9px;color:var(--text);font-weight:700;">'+perDay[i]+'</div>'
+      +'<div style="width:60%;height:'+h+'px;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#60a5fa,#3b82f6);"></div>'
+      +'<div style="font-size:8px;color:var(--text3);">'+lbl+'</div></div>'; }).join('');
+  body.innerHTML=
+    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">'
+    + '<div style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:12px;text-align:center;"><div style="font-size:24px;font-weight:800;color:#60a5fa;">'+totalVisits+'</div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;">Total Visits</div></div>'
+    + '<div style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:12px;text-align:center;"><div style="font-size:24px;font-weight:800;color:#22c55e;">'+todayVisits+'</div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;">Today</div></div>'
+    + '<div style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:12px;text-align:center;"><div style="font-size:24px;font-weight:800;color:#a855f7;">'+views.length+'</div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;">Page Views</div></div>'
+    + '</div>'
+    + '<div style="font-size:11px;color:var(--gold2);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Last 7 Days</div>'
+    + '<div style="display:flex;align-items:flex-end;gap:5px;height:74px;background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:8px 10px;margin-bottom:16px;">'+dayBars+'</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">'
+    +   '<div><div style="font-size:11px;color:var(--gold2);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Top Sections</div>'
+    +     (topSec.length?topSec.map(function(s){return bar(SECTION_LABELS[s[0]]||s[0],s[1],topSec[0][1],'#a855f7');}).join(''):'<div style="font-size:11px;color:var(--text3);">No section views yet.</div>')+'</div>'
+    +   '<div><div style="font-size:11px;color:var(--gold2);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;">Traffic Source</div>'
+    +     Object.keys(src).sort(function(a,b){return src[b]-src[a];}).map(function(k){return bar(SRC_LABELS[k]||k,src[k],srcMax,'#22c55e');}).join('')+'</div>'
+    + '</div>'
+    + '<div style="font-size:11px;color:var(--gold2);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin:16px 0 8px;">Device</div>'
+    + '<div style="display:flex;gap:10px;">'
+    +   '<div style="flex:1;background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:10px;text-align:center;"><div style="font-size:18px;font-weight:800;color:#60a5fa;">'+dev.mobile+'</div><div style="font-size:10px;color:var(--text3);">📱 Mobile</div></div>'
+    +   '<div style="flex:1;background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:10px;text-align:center;"><div style="font-size:18px;font-weight:800;color:#c9a84c;">'+dev.desktop+'</div><div style="font-size:10px;color:var(--text3);">💻 Desktop</div></div>'
+    + '</div>'
+    + '<div style="font-size:10px;color:var(--text4);margin-top:14px;text-align:center;">Anonymous aggregate counts · no personal data · last '+rows.length+' records</div>';
+}
 
 /* ---- Membership Applications viewer (from public registration form) ---- */
 var MSHIP_LS = 'ward54.mship.applications';

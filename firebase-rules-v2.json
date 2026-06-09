@@ -25,6 +25,15 @@
           ".write": "!data.exists()"
         }
       }
+    },
+    "analytics": {
+      ".read":  "auth != null && (auth.token.email === 'mdshakil43@gmail.com' || auth.token.email === 'nepaligeetbazaar@gmail.com')",
+      ".write": false,
+      ".indexOn": ["t"],
+      "$hit": {
+        ".write": "!data.exists()",
+        ".validate": "newData.hasChildren(['t','type']) && newData.child('t').isNumber() && newData.child('type').isString() && newData.child('type').val().length < 12 && (!newData.child('p').exists() || newData.child('p').val().length < 40) && (!newData.child('dev').exists() || newData.child('dev').val().length < 12) && (!newData.child('src').exists() || newData.child('src').val().length < 16) && (!newData.child('d').exists() || newData.child('d').val().length < 12)"
+      }
     }
   }
 }
