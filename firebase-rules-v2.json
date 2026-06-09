@@ -34,6 +34,19 @@
         ".write": "!data.exists()",
         ".validate": "newData.hasChildren(['t','type']) && newData.child('t').isNumber() && newData.child('type').isString() && newData.child('type').val().length < 12 && (!newData.child('p').exists() || newData.child('p').val().length < 40) && (!newData.child('dev').exists() || newData.child('dev').val().length < 12) && (!newData.child('src').exists() || newData.child('src').val().length < 16) && (!newData.child('d').exists() || newData.child('d').val().length < 12)"
       }
+    },
+    "membership": {
+      ".read":  "auth != null && (auth.token.email === 'mdshakil43@gmail.com' || auth.token.email === 'nepaligeetbazaar@gmail.com')",
+      ".write": false,
+      ".indexOn": ["t"],
+      "$app": {
+        ".write": "!data.exists() || (auth != null && (auth.token.email === 'mdshakil43@gmail.com' || auth.token.email === 'nepaligeetbazaar@gmail.com'))",
+        ".validate": "!newData.exists() || (newData.hasChildren(['t','name','phone']) && newData.child('t').isNumber() && newData.child('name').isString() && newData.child('name').val().length < 120 && newData.child('phone').isString() && newData.child('phone').val().length < 24 && (!newData.child('email').exists() || newData.child('email').val().length < 120) && (!newData.child('address').exists() || newData.child('address').val().length < 300) && (!newData.child('why').exists() || newData.child('why').val().length < 500))"
+      }
+    },
+    "membership_count": {
+      ".read": true,
+      ".write": "newData.isNumber() && ((!data.exists() && newData.val() === 1) || newData.val() === data.val() + 1)"
     }
   }
 }

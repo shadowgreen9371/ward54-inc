@@ -4262,10 +4262,33 @@ function _readMshipApps(){
 function _writeMshipApps(arr){
   try{ localStorage.setItem(MSHIP_LS, JSON.stringify(arr)); }catch(e){}
 }
+/* Firebase-backed membership: applications now arrive from any visitor's
+   device via /membership. We fetch them (admin-only read), merge with any
+   legacy local-only records, and render. */
+var _mshipCache = null;
+function loadMembershipFromFirebase(){
+  var db = (typeof _initCmsFirebase==='function') ? _initCmsFirebase() : null;
+  if(!db){ return; }
+  db.ref('membership').orderByChild('t').once('value').then(function(snap){
+    var arr=[]; snap.forEach(function(c){ var v=c.val()||{}; v._fbkey=c.key; arr.push(v); });
+    arr.sort(function(a,b){ return (b.t||0)-(a.t||0); });
+    _mshipCache = arr;
+    buildAdminMembershipList();
+  }).catch(function(e){ console.warn('membership load:', e.message); });
+}
+function _mshipMergedList(){
+  var fb = Array.isArray(_mshipCache) ? _mshipCache : [];
+  var local = _readMshipApps();
+  /* keep only local records that aren't already in Firebase (match by t+phone) */
+  var seen = {}; fb.forEach(function(m){ seen[(m.t||'')+'|'+(m.phone||'')]=1; });
+  var extra = local.filter(function(m){ return !seen[(m.t||'')+'|'+(m.phone||'')]; });
+  return extra.concat(fb).sort(function(a,b){ return (b.t||0)-(a.t||0); });
+}
 function buildAdminMembershipList(){
   var el = document.getElementById('adminMembershipList');
   if(!el) return;
-  var list = _readMshipApps();
+  if(_mshipCache === null){ loadMembershipFromFirebase(); }   /* first call → pull live */
+  var list = _mshipMergedList();
   if(!list.length){
     el.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:24px;border:1px dashed var(--border);border-radius:var(--r2);">No applications yet. They appear here when a visitor submits the &ldquo;Register Membership&rdquo; form on the Membership page of the public site.</div>';
     return;
@@ -4303,24 +4326,36 @@ function buildAdminMembershipList(){
   }).join('');
 }
 function deleteMembershipApp(i){
-  var list = _readMshipApps();
-  if(!list[i]) return;
-  if(!confirm('Delete application from '+(list[i].name||'this applicant')+'?')) return;
-  list.splice(i,1);
-  _writeMshipApps(list);
+  var list = _mshipMergedList();
+  var rec = list[i];
+  if(!rec) return;
+  if(!confirm('Delete application from '+(rec.name||'this applicant')+'?')) return;
+  if(rec._fbkey){
+    var db = (typeof _initCmsFirebase==='function') ? _initCmsFirebase() : null;
+    if(db){ db.ref('membership/'+rec._fbkey).remove().then(function(){
+      if(Array.isArray(_mshipCache)) _mshipCache = _mshipCache.filter(function(m){return m._fbkey!==rec._fbkey;});
+      buildAdminMembershipList(); showToast('Application removed');
+    }).catch(function(e){ showToast('Delete failed: '+e.message,'error'); }); return; }
+  }
+  /* legacy local-only record */
+  var local = _readMshipApps();
+  var idx = local.findIndex(function(m){ return (m.t||'')===(rec.t||'') && (m.phone||'')===(rec.phone||''); });
+  if(idx>=0){ local.splice(idx,1); _writeMshipApps(local); }
   buildAdminMembershipList();
   showToast('Application removed');
 }
 function clearAllMembershipApps(){
-  var list = _readMshipApps();
+  var list = _mshipMergedList();
   if(!list.length){ showToast('Nothing to clear'); return; }
   if(!confirm('Delete ALL '+list.length+' applications? This cannot be undone.')) return;
+  var db = (typeof _initCmsFirebase==='function') ? _initCmsFirebase() : null;
+  if(db){ db.ref('membership').remove().catch(function(){}); _mshipCache=[]; }
   _writeMshipApps([]);
   buildAdminMembershipList();
   showToast('All applications cleared');
 }
 function exportMembershipCSV(){
-  var list = _readMshipApps();
+  var list = _mshipMergedList();
   if(!list.length){ showToast('Nothing to export'); return; }
   var head = ['Submitted','Name','Phone','Email','Age','Gender','Part','Address','Why'];
   var rows = list.map(function(m){

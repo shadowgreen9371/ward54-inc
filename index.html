@@ -1754,6 +1754,37 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .gal-map-tag{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);z-index:2;
   font-size:8px;font-weight:900;letter-spacing:0.1em;color:#fff;background:#a855f7;
   padding:1px 6px;border-radius:8px;box-shadow:0 2px 6px rgba(168,85,247,0.5);}
+/* ── Membership welcome overlay ── */
+.mwel-overlay{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:18px;
+  background:rgba(6,10,22,0.72);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  opacity:0;pointer-events:none;transition:opacity .3s;}
+.mwel-overlay.show{opacity:1;pointer-events:auto;}
+.mwel-card{position:relative;width:100%;max-width:380px;text-align:center;border-radius:20px;padding:30px 24px 24px;
+  background:linear-gradient(180deg,rgba(20,28,48,0.98),rgba(12,18,34,0.98));
+  border:1px solid rgba(245,217,139,0.30);box-shadow:0 24px 70px rgba(0,0,0,0.6),0 0 40px rgba(245,158,11,0.12);
+  transform:translateY(16px) scale(0.97);transition:transform .35s cubic-bezier(0.16,1,0.3,1);}
+.mwel-overlay.show .mwel-card{transform:translateY(0) scale(1);}
+.mwel-close{position:absolute;top:12px;right:14px;background:none;border:none;color:rgba(255,255,255,0.5);font-size:24px;cursor:pointer;line-height:1;}
+.mwel-badge{width:60px;height:60px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#22c55e,#138808);box-shadow:0 8px 24px rgba(26,170,12,0.5);animation:mwelPop .5s cubic-bezier(0.34,1.56,0.64,1) both;}
+.mwel-badge svg{width:30px;height:30px;color:#fff;}
+@keyframes mwelPop{0%{transform:scale(0);}100%{transform:scale(1);}}
+.mwel-title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:0.01em;margin-bottom:4px;}
+.mwel-sub{font-size:12.5px;color:rgba(229,231,235,0.7);margin-bottom:16px;}
+.mwel-number{font-family:'Outfit',sans-serif;font-size:46px;font-weight:900;line-height:1;position:relative;display:inline-block;margin:4px 0 6px;
+  background:linear-gradient(135deg,#fde68a,#f59e0b,#fbbf24);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 2px 10px rgba(245,158,11,0.4));}
+.mwel-number .mwel-hash{font-size:26px;vertical-align:super;opacity:0.8;}
+.mwel-number .mwel-numlbl{display:block;font-size:9px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,217,139,0.7);-webkit-text-fill-color:initial;margin-top:4px;}
+.mwel-total{font-size:12px;color:rgba(229,231,235,0.8);margin:8px 0 14px;}
+.mwel-total b{color:#22ff88;font-weight:800;}
+.mwel-quote{font-size:12.5px;font-style:italic;line-height:1.5;color:rgba(229,231,235,0.85);
+  border-left:2px solid rgba(245,158,11,0.5);padding:6px 0 6px 12px;text-align:left;margin:0 4px 16px;}
+.mwel-follow{font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,217,139,0.7);margin-bottom:9px;}
+.mwel-socials{margin-bottom:18px;}
+.mwel-done{width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#1a1410;
+  background:linear-gradient(135deg,#ffd9a8,#e8821e);box-shadow:0 8px 22px rgba(232,130,30,0.45);}
+.mwel-done:hover{filter:brightness(1.05);}
 /* Galleries sub-title — bold, matches the section's violet accent */
 .gal-subtitle{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;margin-top:2px;
   background:linear-gradient(110deg,#c4a3ff,#a855f7 55%,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
@@ -2896,7 +2927,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
           <span>REGISTER MEMBERSHIP</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
-        <div class="mship-form-foot">By submitting you agree to our <a href="./privacy.html" target="_blank" rel="noopener">privacy policy</a>. Your data stays on your device until an admin reviews it.</div>
+        <div class="mship-form-foot">By submitting you agree to our <a href="./privacy.html" target="_blank" rel="noopener">privacy policy</a>. Your details are sent securely to Ward 54 INC administrators only and are never shared with third parties.</div>
       </form>
     </div>
 
@@ -4683,6 +4714,63 @@ function buildMembershipStats(){
     }, 8000);
   }
 }
+/* Central social-profile config — fill these with the real ward handles and
+   BOTH the gallery "Join the movement" row and the membership welcome screen
+   pick them up. ('#' = not set yet → that icon is hidden.) */
+var SOCIAL_LINKS = { x:'#', fb:'#', ig:'#', yt:'#', wa:'#' };
+function applySocialLinks(){
+  document.querySelectorAll('.join-soc[data-soc]').forEach(function(a){
+    var u = SOCIAL_LINKS[a.getAttribute('data-soc')] || '#';
+    if(u && u !== '#'){ a.href = u; a.style.display=''; } else { a.style.display='none'; }
+  });
+}
+var MEMBER_QUOTES = [
+  '“The future depends on what you do today.” — Mahatma Gandhi',
+  '“Be the change you wish to see in the world.” — Mahatma Gandhi',
+  '“The best way to find yourself is to lose yourself in the service of others.” — Mahatma Gandhi',
+  '“Citizenship consists in the service of the country.” — Jawaharlal Nehru',
+  '“Service to the people is the highest form of worship.”',
+  '“A small body of determined spirits can alter the course of history.” — Mahatma Gandhi'
+];
+function _socialIconsHTML(){
+  var ic = {
+    x:'<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>',
+    fb:'<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>',
+    ig:'<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>',
+    yt:'<path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>',
+    wa:'<path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>'
+  };
+  return ['x','fb','ig','yt','wa'].map(function(k){
+    var u = SOCIAL_LINKS[k] || '#';
+    if(!u || u === '#') return '';
+    return '<a class="join-soc js-'+k+'" href="'+u+'" target="_blank" rel="noopener noreferrer" aria-label="'+k+'"><svg viewBox="0 0 24 24" fill="currentColor">'+ic[k]+'</svg></a>';
+  }).join('');
+}
+function showMembershipWelcome(name, joinedNo, total){
+  var first = (name||'Member').split(' ')[0];
+  var quote = MEMBER_QUOTES[Math.floor(Math.random()*MEMBER_QUOTES.length)];
+  var socials = _socialIconsHTML();
+  var ov = document.getElementById('mshipWelcome');
+  if(ov) ov.remove();
+  ov = document.createElement('div');
+  ov.id = 'mshipWelcome';
+  ov.className = 'mwel-overlay';
+  ov.onclick = function(e){ if(e.target===ov) ov.classList.remove('show'); };
+  ov.innerHTML =
+    '<div class="mwel-card" role="dialog" aria-label="Welcome">'
+    + '<button class="mwel-close" onclick="document.getElementById(\'mshipWelcome\').classList.remove(\'show\')" aria-label="Close">&times;</button>'
+    + '<div class="mwel-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>'
+    + '<div class="mwel-title">Welcome aboard, '+escapeHtml(first)+'! 🇮🇳</div>'
+    + '<div class="mwel-sub">You are now part of the Ward 54 INC family.</div>'
+    + (joinedNo ? '<div class="mwel-number"><span class="mwel-hash">#</span>'+joinedNo+'<span class="mwel-numlbl">Your Member No.</span></div>' : '')
+    + (total ? '<div class="mwel-total">You joined <b>'+total+'</b> proud members of Ward&nbsp;54</div>' : '')
+    + '<div class="mwel-quote">'+escapeHtml(quote)+'</div>'
+    + (socials ? '<div class="mwel-follow">Follow &amp; stay connected</div><div class="join-socials mwel-socials">'+socials+'</div>' : '')
+    + '<button class="mwel-done" onclick="document.getElementById(\'mshipWelcome\').classList.remove(\'show\')">Jai Hind 🙏</button>'
+    + '</div>';
+  document.body.appendChild(ov);
+  requestAnimationFrame(function(){ ov.classList.add('show'); });
+}
 function submitMembership(form){
   var data = {
     t: Date.now(),
@@ -4699,23 +4787,31 @@ function submitMembership(form){
     showToast('Please fill name, phone, age and address','error');
     return;
   }
-  var list = _loadMshipList();
-  list.unshift(data);
-  _saveMshipList(list);
+  /* local copy (offline fallback) */
+  var list = _loadMshipList(); list.unshift(data); _saveMshipList(list);
   var btn = form.querySelector('button[type="submit"]');
   if(btn){
     btn.disabled = true;
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span>APPLICATION RECEIVED</span>';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span>REGISTERING…</span>';
   }
-  form.reset();
-  buildMembershipStats();
-  showToast('Welcome to Ward 54 INC, ' + (data.name.split(' ')[0]) + ' 🇮🇳','ok');
-  setTimeout(function(){
-    if(btn){
-      btn.disabled = false;
-      btn.innerHTML = '<span>REGISTER MEMBERSHIP</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
-    }
-  }, 3500);
+  function finish(joinedNo, total){
+    form.reset();
+    buildMembershipStats();
+    showMembershipWelcome(data.name, joinedNo, total);
+    if(btn){ btn.disabled=false; btn.innerHTML='<span>REGISTER MEMBERSHIP</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; }
+  }
+  var db = (typeof _firebaseReady==='function') ? _firebaseReady() : false;
+  if(db && db !== false){
+    /* push the application + atomically claim the next member number */
+    db.ref('membership').push(data).catch(function(){});
+    db.ref('membership_count').transaction(function(cur){ return (cur||0)+1; }, function(err, committed, snap){
+      var n = (committed && snap) ? snap.val() : null;
+      finish(n, n);
+    });
+  } else {
+    /* offline: number = local count */
+    finish(list.length, list.length);
+  }
 }
 
 /* All 38 voter-list expandable sections. Click a Part header to expand
@@ -6600,6 +6696,7 @@ buildPartsInfoList();
 if(typeof buildNotices === 'function') buildNotices();
 if(typeof buildGallery === 'function') buildGallery();
 if(typeof buildInspirations === 'function') buildInspirations();
+if(typeof applySocialLinks === 'function') applySocialLinks();
 
 /* Anonymous aggregate analytics — one visit per session + landing section */
 if(typeof logVisit === 'function'){
