@@ -1789,6 +1789,13 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .mwel-done{width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#1a1410;
   background:linear-gradient(135deg,#ffd9a8,#e8821e);box-shadow:0 8px 22px rgba(232,130,30,0.45);}
 .mwel-done:hover{filter:brightness(1.05);}
+/* Centre the Showcase header (icon + titles as one centred group) */
+.home-sec-inspirations .pa-sec-head{justify-content:center;text-align:center;}
+/* "Ward No. 54 (Kolkata)" — gold sheen matching the homepage hero */
+.gal-ward-title{background:linear-gradient(100deg,#ffffff 0%,#ffe9b6 24%,#f4c869 42%,#ffffff 52%,#f4c869 62%,#ffe9b6 80%,#ffffff 100%);
+  background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  filter:drop-shadow(0 2px 14px rgba(244,200,105,0.30));animation:wardSheen 6s linear infinite;}
+.gal-ward-title .gal-kolkata{font-size:0.78em;font-weight:700;opacity:0.92;}
 /* Galleries sub-title — bold, matches the section's violet accent */
 .gal-subtitle{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;margin-top:2px;
   background:linear-gradient(110deg,#c4a3ff,#a855f7 55%,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
@@ -2529,7 +2536,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <span class="gal-map-tag">MAP</span>
           </a>
-          <div><div class="pa-sec-title">Ward No. 54</div><div class="gal-subtitle">Galleries</div></div>
+          <div><div class="pa-sec-title gal-ward-title">Ward No. 54 <span class="gal-kolkata">(Kolkata)</span></div><div class="gal-subtitle">Showcase</div></div>
         </div>
 
         <!-- 4 admin-uploadable tiles. Label sits BELOW each tile so it never
