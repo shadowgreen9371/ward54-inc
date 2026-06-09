@@ -1134,9 +1134,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="p4-section-head">
         <div>
           <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Inspirations (Homepage)</div>
-          <div class="p4-section-sub">4 tiles under &ldquo;Inspirations&rdquo; on the homepage — freedom fighters, members&rsquo; moments, ward work. Tap a tile to upload.</div>
+          <div class="p4-section-sub">Showcase background + 4 tiles on the homepage. Tap to upload.</div>
         </div>
       </div>
+      <div id="adminShowcaseBg" style="margin-bottom:16px;"></div>
       <div id="adminInspoList"></div>
     </div>
 
@@ -3017,6 +3018,7 @@ function openAdminPanel(){
   buildAdminNoticesList();
   buildAdminGalleryList();
   buildAdminInspoList();
+  buildAdminShowcaseBg();
   buildAdminMembershipList();
   buildChangeLog();
   if(typeof _initCollapsible === 'function') _initCollapsible();
@@ -4185,6 +4187,27 @@ function onInspoPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)ret
   processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getInspirations(); var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; l[i].img=dataUrl; setInspirations(l); buildAdminInspoList(); showToast('Inspiration image saved'); }); input.value=''; }
 function saveInspoSlot(i){ var l=getInspirations(); var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; setInspirations(l); showToast('Saved'); buildAdminInspoList(); }
 function clearInspoSlot(i){ if(!confirm('Remove this image?'))return; var l=getInspirations(); l[i].img=null; setInspirations(l); buildAdminInspoList(); showToast('Image removed'); }
+
+/* ---- Showcase background photo (e.g. committee hall) ---- */
+function getShowcaseBg(){ var d=cmsRead(); return typeof d.showcaseBg==='string'?d.showcaseBg:''; }
+function setShowcaseBg(v){ cmsPatch('showcaseBg', v||''); }
+function buildAdminShowcaseBg(){
+  var el=document.getElementById('adminShowcaseBg'); if(!el) return;
+  var bg=getShowcaseBg();
+  var preview = bg
+    ? '<img src="'+bg+'" style="width:100%;height:100%;object-fit:cover;">'
+    : '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:26px;height:26px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span style="font-size:11px;">Tap to upload committee-hall / ward photo</span></div>';
+  el.innerHTML='<div style="border:1px solid rgba(96,165,250,0.3);border-radius:var(--r2);overflow:hidden;background:var(--navy3);">'
+    + '<div style="padding:9px 12px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9bc1e4;border-bottom:1px solid var(--border);">Showcase background (faint)</div>'
+    + '<label style="display:flex;align-items:center;justify-content:center;height:120px;cursor:pointer;background:var(--navy);overflow:hidden;position:relative;">'+preview+'<input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onShowcaseBgPick(this)"></label>'
+    + '<div style="padding:8px 12px;display:flex;gap:8px;align-items:center;">'
+    +   '<span style="flex:1;font-size:10.5px;color:var(--text3);">Shows as a low-opacity background behind the Showcase card. Use a clear landscape photo.</span>'
+    +   (bg?'<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);font-size:11px;" onclick="clearShowcaseBg()">Remove</button>':'')
+    + '</div></div>';
+}
+function onShowcaseBgPick(input){ var f=input.files&&input.files[0]; if(!f)return; showToast('Processing photo…');
+  processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} setShowcaseBg(dataUrl); buildAdminShowcaseBg(); showToast('Showcase background saved'); }); input.value=''; }
+function clearShowcaseBg(){ if(!confirm('Remove the showcase background?'))return; setShowcaseBg(''); buildAdminShowcaseBg(); showToast('Background removed'); }
 
 /* ---- Website Analytics (anonymous aggregate, admin-only read) ---- */
 var SECTION_LABELS = {home:'Home',voter:'Voter List','polling-stations':'Polling Stations',committee:'Congress Committee','youth-congress':'Youth Congress','polling-agents':'Polling Agents',membership:'Membership',notices:'Notice Board'};

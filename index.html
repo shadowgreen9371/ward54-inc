@@ -1808,6 +1808,15 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .mwel-done{width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#1a1410;
   background:linear-gradient(135deg,#ffd9a8,#e8821e);box-shadow:0 8px 22px rgba(232,130,30,0.45);}
 .mwel-done:hover{filter:brightness(1.05);}
+/* Showcase card — optional faint background photo (e.g. committee hall),
+   rounded + colour-matched dark overlay for a premium "advanced" look. */
+.home-sec-inspirations{position:relative;overflow:hidden;isolation:isolate;}
+.home-sec-inspirations::before{content:"";position:absolute;inset:0;z-index:-2;border-radius:inherit;
+  background-image:var(--gal-bg,none);background-size:cover;background-position:center;opacity:0.20;
+  transform:scale(1.02);filter:saturate(1.05);}
+.home-sec-inspirations::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,rgba(13,19,36,0.55) 0%,rgba(10,15,30,0.78) 60%,rgba(10,15,30,0.9) 100%);}
+.home-sec-inspirations.has-bg::before{opacity:0.26;}
 /* Showcase header — MAP icon pinned LEFT, title block centred in the card */
 .gal-head{display:block;position:relative;text-align:center;min-height:48px;padding:4px 0 2px;margin:0 0 12px;}
 .gal-head .gal-map-link{position:absolute;left:6px;top:4px;}
@@ -5949,6 +5958,7 @@ var congressWorkersList = [];   /* [{name, role, phone, photo}] */
 var noticesList         = [];   /* [{title, body, date}] */
 var galleryList         = [];   /* [{caption, photo}] */
 var inspirationsList    = [];   /* [{img, caption}] — 4 homepage Inspiration tiles */
+var showcaseBg          = '';   /* faint background photo for the Showcase card */
 
 var STATUS_LABEL = { active:'Active', onduty:'On Duty', offduty:'Off Duty' };
 
@@ -6218,6 +6228,12 @@ function buildGallery(){
    background with the uploaded image; caption text is preserved/overridden. */
 var INSPO_DEFAULT_CAPS = ['Images','Video Panel','Members Moments','In Community'];
 function buildInspirations(){
+  /* faint background photo on the Showcase card */
+  var card = document.querySelector('.home-sec-inspirations');
+  if(card){
+    if(showcaseBg){ card.style.setProperty('--gal-bg', 'url("'+showcaseBg+'")'); card.classList.add('has-bg'); }
+    else { card.style.removeProperty('--gal-bg'); card.classList.remove('has-bg'); }
+  }
   for(var i=0;i<4;i++){
     var tile = document.getElementById('inspo-tile-'+i);
     if(!tile) continue;
@@ -6443,6 +6459,8 @@ function _applyCmsObject(cms){
   if(Array.isArray(cms.notices))         noticesList         = cms.notices.slice();
   if(Array.isArray(cms.gallery))         galleryList         = cms.gallery.slice();
   if(Array.isArray(cms.inspirations))    inspirationsList    = cms.inspirations.slice();
+  if(typeof cms.showcaseBg === 'string') showcaseBg          = cms.showcaseBg;
+  else if(cms.showcaseBg === null)       showcaseBg          = '';
 }
 
 /* Two-stage CMS load:
