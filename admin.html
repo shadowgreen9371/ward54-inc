@@ -662,6 +662,10 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <div class="otp-email-hint" id="otpHint" style="display:none"></div>
       <div class="modal-err" id="otpErr">Incorrect password. Please try again.</div>
       <div class="form-group"><label class="form-label">Password</label><input class="form-input" id="loginPassword" type="password" placeholder="Enter admin password" autocomplete="current-password" onkeydown="if(event.key==='Enter')verifyPassword()"></div>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text2);cursor:pointer;margin:2px 0 12px;user-select:none;">
+        <input type="checkbox" id="rememberDevice" checked style="width:15px;height:15px;accent-color:var(--gold);cursor:pointer;">
+        <span>Remember this device for <b style="color:var(--gold2);">30 days</b> — stay signed in</span>
+      </label>
       <div class="btn-row"><button class="btn btn-gold" style="flex:1" onclick="verifyPassword()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><polyline points="20 6 9 17 4 12"/></svg>Sign In</button><button class="btn btn-ghost" onclick="backToEmail()">← Back</button></div>
     </div>
   </div>
@@ -2880,6 +2884,22 @@ function verifyPassword(){
      writes (security rules check auth.token.email below). */
   var auth = _initFbAuth();
   if(auth){
+    /* "Remember this device for 30 days" — LOCAL persistence keeps the
+       Firebase session across browser restarts; we also stamp a 30-day
+       expiry so we force a fresh login once it lapses. Unchecked → SESSION
+       persistence (signed out when the tab/app closes). */
+    var remember = !!(document.getElementById('rememberDevice') && document.getElementById('rememberDevice').checked);
+    try{
+      auth.setPersistence(remember
+        ? firebase.auth.Auth.Persistence.LOCAL
+        : firebase.auth.Auth.Persistence.SESSION);
+    }catch(e){}
+    if(remember){
+      try{ localStorage.setItem('ward54.admin.rememberExp', String(Date.now() + 30*24*60*60*1000)); }catch(e){}
+    } else {
+      try{ localStorage.removeItem('ward54.admin.rememberExp'); }catch(e){}
+    }
+    window._adminRemembered = remember;
     auth.signInWithEmailAndPassword(_adminEmail, pwd)
       .then(function(){
         _pwdAttempts = 0;
@@ -3366,7 +3386,18 @@ function autoPublish(actionLabel){
    bumpAdminIdleTimer() restarts the countdown on every save/click. */
 var ADMIN_IDLE_MS = 30 * 60 * 1000;   /* 30 minutes */
 var _adminIdleTimer = null;
+function _isRememberedDevice(){
+  try{
+    var exp = parseInt(localStorage.getItem('ward54.admin.rememberExp') || '0', 10);
+    return exp > Date.now();
+  }catch(e){ return false; }
+}
 function bumpAdminIdleTimer(){
+  /* If the admin chose "remember this device for 30 days", skip the
+     30-minute idle auto-logout — they explicitly opted to stay signed in
+     on their own trusted device. The 30-day expiry still forces a fresh
+     login once it lapses. */
+  if(_isRememberedDevice()) return;
   if(_adminIdleTimer) clearTimeout(_adminIdleTimer);
   _adminIdleTimer = setTimeout(function(){
     var auth = _initFbAuth();
@@ -3385,6 +3416,38 @@ function bumpAdminIdleTimer(){
     }
   }, { passive: true, capture: true });
 });
+
+/* ───── "Remember this device for 30 days" — auto-restore ─────
+   On load, if Firebase restored a signed-in admin (LOCAL persistence) AND
+   the 30-day window hasn't lapsed, drop the admin straight into the panel
+   without retyping the password. If the window lapsed, sign out + clear so
+   they must log in fresh. */
+(function restoreRememberedSession(){
+  function go(){
+    var auth = _initFbAuth();
+    if(!auth) return;
+    auth.onAuthStateChanged(function(user){
+      if(!user) return;                       /* not signed in → normal login */
+      if(!_isRememberedDevice()){
+        /* signed in but the 30-day remember window expired (or wasn't set)
+           → force a fresh login for security */
+        try{ localStorage.removeItem('ward54.admin.rememberExp'); }catch(e){}
+        auth.signOut().catch(function(){});
+        return;
+      }
+      if(currentRole === 'admin') return;     /* already in */
+      currentRole = 'admin';
+      var addBtn=document.getElementById('add-voter-btn'); if(addBtn) addBtn.style.display='flex';
+      var ac=document.querySelectorAll('.admin-col'); for(var i=0;i<ac.length;i++) ac[i].style.display='';
+      var sb=document.getElementById('admin-stats-bar'); if(sb) sb.style.display='block';
+      try{ closeModal('loginModal'); }catch(e){}
+      if(typeof openAdminPanel === 'function') openAdminPanel();
+      showToast('Welcome back — remembered device ✓');
+    });
+  }
+  if(typeof firebase !== 'undefined') go();
+  else setTimeout(go, 600);
+})();
 
 /* ---- Export / Import CMS as JSON for repo commit ----
    localStorage is per-device. To publish your edits to every device
