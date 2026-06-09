@@ -5930,6 +5930,14 @@ function _sortedNotices(){
     return bt - at;
   });
 }
+/* Mask admin identities behind neutral support labels on the public side.
+   nepaligeetbazaar → Support 1 · mdshakil43 → Support 2 */
+function _supportLabel(idOrEmail){
+  var s = String(idOrEmail || '').toLowerCase();
+  if(s.indexOf('nepaligeet') !== -1) return 'Support 1';
+  if(s.indexOf('mdshakil')   !== -1) return 'Support 2';
+  return 'Support';
+}
 function buildNotices(){
   var sorted = _sortedNotices();
   /* Homepage strip — compact list */
@@ -5977,7 +5985,7 @@ function buildNoticesPage(){
       + '<div class="notice-meta">'
       +   (n.pinned ? '<span class="notice-pin-badge">PINNED</span>' : '')
       +   (when ? '<span><b>📅</b> '+escapeHtml(when)+'</span>' : '')
-      +   (n.author ? '<span><b>✍</b> '+escapeHtml(n.author)+'</span>' : '')
+      +   (n.author ? '<span><b>✍</b> '+escapeHtml(_supportLabel(n.author))+'</span>' : '')
       + '</div>'
       + '<div class="notice-title">'+escapeHtml(n.title||'(untitled)')+'</div>'
       + (n.body ? '<div class="notice-body">'+escapeHtml(n.body)+'</div>' : '')
@@ -6342,7 +6350,7 @@ function _applyCmsObject(cms){
   /* Subtle, non-intrusive toast — slides up from the bottom of the
      viewport so user knows admin pushed something new. Auto-hides 3s. */
   function _showLiveUpdateToast(cms){
-    var who = (cms && cms._modifiedBy) ? String(cms._modifiedBy).split('@')[0] : 'admin';
+    var who = _supportLabel(cms && cms._modifiedBy);
     var bar = document.getElementById('_liveUpdateBar');
     if(!bar){
       bar = document.createElement('div');
