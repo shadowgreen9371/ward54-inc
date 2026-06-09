@@ -1669,7 +1669,9 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   background:linear-gradient(135deg,rgba(255,217,168,0.88),rgba(232,130,30,0.88));border:1.5px solid rgba(255,255,255,0.30);
   -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
   box-shadow:0 10px 30px rgba(232,130,30,0.40), inset 0 1px 0 rgba(255,255,255,0.4);
-  transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .25s ease;animation:fabGlow 2.6s ease-in-out infinite;}
+  transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .25s ease, opacity .25s ease;animation:fabGlow 2.6s ease-in-out infinite;
+  opacity:0.5;}
+.install-fab:hover{opacity:1;}
 .install-fab.show{display:inline-flex;transform:translateX(-50%) translateY(0);}
 .install-fab:hover{box-shadow:0 14px 38px rgba(232,130,30,0.6);}
 .install-fab svg{width:17px;height:17px;}
@@ -1806,13 +1808,17 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .mwel-done{width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#1a1410;
   background:linear-gradient(135deg,#ffd9a8,#e8821e);box-shadow:0 8px 22px rgba(232,130,30,0.45);}
 .mwel-done:hover{filter:brightness(1.05);}
-/* Centre the Showcase header (icon + titles as one centred group) */
-.home-sec-inspirations .pa-sec-head{justify-content:center;text-align:center;}
-/* "Ward No. 54 (Kolkata)" — gold sheen matching the homepage hero */
-.gal-ward-title{background:linear-gradient(100deg,#ffffff 0%,#ffe9b6 24%,#f4c869 42%,#ffffff 52%,#f4c869 62%,#ffe9b6 80%,#ffffff 100%);
+/* Showcase header — MAP icon pinned LEFT, title block centred in the card */
+.gal-head{display:block;position:relative;text-align:center;min-height:48px;padding:4px 0 2px;margin:0 0 12px;}
+.gal-head .gal-map-link{position:absolute;left:6px;top:4px;}
+.gal-head-text{text-align:center;}
+/* "Ward No. 54" — bigger, extra-bold, gold sheen matching the homepage hero */
+.gal-ward-title{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(22px,5.4vw,30px);letter-spacing:0.01em;line-height:1.05;
+  background:linear-gradient(100deg,#ffffff 0%,#ffe9b6 24%,#f4c869 42%,#ffffff 52%,#f4c869 62%,#ffe9b6 80%,#ffffff 100%);
   background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
   filter:drop-shadow(0 2px 14px rgba(244,200,105,0.30));animation:wardSheen 6s linear infinite;}
-.gal-ward-title .gal-kolkata{font-size:0.78em;font-weight:700;opacity:0.92;}
+.gal-kolkata-line{font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;
+  color:rgba(229,231,235,0.7);margin-top:1px;}
 /* Galleries sub-title — bold, matches the section's violet accent */
 .gal-subtitle{font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;letter-spacing:0.16em;text-transform:uppercase;margin-top:2px;
   background:linear-gradient(110deg,#c4a3ff,#a855f7 55%,#ec4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
@@ -2548,12 +2554,16 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="home-row home-row-single">
 
       <div class="home-sec home-sec-inspirations">
-        <div class="pa-sec-head">
+        <div class="pa-sec-head gal-head">
           <button type="button" class="pa-sec-ico gal-map-link" onclick="openWardMap()" aria-label="View Ward No. 54 on a satellite map" title="View on satellite map">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <span class="gal-map-tag">MAP</span>
           </button>
-          <div><div class="pa-sec-title gal-ward-title">Ward No. 54 <span class="gal-kolkata">(Kolkata)</span></div><div class="gal-subtitle">Showcase</div></div>
+          <div class="gal-head-text">
+            <div class="pa-sec-title gal-ward-title">Ward No. 54</div>
+            <div class="gal-kolkata-line">Kolkata</div>
+            <div class="gal-subtitle">Showcase</div>
+          </div>
         </div>
 
         <!-- 4 admin-uploadable tiles. Label sits BELOW each tile so it never
@@ -6688,12 +6698,14 @@ function openWardMap(){
     ov.id = 'wardMapModal';
     ov.className = 'wmap-overlay';
     ov.onclick = function(e){ if(e.target===ov) closeWardMap(); };
-    /* t=k → satellite view · output=embed → no API key needed */
-    var embed = 'https://maps.google.com/maps?q='+WARD_LAT+','+WARD_LNG+'&t=k&z=16&hl=en&output=embed';
+    /* t=k → satellite view · z=5 opens at INDIA level so people see the
+       country first, then can zoom right down to the ward · output=embed
+       needs no API key. The ward stays pinned via the q= coordinate. */
+    var embed = 'https://maps.google.com/maps?q='+WARD_LAT+','+WARD_LNG+'(Ward+No.+54+Kolkata)&t=k&z=5&hl=en&output=embed';
     var full  = 'https://www.google.com/maps/search/?api=1&query='+WARD_LAT+','+WARD_LNG;
     ov.innerHTML =
-      '<div class="wmap-card" role="dialog" aria-label="Ward 54 satellite map">'
-      + '<div class="wmap-head"><b>📍 Ward No. 54 · Kolkata (Satellite)</b>'
+      '<div class="wmap-card" role="dialog" aria-label="India satellite map — Ward 54">'
+      + '<div class="wmap-head"><b>🛰️ India · Ward No. 54, Kolkata</b>'
       +   '<button class="wmap-x" onclick="closeWardMap()" aria-label="Close">&times;</button></div>'
       + '<iframe class="wmap-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" '
       +   'src="'+embed+'" allowfullscreen></iframe>'
