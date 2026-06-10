@@ -1207,7 +1207,12 @@ function publishCmsToFirebase(){
   var db = _initCmsFirebase();
   if(!db) return Promise.resolve({ skipped:true, reason:'firebase-not-ready' });
   try{
-    var cms = JSON.parse(localStorage.getItem('ward54.cms') || '{}');
+    /* Prefer the in-memory copy — if the last localStorage write hit the quota,
+       localStorage is stale but _cmsMem holds the real latest data, so Firebase
+       still receives the correct, complete object. */
+    var cms = (typeof _cmsMem !== 'undefined' && _cmsMem)
+      ? _cmsMem
+      : JSON.parse(localStorage.getItem('ward54.cms') || '{}');
     cms._exportedAt = new Date().toISOString();
     cms._exportedBy = (window._adminEmail || 'admin');
     cms._via = 'firebase';
@@ -3037,8 +3042,32 @@ function openAdminPanel(){
    CMS — written to localStorage["ward54.cms"], read by index.html on boot
    ───────────────────────────────────────────────────────────────────────── */
 var CMS_KEY = 'ward54.cms';
-function cmsRead(){ try{ return JSON.parse(localStorage.getItem(CMS_KEY)||'{}'); }catch(e){ return {}; } }
-function cmsWrite(d){ localStorage.setItem(CMS_KEY, JSON.stringify(d)); }
+/* In-memory authoritative copy of the CMS. localStorage has a ~5MB per-origin
+   quota; with many committee/gallery/inspiration photos + a showcase image the
+   object can exceed it, and localStorage.setItem then throws QuotaExceededError.
+   Previously that crashed the save silently (no toast, change lost). Now the
+   in-memory copy is the source of truth on this device, so even when the disk
+   write fails the edit still publishes to Firebase (the real source of truth)
+   and the admin gets a clear warning instead of a silent no-op. */
+var _cmsMem = null;
+function cmsRead(){
+  if(_cmsMem) return _cmsMem;
+  try{ return JSON.parse(localStorage.getItem(CMS_KEY)||'{}'); }catch(e){ return {}; }
+}
+function cmsWrite(d){
+  _cmsMem = d;   /* always keep the latest in memory, even if disk write fails */
+  try{
+    localStorage.setItem(CMS_KEY, JSON.stringify(d));
+    return true;
+  }catch(e){
+    console.warn('cmsWrite: localStorage failed —', e && (e.name||e.message));
+    if(!window._cmsQuotaWarned){
+      window._cmsQuotaWarned = true;
+      try{ showToast('⚠ This device’s storage is full — your change still publishes live, but remove some photos to keep editing smoothly','error'); }catch(_){}
+    }
+    return false;   /* caller still runs autoPublish → Firebase gets the change */
+  }
+}
 
 /* ─────────────────────────────────────────────────────────────────────────
    CHANGE LOG — local audit trail of every admin edit.
