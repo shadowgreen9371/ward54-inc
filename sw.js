@@ -5,7 +5,7 @@
  *     so the app still opens offline with the last-seen data.
  * Bump CACHE_VERSION on every meaningful release to invalidate old caches.
  */
-const CACHE_VERSION = 'ward54-v82';
+const CACHE_VERSION = 'ward54-v83';
 const SHELL_CACHE = CACHE_VERSION + '-shell';
 const DATA_CACHE  = CACHE_VERSION + '-data';
 
