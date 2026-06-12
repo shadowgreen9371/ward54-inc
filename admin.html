@@ -654,6 +654,32 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   .p4-overall-stats{grid-template-columns:1fr 1fr;}
 }
 </style>
+<!-- Native-app GPU safety (see index.html for the full rationale): drop live
+     blur + endless animation loops inside the WebView so it never tears. -->
+<script>
+(function(){
+  try{
+    var C = window.Capacitor;
+    var native = !!(C && (typeof C.isNativePlatform === 'function' ? C.isNativePlatform()
+                          : (C.platform ? C.platform !== 'web' : true)));
+    if(native){
+      var h = document.documentElement;
+      if(h.className.indexOf('native-app') === -1) h.className += ' native-app';
+    }
+  }catch(e){}
+})();
+</script>
+<style>
+  html.native-app *, html.native-app *::before, html.native-app *::after{
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    animation-iteration-count:1 !important;
+    will-change:auto !important;
+  }
+  html.native-app body::before, html.native-app body::after{
+    filter:none !important; animation:none !important;
+  }
+</style>
 </head>
 <body>
 
