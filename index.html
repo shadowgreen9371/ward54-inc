@@ -6803,8 +6803,35 @@ if(typeof logVisit === 'function'){
   else setTimeout(function(){ logVisit(); logSectionView('home'); }, 600);
 }
 
+/* ── Native app (Capacitor) detection ──────────────────────────────────────
+   Inside the installed Android/iOS app the WebView already loads the live
+   site fresh on every launch and keeps its own native cache, so the in-page
+   service worker buys us nothing — and its controllerchange→reload can loop
+   in the Android WebView (the app "blinks" forever). So in the native app we
+   DON'T register a SW, and we actively unregister any that a previous build
+   already installed (which is what was looping). In a normal browser this is
+   false and the full PWA auto-update machine runs as before. */
+var _isNativeApp = (function(){
+  try{
+    if(window.Capacitor){
+      if(typeof window.Capacitor.isNativePlatform === 'function') return window.Capacitor.isNativePlatform();
+      if(window.Capacitor.platform) return window.Capacitor.platform !== 'web';
+      return true;
+    }
+  }catch(e){}
+  return /\bward54app\b/i.test(navigator.userAgent||'');
+})();
+
 /* ── PWA: register service worker for offline + installability ──────────── */
-if('serviceWorker' in navigator){
+if('serviceWorker' in navigator && _isNativeApp){
+  /* Kill any SW a previous build registered — this is the blink-loop source. */
+  try{
+    navigator.serviceWorker.getRegistrations().then(function(regs){
+      regs.forEach(function(r){ try{ r.unregister(); }catch(e){} });
+    }).catch(function(){});
+  }catch(e){}
+}
+else if('serviceWorker' in navigator){
   /* ════════════════════════════════════════════════════════════════
      AUTO-UPDATE MACHINE — zero-touch fresh code on every device
      ────────────────────────────────────────────────────────────────

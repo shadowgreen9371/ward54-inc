@@ -5255,8 +5255,28 @@ buildStations(stations);
 buildBoothGallery();
 buildWardStats();
 
+/* Inside the native app the in-page SW only causes the WebView blink-loop —
+   skip it and unregister any a previous build left behind. */
+var _isNativeApp = (function(){
+  try{
+    if(window.Capacitor){
+      if(typeof window.Capacitor.isNativePlatform === 'function') return window.Capacitor.isNativePlatform();
+      if(window.Capacitor.platform) return window.Capacitor.platform !== 'web';
+      return true;
+    }
+  }catch(e){}
+  return /\bward54app\b/i.test(navigator.userAgent||'');
+})();
+
 /* ── PWA: register service worker + auto-refresh on new version ─────────── */
-if('serviceWorker' in navigator){
+if('serviceWorker' in navigator && _isNativeApp){
+  try{
+    navigator.serviceWorker.getRegistrations().then(function(regs){
+      regs.forEach(function(r){ try{ r.unregister(); }catch(e){} });
+    }).catch(function(){});
+  }catch(e){}
+}
+else if('serviceWorker' in navigator){
   /* AUTO-UPDATE MACHINE (admin) — same as the public page, but the reload
      is GUARDED so it never wipes an admin's half-typed field. If they're
      actively editing an input/textarea when a new version lands, we wait
