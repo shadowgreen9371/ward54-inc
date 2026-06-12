@@ -6825,8 +6825,16 @@ if('serviceWorker' in navigator){
           flash and reload once into the fresh code.
      ════════════════════════════════════════════════════════════════ */
   var _swReloaded = false;
+  /* Was a SW already controlling this page when it loaded? If NOT, the first
+     'controllerchange' is just the initial install claiming an uncontrolled
+     page — NOT an update. Reloading on it causes an endless reload loop in
+     the installed Android WebView (the app "blinks" forever). Only reload
+     when a real update replaces an existing controller. */
+  var _hadController = !!navigator.serviceWorker.controller;
   navigator.serviceWorker.addEventListener('controllerchange', function(){
-    if(_swReloaded) return; _swReloaded = true;
+    if(_swReloaded) return;
+    if(!_hadController){ _hadController = true; return; } /* first claim — no reload */
+    _swReloaded = true;
     try{
       var f = document.createElement('div');
       f.style.cssText = 'position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:rgba(10,15,30,0.86);backdrop-filter:blur(6px);color:#fff;font:600 15px -apple-system,system-ui,sans-serif;letter-spacing:0.3px;';

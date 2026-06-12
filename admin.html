@@ -5262,6 +5262,10 @@ if('serviceWorker' in navigator){
      actively editing an input/textarea when a new version lands, we wait
      until they click away or the tab is backgrounded, then refresh. */
   var _swReloaded = false;
+  /* Only reload on a genuine update (an existing controller got replaced),
+     never on the first SW claiming an uncontrolled page — that loop makes
+     the installed app blink forever. */
+  var _hadController = !!navigator.serviceWorker.controller;
   function _isEditing(){
     var a = document.activeElement;
     if(!a) return false;
@@ -5270,6 +5274,7 @@ if('serviceWorker' in navigator){
   }
   function _doGuardedReload(){
     if(_swReloaded) return;
+    if(!_hadController){ _hadController = true; return; } /* first claim — no reload */
     if(_isEditing()){
       /* defer until they stop editing */
       document.addEventListener('focusout', _doGuardedReload, { once:true });
