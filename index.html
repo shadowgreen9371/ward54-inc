@@ -2469,32 +2469,73 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 })();
 </script>
 <style>
-  /* Remove the live blur — backdrop-filter re-composites on every scroll and
-     is a tear source in the WebView. (Cheap transform/gradient animations are
-     fine and stay, so the UI keeps its life.) */
+  /* ════════════════════════════════════════════════════════════════════
+     ADVANCED NATIVE-APP DESIGN  (only active inside the installed app)
+     Goal: a premium, App-Store-grade mobile feel that is also GPU-light so
+     the WebView never tears. Browsers never see any of this.
+     ════════════════════════════════════════════════════════════════════ */
+
+  /* ── 1. GPU safety — no live blur, de-blur the big animated glow layers ── */
   html.native-app *, html.native-app *::before, html.native-app *::after{
     -webkit-backdrop-filter:none !important;
     backdrop-filter:none !important;
     will-change:auto !important;
   }
-  /* The glass bars leaned on that blur for separation — make them solid so they
-     stay crisp and readable without it (otherwise they wash into the bg). */
+  html.native-app .p1-orb, html.native-app .p1-spin, html.native-app .pf-glow,
+  html.native-app .page-fx, html.native-app [class*="orb"], html.native-app [class*="glow"]{
+    filter:none !important; animation:none !important; opacity:0.09 !important;
+  }
+
+  /* ── 2. Native chrome & feel ── */
+  html.native-app{
+    -webkit-tap-highlight-color:transparent;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  html.native-app *{ -webkit-touch-callout:none; }
+  html.native-app body{ overscroll-behavior-y:none; }
+  /* Let users still select real text in content areas, just not chrome */
+  html.native-app .hero-cta, html.native-app .topbar, html.native-app .entry-bar,
+  html.native-app button{ -webkit-user-select:none; user-select:none; }
+  /* The web "Install App" pill is meaningless inside the app — hide it */
+  html.native-app .install-fab{ display:none !important; }
+
+  /* ── 3. Safe-area insets — keep content clear of the notch / status bar &
+        the gesture bar, so nothing hides under the phone's system UI ── */
+  html.native-app #p1 .p1-content{ padding-top:calc(20px + env(safe-area-inset-top)) !important; }
+  html.native-app .topbar{
+    padding-top:calc(13px + env(safe-area-inset-top)) !important;
+    background:linear-gradient(180deg, #0c1424 0%, var(--navy2) 100%) !important;
+  }
+  html.native-app .page{ padding-bottom:env(safe-area-inset-bottom); }
+
+  /* ── 4. Premium menu bars — solid, deep, each themed to its section ── */
   html.native-app .hero-cta{
-    background:linear-gradient(180deg, rgba(26,32,58,0.97), rgba(13,17,34,0.97)) !important;
+    background:linear-gradient(180deg, rgba(27,34,62,0.98), rgba(13,17,34,0.99)) !important;
+    box-shadow:0 10px 26px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07) !important;
+    border-radius:16px !important;
   }
-  /* The actual green-line tear source: large ANIMATED blur layers — drifting
-     orbs (blur 80px), page glows (blur 110px), the spinner. De-blur + freeze
-     them; keep them as a faint static tint. */
-  html.native-app .p1-orb,
-  html.native-app .p1-spin,
-  html.native-app .pf-glow,
-  html.native-app .page-fx,
-  html.native-app [class*="orb"],
-  html.native-app [class*="glow"]{
-    filter:none !important;
-    animation:none !important;
-    opacity:0.10 !important;
-  }
+  /* A tasteful colour wash from the icon side, matched to each section */
+  html.native-app .hero-cta-committee{
+    background:linear-gradient(108deg, rgba(201,168,76,0.20) 0%, rgba(27,34,62,0.98) 44%, rgba(13,17,34,0.99) 100%) !important; }
+  html.native-app .hero-cta-stations{
+    background:linear-gradient(108deg, rgba(232,130,30,0.20) 0%, rgba(27,34,62,0.98) 44%, rgba(13,17,34,0.99) 100%) !important; }
+  html.native-app .hero-cta-agents{
+    background:linear-gradient(108deg, rgba(59,130,246,0.22) 0%, rgba(27,34,62,0.98) 44%, rgba(13,17,34,0.99) 100%) !important; }
+  html.native-app .hero-cta-membership{
+    background:linear-gradient(108deg, rgba(26,170,90,0.22) 0%, rgba(27,34,62,0.98) 44%, rgba(13,17,34,0.99) 100%) !important; }
+  html.native-app .hero-cta-notices{
+    background:linear-gradient(108deg, rgba(239,80,80,0.20) 0%, rgba(27,34,62,0.98) 44%, rgba(13,17,34,0.99) 100%) !important; }
+
+  /* ── 5. Tactile feedback — press-down on tap (hover doesn't exist on touch,
+        and a stuck :hover looks broken, so neutralise lift + add :active) ── */
+  html.native-app .hero-cta:hover, html.native-app .entry-bar:hover{ transform:none !important; }
+  html.native-app .hero-cta:active{ transform:scale(0.972) !important; transition:transform .11s ease !important; }
+  html.native-app .entry-bar:active,
+  html.native-app .back-btn:active,
+  html.native-app button:active{ transform:scale(0.96) !important; transition:transform .11s ease !important; }
+  html.native-app .find-booth-cta:active, html.native-app .gal-tile:active, html.native-app .inspo-item:active{
+    transform:scale(0.97) !important; transition:transform .11s ease !important; }
 </style>
 </head>
 <body>
