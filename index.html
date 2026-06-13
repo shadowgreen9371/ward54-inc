@@ -2469,23 +2469,31 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 })();
 </script>
 <style>
-  /* Kill the live blur (backdrop-filter re-composites on every scroll → tears) */
+  /* Remove the live blur — backdrop-filter re-composites on every scroll and
+     is a tear source in the WebView. (Cheap transform/gradient animations are
+     fine and stay, so the UI keeps its life.) */
   html.native-app *, html.native-app *::before, html.native-app *::after{
     -webkit-backdrop-filter:none !important;
     backdrop-filter:none !important;
-    /* Stop endless animation loops repainting blurred/gradient layers forever.
-       Entrance reveals still play once and settle (fill:both keeps final state). */
-    animation-iteration-count:1 !important;
     will-change:auto !important;
   }
-  /* Neutralise the big full-screen decorative blur layers (orbs/glows/bg) that
-     are the main source of the green-line tearing. */
-  html.native-app .home-sec-inspirations::before,
-  html.native-app .home-sec-inspirations::after,
-  html.native-app body::before,
-  html.native-app body::after{
+  /* The glass bars leaned on that blur for separation — make them solid so they
+     stay crisp and readable without it (otherwise they wash into the bg). */
+  html.native-app .hero-cta{
+    background:linear-gradient(180deg, rgba(26,32,58,0.97), rgba(13,17,34,0.97)) !important;
+  }
+  /* The actual green-line tear source: large ANIMATED blur layers — drifting
+     orbs (blur 80px), page glows (blur 110px), the spinner. De-blur + freeze
+     them; keep them as a faint static tint. */
+  html.native-app .p1-orb,
+  html.native-app .p1-spin,
+  html.native-app .pf-glow,
+  html.native-app .page-fx,
+  html.native-app [class*="orb"],
+  html.native-app [class*="glow"]{
     filter:none !important;
     animation:none !important;
+    opacity:0.10 !important;
   }
 </style>
 </head>

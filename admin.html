@@ -673,11 +673,11 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
   html.native-app *, html.native-app *::before, html.native-app *::after{
     -webkit-backdrop-filter:none !important;
     backdrop-filter:none !important;
-    animation-iteration-count:1 !important;
     will-change:auto !important;
   }
-  html.native-app body::before, html.native-app body::after{
-    filter:none !important; animation:none !important;
+  html.native-app .p1-orb, html.native-app .p1-spin, html.native-app .pf-glow,
+  html.native-app .page-fx, html.native-app [class*="orb"], html.native-app [class*="glow"]{
+    filter:none !important; animation:none !important; opacity:0.10 !important;
   }
 </style>
 </head>
