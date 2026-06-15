@@ -2667,19 +2667,19 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <!-- 4 admin-uploadable tiles. Label sits BELOW each tile so it never
              clips. Backgrounds filled by buildInspirations(). -->
         <div class="inspo-grid inspo-grid-mini" id="home-inspo-grid">
-          <div class="inspo-item" onclick="openInspoModal()" role="button" aria-label="Images">
+          <div class="inspo-item" onclick="openInspoModal(0)" role="button" aria-label="Images">
             <div class="inspo-tile inspo-tile-1" id="inspo-tile-0"></div>
             <div class="inspo-cap" id="inspo-cap-0">Images</div>
           </div>
-          <div class="inspo-item" onclick="openInspoModal()" role="button" aria-label="Video Panel">
+          <div class="inspo-item" onclick="openInspoModal(1)" role="button" aria-label="Video Panel">
             <div class="inspo-tile inspo-tile-2" id="inspo-tile-1"></div>
             <div class="inspo-cap" id="inspo-cap-1">Video Panel</div>
           </div>
-          <div class="inspo-item" onclick="openInspoModal()" role="button" aria-label="Members Moments">
+          <div class="inspo-item" onclick="openInspoModal(2)" role="button" aria-label="Members Moments">
             <div class="inspo-tile inspo-tile-3" id="inspo-tile-2"></div>
             <div class="inspo-cap" id="inspo-cap-2">Members Moments</div>
           </div>
-          <div class="inspo-item" onclick="openInspoModal()" role="button" aria-label="In Community">
+          <div class="inspo-item" onclick="openInspoModal(3)" role="button" aria-label="In Community">
             <div class="inspo-tile inspo-tile-4" id="inspo-tile-3"></div>
             <div class="inspo-cap" id="inspo-cap-3">In Community</div>
           </div>
@@ -6824,16 +6824,30 @@ function openWardMap(){
 }
 function closeWardMap(){ var ov=document.getElementById('wardMapModal'); if(ov) ov.classList.remove('show'); }
 
-function openInspoModal(){
+function openInspoModal(i){
   var m=document.getElementById('inspoModal'); if(!m) return;
-  /* Lazy build of gallery contents on first open */
+  /* Each Showcase tile (Images / Video Panel / Members Moments / In Community)
+     keeps its OWN data in inspirationsList[i] = {img, caption}. Open the modal
+     showing only the content uploaded for the tile that was tapped. */
+  i = (typeof i === 'number' && i >= 0) ? i : 0;
+  var item = (Array.isArray(inspirationsList) && inspirationsList[i]) ? inspirationsList[i] : null;
+  var cap  = (item && item.caption) ? item.caption : (INSPO_DEFAULT_CAPS[i] || 'Showcase');
+  /* Title reflects the tapped category */
+  var titleEl = m.querySelector('.inspo-modal-title');
+  if(titleEl) titleEl.innerHTML = '<b>'+escapeHtml(cap)+'</b> &middot; Ward 54 Showcase';
+  /* Body: that tile's uploaded media (or a per-tile empty state) */
   var el=document.getElementById('home-gallery');
-  if(el && !el.dataset.built){
-    try{ buildGallery(); }catch(e){}
-    if(!el.innerHTML || /pa-empty/.test(el.innerHTML)){
-      el.innerHTML = '<div class="inspo-modal-empty">Gallery is curated and managed from the admin panel.<br>Photos of leaders, rallies and ward moments will appear here.</div>';
+  if(el){
+    if(item && item.img){
+      el.innerHTML = '<div class="inspo-view-item" style="grid-column:1/-1;">'
+        + '<img src="'+escapeHtml(item.img)+'" alt="'+escapeHtml(cap)+'" '
+        +   'style="width:100%;max-height:70vh;object-fit:contain;border-radius:12px;display:block;background:#0a0f1e;">'
+        + '</div>';
+    } else {
+      el.innerHTML = '<div class="inspo-modal-empty" style="grid-column:1/-1;">'
+        + 'Nothing uploaded yet for <b>'+escapeHtml(cap)+'</b>.<br>'
+        + 'Add it from the Admin panel → Inspirations → '+escapeHtml(cap)+'.</div>';
     }
-    el.dataset.built = '1';
   }
   m.classList.add('open'); m.setAttribute('aria-hidden','false');
 }
