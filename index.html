@@ -1930,12 +1930,14 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .inspo-modal-close:hover{background:rgba(168,85,247,0.18);color:#fff;}
 .inspo-modal-grid{overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding-right:4px;}
 .inspo-modal-empty{padding:30px;text-align:center;color:var(--text3);font-size:13px;line-height:1.5;}
-/* Showcase viewer grid — force a real phone-gallery layout (3-up on mobile) */
-#home-gallery{grid-template-columns:repeat(auto-fill,minmax(92px,1fr)) !important;gap:8px !important;align-content:start;}
-/* Gallery cells inside the Showcase viewer (phone-gallery style grid) */
-.inspo-cell{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#0a0f1e;cursor:pointer;border:1px solid rgba(255,255,255,0.06);transition:transform .15s ease;}
-.inspo-cell:active{transform:scale(0.96);}
-.inspo-cell-vid{background:linear-gradient(135deg,#1e293b,#0b1120);}
+/* Showcase viewer — MASONRY (Pinterest): 2 columns, photos at natural height */
+#home-gallery{display:block !important;grid-template-columns:none !important;column-count:2;column-gap:8px;}
+@media(min-width:560px){ #home-gallery{column-count:3;} }
+/* Gallery cells — natural-proportion masonry tiles */
+.inspo-cell{position:relative;display:block;width:100%;break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 8px;border-radius:12px;overflow:hidden;background:#0a0f1e;cursor:pointer;border:1px solid rgba(255,255,255,0.06);transition:transform .15s ease;}
+.inspo-cell:active{transform:scale(0.97);}
+.inspo-cell img{width:100%;height:auto;display:block;}
+.inspo-cell-vid{aspect-ratio:16/9;background:linear-gradient(135deg,#1e293b,#0b1120);}
 .inspo-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;z-index:2;}
 .inspo-play svg{width:34px;height:34px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));opacity:0.95;}
 .inspo-cell-vid::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center, rgba(0,0,0,0.15), rgba(0,0,0,0.45));z-index:1;}
@@ -6884,12 +6886,12 @@ function openInspoModal(i){
     if(items.length){
       el.innerHTML = items.map(function(it,idx){
         if(it && it.t==='vid'){
-          var poster = it.thumb ? '<img src="'+escapeHtml(it.thumb)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' : '';
+          var poster = it.thumb ? '<img src="'+escapeHtml(it.thumb)+'" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">' : '';
           return '<div class="inspo-cell inspo-cell-vid" role="button" onclick="openInspoVideo('+idx+')">'+poster
                + '<span class="inspo-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>';
         }
         return '<div class="inspo-cell" role="button" onclick="openInspoLightbox('+idx+')">'
-             + '<img src="'+escapeHtml(it.src)+'" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>';
+             + '<img src="'+escapeHtml(it.src)+'" loading="lazy" decoding="async"></div>';
       }).join('');
     } else {
       el.innerHTML = '<div class="inspo-modal-empty" style="grid-column:1/-1;">'
