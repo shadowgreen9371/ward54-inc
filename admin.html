@@ -4224,33 +4224,71 @@ function deleteGalleryItem(i){ var l=getGallery().slice(); if(!l[i])return; if(!
 function onGalleryPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)return; showToast('Processing photo…');
   processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getGallery().slice(); if(!l[i])return; var e=document.querySelector('[data-gl-field="caption"][data-gl-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim(); l[i].photo=dataUrl; setGallery(l); buildAdminGalleryList(); showToast('Photo saved'); }); input.value=''; }
 
-/* ---- Inspirations (homepage 4 tiles) ----
-   Fixed 4 slots. cms.inspirations = [{img, caption}, x4]. */
+/* ---- Inspirations / Showcase (homepage 4 tiles) ----
+   Each of the 4 tiles is now a GALLERY holding many items:
+     cms.inspirations[i] = { caption, items:[ {t:'img',src} | {t:'vid',src} ] }
+   Photos are uploaded (compressed). Videos are added by LINK (YouTube /
+   Facebook / Instagram / .mp4) — video files are far too big to store in the
+   CMS, so we keep a link and open it in the viewer. Legacy {img,caption} is
+   migrated to a single image item automatically. */
 var INSPO_CAPS = ['Images','Video Panel','Members Moments','In Community'];
-function getInspirations(){ var d=cmsRead(); var l=Array.isArray(d.inspirations)?d.inspirations.slice():[]; while(l.length<4) l.push({img:null,caption:INSPO_CAPS[l.length]}); return l.slice(0,4); }
+function _inspoNorm(g,i){
+  g = g || {};
+  var items = Array.isArray(g.items) ? g.items.slice() : [];
+  if(!items.length && g.img) items = [{t:'img', src:g.img}];
+  return { caption:(g.caption||INSPO_CAPS[i]), items:items };
+}
+function getInspirations(){ var d=cmsRead(); var raw=Array.isArray(d.inspirations)?d.inspirations:[]; var out=[]; for(var i=0;i<4;i++) out.push(_inspoNorm(raw[i],i)); return out; }
 function setInspirations(list){ cmsPatch('inspirations', list); }
+function _captureInspoCaption(l,i){ var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; }
+function _vidHost(u){ u=String(u||''); if(/youtu/i.test(u))return'YouTube'; if(/facebook|fb\.watch/i.test(u))return'Facebook'; if(/instagram/i.test(u))return'Instagram'; if(/\.mp4/i.test(u))return'Video'; return'Link'; }
 function buildAdminInspoList(){
   var el=document.getElementById('adminInspoList'); if(!el) return;
   var list=getInspirations();
-  el.innerHTML='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">'
+  el.innerHTML='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">'
     + list.map(function(g,i){
-      var img=g.img?'<img src="'+g.img+'" style="width:100%;height:100%;object-fit:cover;">':'<div style="display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--text3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:24px;height:24px;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span style="font-size:10px;">Tap to upload</span></div>';
-      return '<div style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;">'
-        + '<label style="display:flex;align-items:center;justify-content:center;height:128px;cursor:pointer;background:var(--navy);overflow:hidden;position:relative;">'+img+'<input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="onInspoPhotoPick('+i+',this)"></label>'
-        + '<div style="padding:7px;">'
-        +   '<input class="form-input" data-insp-field="caption" data-insp-idx="'+i+'" value="'+escapeAttr(g.caption||INSPO_CAPS[i])+'" placeholder="Caption" style="padding:5px 7px;font-size:11px;width:100%;">'
-        +   '<div style="display:flex;gap:6px;margin-top:6px;">'
-        +     '<button class="btn btn-sm" style="flex:1;background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:4px;font-size:10px;" onclick="saveInspoSlot('+i+')">Save</button>'
-        +     (g.img?'<button class="btn btn-sm" style="flex:1;background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:4px;font-size:10px;" onclick="clearInspoSlot('+i+')">Remove img</button>':'')
-        +   '</div>'
+      var thumbs = g.items.length ? g.items.map(function(it,idx){
+        var inner = (it.t==='vid')
+          ? '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:2px;color:#fff;background:linear-gradient(135deg,#1e293b,#0b1120);"><span style="font-size:15px;">&#9654;</span><span style="font-size:8px;opacity:.85;">'+_vidHost(it.src)+'</span></div>'
+          : '<img src="'+it.src+'" style="width:100%;height:100%;object-fit:cover;">';
+        return '<div style="position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--navy);border:1px solid var(--border);">'+inner
+             + '<button title="Remove" onclick="removeInspoItem('+i+','+idx+')" style="position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;border:none;background:rgba(220,38,38,0.92);color:#fff;font-size:11px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;">&times;</button>'
+             + '</div>';
+      }).join('') : '<div style="grid-column:1/-1;color:var(--text3);font-size:11px;text-align:center;padding:14px 0;">No items yet — add photos or a video link below</div>';
+      return '<div style="background:var(--navy3);border:1px solid var(--border);border-radius:var(--r2);padding:10px;">'
+        + '<input class="form-input" data-insp-field="caption" data-insp-idx="'+i+'" value="'+escapeAttr(g.caption||INSPO_CAPS[i])+'" placeholder="Tile title" style="padding:6px 8px;font-size:12px;width:100%;font-weight:700;">'
+        + '<div style="font-size:10px;color:var(--text3);margin:7px 0 5px;">'+g.items.length+' item'+(g.items.length===1?'':'s')+'</div>'
+        + '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;">'+thumbs+'</div>'
+        + '<div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap;">'
+        +   '<label class="btn btn-sm" style="flex:1;min-width:84px;background:rgba(16,185,129,0.10);color:var(--green2);border:1px solid rgba(16,185,129,0.30);padding:5px;font-size:10px;cursor:pointer;text-align:center;">+ Photos<input type="file" accept="image/*" multiple style="display:none;" onchange="onInspoAddPhotos('+i+',this)"></label>'
+        +   '<button class="btn btn-sm" style="flex:1;min-width:84px;background:rgba(59,130,246,0.10);color:#7db4ff;border:1px solid rgba(59,130,246,0.30);padding:5px;font-size:10px;" onclick="onInspoAddVideo('+i+')">+ Video link</button>'
+        +   '<button class="btn btn-sm" style="flex:0 0 auto;background:rgba(201,168,76,0.12);color:var(--gold2);border:1px solid rgba(201,168,76,0.32);padding:5px 10px;font-size:10px;" onclick="saveInspoSlot('+i+')">Save title</button>'
         + '</div></div>';
     }).join('')
     + '</div>';
 }
-function onInspoPhotoPick(i,input){ var f=input.files&&input.files[0]; if(!f)return; showToast('Processing photo…');
-  processGalleryPhoto(f,function(dataUrl,err){ if(err){showToast(err,'error');return;} var l=getInspirations(); var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; l[i].img=dataUrl; setInspirations(l); buildAdminInspoList(); showToast('Inspiration image saved'); }); input.value=''; }
-function saveInspoSlot(i){ var l=getInspirations(); var e=document.querySelector('[data-insp-field="caption"][data-insp-idx="'+i+'"]'); if(e) l[i].caption=e.value.trim()||INSPO_CAPS[i]; setInspirations(l); showToast('Saved'); buildAdminInspoList(); }
-function clearInspoSlot(i){ if(!confirm('Remove this image?'))return; var l=getInspirations(); l[i].img=null; setInspirations(l); buildAdminInspoList(); showToast('Image removed'); }
+function onInspoAddPhotos(i,input){
+  var files = input.files ? Array.prototype.slice.call(input.files) : [];
+  if(!files.length) return;
+  showToast('Processing '+files.length+' photo'+(files.length===1?'':'s')+'…');
+  var l=getInspirations(); _captureInspoCaption(l,i); var added=0;
+  (function next(k){
+    if(k>=files.length){ setInspirations(l); buildAdminInspoList(); showToast(added+' photo'+(added===1?'':'s')+' added'); return; }
+    processGalleryPhoto(files[k], function(dataUrl,err){
+      if(!err && dataUrl){ l[i].items.push({t:'img', src:dataUrl}); added++; }
+      next(k+1);
+    });
+  })(0);
+  input.value='';
+}
+function onInspoAddVideo(i){
+  var url = prompt('Paste a video link (YouTube, Facebook, Instagram, or a direct .mp4 link):');
+  if(url===null) return; url=String(url).trim();
+  if(!/^https?:\/\//i.test(url)){ showToast('Enter a full link starting with https://','error'); return; }
+  var l=getInspirations(); _captureInspoCaption(l,i); l[i].items.push({t:'vid', src:url}); setInspirations(l); buildAdminInspoList(); showToast('Video link added');
+}
+function removeInspoItem(i,idx){ var l=getInspirations(); if(!l[i].items[idx])return; if(!confirm('Remove this item?'))return; _captureInspoCaption(l,i); l[i].items.splice(idx,1); setInspirations(l); buildAdminInspoList(); showToast('Removed'); }
+function saveInspoSlot(i){ var l=getInspirations(); _captureInspoCaption(l,i); setInspirations(l); showToast('Saved'); buildAdminInspoList(); }
 
 /* ---- Showcase background photo (e.g. committee hall) ---- */
 function getShowcaseBg(){ var d=cmsRead(); return typeof d.showcaseBg==='string'?d.showcaseBg:''; }

@@ -1930,6 +1930,25 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .inspo-modal-close:hover{background:rgba(168,85,247,0.18);color:#fff;}
 .inspo-modal-grid{overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding-right:4px;}
 .inspo-modal-empty{padding:30px;text-align:center;color:var(--text3);font-size:13px;line-height:1.5;}
+/* Showcase viewer grid — force a real phone-gallery layout (3-up on mobile) */
+#home-gallery{grid-template-columns:repeat(auto-fill,minmax(92px,1fr)) !important;gap:8px !important;align-content:start;}
+/* Gallery cells inside the Showcase viewer (phone-gallery style grid) */
+.inspo-cell{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#0a0f1e;cursor:pointer;border:1px solid rgba(255,255,255,0.06);transition:transform .15s ease;}
+.inspo-cell:active{transform:scale(0.96);}
+.inspo-cell-vid{background:linear-gradient(135deg,#1e293b,#0b1120);}
+.inspo-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;z-index:2;}
+.inspo-play svg{width:34px;height:34px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.6));opacity:0.95;}
+.inspo-cell-vid::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center, rgba(0,0,0,0.15), rgba(0,0,0,0.45));z-index:1;}
+/* Count pill on the home tiles ("12") */
+.inspo-count{position:absolute;top:6px;right:6px;z-index:3;min-width:20px;height:20px;padding:0 6px;border-radius:999px;
+  background:rgba(10,15,30,0.82);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:11px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;line-height:1;backdrop-filter:blur(4px);}
+html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95);}
+/* Full-screen photo lightbox */
+.inspo-lightbox{position:fixed;inset:0;z-index:1700;background:rgba(0,0,0,0.93);display:none;align-items:center;justify-content:center;padding:18px;}
+.inspo-lightbox.open{display:flex;animation:fbModalIn .2s ease both;}
+.inspo-lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;}
+.inspo-lightbox-x{position:fixed;top:16px;right:20px;color:#fff;font-size:34px;line-height:1;opacity:0.85;}
 /* scroll cue at the bottom of the hero (kept for legacy markup; hidden if .live-strip present) */
 .scroll-cue{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:14px;color:var(--gold2);
   font-size:10px;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;opacity:0.85;animation:cueBob 2s ease-in-out infinite;}
@@ -6316,6 +6335,20 @@ function buildGallery(){
    0 Vision · 1 Rally · 2 Members Moments · 3 Service. Each tile fills its
    background with the uploaded image; caption text is preserved/overridden. */
 var INSPO_DEFAULT_CAPS = ['Images','Video Panel','Members Moments','In Community'];
+/* Each Showcase tile is a gallery of items: {t:'img',src} | {t:'vid',src}.
+   Legacy single {img} is treated as one image item. */
+function _inspoItems(g){
+  if(!g) return [];
+  if(Array.isArray(g.items)) return g.items;
+  if(g.img) return [{t:'img', src:g.img}];
+  return [];
+}
+function _inspoCover(g){
+  var it=_inspoItems(g);
+  for(var k=0;k<it.length;k++){ if(it[k].t!=='vid' && it[k].src) return it[k].src; }
+  for(var j=0;j<it.length;j++){ if(it[j].thumb) return it[j].thumb; }
+  return null;
+}
 function buildInspirations(){
   /* faint background photo on the Showcase card */
   var card = document.querySelector('.home-sec-inspirations');
@@ -6328,13 +6361,15 @@ function buildInspirations(){
     if(!tile) continue;
     var item = (Array.isArray(inspirationsList) && inspirationsList[i]) ? inspirationsList[i] : null;
     var cap  = (item && item.caption) ? item.caption : INSPO_DEFAULT_CAPS[i];
-    /* remove any previously-set image layer */
-    var oldImg = tile.querySelector('img.inspo-img');
-    if(oldImg) oldImg.remove();
-    if(item && item.img){
+    var cover = _inspoCover(item);
+    var count = _inspoItems(item).length;
+    /* remove any previously-set image layer + count badge */
+    var oldImg = tile.querySelector('img.inspo-img'); if(oldImg) oldImg.remove();
+    var oldBadge = tile.querySelector('.inspo-count'); if(oldBadge) oldBadge.remove();
+    if(cover){
       var img = document.createElement('img');
       img.className = 'inspo-img';
-      img.src = item.img;
+      img.src = cover;
       img.alt = cap;
       img.loading = 'lazy';
       img.decoding = 'async';
@@ -6343,6 +6378,13 @@ function buildInspirations(){
       tile.classList.add('has-img');
     } else {
       tile.classList.remove('has-img');
+    }
+    /* small "12" pill showing how many items are inside the gallery */
+    if(count > 1){
+      var b = document.createElement('span');
+      b.className = 'inspo-count';
+      b.textContent = count;
+      tile.appendChild(b);
     }
     var capEl = document.getElementById('inspo-cap-'+i);
     if(capEl) capEl.textContent = cap;
@@ -6824,32 +6866,53 @@ function openWardMap(){
 }
 function closeWardMap(){ var ov=document.getElementById('wardMapModal'); if(ov) ov.classList.remove('show'); }
 
+var _inspoCurrent = 0;
 function openInspoModal(i){
   var m=document.getElementById('inspoModal'); if(!m) return;
-  /* Each Showcase tile (Images / Video Panel / Members Moments / In Community)
-     keeps its OWN data in inspirationsList[i] = {img, caption}. Open the modal
-     showing only the content uploaded for the tile that was tapped. */
+  /* Each Showcase tile is its OWN gallery: inspirationsList[i].items = [
+     {t:'img',src} | {t:'vid',src} ]. Show that tile's items as a phone-style
+     gallery grid — tap a photo to view it big, tap a video to play it. */
   i = (typeof i === 'number' && i >= 0) ? i : 0;
-  var item = (Array.isArray(inspirationsList) && inspirationsList[i]) ? inspirationsList[i] : null;
-  var cap  = (item && item.caption) ? item.caption : (INSPO_DEFAULT_CAPS[i] || 'Showcase');
-  /* Title reflects the tapped category */
+  _inspoCurrent = i;
+  var item  = (Array.isArray(inspirationsList) && inspirationsList[i]) ? inspirationsList[i] : null;
+  var cap   = (item && item.caption) ? item.caption : (INSPO_DEFAULT_CAPS[i] || 'Showcase');
+  var items = _inspoItems(item);
   var titleEl = m.querySelector('.inspo-modal-title');
-  if(titleEl) titleEl.innerHTML = '<b>'+escapeHtml(cap)+'</b> &middot; Ward 54 Showcase';
-  /* Body: that tile's uploaded media (or a per-tile empty state) */
+  if(titleEl) titleEl.innerHTML = '<b>'+escapeHtml(cap)+'</b> &middot; '+items.length+' item'+(items.length===1?'':'s');
   var el=document.getElementById('home-gallery');
   if(el){
-    if(item && item.img){
-      el.innerHTML = '<div class="inspo-view-item" style="grid-column:1/-1;">'
-        + '<img src="'+escapeHtml(item.img)+'" alt="'+escapeHtml(cap)+'" '
-        +   'style="width:100%;max-height:70vh;object-fit:contain;border-radius:12px;display:block;background:#0a0f1e;">'
-        + '</div>';
+    if(items.length){
+      el.innerHTML = items.map(function(it,idx){
+        if(it && it.t==='vid'){
+          var poster = it.thumb ? '<img src="'+escapeHtml(it.thumb)+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' : '';
+          return '<div class="inspo-cell inspo-cell-vid" role="button" onclick="openInspoVideo('+idx+')">'+poster
+               + '<span class="inspo-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>';
+        }
+        return '<div class="inspo-cell" role="button" onclick="openInspoLightbox('+idx+')">'
+             + '<img src="'+escapeHtml(it.src)+'" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;"></div>';
+      }).join('');
     } else {
       el.innerHTML = '<div class="inspo-modal-empty" style="grid-column:1/-1;">'
-        + 'Nothing uploaded yet for <b>'+escapeHtml(cap)+'</b>.<br>'
-        + 'Add it from the Admin panel → Inspirations → '+escapeHtml(cap)+'.</div>';
+        + 'Nothing here yet for <b>'+escapeHtml(cap)+'</b>.<br>'
+        + 'Add photos or video links from the Admin panel → Inspirations.</div>';
     }
   }
   m.classList.add('open'); m.setAttribute('aria-hidden','false');
+}
+/* Tap a photo → full-screen lightbox (tap anywhere to close) */
+function openInspoLightbox(idx){
+  var items=_inspoItems(inspirationsList[_inspoCurrent]); var it=items[idx]; if(!it||!it.src)return;
+  var ov=document.getElementById('inspoLightbox');
+  if(!ov){ ov=document.createElement('div'); ov.id='inspoLightbox'; ov.className='inspo-lightbox';
+    ov.addEventListener('click', function(){ ov.classList.remove('open'); ov.innerHTML=''; });
+    document.body.appendChild(ov); }
+  ov.innerHTML='<img src="'+escapeHtml(it.src)+'" alt=""><span class="inspo-lightbox-x">&times;</span>';
+  ov.classList.add('open');
+}
+/* Tap a video → open the link (YouTube / FB / IG / mp4) */
+function openInspoVideo(idx){
+  var items=_inspoItems(inspirationsList[_inspoCurrent]); var it=items[idx]; if(!it||!it.src)return;
+  try{ window.open(it.src,'_blank','noopener'); }catch(e){ location.href=it.src; }
 }
 function closeInspoModal(){
   var m=document.getElementById('inspoModal'); if(!m) return;
