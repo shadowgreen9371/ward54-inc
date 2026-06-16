@@ -52,3 +52,9 @@ mobile/ios/App/Pods/
 mobile/ios/App/Podfile.lock
 mobile/ios/DerivedData/
 mobile/ios/.DS_Store
+
+# Hostinger deploy credentials (never commit)
+grihine-soap/.deploy.env
+
+# Nested standalone repo (own git history, own GitHub repo)
+grihine-soap/
