@@ -58,3 +58,11 @@ grihine-soap/.deploy.env
 
 # Nested standalone repo (own git history, own GitHub repo)
 grihine-soap/
+
+# Android/iOS build artifacts + signing keystore — NEVER commit (secrets)
+mobile/release/
+mobile/ios/App/App.xcworkspace/xcshareddata/
+
+# Separate project living in this folder (has its own repo)
+apps/phone-workstation/
+data/phone_db_schema.sql
