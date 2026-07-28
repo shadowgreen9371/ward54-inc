@@ -2438,6 +2438,40 @@ html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95)
   .mship-lineage{padding:20px 14px;}
 }
 
+/* ── Membership: tier ladder, leaderboard & referral card ── */
+.mship-tiers-card,.mship-lb-card{background:linear-gradient(180deg,rgba(22,28,52,0.75),rgba(11,15,30,0.7));
+  border:1px solid var(--border2);border-radius:18px;padding:18px 16px;margin-bottom:18px;}
+.mship-tiers-head,.mship-lb-head{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:#fff;}
+.mship-tiers-head span{background:linear-gradient(100deg,#FF9933,#FFD089 50%,#3bd17a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.mship-tiers-sub,.mship-lb-sub{font-size:12px;color:var(--text3);margin:4px 0 14px;}
+.mship-tier-ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.mtier{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 8px;text-align:center;position:relative;overflow:hidden;}
+.mtier::before{content:'';position:absolute;left:0;top:0;height:100%;width:3px;background:var(--tc);}
+.mtier-dot{width:12px;height:12px;border-radius:50%;background:var(--tc);margin:0 auto 8px;box-shadow:0 0 10px var(--tc);}
+.mtier-name{font-size:11.5px;font-weight:800;color:#fff;line-height:1.2;}
+.mtier-need{font-size:9.5px;color:var(--text3);margin-top:4px;letter-spacing:0.02em;}
+@media(max-width:560px){ .mship-tier-ladder{grid-template-columns:repeat(2,1fr);} }
+.mship-lb-list{display:flex;flex-direction:column;gap:7px;}
+.lb-row{display:grid;grid-template-columns:34px 1fr auto auto;align-items:center;gap:10px;
+  background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 12px;}
+.lb-rank{font-size:16px;font-weight:900;color:var(--gold);text-align:center;}
+.lb-name{font-size:13.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-tier{font-size:10.5px;font-weight:800;letter-spacing:0.03em;}
+.lb-refs{font-size:14px;font-weight:900;color:#fff;}
+.lb-refs small{font-size:9px;color:var(--text3);font-weight:600;}
+.lb-empty{padding:16px;text-align:center;color:var(--text3);font-size:12.5px;}
+/* referral block inside the welcome card */
+.mwel-refer{margin:14px 0 6px;padding:14px;border-radius:14px;background:rgba(59,130,246,0.10);border:1px solid rgba(59,130,246,0.32);}
+.mwel-refer-lbl{font-weight:900;font-size:14px;color:#fff;}
+.mwel-refer-tier{font-size:12px;color:var(--text2);margin:3px 0 8px;}
+.mwel-refcode{font-family:monospace;font-size:20px;font-weight:800;letter-spacing:0.12em;color:#7db4ff;
+  background:rgba(0,0,0,0.28);border:1px dashed rgba(125,180,255,0.5);border-radius:10px;padding:8px;text-align:center;margin-bottom:10px;}
+.mwel-refbtns{display:flex;gap:8px;}
+.mwel-share,.mwel-copy{flex:1;border:none;border-radius:10px;padding:10px;font-weight:800;font-size:12.5px;cursor:pointer;font-family:'Outfit',sans-serif;}
+.mwel-share{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;}
+.mwel-copy{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.18);}
+.mwel-refhint{font-size:10.5px;color:var(--text3);margin-top:9px;line-height:1.5;text-align:center;}
+
 /* ── p8 Membership Holders — fancy advanced vCard ── */
 #p8 .congress-workers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
 #p8 .cw-card{
@@ -3034,6 +3068,25 @@ html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95)
       </div>
 
       <div class="lineage-attribution">Portraits courtesy of Wikimedia Commons (public-domain or freely-licensed images). Used here in good faith for civic / political-party expression.</div>
+    </div>
+
+    <!-- ═══ MEMBERSHIP TIER LADDER ═══ -->
+    <div class="mship-tiers-card">
+      <div class="mship-tiers-head">🎖️ Membership Ranks — <span>Refer &amp; Rise</span></div>
+      <div class="mship-tiers-sub">Invite friends to join. Each one who registers with your link moves you up the ranks.</div>
+      <div class="mship-tier-ladder">
+        <div class="mtier" style="--tc:#3b82f6"><div class="mtier-dot"></div><div class="mtier-name">Primary Member</div><div class="mtier-need">On joining</div></div>
+        <div class="mtier" style="--tc:#1aaa4a"><div class="mtier-dot"></div><div class="mtier-name">Active Member</div><div class="mtier-need">5 referrals</div></div>
+        <div class="mtier" style="--tc:#a855f7"><div class="mtier-dot"></div><div class="mtier-name">Karyakarta</div><div class="mtier-need">15 referrals</div></div>
+        <div class="mtier" style="--tc:#e8821e"><div class="mtier-dot"></div><div class="mtier-name">Booth Leader</div><div class="mtier-need">30 referrals</div></div>
+      </div>
+    </div>
+
+    <!-- ═══ TOP MEMBERS LEADERBOARD ═══ -->
+    <div class="mship-lb-card">
+      <div class="mship-lb-head">🏆 Top Members</div>
+      <div class="mship-lb-sub">Our most active members by referrals</div>
+      <div id="mship-leaderboard" class="mship-lb-list"><div class="lb-empty">Loading leaderboard…</div></div>
     </div>
 
     <!-- ═══ NEW MEMBER REGISTRATION FORM ═══ -->
@@ -4612,7 +4665,7 @@ function goTo(id, opts){
   if(id==='p2' && !mapInited) setTimeout(initMap,250);
   if(id==='p5'){ buildCommittee('congress'); }
   if(id==='p6'){ buildPollingAgentsPage(); }
-  if(id==='p8'){ buildCongressWorkers(); buildMembershipStats(); }
+  if(id==='p8'){ buildCongressWorkers(); buildMembershipStats(); if(typeof buildLeaderboard==='function') buildLeaderboard(); }
   if(id==='p7'){ buildCommittee('youth'); }
   if(id==='p9' && typeof buildNoticesPage === 'function'){ buildNoticesPage(); }
   syncTopbarLogos();
@@ -4918,7 +4971,7 @@ function _socialIconsHTML(){
     return '<a class="join-soc js-'+k+'" '+attrs+' aria-label="'+k+'"><svg viewBox="0 0 24 24" fill="currentColor">'+ic[k]+'</svg></a>';
   }).join('');
 }
-function showMembershipWelcome(name, joinedNo, total){
+function showMembershipWelcome(name, joinedNo, total, refCode){
   var first = (name||'Member').split(' ')[0];
   var quote = MEMBER_QUOTES[Math.floor(Math.random()*MEMBER_QUOTES.length)];
   var socials = _socialIconsHTML();
@@ -4936,12 +4989,65 @@ function showMembershipWelcome(name, joinedNo, total){
     + '<div class="mwel-sub">You are now part of the Ward 54 INC family.</div>'
     + (joinedNo ? '<div class="mwel-number"><span class="mwel-hash">#</span>'+joinedNo+'<span class="mwel-numlbl">Your Member No.</span></div>' : '')
     + (total ? '<div class="mwel-total">You joined <b>'+total+'</b> proud members of Ward&nbsp;54</div>' : '')
+    + (refCode ? '<div class="mwel-refer">'
+        + '<div class="mwel-refer-lbl">🎖️ Refer &amp; Rise</div>'
+        + '<div class="mwel-refer-tier">Your tier: <b style="color:#7db4ff">Primary Member</b></div>'
+        + '<div class="mwel-refcode">'+escapeHtml(refCode)+'</div>'
+        + '<div class="mwel-refbtns">'
+        +   '<button class="mwel-share" onclick="shareReferral(\''+escapeHtml(refCode)+'\')">📲 Invite on WhatsApp</button>'
+        +   '<button class="mwel-copy" onclick="copyReferral(\''+escapeHtml(refCode)+'\')">Copy link</button>'
+        + '</div>'
+        + '<div class="mwel-refhint">Every friend who joins with your link raises you up:<br>Primary → Active → Karyakarta → Booth Leader 🚀</div>'
+        + '</div>' : '')
     + '<div class="mwel-quote">'+escapeHtml(quote)+'</div>'
     + (socials ? '<div class="mwel-follow">Follow &amp; stay connected</div><div class="join-socials mwel-socials">'+socials+'</div>' : '')
     + '<button class="mwel-done" onclick="document.getElementById(\'mshipWelcome\').classList.remove(\'show\')">Jai Hind 🙏</button>'
     + '</div>';
   document.body.appendChild(ov);
   requestAnimationFrame(function(){ ov.classList.add('show'); });
+}
+/* ── Membership: referral codes, tiers & leaderboard ─────────────────────
+   Every member gets a referral code (W54xxxx). Friends who join via their
+   link raise their referral count, which auto-promotes their tier:
+   Primary → Active (5) → Karyakarta (15) → Booth Leader (30).
+   A PUBLIC /leaderboard node stores ONLY name + referral count (no phone /
+   email — those stay in the admin-only /membership node). */
+function _mRefCode(n){ return 'W54' + String(n||(Math.floor(Math.random()*90000)+10000)).padStart(4,'0'); }
+function _mRefParam(){ try{ var m=(location.search||'').match(/[?&]ref=([A-Za-z0-9]+)/i); return m?m[1].toUpperCase():''; }catch(e){ return ''; } }
+function memberTier(refs){ refs=refs||0;
+  if(refs>=30) return {name:'Booth Leader',  c:'#e8821e'};
+  if(refs>=15) return {name:'Karyakarta',    c:'#a855f7'};
+  if(refs>=5)  return {name:'Active Member',  c:'#1aaa4a'};
+  return {name:'Primary Member', c:'#3b82f6'};
+}
+function shareReferral(code){
+  var url = 'https://kolkata54ward.in/?ref='+encodeURIComponent(code);
+  var text = 'Join Ward 54 Kolkata Congress! 🇮🇳 Register as a member here:\n'+url;
+  try{ if(navigator.share){ navigator.share({title:'Ward 54 Kolkata Congress', text:text, url:url}).catch(function(){}); return; } }catch(e){}
+  window.open('https://wa.me/?text='+encodeURIComponent(text), '_blank', 'noopener');
+}
+function copyReferral(code){
+  var url = 'https://kolkata54ward.in/?ref='+encodeURIComponent(code);
+  try{ navigator.clipboard.writeText(url).then(function(){ showToast('Referral link copied!'); }); }catch(e){ showToast(url); }
+}
+function buildLeaderboard(){
+  var el = document.getElementById('mship-leaderboard'); if(!el) return;
+  var db = (typeof _firebaseReady==='function') ? _firebaseReady() : false;
+  if(!db || db===false){ el.innerHTML='<div class="lb-empty">Leaderboard loads when you are online.</div>'; return; }
+  db.ref('leaderboard').orderByChild('refs').limitToLast(10).once('value', function(snap){
+    var arr=[]; snap.forEach(function(c){ var v=c.val()||{}; if(v.name) arr.push({name:v.name, refs:v.refs||0}); });
+    arr.sort(function(a,b){ return b.refs - a.refs; });
+    if(!arr.length){ el.innerHTML='<div class="lb-empty">Be the first — refer friends and top the leaderboard! 🏆</div>'; return; }
+    el.innerHTML = arr.map(function(m,i){
+      var t=memberTier(m.refs); var medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1);
+      return '<div class="lb-row">'
+        + '<span class="lb-rank">'+medal+'</span>'
+        + '<span class="lb-name">'+escapeHtml(m.name)+'</span>'
+        + '<span class="lb-tier" style="color:'+t.c+'">'+t.name+'</span>'
+        + '<span class="lb-refs">'+m.refs+'<small> refs</small></span>'
+        + '</div>';
+    }).join('');
+  }, function(){ el.innerHTML='<div class="lb-empty">Leaderboard unavailable right now.</div>'; });
 }
 function submitMembership(form){
   var data = {
@@ -4953,7 +5059,8 @@ function submitMembership(form){
     gender:  (form.gender.value||'').trim(),
     part:     parseInt(form.part.value,10) || null,
     address: (form.address.value||'').trim(),
-    why:     (form.why.value||'').trim()
+    why:     (form.why.value||'').trim(),
+    referredBy: _mRefParam()
   };
   if(!data.name || !data.phone || !data.address || !data.age){
     showToast('Please fill name, phone, age and address','error');
@@ -4966,23 +5073,30 @@ function submitMembership(form){
     btn.disabled = true;
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span>REGISTERING…</span>';
   }
-  function finish(joinedNo, total){
+  function finish(joinedNo, total, refCode){
     form.reset();
     buildMembershipStats();
-    showMembershipWelcome(data.name, joinedNo, total);
+    showMembershipWelcome(data.name, joinedNo, total, refCode);
+    setTimeout(buildLeaderboard, 800);
     if(btn){ btn.disabled=false; btn.innerHTML='<span>REGISTER MEMBERSHIP</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; }
   }
   var db = (typeof _firebaseReady==='function') ? _firebaseReady() : false;
   if(db && db !== false){
-    /* push the application + atomically claim the next member number */
-    db.ref('membership').push(data).catch(function(){});
+    /* atomically claim the next member number, then save + set up referral */
     db.ref('membership_count').transaction(function(cur){ return (cur||0)+1; }, function(err, committed, snap){
       var n = (committed && snap) ? snap.val() : null;
-      finish(n, n);
+      var refCode = _mRefCode(n);
+      data.memberNo = n; data.refCode = refCode; data.tier = 'Primary Member';
+      try{ db.ref('membership').push(data).catch(function(){}); }catch(e){}
+      /* public leaderboard entry — name + referral count ONLY (no PII) */
+      try{ db.ref('leaderboard/'+refCode).set({ name:data.name, refs:0, t:Date.now() }); }catch(e){}
+      /* credit the person who referred them */
+      if(data.referredBy){ try{ db.ref('leaderboard/'+data.referredBy+'/refs').transaction(function(c){ return (c||0)+1; }); }catch(e){} }
+      finish(n, n, refCode);
     });
   } else {
     /* offline: number = local count */
-    finish(list.length, list.length);
+    finish(list.length, list.length, _mRefCode(list.length));
   }
 }
 

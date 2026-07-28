@@ -47,6 +47,18 @@
     "membership_count": {
       ".read": true,
       ".write": "newData.isNumber() && ((!data.exists() && newData.val() === 1) || newData.val() === data.val() + 1)"
+    },
+    "leaderboard": {
+      ".read": true,
+      ".indexOn": ["refs"],
+      "$code": {
+        ".write": "newData.exists() && (!data.exists() || (newData.child('refs').isNumber() && newData.child('refs').val() === data.child('refs').val() + 1 && newData.child('name').val() === data.child('name').val()))",
+        ".validate": "newData.hasChildren(['name','refs']) && newData.child('name').isString() && newData.child('name').val().length < 120 && newData.child('refs').isNumber() && newData.child('refs').val() >= 0",
+        "name": { ".validate": "newData.isString()" },
+        "refs": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+        "t":    { ".validate": "newData.isNumber()" },
+        "$other": { ".validate": false }
+      }
     }
   }
 }
