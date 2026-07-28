@@ -2471,6 +2471,23 @@ html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95)
 .mwel-share{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;}
 .mwel-copy{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.18);}
 .mwel-refhint{font-size:10.5px;color:var(--text3);margin-top:9px;line-height:1.5;text-align:center;}
+/* Digital membership ID card */
+.mid-card{margin:14px auto 4px;max-width:340px;border-radius:16px;overflow:hidden;
+  background:linear-gradient(160deg,#132145,#0b1226);border:1px solid rgba(232,201,106,0.4);
+  box-shadow:0 12px 34px rgba(0,0,0,0.5);}
+.mid-top{background:linear-gradient(90deg,#FF9933,#ffffff 50%,#138808);padding:1.5px;}
+.mid-top .mid-org{display:block;background:#0b1226;color:#e8c96a;font-family:'Outfit',sans-serif;
+  font-weight:900;font-size:12px;letter-spacing:0.12em;text-align:center;padding:8px 6px;}
+.mid-body{display:flex;align-items:center;gap:12px;padding:14px;}
+.mid-avatar{width:56px;height:56px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Outfit',sans-serif;font-weight:900;font-size:22px;color:#0b1226;
+  background:linear-gradient(135deg,#fbeeb6,#ecce72);border:2px solid rgba(255,255,255,0.35);}
+.mid-info{flex:1;min-width:0;text-align:left;}
+.mid-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:17px;color:#fff;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mid-no{font-size:11px;color:#aab6d4;letter-spacing:0.04em;margin-top:2px;}
+.mid-tier{font-size:12px;font-weight:800;margin-top:5px;}
+.mid-qr{width:56px;height:56px;border-radius:6px;background:#fff;padding:3px;flex-shrink:0;}
+.mid-foot{background:rgba(0,0,0,0.3);color:#9fb0d6;font-size:10px;letter-spacing:0.08em;text-align:center;padding:7px;}
 
 /* ── p8 Membership Holders — fancy advanced vCard ── */
 #p8 .congress-workers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
@@ -4971,6 +4988,25 @@ function _socialIconsHTML(){
     return '<a class="join-soc js-'+k+'" '+attrs+' aria-label="'+k+'"><svg viewBox="0 0 24 24" fill="currentColor">'+ic[k]+'</svg></a>';
   }).join('');
 }
+function _initials(name){ var p=(name||'M').trim().split(/\s+/); return ((p[0]||'M')[0]+(p.length>1?p[p.length-1][0]:'')).toUpperCase(); }
+function _memberIdCard(name, memberNo, tierName){
+  var t = tierName || 'Primary Member';
+  var map={'Primary Member':'#3b82f6','Active Member':'#1aaa4a','Karyakarta':'#a855f7','Booth Leader':'#e8821e'};
+  var tc = map[t] || '#3b82f6';
+  return '<div class="mid-card">'
+    + '<div class="mid-top"><span class="mid-org">WARD&nbsp;54 KOLKATA CONGRESS</span></div>'
+    + '<div class="mid-body">'
+    +   '<div class="mid-avatar">'+escapeHtml(_initials(name))+'</div>'
+    +   '<div class="mid-info">'
+    +     '<div class="mid-name">'+escapeHtml(name||'Member')+'</div>'
+    +     (memberNo?'<div class="mid-no">Member No. '+String(memberNo).padStart(5,"0")+'</div>':'')
+    +     '<div class="mid-tier" style="color:'+tc+'">● '+escapeHtml(t)+'</div>'
+    +   '</div>'
+    +   (typeof WARD54_QR!=='undefined' ? '<img class="mid-qr" src="'+WARD54_QR+'" alt="QR">' : '')
+    + '</div>'
+    + '<div class="mid-foot">Official Member &middot; kolkata54ward.in</div>'
+    + '</div>';
+}
 function showMembershipWelcome(name, joinedNo, total, refCode){
   var first = (name||'Member').split(' ')[0];
   var quote = MEMBER_QUOTES[Math.floor(Math.random()*MEMBER_QUOTES.length)];
@@ -4986,6 +5022,7 @@ function showMembershipWelcome(name, joinedNo, total, refCode){
     + '<button class="mwel-close" onclick="document.getElementById(\'mshipWelcome\').classList.remove(\'show\')" aria-label="Close">&times;</button>'
     + '<div class="mwel-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>'
     + '<div class="mwel-title">Welcome aboard, '+escapeHtml(first)+'! 🇮🇳</div>'
+    + _memberIdCard(name, joinedNo, 'Primary Member')
     + '<div class="mwel-sub">You are now part of the Ward 54 INC family.</div>'
     + (joinedNo ? '<div class="mwel-number"><span class="mwel-hash">#</span>'+joinedNo+'<span class="mwel-numlbl">Your Member No.</span></div>' : '')
     + (total ? '<div class="mwel-total">You joined <b>'+total+'</b> proud members of Ward&nbsp;54</div>' : '')
@@ -5012,6 +5049,7 @@ function showMembershipWelcome(name, joinedNo, total, refCode){
    Primary → Active (5) → Karyakarta (15) → Booth Leader (30).
    A PUBLIC /leaderboard node stores ONLY name + referral count (no phone /
    email — those stay in the admin-only /membership node). */
+var WARD54_QR = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOgAAADoCAIAAABqyz8vAAAEIElEQVR4nO3dwW3cMBBAUTvIUX2kolSZitKH7koD1kEBCfJb750dW/Z+EIsBM/t5XdcH1PxY/QDwP4RLknBJEi5JwiVJuCQJlyThkiRckoRLknBJEi5JwiVJuCQJl6SfT//B8ev3R8H590/i+Uc95xn5fZ8+/x0nLknCJUm4JAmXJOGSJFyShMs75rij5nCjzJ53jvr63f6eZ+T1uuPEJUm4JAmXJOGSJFyShEuScHn3HHf23K4+dxz1/Wf/HY7I6+XEJUm4JAmXJOGSJFyShEuScEmaPsfdzah7t0+/P2M5cUkSLknCJUm4JAmXJOGSJFySXjfHXXUP1Xx3LCcuScIlSbgkCZck4ZIkXJKES9L0Oe6qfQhPzd6bu+p5vuvr5cQlSbgkCZck4ZIkXJKES5Jwefcc133T1j3dI77/wYlLknBJEi5JwiVJuCQJlyTh8o45buW+Zn3+Oure7flNXy8nLknCJUm4JAmXJOGSJFyShMs75riz/1//qj0Go8yes9Z/32NQP05ckoRLknBJEi5JwiVJuCQJl6Tp+3Gfzu1m74W9+z6zn3O3Pbiz58Szn9+JS5JwSRIuScIlSbgkCZck4ZK0bK/C7LnsqHuxq+apoxyR/Q9POXFJEi5JwiVJuCQJlyThkiRckvJ7FXabd656znPR3HrU/eannLgkCZck4ZIkXJKES5JwSRIuSZ/XdSXufc6eO9bv4x6T59CrXt87TlyShEuScEkSLknCJUm4JAmXpO3u4+72cyufQ3Zudh/afVz4grcKJAmXJOGSJFyShEuScHn3fdzd9jDsNq+dfc/1XHSP9o79uPAFbxVIEi5JwiVJuCQJlyThkjR9jvtd57u77Qk+Bn39ndnf5yknLknCJUm4JAmXJOGSJFyShMs75ri73UMd9XPrX78b93HhC94qkCRckoRLknBJEi5JwuUd+3FHzed2+5ywUVbdJz432487mxOXJOGSJFyShEuScEkSLknC5d2fc7ab3ebNq+4xH5G57FNOXJKES5JwSRIuScIlSbgkCZd3zHHvrJoL7rbndbe56RnZN/yUE5ck4ZIkXJKES5JwSRIuScLl3XPcyvxv1PPsdi/52Ox57MeFL3irQJJwSRIuScIlSbgkCZek6XPc3TydL87+HLLdPjfuHPT3mb3f14lLknBJEi5JwiVJuCQJlyThkvS6Oe4oo/YnPJ3L7javPRftl3DikiRckoRLknBJEi5JwiVJuCRNn+PWP0/rzqj55W6ff1bZ5+DEJUm4JAmXJOGSJFyShEuScHn3HHe3/ax3ns5ZV+0x2G2v8J1R82N7FXgFbxVIEi5JwiVJuCQJlyThkvR5XdfqZ4DHnLgkCZck4ZIkXJKES5JwSRIuScIlSbgkCZck4ZIkXJKES5JwSRIuH0X/AJA+edIXHppsAAAAAElFTkSuQmCC";
 function _mRefCode(n){ return 'W54' + String(n||(Math.floor(Math.random()*90000)+10000)).padStart(4,'0'); }
 function _mRefParam(){ try{ var m=(location.search||'').match(/[?&]ref=([A-Za-z0-9]+)/i); return m?m[1].toUpperCase():''; }catch(e){ return ''; } }
 function memberTier(refs){ refs=refs||0;
