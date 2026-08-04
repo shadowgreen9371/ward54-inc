@@ -2675,6 +2675,33 @@ html.native-app .hero-cta::after{display:none!important;}
 .hp-lead{color:var(--hp-muted);font-size:clamp(14px,1.4vw,16.5px);max-width:44ch;margin:18px 0 26px;line-height:1.55;}
 .hp-hero-cta{display:flex;gap:13px;flex-wrap:wrap;}
 .hp-hero-right{display:flex;flex-direction:column;gap:15px;min-width:0;}
+/* cinematic full-bleed hero */
+.hp-hero-cine{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--hp-line);
+  box-shadow:var(--hp-shadow);min-height:520px;isolation:isolate;}
+.hp-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:74% 42%;z-index:0;}
+.hp-hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(90deg,#05070d 3%,rgba(5,7,13,.88) 26%,rgba(5,7,13,.42) 50%,rgba(5,7,13,.06) 80%),
+    linear-gradient(0deg,rgba(5,7,13,.5),transparent 40%);}
+.hp-hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.02fr .98fr;gap:28px;align-items:center;
+  padding:clamp(30px,3.4vw,54px);min-height:520px;}
+.hp-hero-copy{align-self:center;max-width:560px;}
+.hp-hero-inner .hp-comm{align-self:center;
+  background:linear-gradient(180deg,rgba(14,20,34,.80),rgba(10,14,26,.82));
+  -webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);
+  box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);}
+.hp-hero-medal{position:absolute;right:clamp(16px,3vw,40px);bottom:16px;width:58px;height:58px;z-index:3;
+  filter:drop-shadow(0 6px 18px rgba(233,170,67,.55));}
+.hp-hero-right-legacy{display:contents;}
+.hp-hero-inner .hp-skyline{display:none;}
+@media(max-width:900px){
+  .hp-hero-cine{display:flex;flex-direction:column;min-height:0;}
+  .hp-hero-bg{position:relative;inset:auto;height:180px;object-position:center 30%;}
+  .hp-hero-scrim{display:none;}
+  .hp-hero-medal{display:none;}
+  .hp-hero-inner{grid-template-columns:1fr;min-height:0;padding:20px;gap:18px;background:var(--bg-deep);}
+  .hp-hero-copy{max-width:none;}
+}
 
 /* skyline */
 .hp-skyline{position:relative;border-radius:var(--hp-r);overflow:hidden;border:1px solid var(--hp-line);
@@ -3100,19 +3127,23 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
 
     <!-- hero -->
     <section class="hp-hero">
-      <div class="hp-hero-grid">
-        <div>
-          <span class="hp-hero-eye hp-eyebrow"><span class="hp-dot"></span>Indian National Congress · Ward 54</span>
-          <h1>Together for the People,<br><span class="hp-tri">Together for Progress.</span></h1>
-          <p class="hp-lead">Our mission is simple — to empower every citizen, strengthen every booth, and build a better tomorrow for Ward&nbsp;54.</p>
-          <div class="hp-hero-cta">
-            <button class="hp-btn hp-btn-gold hp-btn-lg" type="button" onclick="goTo('p5')">Explore Committee
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-            <button class="hp-btn hp-btn-ghost hp-btn-lg" type="button" onclick="goTo('p9')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>View Updates</button>
+      <div class="hp-hero-cine">
+        <img class="hp-hero-bg" src="assets/hero-skyline.jpg" alt="Kolkata skyline at sunset — Howrah Bridge and Victoria Memorial with the Indian tricolour" loading="eager" decoding="async">
+        <div class="hp-hero-scrim" aria-hidden="true"></div>
+        <svg class="hp-medallion hp-hero-medal" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="#0a0f1e" stroke="#F1B84E" stroke-width="4"/><path d="M50 26c-9 0-16 7-16 16 0 8 6 13 6 20h20c0-7 6-12 6-20 0-9-7-16-16-16z" fill="none" stroke="#F1B84E" stroke-width="3"/></svg>
+        <div class="hp-hero-inner">
+          <div class="hp-hero-copy">
+            <span class="hp-hero-eye hp-eyebrow"><span class="hp-dot"></span>Indian National Congress · Ward 54</span>
+            <h1>Together for the People,<br><span class="hp-tri">Together for Progress.</span></h1>
+            <p class="hp-lead">Our mission is simple — to empower every citizen, strengthen every booth, and build a better tomorrow for Ward&nbsp;54.</p>
+            <div class="hp-hero-cta">
+              <button class="hp-btn hp-btn-gold hp-btn-lg" type="button" onclick="goTo('p5')">Explore Committee
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+              <button class="hp-btn hp-btn-ghost hp-btn-lg" type="button" onclick="goTo('p9')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>View Updates</button>
+            </div>
           </div>
-        </div>
-        <div class="hp-hero-right">
+          <div class="hp-hero-right-legacy">
           <div class="hp-skyline" role="img" aria-label="Golden-hour Kolkata skyline — Victoria Memorial and Howrah Bridge with the Indian tricolour ribbon">
             <img class="hp-sky-photo" src="assets/hero-skyline.jpg" alt="Kolkata skyline at sunset — Howrah Bridge and Victoria Memorial with the Indian tricolour" loading="eager" decoding="async">
             <svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
