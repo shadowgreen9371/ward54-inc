@@ -2689,12 +2689,18 @@ html.native-app .hero-cta::after{display:none!important;}
 .hp-hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.02fr .98fr;gap:28px;align-items:center;
   padding:clamp(30px,3.4vw,54px);min-height:520px;}
 .hp-hero-copy{align-self:center;max-width:560px;}
-.hp-hero-inner .hp-comm{align-self:center;
-  background:linear-gradient(180deg,rgba(10,14,26,.40),rgba(10,14,26,.40));
-  -webkit-backdrop-filter:blur(9px) saturate(1.15);backdrop-filter:blur(9px) saturate(1.15);
-  box-shadow:0 24px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);}
+.hp-hero-inner .hp-comm{align-self:center;padding:14px 16px;
+  background:linear-gradient(180deg,rgba(10,14,26,.20),rgba(10,14,26,.22));
+  -webkit-backdrop-filter:blur(4px) saturate(1.1);backdrop-filter:blur(4px) saturate(1.1);
+  box-shadow:0 24px 58px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);}
+/* compact box + readable text over the see-through skyline */
+.hp-comm .hp-comm-head{margin-bottom:8px;}
+.hp-comm .hp-comm-head h3{font-size:13.5px;text-shadow:0 1px 7px rgba(0,0,0,.8);}
+.hp-comm .hp-mem{gap:12px;padding:7px 6px;}
+.hp-comm .hp-av{width:44px;height:48px;}
+.hp-comm .hp-mn{text-shadow:0 1px 7px rgba(0,0,0,.85);}
+.hp-comm .hp-mr{color:#c3ccdd;text-shadow:0 1px 6px rgba(0,0,0,.8);}
 /* member row: name + photo grouped together on the RIGHT (no gap), chevron last */
-.hp-comm .hp-mem{gap:14px;}
 .hp-comm .hp-mem .hp-mi{order:1;flex:0 0 auto;margin-left:auto;text-align:right;}
 .hp-comm .hp-mem .hp-av{order:2;}
 .hp-comm .hp-mem .hp-chev{order:3;}
