@@ -2680,6 +2680,7 @@ html.native-app .hero-cta::after{display:none!important;}
 .hp-skyline{position:relative;border-radius:var(--hp-r);overflow:hidden;border:1px solid var(--hp-line);
   box-shadow:var(--hp-shadow);aspect-ratio:16/11;background:#0a1122;}
 .hp-skyline > svg:not(.hp-medallion){position:absolute;inset:0;width:100%;height:100%;}
+.hp-sky-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;}
 .hp-medallion{position:absolute;right:16px;bottom:14px;width:60px;height:60px;z-index:3;
   filter:drop-shadow(0 6px 18px rgba(233,170,67,.5));}
 
@@ -2694,9 +2695,10 @@ html.native-app .hero-cta::after{display:none!important;}
 .hp-mem{display:flex;align-items:center;gap:12px;padding:10px 8px;border-radius:12px;transition:background .2s;cursor:pointer;}
 .hp-mem+.hp-mem{border-top:1px solid var(--hp-line);}
 .hp-mem:hover{background:rgba(255,255,255,.04);}
-.hp-av{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+.hp-av{width:48px;height:54px;border-radius:12px;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;
   font-family:var(--hp-fH);font-weight:800;font-size:14px;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.4);
   background:linear-gradient(135deg,var(--hp-saffron),var(--hp-goldDeep));}
+.hp-av img{width:100%;height:100%;object-fit:cover;display:block;}
 .hp-mem:nth-child(3) .hp-av{background:linear-gradient(135deg,var(--hp-green),#0d7a38);}
 .hp-mem:nth-child(4) .hp-av{background:linear-gradient(135deg,var(--hp-blue),#1e5bc0);}
 .hp-mem:nth-child(5) .hp-av{background:linear-gradient(135deg,var(--hp-purple),#5e35b1);}
@@ -3112,6 +3114,7 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
         </div>
         <div class="hp-hero-right">
           <div class="hp-skyline" role="img" aria-label="Golden-hour Kolkata skyline — Victoria Memorial and Howrah Bridge with the Indian tricolour ribbon">
+            <img class="hp-sky-photo" src="assets/hero-skyline.jpg" alt="Kolkata skyline at sunset — Howrah Bridge and Victoria Memorial with the Indian tricolour" loading="eager" decoding="async">
             <svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
               <defs>
                 <linearGradient id="hpsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1836"/><stop offset="34%" stop-color="#6e2f3a"/><stop offset="60%" stop-color="#c05e2b"/><stop offset="82%" stop-color="#e88a35"/><stop offset="100%" stop-color="#f6b856"/></linearGradient>
@@ -3141,10 +3144,10 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
           </div>
           <div class="hp-comm">
             <div class="hp-comm-head"><h3>54 Ward Congress<br>Committee</h3><button class="hp-pill" type="button" onclick="goTo('p5')">View All</button></div>
-            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av">MS</div><div class="hp-mi"><div class="hp-mn">Mohammad Shakil</div><div class="hp-mr">President</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
-            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av">MS</div><div class="hp-mi"><div class="hp-mn">Manas Sarkar</div><div class="hp-mr">Vice President</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
-            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av">MN</div><div class="hp-mi"><div class="hp-mn">Mohammad Nadeem</div><div class="hp-mr">General Secretary</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
-            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av">TR</div><div class="hp-mi"><div class="hp-mn">Treasurer</div><div class="hp-mr">Office Bearer</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/shakil.jpg" alt="Mohammad Shakil" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Mohammad Shakil</div><div class="hp-mr">President</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/manas.jpg" alt="Manas Sarkar" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Manas Sarkar</div><div class="hp-mr">Vice President</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/nadeem.jpg" alt="Mohammad Nadeem" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Mohammad Nadeem</div><div class="hp-mr">General Secretary</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/treasurer.jpg" alt="Treasurer" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Treasurer</div><div class="hp-mr">Office Bearer</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
           </div>
         </div>
       </div>
