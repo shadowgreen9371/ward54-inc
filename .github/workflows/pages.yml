@@ -17,6 +17,7 @@ on:
       - 'manifest.webmanifest'    # PWA manifest
       - 'sw.js'                   # PWA service worker
       - 'icons/**'                # PWA app icons
+      - 'assets/**'               # homepage photos (hero skyline, committee)
       - '*.apk'                   # mobile app installers
       - '*.aab'
       - '.github/workflows/pages.yml'
@@ -51,6 +52,8 @@ jobs:
           [ -f manifest.webmanifest ] && cp manifest.webmanifest _site/ || true
           [ -f sw.js ] && cp sw.js _site/ || true
           [ -d icons ] && cp -R icons _site/ || true
+          # Homepage photography — hero skyline + committee member portraits
+          [ -d assets ] && cp -R assets _site/ || true
           # Mobile app installers (debug APK is publicly downloadable from
           # the website; signed release builds live in mobile/release/ and
           # are NOT exposed here)
