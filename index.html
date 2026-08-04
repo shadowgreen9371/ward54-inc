@@ -76,7 +76,9 @@
 <meta name="twitter:image" content="https://kolkata54ward.in/icons/icon-512.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <!-- Firebase Realtime Database SDK (compat mode — works without bundler) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -2519,6 +2521,97 @@ html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95)
 #p8 .cw-wa{margin:9px auto 0 !important;padding:5px 13px 5px 10px !important;font-size:10px !important;
   background:linear-gradient(135deg,#25D366,#128C7E) !important;box-shadow:0 4px 12px rgba(37,211,102,0.30);}
 #p8 .cw-wa svg{width:11px;height:11px;}
+
+/* ════════════════════════════════════════════════════════════════════════
+   ✦ PREMIUM 2026 ENHANCEMENT LAYER
+   Additive polish — Apple / Linear / Arc / VisionOS grade. Cascades last on
+   web; the NATIVE-APP GPU-safety block (further below) overrides the heavy
+   ambient effects, so the installed app stays tear-free.
+   ════════════════════════════════════════════════════════════════════════ */
+:root{
+  --font-display:'Space Grotesk','Outfit',sans-serif;
+  --font-ui:'Inter','Outfit',sans-serif;
+  --font-heavy:'Montserrat','Outfit',sans-serif;
+  --bg-deep:#05070d;
+  --glow-saffron:rgba(255,153,51,0.55);
+  --glow-green:rgba(19,136,8,0.50);
+  --glow-blue:rgba(59,130,246,0.45);
+  --ease-smooth:cubic-bezier(0.4,0,0.2,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
+/* ── Crisper premium UI typography (Inter body, Space Grotesk display) ── */
+body{font-family:var(--font-ui);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;letter-spacing:-0.006em;}
+.p1-title-wordmark .wm-row{font-family:var(--font-heavy)!important;font-weight:900!important;letter-spacing:0.04em!important;}
+.ward-big{font-family:var(--font-heavy)!important;font-weight:900!important;letter-spacing:0.02em!important;}
+.hero-cta-title{font-family:var(--font-display)!important;letter-spacing:0.01em!important;}
+.live-strip .live-stat b{font-family:var(--font-display)!important;font-variant-numeric:tabular-nums;}
+
+/* ── Deeper cinematic hero background + ambient tricolour light ── */
+#p1{background:radial-gradient(130% 90% at 50% -12%,#1c2450 0%,#111737 30%,#0a0f1e 60%,var(--bg-deep) 100%)!important;}
+/* Soft aurora light-sheet that breathes behind the hero (web only) */
+.p1-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.55;
+  background:
+    radial-gradient(40% 32% at 18% 20%,rgba(255,153,51,0.16),transparent 70%),
+    radial-gradient(38% 30% at 82% 26%,rgba(19,136,8,0.15),transparent 70%),
+    radial-gradient(46% 34% at 50% 92%,rgba(59,130,246,0.12),transparent 72%);
+  animation:auroraBreathe 12s var(--ease-smooth) infinite;}
+@keyframes auroraBreathe{0%,100%{opacity:0.42;transform:scale(1);}50%{opacity:0.62;transform:scale(1.06);}}
+/* Floating particle canvas (JS-driven, disabled on native) */
+.pf-particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.7;}
+
+/* ── Mission line under the wordmark ── */
+.p1-mission{position:relative;z-index:2;max-width:440px;margin:0.35rem auto 0.15rem;text-align:center;
+  font-family:var(--font-ui);font-size:clamp(11px,2.9vw,12.5px);line-height:1.5;color:var(--text2);letter-spacing:0.01em;}
+.p1-mission b{color:var(--text);font-weight:700;
+  background:linear-gradient(100deg,#ffb066,#fff,#7fd884);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* ── Elevated glass menu cards — richer glass, spring hover, glass sheen ── */
+.hero-cta{border-radius:18px!important;padding:11px 15px!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.25)!important;backdrop-filter:blur(16px) saturate(1.25)!important;
+  box-shadow:0 14px 40px rgba(0,0,0,0.5),0 1px 0 rgba(255,255,255,0.06) inset,0 0 28px rgba(232,130,30,0.10)!important;
+  transition:transform 0.42s var(--ease-spring),box-shadow 0.42s var(--ease-smooth)!important;}
+.hero-cta::before{border-radius:18px!important;}
+.hero-cta:hover{transform:translateY(-5px) scale(1.022)!important;
+  box-shadow:0 26px 60px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.12) inset,0 0 52px rgba(232,130,30,0.32)!important;}
+/* Diagonal glass reflection that sweeps on hover */
+.hero-cta::after{content:'';position:absolute;top:0;left:-60%;width:45%;height:100%;z-index:2;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,0.14),transparent);
+  transform:skewX(-18deg);transition:left 0.7s var(--ease-smooth);}
+.hero-cta:hover::after{left:130%;}
+
+/* ── Premium LIVE stat dashboard ── */
+.live-strip{margin-top:14px!important;padding:9px 16px!important;border-radius:16px!important;
+  background:linear-gradient(180deg,rgba(20,26,48,0.7),rgba(10,14,26,0.6))!important;
+  border:1px solid rgba(255,255,255,0.09)!important;
+  box-shadow:0 12px 34px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.05)!important;
+  max-width:calc(100vw - 24px)!important;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
+.live-strip::-webkit-scrollbar{display:none;}
+.live-strip .live-stat b{font-size:13.5px!important;letter-spacing:0.01em!important;
+  text-shadow:0 0 18px rgba(255,255,255,0.18);}
+.live-strip .live-stat i{font-size:8.5px!important;text-transform:uppercase;letter-spacing:0.1em!important;}
+@media(min-width:430px){ .live-strip .live-stat b{font-size:16px!important;} .live-strip .live-stat i{font-size:9.5px!important;} }
+.live-strip .live-pill{background:linear-gradient(135deg,rgba(34,255,136,0.18),rgba(34,255,136,0.06))!important;
+  border:1px solid rgba(34,255,136,0.35)!important;}
+
+@media(min-width:768px){
+  .live-strip .live-stat b{font-size:20px!important;}
+  .hero-cta{max-width:520px!important;}
+  .entry-bar-group{max-width:520px!important;}
+}
+
+/* ── GPU safety inside the installed native app: freeze ambient layers ── */
+html.native-app .p1-aurora{animation:none!important;opacity:0.12!important;}
+html.native-app .pf-particles{display:none!important;}
+html.native-app .hero-cta::after{display:none!important;}
+
+/* ── Respect reduced-motion & keyboard focus (accessibility) ── */
+@media(prefers-reduced-motion:reduce){
+  .p1-aurora,.hero-cta,.live-strip .live-dot{animation:none!important;}
+  .hero-cta::after{display:none;}
+}
+.hero-cta:focus-visible,.fb-trigger:focus-visible,.find-booth-cta:focus-visible{
+  outline:2px solid var(--gold2);outline-offset:3px;border-radius:18px;}
 </style>
 <!-- ═══ NATIVE-APP GPU SAFETY ═══════════════════════════════════════════
      Inside the installed Android/iOS app the WebView's GPU tears when it has
@@ -2626,6 +2719,8 @@ html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95)
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <div class="p1-bg"></div><div class="p1-grid"></div>
+  <div class="p1-aurora" aria-hidden="true"></div>
+  <canvas class="pf-particles" id="heroParticles" aria-hidden="true"></canvas>
   <div class="p1-orb saffron"></div>
   <div class="p1-orb green"></div>
   <div class="p1-orb white"></div>
@@ -2647,6 +2742,7 @@ html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95)
       </span>
     </h1>
     <div class="p1-divider"></div>
+    <p class="p1-mission">Serving every resident of Ward&nbsp;54 — <b>transparent, accountable, always accessible.</b></p>
     <div class="entry-bar-group">
       <div class="hero-cta hero-cta-committee" onclick="goTo('p5')">
         <span class="hero-cta-shimmer"></span>
@@ -2699,11 +2795,11 @@ html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95)
     <!-- Premium LIVE stat strip — replaces the old scroll arrow -->
     <div class="live-strip" role="status" aria-label="Ward 54 live stats">
       <span class="live-pill"><span class="live-dot"></span>LIVE</span>
-      <span class="live-stat"><b>26,849</b><i>Voters</i></span>
+      <span class="live-stat"><b data-count="26849" data-suffix="">26,849</b><i>Voters</i></span>
       <span class="live-sep"></span>
-      <span class="live-stat"><b>12</b><i>Stations</i></span>
+      <span class="live-stat"><b data-count="12">12</b><i>Stations</i></span>
       <span class="live-sep"></span>
-      <span class="live-stat"><b>38</b><i>Booths</i></span>
+      <span class="live-stat"><b data-count="38">38</b><i>Booths</i></span>
       <span class="live-sep"></span>
       <span class="live-stat"><b>54</b><i>Ward · KMC</i></span>
     </div>
@@ -7262,6 +7358,95 @@ else if('serviceWorker' in navigator){
   window.addEventListener('online', syncNet);
   window.addEventListener('offline', syncNet);
   syncNet();
+})();
+</script>
+
+<!-- ✦ PREMIUM 2026 — animated count-up stats + floating hero particles -->
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isNative = document.documentElement.classList.contains('native-app');
+
+  /* ── Animated count-up for any [data-count] element ── */
+  function fmt(n){ return n.toLocaleString('en-IN'); }
+  function countUp(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    if(isNaN(target)) return;
+    var suffix = el.getAttribute('data-suffix') || '';
+    if(reduce){ el.textContent = fmt(target) + suffix; return; }
+    var dur = 1400, start = null;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);           // easeOutCubic
+      el.textContent = fmt(Math.round(target * eased)) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var counted = new WeakSet();
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting && !counted.has(e.target)){ counted.add(e.target); countUp(e.target); }
+    });
+  }, { threshold: 0.4 }) : null;
+  function bindCounters(){
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      if(io) io.observe(el); else { counted.add(el); countUp(el); }
+    });
+  }
+
+  /* ── Floating tricolour particle field (web only, GPU-cheap) ── */
+  function initParticles(){
+    if(isNative || reduce) return;                  // never on native app / reduced-motion
+    var c = document.getElementById('heroParticles');
+    if(!c || !c.getContext) return;
+    var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W, H, parts = [];
+    var COLORS = ['rgba(255,153,51,', 'rgba(255,255,255,', 'rgba(19,136,8,', 'rgba(96,165,250,'];
+    function resize(){
+      W = c.clientWidth; H = c.clientHeight;
+      c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    function seed(){
+      var n = Math.min(46, Math.round(W * H / 26000));
+      parts = [];
+      for(var i=0;i<n;i++){
+        parts.push({
+          x: Math.random()*W, y: Math.random()*H,
+          r: Math.random()*1.7 + 0.5,
+          vx: (Math.random()-0.5)*0.16, vy: -(Math.random()*0.22 + 0.05),
+          a: Math.random()*0.4 + 0.15,
+          col: COLORS[(Math.random()*COLORS.length)|0]
+        });
+      }
+    }
+    function tick(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<parts.length;i++){
+        var p = parts[i];
+        p.x += p.vx; p.y += p.vy;
+        if(p.y < -6){ p.y = H + 6; p.x = Math.random()*W; }
+        if(p.x < -6) p.x = W+6; else if(p.x > W+6) p.x = -6;
+        ctx.beginPath();
+        ctx.fillStyle = p.col + p.a + ')';
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    var raf;
+    resize(); seed(); tick();
+    var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ resize(); seed(); }, 200); });
+    // Pause when hero not visible (battery friendly)
+    document.addEventListener('visibilitychange', function(){
+      if(document.hidden){ cancelAnimationFrame(raf); } else { raf = requestAnimationFrame(tick); }
+    });
+  }
+
+  function boot(){ bindCounters(); initParticles(); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 </body>
