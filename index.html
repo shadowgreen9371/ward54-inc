@@ -2690,9 +2690,15 @@ html.native-app .hero-cta::after{display:none!important;}
   padding:clamp(30px,3.4vw,54px);min-height:520px;}
 .hp-hero-copy{align-self:center;max-width:560px;}
 .hp-hero-inner .hp-comm{align-self:center;
-  background:linear-gradient(180deg,rgba(14,20,34,.80),rgba(10,14,26,.82));
-  -webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);
-  box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);}
+  background:linear-gradient(180deg,rgba(14,20,34,.44),rgba(10,14,26,.5));
+  -webkit-backdrop-filter:blur(22px) saturate(1.25);backdrop-filter:blur(22px) saturate(1.25);
+  box-shadow:0 24px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);}
+/* photos on the right side of each member row */
+.hp-comm .hp-mem .hp-mi{order:1;}
+.hp-comm .hp-mem .hp-av{order:2;}
+.hp-comm .hp-mem .hp-chev{order:3;margin-left:6px;}
+/* native app has no live blur → keep the card readable with a more solid bg */
+html.native-app .hp-hero-inner .hp-comm{background:linear-gradient(180deg,rgba(14,20,34,.9),rgba(10,14,26,.92));}
 .hp-hero-medal{position:absolute;right:clamp(16px,3vw,40px);bottom:16px;width:62px;height:62px;z-index:3;
   filter:drop-shadow(0 4px 14px rgba(233,170,67,.6)) drop-shadow(0 0 20px rgba(255,180,80,.35));
   animation:hpMedalGlow 3.6s var(--hp-ease) infinite;}
@@ -3179,9 +3185,9 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
           </div>
           <div class="hp-comm">
             <div class="hp-comm-head"><h3>54 Ward Congress<br>Committee</h3><button class="hp-pill" type="button" onclick="goTo('p5')">View All</button></div>
-            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/shakil.jpg" alt="Mohammad Shakil" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Mohammad Shakil</div><div class="hp-mr">President</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
-            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/manas.jpg" alt="Manas Sarkar" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Manas Sarkar</div><div class="hp-mr">Vice President</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
-            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/nadeem.jpg" alt="Mohammad Nadeem" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Mohammad Nadeem</div><div class="hp-mr">General Secretary</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/manas.jpg" alt="Manas Sarkar" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Manas Sarkar</div><div class="hp-mr">President</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/shakil.jpg" alt="Mohammad Shakil" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Mohammad Shakil</div><div class="hp-mr">Ward Leader</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
+            <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/nadeem.jpg" alt="Mohammad Nadeem" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Mohammad Nadeem</div><div class="hp-mr">Ward Leader</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
             <div class="hp-mem" onclick="goTo('p5')"><div class="hp-av"><img src="assets/committee/treasurer.jpg" alt="Treasurer" loading="lazy" decoding="async"></div><div class="hp-mi"><div class="hp-mn">Treasurer</div><div class="hp-mr">Office Bearer</div></div><svg class="hp-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></div>
           </div>
         </div>
