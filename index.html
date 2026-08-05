@@ -18,6 +18,8 @@
               https://cdn.jsdelivr.net
               https://cdn.tailwindcss.com
               https://unpkg.com
+              https://www.google.com
+              https://www.gstatic.com
               https://cdnjs.cloudflare.com;
   style-src   'self' 'unsafe-inline'
               https://fonts.googleapis.com
@@ -43,17 +45,19 @@
               wss://*.firebasedatabase.app
               https://identitytoolkit.googleapis.com
               https://securetoken.googleapis.com
+              https://firebaseappcheck.googleapis.com
+              https://content-firebaseappcheck.googleapis.com
               https://api.emailjs.com
               https://meet.jit.si
               https://*.openstreetmap.org;
   frame-src   'self' https://meet.jit.si https://*.firebaseapp.com https://*.firebasedatabase.app https://maps.google.com https://www.google.com;
   object-src  'none';
-  frame-ancestors 'self';
   base-uri    'self';
   form-action 'self';
   upgrade-insecure-requests;
 ">
-<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<script>/* clickjacking guard — break out of any foreign iframe (works without HTTP headers) */
+if(window.top!==window.self){try{window.top.location.replace(window.location.href);}catch(e){document.documentElement.style.display='none';}}</script>
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(self https://meet.jit.si), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=()">
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -86,6 +90,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <!-- Firebase Realtime Database SDK (compat mode — works without bundler) -->
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-check-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-database-compat.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -6361,6 +6366,14 @@ var FIREBASE_CONFIG = {
   measurementId: "G-4JPERFSTF8"
 };
 
+/* ── Firebase App Check (bot / abuse protection) ──────────────────────────
+   Paste your reCAPTCHA v3 site key below to ENABLE App Check. Leave it blank
+   and App Check stays OFF (the site works exactly as now). Setup order matters:
+   register the app + enable App Check in the Firebase Console in MONITORING
+   mode first, verify tokens flow, THEN switch to Enforce — enforcing before a
+   valid key is live would block all data access. */
+var APPCHECK_SITE_KEY = '';   /* e.g. '6Lxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' */
+
 var _fbDb = null;      // false = tried + failed/not-configured, object = ready
 var _fbListener = null; // current 'child_added' callback so we can detach on close
 var _localChatCache = []; // current room's messages held in memory for render
@@ -6373,6 +6386,7 @@ function _firebaseReady(){
   }
   try{
     if(!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    try{ if(APPCHECK_SITE_KEY && firebase.appCheck) firebase.appCheck().activate(APPCHECK_SITE_KEY, true); }catch(e){}
     _fbDb = firebase.database();
     return _fbDb;
   }catch(e){
