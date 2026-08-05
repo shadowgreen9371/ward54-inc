@@ -4441,10 +4441,21 @@ function buildAdminMembershipList(){
     el.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:12px;padding:24px;border:1px dashed var(--border);border-radius:var(--r2);">No applications yet. They appear here when a visitor submits the &ldquo;Register Membership&rdquo; form on the Membership page of the public site.</div>';
     return;
   }
+  /* ── membership analytics: tier distribution + avg tenure ── */
+  var tc=[0,0,0]; var totDays=0, perfSum=0, perfN=0, topPerf=null;
+  list.forEach(function(m){ tc[_memberTierOf(m).id-1]++; totDays+=_tenureDays(m);
+    if(m.perf!=null&&m.perf!==''){ perfSum+=(+m.perf); perfN++; if(!topPerf||(+m.perf)>(+topPerf.perf)) topPerf=m; } });
+  var avgTen=list.length?Math.round(totDays/list.length):0;
+  function _pill(txt,color,rgb){ return '<span style="font-family:DM Mono,monospace;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;color:'+color+';background:rgba('+rgb+',0.10);border:1px solid rgba('+rgb+',0.30);">'+txt+'</span>'; }
   var stats = '<div style="display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px;">'
-    + '<span style="font-family:DM Mono,monospace;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;color:#86e08a;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.30);">'+list.length+' TOTAL</span>'
-    + '<span style="font-family:DM Mono,monospace;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;color:#ffd089;background:rgba(232,130,30,0.10);border:1px solid rgba(232,130,30,0.30);">'
-    + list.filter(function(m){return (m.t||0) > Date.now() - 7*24*60*60*1000;}).length + ' IN LAST 7 DAYS</span>'
+    + _pill(list.length+' TOTAL','#86e08a','34,197,94')
+    + _pill(list.filter(function(m){return (m.t||0) > Date.now() - 7*24*60*60*1000;}).length+' IN LAST 7 DAYS','#ffd089','232,130,30')
+    + _pill('T1 '+tc[0],'#9bc1e4','59,130,246')
+    + _pill('T2 '+tc[1]+' · '+MEMBER_TIERS[1].name,'#ffb066','255,153,51')
+    + _pill('T3 '+tc[2]+' · '+MEMBER_TIERS[2].name,'#ebaa43','235,170,67')
+    + _pill('AVG TENURE '+_tenureLabel(avgTen),'#c4b5fd','168,85,247')
+    + (perfN?_pill('AVG PERF '+Math.round(perfSum/perfN)+'/100','#fcd34d','245,158,11'):'')
+    + (topPerf?_pill('★ TOP '+escapeHtml((topPerf.name||'').split(' ')[0])+' '+topPerf.perf,'#86e08a','34,197,94'):'')
     + '</div>';
   el.innerHTML = stats + list.map(function(m, i){
     var when = m.t ? new Date(m.t).toLocaleString() : '—';
@@ -4457,6 +4468,7 @@ function buildAdminMembershipList(){
         + '<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px;">'
           + '<span style="font-weight:800;font-size:14px;color:#fff;">'+escapeHtml(m.name || '(no name)')+'</span>'
           + (meta.length ? '<span style="font-size:11px;color:#9bc1e4;letter-spacing:0.05em;">'+meta.join(' · ')+'</span>' : '')
+          + _tierTenureBadges(m)
         + '</div>'
         + '<div style="font-family:DM Mono,monospace;font-size:11px;color:var(--text2);margin-bottom:3px;">'
           + (m.phone ? '📞 '+escapeHtml(m.phone)+'   ' : '')
@@ -4465,6 +4477,7 @@ function buildAdminMembershipList(){
         + (m.address ? '<div style="font-size:11.5px;color:var(--text2);">'+escapeHtml(m.address)+'</div>' : '')
         + (m.why ? '<div style="font-size:11px;color:var(--text3);font-style:italic;margin-top:6px;line-height:1.4;">&ldquo;'+escapeHtml(m.why)+'&rdquo;</div>' : '')
         + '<div style="font-size:10px;color:var(--text3);margin-top:6px;letter-spacing:0.04em;">Submitted '+when+'</div>'
+        + _approvalBar(m, i)
       + '</div>'
       + '<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;">'
         + contactBtns(m.phone, m.email, m.name)
@@ -5507,6 +5520,69 @@ function contactBtns(phone, email, name){
   return '<div class="contact-actions" style="display:inline-flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;">'+b.join('')+'</div>';
 }
 
+/* ── Committee membership tiers (admin-approved ladder + tenure + performance) ── */
+var MEMBER_TIERS = [
+  { id:1, name:'Karyakarta',  desc:'Primary Member',  color:'#9bc1e4', rgb:'59,130,246',  minDays:0   },
+  { id:2, name:'Ward Leader', desc:'Booth-level lead', color:'#ffb066', rgb:'255,153,51',  minDays:90  },
+  { id:3, name:'President',   desc:'Senior committee', color:'#ebaa43', rgb:'235,170,67',  minDays:365 }
+];
+function _memberTierOf(m){ var id=parseInt((m&&m.tier)||1,10)||1; return MEMBER_TIERS[Math.max(0,Math.min(2,id-1))]; }
+function _tenureDays(m){ var t=(m&&m.t)||0; if(!t) return 0; return Math.max(0, Math.floor((Date.now()-t)/86400000)); }
+function _tenureLabel(d){ if(d<1) return 'today'; if(d<30) return d+' day'+(d>1?'s':''); var mo=Math.floor(d/30); if(mo<12) return mo+' mo'; var y=Math.floor(mo/12), rm=mo%12; return y+'y'+(rm?' '+rm+'mo':''); }
+function _tierEligibleId(m){ var d=_tenureDays(m), id=1; MEMBER_TIERS.forEach(function(t){ if(d>=t.minDays) id=t.id; }); return id; }
+function _adminWho(){ try{ return (window.firebase&&firebase.auth&&firebase.auth().currentUser&&firebase.auth().currentUser.email)||'committee'; }catch(e){ return 'committee'; } }
+
+function _tierTenureBadges(m){
+  var t=_memberTierOf(m), d=_tenureDays(m);
+  return '<span style="font-size:10.5px;font-weight:800;padding:2px 9px;border-radius:999px;color:'+t.color+';background:rgba('+t.rgb+',0.14);border:1px solid rgba('+t.rgb+',0.42);letter-spacing:0.03em;">T'+t.id+' · '+t.name+'</span>'
+    + '<span style="font-size:10.5px;color:#9bc1e4;">🗓 '+_tenureLabel(d)+'</span>'
+    + ((m.perf!=null&&m.perf!=='')?'<span style="font-size:10.5px;color:#fcd34d;">★ '+m.perf+'/100</span>':'');
+}
+function _approvalBar(m, i){
+  var cur=_memberTierOf(m).id;
+  var btns=MEMBER_TIERS.map(function(t){
+    var active=(t.id===cur), eligible=(_tenureDays(m)>=t.minDays);
+    return '<button class="btn btn-sm" onclick="approveMemberTier('+i+','+t.id+')" title="'+(eligible?'Eligible ('+t.minDays+'+ days)':'Below '+t.minDays+' days — you can still override')+'" style="padding:4px 10px;font-size:10.5px;border-radius:8px;'
+      + (active ? 'background:'+t.color+';color:#0a0f1e;border:1px solid '+t.color+';font-weight:800;'
+                : 'background:rgba('+t.rgb+',0.08);color:'+t.color+';border:1px solid rgba('+t.rgb+',0.3);'+(eligible?'':'opacity:0.55;'))
+      + '">'+t.name+'</button>';
+  }).join('');
+  var approved = m.approvedBy ? '<span style="font-size:9.5px;color:var(--text3);">✓ by '+escapeHtml(String(m.approvedBy).split('@')[0])+(m.approvedAt?' · '+new Date(m.approvedAt).toLocaleDateString():'')+'</span>' : '';
+  return '<div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);display:flex;align-items:center;gap:7px;flex-wrap:wrap;">'
+    + '<span style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;">Committee tier</span>'
+    + btns
+    + '<span style="width:1px;height:16px;background:var(--border);margin:0 2px;"></span>'
+    + '<span style="font-size:10px;color:var(--text3);">Perf</span>'
+    + '<input type="number" min="0" max="100" value="'+(m.perf!=null?m.perf:'')+'" id="perf-'+i+'" style="width:54px;padding:3px 6px;font-size:11px;background:var(--navy2);border:1px solid var(--border);border-radius:6px;color:#fff;" placeholder="0-100">'
+    + '<button class="btn btn-sm" onclick="saveMemberPerf('+i+')" style="padding:4px 9px;font-size:10.5px;background:rgba(34,197,94,0.10);color:#86e08a;border:1px solid rgba(34,197,94,0.3);border-radius:7px;">Save</button>'
+    + approved
+    + '</div>';
+}
+function approveMemberTier(i, tierId){
+  var rec=(typeof _mshipMergedList==='function')?_mshipMergedList()[i]:null; if(!rec) return;
+  var t=MEMBER_TIERS[tierId-1];
+  if(!rec._fbkey){ if(typeof showToast==='function') showToast('Tier applies to registered (Firebase) members only','error'); return; }
+  if(!confirm('Approve '+(rec.name||'this member')+' as '+t.name+' (Tier '+tierId+')?')) return;
+  var db=(typeof _initCmsFirebase==='function')?_initCmsFirebase():null; if(!db){ showToast('No database','error'); return; }
+  var who=_adminWho();
+  db.ref('membership/'+rec._fbkey).update({ tier:tierId, tierName:t.name, approvedBy:who, approvedAt:Date.now() })
+    .then(function(){
+      if(Array.isArray(_mshipCache)){ var c=_mshipCache.filter(function(x){return x._fbkey===rec._fbkey;})[0]; if(c){ c.tier=tierId; c.tierName=t.name; c.approvedBy=who; c.approvedAt=Date.now(); } }
+      buildAdminMembershipList(); if(typeof showToast==='function') showToast('✓ '+(rec.name||'Member')+' → '+t.name);
+    }).catch(function(e){ if(typeof showToast==='function') showToast('Failed: '+e.message,'error'); });
+}
+function saveMemberPerf(i){
+  var rec=(typeof _mshipMergedList==='function')?_mshipMergedList()[i]:null;
+  if(!rec||!rec._fbkey){ if(typeof showToast==='function') showToast('Registered members only','error'); return; }
+  var el=document.getElementById('perf-'+i); var v=parseInt(el?el.value:'',10);
+  if(isNaN(v)||v<0||v>100){ if(typeof showToast==='function') showToast('Enter a score 0–100','error'); return; }
+  var db=(typeof _initCmsFirebase==='function')?_initCmsFirebase():null; if(!db) return;
+  db.ref('membership/'+rec._fbkey).update({ perf:v }).then(function(){
+    if(Array.isArray(_mshipCache)){ var c=_mshipCache.filter(function(x){return x._fbkey===rec._fbkey;})[0]; if(c) c.perf=v; }
+    buildAdminMembershipList(); if(typeof showToast==='function') showToast('Performance saved: '+v+'/100');
+  }).catch(function(e){ if(typeof showToast==='function') showToast('Failed: '+e.message,'error'); });
+}
+
 /* ── Marketing & Broadcast ── */
 function _mktMembers(){ try{ return (typeof _mshipMergedList==='function') ? _mshipMergedList() : []; }catch(e){ return []; } }
 function mktRefreshAudience(){
@@ -5546,21 +5622,29 @@ function mktRenderList(channel){
 
 /* ── Notify admin when a new membership application arrives ── */
 (function setupMshipNotify(){
-  function start(){
+  var attached=false;
+  function attach(){
+    if(attached) return;
     var db=(typeof _initCmsFirebase==='function') ? _initCmsFirebase() : null;
-    if(!db){ return setTimeout(start, 1500); }
-    var loaded=false;
-    db.ref('membership').on('child_added', function(snap){
-      if(!loaded) return;                       // skip records that existed at load
-      var m=snap.val()||{};
-      if(typeof showToast==='function') showToast('🔔 New membership: '+(m.name||'new applicant'));
-      var badge=document.getElementById('mshipUnreadBadge');
-      if(badge){ badge.textContent=String((parseInt(badge.textContent||'0',10)||0)+1); badge.style.display='inline-block'; }
-      try{ if(typeof buildAdminMembershipList==='function') buildAdminMembershipList(); }catch(e){}
-    });
-    db.ref('membership').once('value', function(){ loaded=true; mktRefreshAudience(); });
+    if(!db){ return setTimeout(attach, 2000); }
+    /* Probe read permission first (fires the error cb — not an uncaught throw —
+       when the admin isn't logged in yet). Only wire the live listener once
+       we actually have access. */
+    db.ref('membership').limitToLast(1).once('value').then(function(){
+      if(attached) return; attached=true;
+      var loaded=false;
+      db.ref('membership').on('child_added', function(snap){
+        if(!loaded) return;                      // skip records that existed at load
+        var m=snap.val()||{};
+        if(typeof showToast==='function') showToast('🔔 New membership: '+(m.name||'new applicant'));
+        var badge=document.getElementById('mshipUnreadBadge');
+        if(badge){ badge.textContent=String((parseInt(badge.textContent||'0',10)||0)+1); badge.style.display='inline-block'; }
+        try{ if(typeof buildAdminMembershipList==='function') buildAdminMembershipList(); }catch(e){}
+      }, function(){/* permission lost — ignore */});
+      db.ref('membership').once('value').then(function(){ loaded=true; try{ mktRefreshAudience(); }catch(e){} }).catch(function(){});
+    }).catch(function(){ /* not permitted yet (admin not logged in) → retry quietly */ setTimeout(attach, 4000); });
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start); else start();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', attach); else attach();
 })();
 </script>
 </body>
