@@ -4417,15 +4417,20 @@ function _writeMshipApps(arr){
    device via /membership. We fetch them (admin-only read), merge with any
    legacy local-only records, and render. */
 var _mshipCache = null;
+var _mshipLive = false;
 function loadMembershipFromFirebase(){
   var db = (typeof _initCmsFirebase==='function') ? _initCmsFirebase() : null;
   if(!db){ return; }
-  db.ref('membership').orderByChild('t').once('value').then(function(snap){
+  if(_mshipLive) return;                 /* real-time listener already attached */
+  _mshipLive = true;
+  /* LIVE: re-renders automatically on every add / delete / tier change */
+  db.ref('membership').orderByChild('t').on('value', function(snap){
     var arr=[]; snap.forEach(function(c){ var v=c.val()||{}; v._fbkey=c.key; arr.push(v); });
     arr.sort(function(a,b){ return (b.t||0)-(a.t||0); });
     _mshipCache = arr;
     buildAdminMembershipList();
-  }).catch(function(e){ console.warn('membership load:', e.message); });
+    if(typeof mktRefreshAudience==='function') try{ mktRefreshAudience(); }catch(e){}
+  }, function(e){ _mshipLive=false; console.warn('membership live:', e && e.message); });
 }
 function _mshipMergedList(){
   var fb = Array.isArray(_mshipCache) ? _mshipCache : [];
@@ -5622,6 +5627,25 @@ function mktRenderList(channel){
       }).join('')
     + '</div>';
 }
+
+/* ── Live visitor analytics: auto-load + refresh every 25s (near real-time,
+   only while the tab is visible; anonymous aggregate data only — no IPs) ── */
+(function setupLiveAnalytics(){
+  var started=false;
+  function tick(){ if(document.hidden) return; if(typeof loadAnalytics==='function' && document.getElementById('analyticsBody')) { try{ loadAnalytics(); }catch(e){} } }
+  function start(){
+    if(started) return;
+    var db=(typeof _initCmsFirebase==='function')?_initCmsFirebase():null;
+    if(!db){ return setTimeout(start, 2000); }
+    db.ref('analytics').limitToLast(1).once('value').then(function(){
+      if(started) return; started=true;
+      tick();                       /* initial auto-load once admin is authed */
+      setInterval(tick, 25000);     /* refresh every 25s */
+      document.addEventListener('visibilitychange', function(){ if(!document.hidden) tick(); });
+    }).catch(function(){ setTimeout(start, 4000); });   /* not logged in yet → retry quietly */
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
 
 /* ── Notify admin when a new membership application arrives ── */
 (function setupMshipNotify(){
