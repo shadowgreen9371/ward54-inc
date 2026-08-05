@@ -66,3 +66,6 @@ mobile/ios/App/App.xcworkspace/xcshareddata/
 # Separate project living in this folder (has its own repo)
 apps/phone-workstation/
 data/phone_db_schema.sql
+
+# Android local build config (contains signing passwords) — never commit
+mobile/android/gradle.properties
