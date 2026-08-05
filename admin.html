@@ -1192,7 +1192,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
     <div class="card" id="applications" style="margin-top:18px;">
       <div class="p4-section-head">
         <div>
-          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Membership Applications</div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Membership Applications<span id="mshipUnreadBadge" style="display:none;margin-left:8px;background:#ef4444;color:#fff;font-size:11px;font-weight:800;padding:1px 8px;border-radius:10px;vertical-align:middle;">0</span></div>
           <div class="p4-section-sub">New members who submitted the Ward 54 INC registration form on the public site</div>
         </div>
         <div style="display:flex;gap:8px;">
@@ -1201,6 +1201,29 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         </div>
       </div>
       <div id="adminMembershipList"></div>
+    </div>
+
+    <!-- ── Marketing & Broadcast (compose once, send to all members) ── -->
+    <div class="card" id="marketing" style="margin-top:18px;">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;vertical-align:-3px;margin-right:6px;"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg>Marketing &amp; Broadcast</div>
+          <div class="p4-section-sub">Compose one message and send it to Ward 54 members via WhatsApp, SMS or Email</div>
+        </div>
+      </div>
+      <input id="mktSubject" class="form-input" placeholder="Subject (used for email) — e.g. Ward 54 Membership Drive" style="width:100%;margin:10px 0 8px;padding:9px 12px;">
+      <textarea id="mktMessage" class="form-input" rows="4" placeholder="Type your announcement / campaign message here…" style="width:100%;padding:10px 12px;resize:vertical;" oninput="mktRefreshAudience()"></textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;">
+        <span id="mktAudience" style="font-size:12px;color:var(--text2);margin-right:auto;">Audience: — members</span>
+        <button class="btn btn-sm" onclick="mktEmailAll()" style="background:rgba(96,165,250,0.12);color:#9bc1e4;border:1px solid rgba(96,165,250,0.30);padding:7px 12px;font-size:12px;">✉ Email everyone</button>
+        <button class="btn btn-sm" onclick="mktRenderList('wa')" style="background:rgba(37,211,102,0.10);color:#25d366;border:1px solid rgba(37,211,102,0.35);padding:7px 12px;font-size:12px;">💬 WhatsApp list</button>
+        <button class="btn btn-sm" onclick="mktRenderList('sms')" style="background:rgba(168,85,247,0.12);color:#c4b5fd;border:1px solid rgba(168,85,247,0.32);padding:7px 12px;font-size:12px;">📱 SMS list</button>
+      </div>
+      <div id="mktList" style="margin-top:12px;"></div>
+      <div style="font-size:10.5px;color:var(--text3);margin-top:10px;line-height:1.5;">
+        <b>Email everyone</b> opens your mail app with all member emails in <b>BCC</b> (recipients stay private) and your subject + message ready to send.<br>
+        <b>WhatsApp / SMS list</b> shows one button per member — click each to open the app with your message pre-filled. (WhatsApp Web / Business API can automate this later.)
+      </div>
     </div>
 
   </div>
@@ -4444,7 +4467,7 @@ function buildAdminMembershipList(){
         + '<div style="font-size:10px;color:var(--text3);margin-top:6px;letter-spacing:0.04em;">Submitted '+when+'</div>'
       + '</div>'
       + '<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;">'
-        + (m.phone ? '<a class="btn btn-sm" style="background:rgba(37,211,102,0.10);color:#25d366;border:1px solid rgba(37,211,102,0.35);padding:5px 10px;font-size:11px;text-decoration:none;" href="https://wa.me/'+(String(m.phone).replace(/\D/g,'').length>=12?String(m.phone).replace(/\D/g,''):'91'+String(m.phone).replace(/\D/g,''))+'" target="_blank" rel="noopener">WhatsApp</a>' : '')
+        + contactBtns(m.phone, m.email, m.name)
         + '<button class="btn btn-sm" style="background:rgba(239,68,68,0.10);color:var(--red2);border:1px solid rgba(239,68,68,0.30);padding:5px 10px;font-size:11px;" onclick="deleteMembershipApp('+i+')">Delete</button>'
       + '</div>'
     + '</div>';
@@ -5458,6 +5481,86 @@ else if('serviceWorker' in navigator){
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
   window.addEventListener('hashchange', function(){ if(location.hash) go(location.hash); });
+})();
+</script>
+
+<!-- ✦ Contact integration (WhatsApp/Call/SMS/Email) + Marketing broadcast + new-member notify -->
+<script>
+/* normalize an Indian phone number to a wa.me-friendly digit string */
+function _cleanPhone(p){
+  var d=String(p||'').replace(/\D/g,'');
+  if(!d) return '';
+  if(d.length>=12) return d;            // already has country code
+  if(d.length===10) return '91'+d;      // add India code
+  return d;
+}
+/* reusable action buttons under any phone/email — WhatsApp · Call · SMS · Email */
+function contactBtns(phone, email, name){
+  var wa=_cleanPhone(phone);
+  var b=[];
+  var base='class="btn btn-sm" style="padding:5px 10px;font-size:11px;text-decoration:none;border-radius:8px;';
+  if(wa)    b.push('<a '+base+'background:rgba(37,211,102,0.10);color:#25d366;border:1px solid rgba(37,211,102,0.35);" href="https://wa.me/'+wa+'" target="_blank" rel="noopener">WhatsApp</a>');
+  if(phone) b.push('<a '+base+'background:rgba(96,165,250,0.12);color:#9bc1e4;border:1px solid rgba(96,165,250,0.30);" href="tel:'+encodeURIComponent(String(phone).replace(/\s/g,''))+'">Call</a>');
+  if(phone) b.push('<a '+base+'background:rgba(168,85,247,0.12);color:#c4b5fd;border:1px solid rgba(168,85,247,0.32);" href="sms:'+encodeURIComponent(String(phone).replace(/\s/g,''))+'">SMS</a>');
+  if(email) b.push('<a '+base+'background:rgba(245,158,11,0.12);color:#fcd34d;border:1px solid rgba(245,158,11,0.32);" href="mailto:'+encodeURIComponent(email)+'">Email</a>');
+  if(!b.length) return '';
+  return '<div class="contact-actions" style="display:inline-flex;gap:5px;flex-wrap:wrap;justify-content:flex-end;">'+b.join('')+'</div>';
+}
+
+/* ── Marketing & Broadcast ── */
+function _mktMembers(){ try{ return (typeof _mshipMergedList==='function') ? _mshipMergedList() : []; }catch(e){ return []; } }
+function mktRefreshAudience(){
+  var mem=_mktMembers();
+  var ph=mem.filter(function(m){return m.phone;}).length;
+  var em=mem.filter(function(m){return m.email;}).length;
+  var el=document.getElementById('mktAudience');
+  if(el) el.textContent='Audience: '+mem.length+' members · '+ph+' with phone · '+em+' with email';
+}
+function mktEmailAll(){
+  var mem=_mktMembers();
+  var emails=[...new Set(mem.map(function(m){return (m.email||'').trim();}).filter(Boolean))];
+  if(!emails.length){ if(typeof showToast==='function') showToast('No member emails on file yet','error'); return; }
+  var subj=encodeURIComponent((document.getElementById('mktSubject')||{}).value||'Ward 54 INC');
+  var body=encodeURIComponent((document.getElementById('mktMessage')||{}).value||'');
+  window.location.href='mailto:?bcc='+encodeURIComponent(emails.join(','))+'&subject='+subj+'&body='+body;
+  if(typeof showToast==='function') showToast('Opening your mail app for '+emails.length+' members (BCC)');
+}
+function mktRenderList(channel){
+  var mem=_mktMembers().filter(function(m){return m.phone;});
+  var msg=(document.getElementById('mktMessage')||{}).value||'';
+  var enc=encodeURIComponent(msg);
+  var el=document.getElementById('mktList'); if(!el) return;
+  if(!msg.trim()){ el.innerHTML='<div style="color:#fcd34d;font-size:12px;">Type your message above first.</div>'; return; }
+  if(!mem.length){ el.innerHTML='<div style="color:var(--text3);font-size:12px;">No member phone numbers on file.</div>'; return; }
+  var label = channel==='wa' ? 'WhatsApp' : 'SMS';
+  el.innerHTML='<div style="font-size:11px;color:var(--text3);margin-bottom:8px;">Click each name to send via <b>'+label+'</b> with your message pre-filled ('+mem.length+' members):</div>'
+    + '<div style="display:flex;gap:6px;flex-wrap:wrap;">'
+    + mem.map(function(m){
+        var ph=_cleanPhone(m.phone);
+        var href = channel==='wa' ? ('https://wa.me/'+ph+'?text='+enc) : ('sms:'+encodeURIComponent(String(m.phone).replace(/\s/g,''))+'?&body='+enc);
+        var col = channel==='wa' ? '37,211,102' : '168,85,247';
+        return '<a class="btn btn-sm" style="padding:5px 11px;font-size:11px;text-decoration:none;border-radius:8px;background:rgba('+col+',0.10);color:'+(channel==='wa'?'#25d366':'#c4b5fd')+';border:1px solid rgba('+col+',0.35);" href="'+href+'" target="_blank" rel="noopener">'+((typeof escapeHtml==='function')?escapeHtml(m.name||m.phone):(m.name||m.phone))+'</a>';
+      }).join('')
+    + '</div>';
+}
+
+/* ── Notify admin when a new membership application arrives ── */
+(function setupMshipNotify(){
+  function start(){
+    var db=(typeof _initCmsFirebase==='function') ? _initCmsFirebase() : null;
+    if(!db){ return setTimeout(start, 1500); }
+    var loaded=false;
+    db.ref('membership').on('child_added', function(snap){
+      if(!loaded) return;                       // skip records that existed at load
+      var m=snap.val()||{};
+      if(typeof showToast==='function') showToast('🔔 New membership: '+(m.name||'new applicant'));
+      var badge=document.getElementById('mshipUnreadBadge');
+      if(badge){ badge.textContent=String((parseInt(badge.textContent||'0',10)||0)+1); badge.style.display='inline-block'; }
+      try{ if(typeof buildAdminMembershipList==='function') buildAdminMembershipList(); }catch(e){}
+    });
+    db.ref('membership').once('value', function(){ loaded=true; mktRefreshAudience(); });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
 </script>
 </body>
