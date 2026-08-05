@@ -41,7 +41,7 @@
       ".indexOn": ["t"],
       "$app": {
         ".write": "!data.exists() || (auth != null && (auth.token.email === 'mdshakil43@gmail.com' || auth.token.email === 'nepaligeetbazaar@gmail.com'))",
-        ".validate": "!newData.exists() || (newData.hasChildren(['t','name','phone']) && newData.child('t').isNumber() && newData.child('name').isString() && newData.child('name').val().length < 120 && newData.child('phone').isString() && newData.child('phone').val().length < 24 && (!newData.child('email').exists() || newData.child('email').val().length < 120) && (!newData.child('address').exists() || newData.child('address').val().length < 300) && (!newData.child('why').exists() || newData.child('why').val().length < 500))"
+        ".validate": "!newData.exists() || (newData.hasChildren(['t','name','phone']) && newData.child('t').isNumber() && newData.child('name').isString() && newData.child('name').val().length < 120 && newData.child('phone').isString() && newData.child('phone').val().length < 24 && (data.exists() || (newData.child('email').isString() && newData.child('email').val().length > 4 && newData.child('email').val().contains('@'))) && (!newData.child('email').exists() || newData.child('email').val().length < 120) && (!newData.child('address').exists() || newData.child('address').val().length < 300) && (!newData.child('why').exists() || newData.child('why').val().length < 500))"
       }
     },
     "membership_count": {
