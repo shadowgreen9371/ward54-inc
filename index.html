@@ -6425,7 +6425,7 @@ var FIREBASE_CONFIG = {
    register the app + enable App Check in the Firebase Console in MONITORING
    mode first, verify tokens flow, THEN switch to Enforce — enforcing before a
    valid key is live would block all data access. */
-var APPCHECK_SITE_KEY = '';   /* e.g. '6Lxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' */
+var APPCHECK_SITE_KEY = '6Lcv-HgtAAAAADDFP9--OG0pUSvG1MRNLAUYbbag';   /* reCAPTCHA v3 site key (public — safe in code) */
 
 var _fbDb = null;      // false = tried + failed/not-configured, object = ready
 var _fbListener = null; // current 'child_added' callback so we can detach on close
