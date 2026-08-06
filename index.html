@@ -1456,6 +1456,13 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
 .committee-wa:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,211,102,0.40);filter:brightness(1.08);}
 .committee-wa:active{transform:translateY(0);}
 .committee-wa svg{width:13px;height:13px;flex-shrink:0;}
+.committee-sms,.committee-email{display:inline-flex;align-items:center;gap:6px;margin-top:8px;margin-left:6px;color:#fff;
+  text-decoration:none;font-size:11px;font-weight:600;letter-spacing:0.04em;padding:5px 10px 5px 8px;border-radius:999px;
+  border:1px solid rgba(255,255,255,0.18);transition:transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;}
+.committee-sms{background:linear-gradient(135deg,#8b5cf6,#6d3be0);box-shadow:0 4px 12px rgba(139,92,246,0.25);}
+.committee-email{background:linear-gradient(135deg,#f59e0b,#c8862a);box-shadow:0 4px 12px rgba(245,158,11,0.25);}
+.committee-sms:hover,.committee-email:hover{transform:translateY(-1px);filter:brightness(1.08);}
+.committee-sms svg,.committee-email svg{width:13px;height:13px;flex-shrink:0;}
 .committee-empty-slot{
   border-style:dashed !important;background:transparent !important;color:var(--text3);
   font-size:12px;text-align:center;display:flex;align-items:center;justify-content:center;
@@ -2462,6 +2469,17 @@ html.native-app .inspo-count{backdrop-filter:none;background:rgba(10,15,30,0.95)
 .mtier-name{font-size:11.5px;font-weight:800;color:#fff;line-height:1.2;}
 .mtier-need{font-size:9.5px;color:var(--text3);margin-top:4px;letter-spacing:0.02em;}
 @media(max-width:560px){ .mship-tier-ladder{grid-template-columns:repeat(2,1fr);} }
+/* Committee ranks ladder — official Karyakarta → Ward Leader → President */
+.mcl-steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:8px;margin-top:2px;}
+.mcl-step{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-top:3px solid var(--tc);border-radius:12px;padding:13px 10px;text-align:center;}
+.mcl-badge{width:26px;height:26px;border-radius:50%;background:var(--tc);color:#0a0f1e;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;}
+.mcl-name{font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;color:var(--tc);line-height:1.1;}
+.mcl-role{font-size:9.5px;color:var(--text3);margin:3px 0 7px;text-transform:uppercase;letter-spacing:0.07em;}
+.mcl-how{font-size:11px;color:var(--text2);line-height:1.4;}
+.mcl-arrow{align-self:center;color:var(--text3);font-size:18px;font-weight:700;}
+.mcl-note{font-size:11.5px;color:var(--text3);margin-top:12px;line-height:1.5;}
+.mcl-note b{color:#ffd089;}
+@media(max-width:560px){ .mcl-steps{grid-template-columns:1fr;} .mcl-arrow{transform:rotate(90deg);margin:-2px auto;} }
 .mship-lb-list{display:flex;flex-direction:column;gap:7px;}
 .lb-row{display:grid;grid-template-columns:34px 1fr auto auto;align-items:center;gap:10px;
   background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 12px;}
@@ -3694,6 +3712,35 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
         <div class="mtier" style="--tc:#a855f7"><div class="mtier-dot"></div><div class="mtier-name">Karyakarta</div><div class="mtier-need">15 referrals</div></div>
         <div class="mtier" style="--tc:#e8821e"><div class="mtier-dot"></div><div class="mtier-name">Booth Leader</div><div class="mtier-need">30 referrals</div></div>
       </div>
+    </div>
+
+    <!-- ═══ COMMITTEE RANKS — how to rise (tenure + performance + approval) ═══ -->
+    <div class="mship-tiers-card">
+      <div class="mship-tiers-head">🏛️ Committee Ranks — <span>Your Path to Leadership</span></div>
+      <div class="mship-tiers-sub">Every member starts as a Karyakarta. Serve your ward, build your record, and the committee promotes you.</div>
+      <div class="mcl-steps">
+        <div class="mcl-step" style="--tc:#60a5fa">
+          <div class="mcl-badge">1</div>
+          <div class="mcl-name">Karyakarta</div>
+          <div class="mcl-role">Primary Member</div>
+          <div class="mcl-how">Automatic the day you join</div>
+        </div>
+        <div class="mcl-arrow" aria-hidden="true">→</div>
+        <div class="mcl-step" style="--tc:#ff9933">
+          <div class="mcl-badge">2</div>
+          <div class="mcl-name">Ward Leader</div>
+          <div class="mcl-role">Booth-level lead</div>
+          <div class="mcl-how">~3 months of active service + strong performance, approved by the committee</div>
+        </div>
+        <div class="mcl-arrow" aria-hidden="true">→</div>
+        <div class="mcl-step" style="--tc:#ebaa43">
+          <div class="mcl-badge">3</div>
+          <div class="mcl-name">President</div>
+          <div class="mcl-role">Senior committee</div>
+          <div class="mcl-how">~1 year of proven leadership, approved by the committee</div>
+        </div>
+      </div>
+      <div class="mcl-note">Rank is earned by <b>tenure</b> (how long you serve), your <b>performance</b>, and <b>committee approval</b> — never by paying anything.</div>
     </div>
 
     <!-- ═══ TOP MEMBERS LEADERBOARD ═══ -->
@@ -6930,7 +6977,9 @@ function buildPollingAgentsList(){
         + '<a class="committee-wa" href="https://wa.me/'+waNumber+'?text='+waText+'" target="_blank" rel="noopener noreferrer" aria-label="Open WhatsApp chat with '+escapeHtml(a.name||'agent')+'">'
         +   '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>'
         +   'WhatsApp'
-        + '</a>';
+        + '</a>'
+        + '<a class="committee-sms" href="sms:'+cleanPhone+'" aria-label="SMS '+escapeHtml(a.name||'agent')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>SMS</a>'
+        + (a.email ? '<a class="committee-email" href="mailto:'+encodeURIComponent(a.email)+'" aria-label="Email '+escapeHtml(a.name||'agent')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>Email</a>' : '');
     }
     var nameHTML = a.name
       ? '<div class="committee-name">'+escapeHtml(a.name)+'</div>'
