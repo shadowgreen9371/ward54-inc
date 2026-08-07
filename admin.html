@@ -905,6 +905,7 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
       <a href="#publish"          data-toc>💾 Backup</a>
       <a href="#changelog"        data-toc>🕒 Changes</a>
       <a href="#main-page"        data-toc>🏠 Main Page</a>
+      <a href="#home-committee"   data-toc>⭐ Homepage Committee</a>
       <a href="#office-bearers"   data-toc>🇮🇳 Office Bearers</a>
       <a href="#polling-agents"   data-toc>🗳 Polling Agents</a>
       <a href="#membership"       data-toc>📇 Membership</a>
@@ -1107,6 +1108,18 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
         <div class="form-group"><label class="form-label">Title</label><input class="form-input" id="mp-cta4-t" placeholder="POLLING AGENTS"></div>
         <div class="form-group"><label class="form-label">Description</label><input class="form-input" id="mp-cta4-d" placeholder="Booth agents · Roles · Duties"></div>
       </div>
+    </div>
+
+    <!-- Section: Homepage Committee Card (front-page hero roster) -->
+    <div class="p4-section" id="home-committee">
+      <div class="p4-section-head">
+        <div>
+          <div class="p4-section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Homepage Committee Card</div>
+          <div class="p4-section-sub">The leaders shown on the front-page hero. Edit name, role &amp; photo — updates the site live. (Phone is optional; it isn't shown on the homepage.)</div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="addCommitteeMember('home')">+ Add Member</button>
+      </div>
+      <div id="adminHomeList"></div>
     </div>
 
     <!-- Section: Congress Committee Office Bearers -->
@@ -3079,7 +3092,7 @@ function openAdminPanel(){
   try{
     var _c = cmsRead();
     if(!_c || !_c.pollingAgents){
-      pullCmsFromLive(true).then(function(ok){ if(ok){ buildAdminPollingAgentsList(); buildAdminCongressWorkersList(); buildAdminNoticesList(); buildAdminGalleryList(); buildAdminMembershipList(); loadMainPageContent(); buildAdminCommitteeList('congress'); } });
+      pullCmsFromLive(true).then(function(ok){ if(ok){ buildAdminPollingAgentsList(); buildAdminCongressWorkersList(); buildAdminNoticesList(); buildAdminGalleryList(); buildAdminMembershipList(); loadMainPageContent(); buildAdminCommitteeList('congress'); buildAdminCommitteeList('home'); } });
     }
   }catch(e){}
   syncLogoAllPages();
@@ -3088,6 +3101,7 @@ function openAdminPanel(){
   refreshP4Stats();
   loadMainPageContent();
   buildAdminCommitteeList('congress');
+  buildAdminCommitteeList('home');
   buildAdminPollingAgentsList();
   buildAdminCongressWorkersList();
   buildAdminNoticesList();
@@ -3715,6 +3729,14 @@ var COMMITTEE_DEFAULTS = {
     { post:'Vice President',     name:'', phone:'' },
     { post:'General Secretary',  name:'', phone:'' },
     { post:'Secretary',          name:'', phone:'' }
+  ],
+  /* Homepage committee card (the 4 leaders shown on the front page hero).
+     `post` is the role label; `photo` defaults to the bundled asset image. */
+  home: [
+    { post:'President',    name:'Manas Sarkar',    phone:'', photo:'assets/committee/manas.jpg' },
+    { post:'Ward Leader',  name:'Mohammad Shakil',  phone:'', photo:'assets/committee/shakil.jpg' },
+    { post:'Ward Leader',  name:'Mohammad Nadeem',  phone:'', photo:'assets/committee/nadeem.jpg' },
+    { post:'Office Bearer',name:'Treasurer',        phone:'', photo:'assets/committee/treasurer.jpg' }
   ]
 };
 function getCommittee(which){
@@ -3736,7 +3758,9 @@ function setCommittee(which, list){
   if(typeof autoPublish==='function') autoPublish('Update '+which+' committee');
 }
 function buildAdminCommitteeList(which){
-  var listEl = document.getElementById(which==='youth' ? 'adminYouthList' : 'adminCongressList');
+  var listEl = document.getElementById(
+    which==='youth' ? 'adminYouthList' :
+    which==='home'  ? 'adminHomeList'  : 'adminCongressList');
   if(!listEl) return;
   var list = getCommittee(which);
   if(list.length === 0){
@@ -5488,7 +5512,7 @@ else if('serviceWorker' in navigator){
   });
   /* Observe sections to update the active chip + URL as user scrolls */
   var ids = ['branding','ward-info','polling-stations','voters','cloud-sync','publish','changelog',
-             'main-page','office-bearers','polling-agents','membership','notices','gallery','applications'];
+             'main-page','home-committee','office-bearers','polling-agents','membership','notices','gallery','applications'];
   function nodes(){ return ids.map(function(i){return document.getElementById(i);}).filter(Boolean); }
   var observer = null;
   function setupObserver(){
