@@ -1909,6 +1909,13 @@ html.native-app .home-sec-inspirations::before{display:none;}
 .app-get-txt small{font-size:9px;letter-spacing:0.17em;text-transform:uppercase;color:#aeb8cf;font-weight:600;}
 .app-get-txt b{font-family:'Outfit',sans-serif;font-size:16.5px;font-weight:800;color:#fff;letter-spacing:0.01em;}
 html.native-app .app-get-wrap{display:none;}
+/* Scan-to-install QR — desktop only (you can't scan the phone you're holding) */
+.app-get-qr{display:none;}
+@media(min-width:760px){ .app-get-qr{display:flex;flex-direction:column;align-items:center;gap:9px;margin-top:16px;position:relative;z-index:1;} }
+.app-get-qr-card{background:#fff;border-radius:14px;padding:10px;box-shadow:0 10px 26px rgba(0,0,0,0.4);line-height:0;}
+.app-get-qr-card img{display:block;width:118px;height:118px;border-radius:4px;}
+.app-get-qr-cap{font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#aeb8cf;}
+html.native-app .app-get-qr{display:none !important;}
 .join-soc{position:relative;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   color:#fff;text-decoration:none;overflow:hidden;isolation:isolate;
   box-shadow:0 4px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
@@ -3454,6 +3461,10 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
             <span class="app-get-txt"><small>Get it on</small><b>Google Play</b></span>
           </a>
         </div>
+        <div class="app-get-qr">
+          <div class="app-get-qr-card"><img src="assets/app-qr.png" alt="Scan to install the Ward 54 Kolkata app" loading="lazy" width="118" height="118"></div>
+          <span class="app-get-qr-cap">Scan to install on your phone</span>
+        </div>
 
       </div>
 
@@ -3816,7 +3827,7 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
       <div class="mship-form-head">
         <span class="mship-form-eyebrow">▶ JOIN THE MOVEMENT</span>
         <h2 class="mship-form-title">Register as a <span class="accent">Ward 54 INC Member</span></h2>
-        <p class="mship-form-desc">Be counted in. Membership is free for residents of Ward 54.</p>
+        <p class="mship-form-desc">Be counted in. <b style="color:#86e08a">Free</b> · takes 30 seconds · only <b style="color:#fff">name, phone &amp; email</b> needed — everything else is optional.</p>
       </div>
       <form class="mship-form" onsubmit="event.preventDefault();submitMembership(this);" autocomplete="on">
         <div class="mship-form-grid">
@@ -3833,8 +3844,8 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
             <input type="email" name="email" required maxlength="80" placeholder="you@example.com" title="Email is required so we can send you updates and notices">
           </div>
           <div class="mship-field">
-            <label>Age *</label>
-            <input type="number" name="age" required min="18" max="120" placeholder="e.g. 28">
+            <label>Age</label>
+            <input type="number" name="age" min="18" max="120" placeholder="e.g. 28">
           </div>
           <div class="mship-field">
             <label>Gender</label>
@@ -3850,8 +3861,8 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
             <input type="number" name="part" min="1" max="38" placeholder="e.g. 4">
           </div>
           <div class="mship-field mship-field-full">
-            <label>Address (Ward 54) *</label>
-            <input type="text" name="address" required maxlength="160" placeholder="House no, street, area, PIN">
+            <label>Address (Ward 54)</label>
+            <input type="text" name="address" maxlength="160" placeholder="House no, street, area, PIN">
           </div>
           <div class="mship-field mship-field-full">
             <label>Why do you want to join? (optional)</label>
@@ -3863,7 +3874,7 @@ html.native-app .hp-qcard:hover,html.native-app .hp-event:hover,html.native-app 
           <span>I support INC's vision of secular, inclusive India and confirm I am a resident of Ward 54.</span>
         </label>
         <button type="submit" class="mship-submit">
-          <span>REGISTER MEMBERSHIP</span>
+          <span>JOIN NOW — FREE</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
         <div class="mship-form-foot">By submitting you agree to our <a href="./privacy.html" target="_blank" rel="noopener">privacy policy</a>. Your details are sent securely to Ward 54 INC administrators only and are never shared with third parties.</div>
@@ -5805,8 +5816,8 @@ function submitMembership(form){
     why:     (form.why.value||'').trim(),
     referredBy: _mRefParam()
   };
-  if(!data.name || !data.phone || !data.address || !data.age){
-    showToast('Please fill name, phone, age and address','error');
+  if(!data.name || !data.phone){
+    showToast('Please enter your name and phone number','error');
     return;
   }
   if(!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)){
@@ -5826,7 +5837,7 @@ function submitMembership(form){
     buildMembershipStats();
     showMembershipWelcome(data.name, joinedNo, total, refCode);
     setTimeout(buildLeaderboard, 800);
-    if(btn){ btn.disabled=false; btn.innerHTML='<span>REGISTER MEMBERSHIP</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; }
+    if(btn){ btn.disabled=false; btn.innerHTML='<span>JOIN NOW — FREE</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'; }
   }
   var db = (typeof _firebaseReady==='function') ? _firebaseReady() : false;
   if(db && db !== false){
