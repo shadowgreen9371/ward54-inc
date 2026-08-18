@@ -1681,20 +1681,24 @@ body{font-family:'Outfit',sans-serif;background:var(--navy);color:var(--text);mi
    PWA install button + offline badge + loading shimmer + committee polish
    ═══════════════════════════════════════════════════════════════════════════ */
 /* Floating "Install app" pill (shown only when installable / iOS) */
+/* Floating "Get it on Google Play" badge (was the PWA install pill) */
 .install-fab{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120%);
-  z-index:900;display:none;align-items:center;gap:9px;cursor:pointer;
-  padding:11px 20px;border-radius:999px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.03em;color:#1a1410;
-  background:linear-gradient(135deg,rgba(255,217,168,0.88),rgba(232,130,30,0.88));border:1.5px solid rgba(255,255,255,0.30);
-  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
-  box-shadow:0 10px 30px rgba(232,130,30,0.40), inset 0 1px 0 rgba(255,255,255,0.4);
-  transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .25s ease, opacity .25s ease;animation:fabGlow 2.6s ease-in-out infinite;
-  opacity:0.5;}
-.install-fab:hover{opacity:1;}
+  z-index:900;display:none;align-items:center;gap:11px;cursor:pointer;text-decoration:none;
+  padding:9px 16px 9px 13px;border-radius:14px;
+  background:linear-gradient(135deg,#141b2e,#0a0f1e);border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 12px 34px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10);
+  transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .25s ease;animation:fabGlow 3s ease-in-out infinite;}
 .install-fab.show{display:inline-flex;transform:translateX(-50%) translateY(0);}
-.install-fab:hover{box-shadow:0 14px 38px rgba(232,130,30,0.6);}
-.install-fab svg{width:17px;height:17px;}
-.install-fab .close-x{margin-left:4px;opacity:0.6;font-weight:700;}
-@keyframes fabGlow{0%,100%{box-shadow:0 10px 30px rgba(232,130,30,0.40), inset 0 1px 0 rgba(255,255,255,0.4);}50%{box-shadow:0 12px 40px rgba(232,130,30,0.6), inset 0 1px 0 rgba(255,255,255,0.4);}}
+.install-fab.show:hover{box-shadow:0 18px 44px rgba(0,0,0,0.6), 0 0 22px rgba(59,130,246,0.20), inset 0 1px 0 rgba(255,255,255,0.14);}
+.install-fab .gp-ic{width:26px;height:26px;flex:none;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.45));}
+.install-fab .gp-txt{display:flex;flex-direction:column;line-height:1.05;text-align:left;}
+.install-fab .gp-txt small{font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:#aeb8cf;font-weight:600;white-space:nowrap;}
+.install-fab .gp-txt b{font-family:'Outfit',sans-serif;font-size:14.5px;font-weight:800;color:#fff;letter-spacing:0.01em;white-space:nowrap;}
+/* keep it clear of the mobile bottom nav */
+@media(max-width:900px){ .install-fab{bottom:94px;} }
+.install-fab .close-x{margin-left:5px;opacity:0.5;font-weight:700;color:#fff;font-size:12px;align-self:flex-start;line-height:1;}
+.install-fab .close-x:hover{opacity:1;}
+@keyframes fabGlow{0%,100%{box-shadow:0 12px 34px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.10);}50%{box-shadow:0 14px 40px rgba(0,0,0,0.6), 0 0 20px rgba(59,130,246,0.15), inset 0 1px 0 rgba(255,255,255,0.10);}}
 
 /* Offline badge */
 .offline-pill{position:fixed;top:10px;left:50%;transform:translateX(-50%) translateY(-150%);
@@ -7960,41 +7964,31 @@ else if('serviceWorker' in navigator){
 (function(){
   var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   var isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-  var deferredPrompt = null;
+  var isNative = document.documentElement.classList.contains('native-app');
+  var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.ward54inc.app';
 
-  /* Build the floating install pill */
-  var fab = document.createElement('div');
-  fab.className = 'install-fab';
-  fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 21h14"/></svg><span>Install App</span><span class="close-x">✕</span>';
-  document.body.appendChild(fab);
-
-  function showFab(){ if(!isStandalone) fab.classList.add('show'); }
-  function hideFab(){ fab.classList.remove('show'); }
-
-  /* Dismiss (✕) — remember for this session */
-  fab.querySelector('.close-x').addEventListener('click', function(e){
-    e.stopPropagation(); hideFab(); try{ sessionStorage.setItem('ward54.fabDismissed','1'); }catch(_){}
-  });
-
-  fab.addEventListener('click', function(){
-    if(deferredPrompt){
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.finally(function(){ deferredPrompt = null; hideFab(); });
-    } else if(isiOS){
-      alert('To install:\n\n1. Tap the Share button (□↑) at the bottom of Safari\n2. Choose "Add to Home Screen"\n3. Tap Add\n\nThe Ward 54 app icon will appear on your home screen.');
-    }
-  });
-
-  window.addEventListener('beforeinstallprompt', function(e){
-    e.preventDefault(); deferredPrompt = e;
-    try{ if(sessionStorage.getItem('ward54.fabDismissed')) return; }catch(_){}
-    showFab();
-  });
-  window.addEventListener('appinstalled', function(){ hideFab(); deferredPrompt = null; });
-
-  /* iOS has no beforeinstallprompt — show the pill with manual instructions */
-  if(isiOS && !isStandalone){
-    try{ if(!sessionStorage.getItem('ward54.fabDismissed')) setTimeout(showFab, 1500); }catch(_){ setTimeout(showFab,1500); }
+  /* Floating "Get it on Google Play" badge — shown to web visitors who can
+     install the Android app (skipped inside the app, installed PWA, and iOS,
+     since an Android app can't be installed there). */
+  if(!isStandalone && !isNative && !isiOS){
+    var fab = document.createElement('a');
+    fab.className = 'install-fab';
+    fab.href = PLAY_URL; fab.target = '_blank'; fab.rel = 'noopener noreferrer';
+    fab.setAttribute('aria-label','Get Ward 54 Kolkata on Google Play');
+    fab.innerHTML = '<svg class="gp-ic" viewBox="0 0 24 24" aria-hidden="true">'
+      + '<path fill="#00c3ff" d="M1.6 1.3C1.4 1.5 1.3 1.8 1.3 2.2v19.6c0 .4.1.7.3.9l.1.1L12.7 12v-.1L1.6 1.3z"/>'
+      + '<path fill="#ffce00" d="M16.3 15.6l-3.6-3.6v-.1l3.6-3.6.1.1 4.3 2.4c1.2.7 1.2 1.8 0 2.5l-4.4 2.3z"/>'
+      + '<path fill="#ff3b44" d="M16.4 15.5 12.7 11.9 1.6 22.7c.4.4 1 .4 1.7.1l13.1-7.3z"/>'
+      + '<path fill="#00f076" d="M16.4 8.4 3.3 1.1C2.6.7 2 .8 1.6 1.3l11.1 10.8z"/></svg>'
+      + '<span class="gp-txt"><small>Get it on</small><b>Google Play</b></span>'
+      + '<span class="close-x" role="button" aria-label="Dismiss">✕</span>';
+    document.body.appendChild(fab);
+    fab.querySelector('.close-x').addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation(); fab.classList.remove('show');
+      try{ sessionStorage.setItem('ward54.fabDismissed','1'); }catch(_){}
+    });
+    try{ if(!sessionStorage.getItem('ward54.fabDismissed')) setTimeout(function(){ fab.classList.add('show'); }, 1800); }
+    catch(_){ setTimeout(function(){ fab.classList.add('show'); }, 1800); }
   }
 
   /* Offline badge */
