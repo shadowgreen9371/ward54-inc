@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- WARD-54-68-MAINTENANCE-MODE : temporary coming-soon page. Restore with scripts/maintenance.sh off -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ward 68 Kolkata Congress, Entally — We'll Be Back Soon</title>
+<meta name="description" content="Our website is temporarily down for updates. Following the Kolkata municipal ward delimitation, Ward 54 is updating its identity to Ward 68, Kolkata Congress, Entally. We'll be back soon.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a0f1e">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  :root{
+    --saffron:#FF9933; --green:#138808; --navy:#0a0f1e;
+    --ink:#f5f7fb; --muted:#aab4c8; --soft:#c7d0e2; --gold:#e6b84c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:radial-gradient(1200px 620px at 50% -12%, #16203a 0%, #0b1120 55%, #070b16 100%);
+    min-height:100dvh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:48px 20px; position:relative; overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* tricolour top accent */
+  .flagbar{position:fixed; top:0; left:0; right:0; height:5px; z-index:5;
+    background:linear-gradient(90deg, var(--saffron) 0 33.33%, #fff 33.33% 66.66%, var(--green) 66.66% 100%);}
+  /* faint Kolkata skyline silhouette along the bottom */
+  .skyline{position:fixed; left:0; right:0; bottom:0; width:100%; height:auto;
+    opacity:.11; z-index:0; pointer-events:none;}
+  .wrap{position:relative; z-index:2; max-width:640px; width:100%;}
+  .logo{width:94px; height:94px; border-radius:50%; object-fit:cover; display:block; margin:0 auto 22px;
+    filter:drop-shadow(0 6px 24px rgba(230,184,76,.42));}
+  .badge{display:inline-flex; align-items:center; gap:9px; padding:7px 16px; border-radius:999px;
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+    font-size:11.5px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:24px;}
+  .badge .dot{width:8px; height:8px; border-radius:50%; background:#22ff88; animation:pulse 2.1s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,255,136,.55);}70%{box-shadow:0 0 0 9px rgba(34,255,136,0);}100%{box-shadow:0 0 0 0 rgba(34,255,136,0);}}
+  @media(prefers-reduced-motion:reduce){ .badge .dot{animation:none;} }
+  h1{font-size:clamp(30px,8.2vw,52px); font-weight:800; letter-spacing:-.015em; line-height:1.04; margin-bottom:16px;}
+  .lede{font-size:clamp(14px,3.6vw,17px); color:var(--muted); line-height:1.62; max-width:480px; margin:0 auto 36px;}
+  /* WARD 54 -> WARD 68 transition */
+  .trans{display:flex; align-items:center; justify-content:center; gap:clamp(12px,4vw,30px); flex-wrap:nowrap;}
+  .ward{display:flex; flex-direction:column; align-items:center;}
+  .ward .no{font-size:clamp(38px,13vw,78px); font-weight:900; line-height:.95;}
+  .ward.old .no{color:#7c89a3;}
+  .ward.new .no{background:linear-gradient(100deg, var(--saffron), #ffffff 48%, #4fd07f);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+  .ward .lab{font-size:clamp(10px,2.6vw,12px); letter-spacing:.24em; text-transform:uppercase; color:var(--muted); margin-top:8px; font-weight:700;}
+  .arrow{color:var(--gold); flex:none; width:clamp(34px,9vw,54px); height:auto;}
+  .announce{font-size:clamp(13px,3.5vw,15.5px); color:var(--soft); line-height:1.62; max-width:510px; margin:22px auto 0;}
+  .announce b{color:#fff; font-weight:700;}
+  .brand{margin-top:36px; font-size:clamp(15px,4.2vw,19px); font-weight:800; color:#fff;}
+  .brand span{color:var(--gold);}
+  .divider{width:64px; height:3px; border-radius:3px; margin:26px auto 0;
+    background:linear-gradient(90deg, var(--saffron), #fff, var(--green));}
+  .slogan{margin-top:26px; display:inline-flex; align-items:center; gap:13px; font-size:12px; font-weight:800;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--muted);}
+  .slogan i{width:7px; height:7px; border-radius:50%; display:inline-block;}
+</style>
+</head>
+<body>
+  <div class="flagbar"></div>
+
+  <main class="wrap">
+    <img class="logo" src="assets/logo.png" alt="Kolkata Congress emblem" width="94" height="94"
+         onerror="this.style.display='none'">
+
+    <div class="badge"><span class="dot"></span>We'll be back soon</div>
+
+    <h1>We'll Be Back Soon</h1>
+    <p class="lede">Our website is temporarily down for updates. We're working on bringing you our new identity and updated information.</p>
+
+    <section class="trans" aria-label="Ward 54 is becoming Ward 68">
+      <div class="ward old"><span class="no">54</span><span class="lab">Ward</span></div>
+      <svg class="arrow" viewBox="0 0 54 32" fill="none" aria-hidden="true">
+        <path d="M3 16h42M33 4l15 12-15 12" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="ward new"><span class="no">68</span><span class="lab">Ward</span></div>
+    </section>
+
+    <p class="announce">Following the municipal ward delimitation, our page is updating its identity to <b>Ward 68, Kolkata Congress, Entally.</b></p>
+
+    <div class="brand">Ward 68 Kolkata Congress · <span>Entally</span></div>
+    <div class="divider"></div>
+    <div class="slogan"><i style="background:var(--saffron)"></i>People <i style="background:#fff"></i>Peace <i style="background:var(--green)"></i>Progress</div>
+  </main>
+
+  <!-- Lightweight, stylised Kolkata skyline: Howrah Bridge + Victoria Memorial + city -->
+  <svg class="skyline" viewBox="0 0 1440 230" preserveAspectRatio="xMidYMax slice" fill="#e6b84c" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="0" y="220" width="1440" height="10"/>
+    <!-- city blocks (left) -->
+    <rect x="20" y="176" width="40" height="44"/><rect x="66" y="158" width="30" height="62"/><rect x="102" y="186" width="26" height="34"/>
+    <!-- Howrah Bridge (cantilever) -->
+    <rect x="150" y="196" width="420" height="7"/>
+    <path d="M214 196 V96 h56 v100 Z"/><path d="M214 96 l28 -30 l28 30 Z"/>
+    <path d="M450 196 V96 h56 v100 Z"/><path d="M450 96 l28 -30 l28 30 Z"/>
+    <path d="M150 196 L214 128 L214 196 Z" opacity=".6"/>
+    <path d="M270 128 L450 128 L360 196 Z" opacity=".6"/>
+    <path d="M506 128 L570 196 L506 196 Z" opacity=".6"/>
+    <path d="M242 70 Q360 44 478 70 L478 90 L242 90 Z" opacity=".5"/>
+    <!-- mid city -->
+    <rect x="600" y="168" width="34" height="52"/><rect x="640" y="150" width="28" height="70"/><rect x="674" y="182" width="24" height="38"/>
+    <!-- Victoria Memorial -->
+    <rect x="762" y="166" width="260" height="54"/>
+    <path d="M832 166 a60 60 0 0 1 120 0 Z"/>
+    <rect x="888" y="86" width="8" height="26"/><circle cx="892" cy="84" r="7"/>
+    <path d="M770 166 a22 22 0 0 1 44 0 Z"/><path d="M970 166 a22 22 0 0 1 44 0 Z"/>
+    <!-- right city -->
+    <rect x="1060" y="176" width="34" height="44"/><rect x="1100" y="150" width="30" height="70"/><rect x="1136" y="186" width="24" height="34"/>
+    <rect x="1178" y="162" width="40" height="58"/><rect x="1224" y="178" width="28" height="42"/><rect x="1258" y="146" width="32" height="74"/>
+    <rect x="1296" y="184" width="26" height="36"/><rect x="1330" y="166" width="38" height="54"/><rect x="1376" y="178" width="30" height="42"/>
+  </svg>
+</body>
+</html>
